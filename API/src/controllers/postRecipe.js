@@ -2,8 +2,8 @@ const { Recipes, Recipe_diets, Recipe_ingredients } = require("../db");
 const {Op} = require('sequelize');
 
 const postRecipe = async (req, res) => {
-  const { title, image, diets, instructions, ingredients } = req.body;
   try {
+    const { title, image, diets, instructions, ingredients } = req.body;
 
     let id = 1 + await Recipes.count({
       where: {

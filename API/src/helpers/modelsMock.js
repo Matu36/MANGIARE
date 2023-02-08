@@ -44,7 +44,7 @@ async function locMock (){
 
   ///////////////// Recipe Ingredients /////////////////////////////
 
-  await Recipe_ingredients.bulkCreate(
+  await Recipe_ingredients.bulkCreate([
     {recipeId: 1, ingredientId: 1, amount: 1, unit: 'pounds'},
     {recipeId: 1, ingredientId: 2, amount: .2, unit: 'pounds'},
     {recipeId: 1, ingredientId: 3, amount: 3, unit: 'units'},
@@ -61,8 +61,8 @@ async function locMock (){
     {recipeId: 3, ingredientId: 10, amount: 5, unit: 'units'},
     {recipeId: 3, ingredientId: 11, amount: .25, unit: 'pounds'},
     {recipeId: 3, ingredientId: 12, amount: .3, unit: 'pounds'},
-  )
-    
+  ])
+  
   ///////////////// Ingredient Units /////////////////////////////
 
   await Ingredient_units.bulkCreate([
@@ -140,7 +140,7 @@ console.log('/////////////// Con include //////////////////', (await Users.findB
 }
 
 async function apiMock (apiRegs = 10){
-  
+  console.log('Obteniendo registros de API...');
   // https://api.spoonacular.com/recipes/complexSearch?apiKey=773ce458cdb14b6aa7558d74e5db3e57&addRecipeInformation=true&number=5
   // https://api.spoonacular.com/recipes/informationBulk?ids=782585,716426,715497&apiKey=773ce458cdb14b6aa7558d74e5db3e57
   // https://api.spoonacular.com/recipes/random?number=10&apiKey=773ce458cdb14b6aa7558d74e5db3e57
