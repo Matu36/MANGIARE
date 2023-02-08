@@ -1,0 +1,73 @@
+.containerMain {
+
+  background-color: #fbab7e;
+  background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+  
+  }
+
+  .containerinstructions {
+background-color: white;
+    border-radius: 3px;
+    width: 70%;
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+
+  .containerImageInstrutions {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  }
+
+  .title {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  }
+
+.container {
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 40%;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.img {
+  width: 80%;
+  height: auto;
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.data span {
+  font-weight: bold;
+}
+
+.data ul {
+  list-style-position: inside;
+  background: #3399ff;
+  padding: 20px;
+}
+
+.data ul li {
+  background: #cce5ff;
+  color: darkblue;
+  margin: 5px;
+}

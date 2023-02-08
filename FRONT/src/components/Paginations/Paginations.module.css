@@ -1,0 +1,17 @@
+.buttonsPagination {
+    color:darkgoldenrod;
+    background-color: whitesmoke;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.actualPage {
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+.pagesButtons {
+    display: flex;
+    justify-content: space-around;
+}

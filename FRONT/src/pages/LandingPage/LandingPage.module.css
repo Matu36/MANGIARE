@@ -1,0 +1,122 @@
+.container {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../../img/backlanding.jpg");
+    background-size: cover;
+    min-height: 100vh;
+    height: auto;
+    z-index: -1;
+}
+
+.slide {
+    width: 50%;
+    border-radius: 10%;
+    margin-top: 13%;
+    margin-right: 12%;
+    
+}
+
+.image {
+    border-radius: 10%;
+}
+
+.tittle {
+    position: absolute;
+    top: 30px;
+    left: 41%;
+    text-align: center; 
+font-family: Arial Black; 
+font-weight: bold; font-size: 70px; 
+background: #202020; 
+-webkit-background-clip: text; 
+-moz-background-clip: text; 
+background-clip: text; 
+color: transparent; 
+text-shadow: 0px 3px 3px rgba(255,255,255,0.4),0px -1px 1px rgba(0,0,0,0.3);
+    
+}
+
+.divTitle {
+    height: 25%;
+    margin-bottom: 15px;
+    
+}
+
+.register {
+    display: flex;
+    
+    font-size:15px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:grey;
+        background:#B5B2B2;
+        border: 1px;
+        width:145px;
+        height:20px;
+        text-decoration: none;
+
+}
+
+.register:hover {
+    color: #B5B2B2;
+    background-color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.register1 {
+    display: flex;
+    
+    font-size:15px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:grey;
+        background:#B5B2B2;
+        border: 1px;
+        width:205px;
+        height:20px;
+        text-decoration: none;
+}
+
+.register1:hover {
+    color: #B5B2B2;
+    background-color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.iniciosesion {
+    background-color: rgb(250, 242, 242, 0,5);
+    z-index: 0;
+
+}
+
+.containerslydeYregistro {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 50%;
+    margin-right: 2%;
+    border-radius: 10%;
+    
+
+}
+
+.colaborators {
+    height: 25%;
+    
+
+}
+
+.iniciosesionmasbotones{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+

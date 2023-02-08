@@ -1,0 +1,66 @@
+.containerMain {
+  background-color: #fbab7e;
+  background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+}
+
+.divPagination {
+  display: flex;
+  justify-content: center;
+}
+
+.mainContainDiv {
+  display: flex;
+  position: relative;
+}
+
+.filtersContainerDiv {
+  width: 20%;
+  height: 30rem;
+  position: sticky;
+  top: 100px;
+}
+
+.mainRecipesDiv {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.cardsContainer {
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.healtyTipDiv {
+  background-color: rgb(255, 255, 255);
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+
+.healtyTipIconDiv {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verticalDiv {
+  background-color: gray;
+  border-radius: 50%;
+  width: 1px;
+  height: 70px;
+}
+
+.healtyTipMainContain {
+  width: 89%;
+  padding: 20px;
+  box-sizing: border-box;
+}

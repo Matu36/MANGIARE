@@ -1,0 +1,51 @@
+.card {
+  
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px gray;
+  overflow: hidden;
+  width: 18rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dataDiv {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.dietsDiv {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.dietsDiv p {
+  background-color: rgb(59, 111, 170);
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.buttonDiv {
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.buttonDiv button {
+  padding: 5px 10px;
+  background-color: orange;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  
+}
