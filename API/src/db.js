@@ -1,3 +1,7 @@
+//ANTES DE MODIFICAR PREGUNTAR A YAMIL!!!!
+//ANTES DE MODIFICAR PREGUNTAR A YAMIL!!!!
+//ANTES DE MODIFICAR PREGUNTAR A YAMIL!!!!
+
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');

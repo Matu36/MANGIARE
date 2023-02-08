@@ -1,3 +1,7 @@
+//ANTES DE MODIFICAR PREGUNTAR A YAMIL!!!!
+//ANTES DE MODIFICAR PREGUNTAR A YAMIL!!!!
+//ANTES DE MODIFICAR PREGUNTAR A YAMIL!!!!
+
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const modelsMock = require('./src/helpers/modelsMock.js');
