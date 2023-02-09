@@ -10,6 +10,7 @@ import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCardHorizontal";
 import Filters from "../../components/Filters/Filters";
 
+
 export default function Home() {
   let dispatch = useDispatch(); // hooks para conectar con la actions
   const allRecipes = useSelector((state) => state.recipes);
@@ -176,9 +177,12 @@ export default function Home() {
   };
 
   return (
-    <div className={s.containerMain}>
+    <div className={s.containerMain} >
       <NavBar />
+      
+   
       <SearchBar />
+      <div className ={s.img} alt="randomImg" />
 
       <div className={s.mainContainDiv}>
         <div className={s.filtersContainerDiv}>
@@ -202,7 +206,7 @@ export default function Home() {
                 ?.slice(0, 3)
                 .map((recipe) => (
                   <RecipeCard
-                    key={recipe.id}
+                  key={recipe.id}
                     id={recipe.id}
                     title={recipe.title}
                     image={recipe.image}
@@ -224,6 +228,7 @@ export default function Home() {
               <p>{randomTip()}</p>
             </div>
           </div>
+           
 
           <div className={s.moreRecipesDiv}>
             {totalRecipes?.slice(3).map((recipe) => (
@@ -249,6 +254,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
   );
 }
