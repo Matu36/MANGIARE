@@ -2,17 +2,16 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { getRecipeDetail } from "../../Redux/actions";
-import s from "../RecipeDetail/RecipeDetail.module.css";
+import s from "../RecipeDetail/RecipeDetail.module.scss";
 import NavBar from "../../components/NavBar/NavBar";
 
 const RecipeDetail = () => {
   let { id } = useParams();
   let dispatch = useDispatch();
   let recipe = useSelector((state) => state.recipeDetail);
-console.log (recipe);
   if (recipe.msg) alert(recipe.msg);
 
-  const { title, image, instructions, raiting, ingredients, diets } = recipe[0];
+  const { title, image, instructions, raiting, ingredients, diets } = recipe;
 
   const handleClick = () => {};
 
@@ -22,16 +21,13 @@ console.log (recipe);
 
   return (
     <div className={s.containerMain}>
-      
       <div className={s.containerButtonHome}>
         <NavBar />
         <br />
-        
       </div>
 
-    
       <div className={s.containerImageInstrutions}>
-      <h1 className= {s.title}>{title}</h1>
+        <h1 className={s.title}>{title}</h1>
         <div className={s.containerImage}>
           <img src={image} alt={title} />
         </div>
@@ -52,6 +48,9 @@ console.log (recipe);
             return <li>{diet}</li>;
           })}
       </ul>
+      <NavLink className={s.navlinkGoBackButton} to={"/home"}>
+        <button>Go back</button>
+      </NavLink>
     </div>
   );
 };
