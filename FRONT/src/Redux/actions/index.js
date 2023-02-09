@@ -2,7 +2,7 @@ export const GET_RECIPES = "GET_RECIPES";
 export const GET_RECIPE_DETAIL = "GET_RECIPE_DETAIL";
 export const SET_ORDER_BY = "SET_ORDER_BY";
 export const FILTER_BY_DIET = "FILTER_BY_DIET";
-export const CLEAR_FILTERS = 'CLEAR_FILTERS';
+export const CLEAR_FILTERS = "CLEAR_FILTERS";
 export const SET_SEARCH_VALUE_NAME = "SET_SEARCH_VALUE_NAME";
 export const SET_RECIPEID_AUTOCOMPLETE = "SET_RECIPEID_AUTOCOMPLETE";
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
@@ -21,11 +21,10 @@ export const getRecipes = () => async (dispatch) => {
 
 //TRAE EL DETALLE DE LAS RECETAS
 export const getRecipeDetail = (id) => async (dispatch) => {
-  return await fetch(`http://localhost:3001/recipes/${id}`)
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch({ type: GET_RECIPE_DETAIL, payload: json });
-    });
+  let response = await fetch(`http://localhost:3001/recipes/${id}`).then(
+    (response) => response.json()
+  );
+  dispatch({ type: GET_RECIPE_DETAIL, payload: response[0] });
 };
 
 //CREAR RECETA
@@ -82,8 +81,8 @@ export const deleteFilteredIngredient = (payload) => {
 
 // LIMPIAR FILTROS
 export const clearFilters = () => {
-  return (dispatch) => dispatch({type: CLEAR_FILTERS})
-}
+  return (dispatch) => dispatch({ type: CLEAR_FILTERS });
+};
 
 export const setRecipeIdAutocomplete = (recipeIdAutocomplete) => {
   return (dispatch) =>
@@ -95,11 +94,10 @@ export const setRecipeIdAutocomplete = (recipeIdAutocomplete) => {
 
 //OBTIENE LOS INGREDIENTES DE DB - HABILITAR LUEGO DE IMPLEMENTAR EL ENDPOINT getIngredients
 
-export const getIngredients =  () => async dispatch => 
+export const getIngredients = () => async (dispatch) =>
   await fetch(`http://localhost:3001/ingredients`)
-    .then(data => data.json())
-    .then(payload => dispatch({type: GET_INGREDIENTS, payload}))
-
+    .then((data) => data.json())
+    .then((payload) => dispatch({ type: GET_INGREDIENTS, payload }));
 
 //OBTIENE INGREDIENTES HARCODEADOS - ELIMINAR LUEGO DE IMPLEMENTAR EL ENDPOINT getIngredients
 /*export const getIngredients = () => ({
