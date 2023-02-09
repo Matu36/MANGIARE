@@ -1,23 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
 .card {
-  
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 5px 5px 10px gray;
   overflow: hidden;
   width: 18rem;
+  height: 30rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    transform: scale(1.02);
+
+  }
 }
 
-.dataDiv {
-  
+.img {
+  z-index: 0;
+  position: absolute;
+  height: 30rem;
+}
+
+.titleDiv {
+  font-family: 'Ubuntu', sans-serif;
+  color: #fd9902;
+  text-shadow: 1px 1px 3px rgb(0, 0, 0);
+  position: relative;
+  z-index: 1;
+  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 1rem;
   box-sizing: border-box;
+  margin-top: 1rem;
+  background-color: rgba($color: #c9c9c9, $alpha: 0.3);
 }
 
 .dietsDiv {
@@ -25,7 +48,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .dietsDiv p {
@@ -34,6 +57,17 @@
   font-size: 12px;
   padding: 5px 10px;
   border-radius: 10px;
+}
+
+.bottomDiv {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem
 }
 
 .buttonDiv {
@@ -47,5 +81,4 @@
   border: none;
   border-radius: 5px;
   font-weight: bold;
-  
 }
