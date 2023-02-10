@@ -9,7 +9,6 @@ import Paginations from "../../components/Paginations/Paginations";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCardHorizontal";
 import Filters from "../../components/Filters/Filters";
-import ShoppingCart from "../../components/ShoppingCart/ShoppingCart/ShoppingCart";
 
 export default function Home() {
   let dispatch = useDispatch(); // hooks para conectar con la actions
@@ -179,7 +178,6 @@ export default function Home() {
   return (
     <div className={s.containerMain}>
       <NavBar />
-      <ShoppingCart />
       <SearchBar />
       <br />
       

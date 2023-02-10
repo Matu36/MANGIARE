@@ -3,7 +3,7 @@ import { ADD_TO_CART, CLEAR_CART, REMOVE_ALL_FROM_CART, REMOVE_ONE_FROM_CART, TO
 import { shoppingInitialState, shoppingReducer } from "../../../Redux/reducer/ShoppingReducer";
 import CartItem from "../CartItem/CartItem";
 import ProductItem from "../ProductItem/ProductItem";
-import s from "../ShoppingCart/ShoppingCart.module.css";
+
 
 export default function ShoppingCart () {
 const [state, dispatch] = useReducer (shoppingReducer, shoppingInitialState);
@@ -33,12 +33,19 @@ const clearCart = () => {
     dispatch ({type: CLEAR_CART})
 };
 
+
+const productSelect = products.map((product) => 
+<ProductItem key = {product.id} data = {product} addToCart = {addToCart} />
+)
+
 return (
-    <div>
-        <div className= {s.article}>
+    <div className= "container">
+        <div className= "article">
 <h2> Shopping Cart</h2>
 <h3> Products </h3>
-<article className="box">
+
+<article className= "box">
+    
 {products.map((product) => 
     <ProductItem key = {product.id} data = {product} addToCart = {addToCart} />
 )}
