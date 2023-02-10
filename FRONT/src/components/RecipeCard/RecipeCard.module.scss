@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
 
 .card {
   background-color: #fff;
@@ -17,8 +17,11 @@
 
   &:hover {
     transform: scale(1.02);
-
   }
+}
+
+.link {
+  text-decoration: none;
 }
 
 .img {
@@ -28,8 +31,9 @@
 }
 
 .titleDiv {
-  font-family: 'Ubuntu', sans-serif;
-  color: #fd9902;
+  font-family: "Ubuntu", sans-serif;
+  // color: #fd9902;
+  color: #fdfdfd;
   text-shadow: 1px 1px 3px rgb(0, 0, 0);
   position: relative;
   z-index: 1;
@@ -40,7 +44,7 @@
   padding: 1rem;
   box-sizing: border-box;
   margin-top: 1rem;
-  background-color: rgba($color: #c9c9c9, $alpha: 0.3);
+  background-color: rgba($color: #4b4b4b, $alpha: 0.3);
 }
 
 .dietsDiv {
@@ -67,7 +71,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  gap: 1rem
+  gap: 1rem;
 }
 
 .buttonDiv {
@@ -81,4 +85,5 @@
   border: none;
   border-radius: 5px;
   font-weight: bold;
+  cursor: pointer;
 }
