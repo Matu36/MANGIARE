@@ -45,11 +45,9 @@ return (
 <h3> Products </h3>
 
 <article className= "box">
-    
-{products.map((product) => 
+    {products.map((product) => 
     <ProductItem key = {product.id} data = {product} addToCart = {addToCart} />
-)}
-
+    )}
 </article>
 </div>
 <h3>Cart</h3>
@@ -64,6 +62,7 @@ return (
 <br />
 <h3> Total Price: $ {totalPrice}.00 </h3>
 
+<button> Check Out </button>
 
 </article>
     </div>
