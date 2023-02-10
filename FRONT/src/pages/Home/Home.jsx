@@ -4,7 +4,11 @@ import s from "./Home.module.css";
 import NavBar from "../../components/NavBar/NavBar";
 import SearchBar from "../../components/SearchBar/searchBar";
 import { healthyTips } from "../../components/healthyTips/healthyTips";
-import { getRecipes, getIngredients } from "../../Redux/actions";
+import {
+  getRecipes,
+  getIngredients,
+  resetRecipesToShow,
+} from "../../Redux/actions";
 import Paginations from "../../components/Paginations/Paginations";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCardHorizontal";
@@ -12,7 +16,9 @@ import Filters from "../../components/Filters/Filters";
 
 export default function Home() {
   let dispatch = useDispatch(); // hooks para conectar con la actions
-  const allRecipes = useSelector((state) => state.recipes);
+  const recipes = useSelector((state) => state.recipes);
+  const recipesToShow = useSelector((state) => state.recipesToShow);
+  const orderBy = useSelector((state) => state.orderBy);
   const recipeDetailIdAutocomplete = useSelector(
     (state) => state.recipeIdAutocomplete
   );
@@ -23,11 +29,18 @@ export default function Home() {
     dispatch(getIngredients());
   }, []);
 
+  useEffect(() => {
+    dispatch(resetRecipesToShow());
+  }, [recipes]);
+
+  // useEffect(() => {
+  //   console.log("las recetas cambiaron");
+  // }, [recipesToShow]);
+
   const [recipeByIdAutocomplete, setrecipeByIdAutocomplete] = useState();
-  const [recipesToShow, setRecipesToShow] = useState(allRecipes);
 
   const filterById = () => {
-    const cache = [...allRecipes];
+    const cache = [...recipes];
     const recipe = cache.find(
       (recipe) => recipe.id === recipeDetailIdAutocomplete
     );
@@ -36,24 +49,7 @@ export default function Home() {
 
   useEffect(() => {
     filterById();
-  }, [recipeDetailIdAutocomplete, allRecipes]);
-
-  //                Filtro por DIET                  //---------------
-  const [recipesByDiet, setRecipesForDiet] = useState(allRecipes);
-
-  const filterbyDiet = useSelector((state) => state.filterByDiet);
-
-  useEffect(() => {
-    filterbyDiet === "All Diets"
-      ? setRecipesForDiet(allRecipes)
-      : setRecipesForDiet(
-          allRecipes.filter((recipe) =>
-            recipe.diets.some(
-              (diet) => diet.toLowerCase() === filterbyDiet.toLowerCase()
-            )
-          )
-        );
-  }, [filterbyDiet, allRecipes]);
+  }, [recipeDetailIdAutocomplete, recipes]);
 
   //                 Filtro por Name                   //----------------
 
@@ -77,57 +73,57 @@ export default function Home() {
 
   // ------------------------  FILTRO POR INGREDIENTE ------------------------
 
-  const [recipesByIngredient, setRecipesByIngredient] = useState(recipesByDiet);
-  const filteredIngredients = useSelector((state) => state.filteredIngredients);
+  // const [recipesByIngredient, setRecipesByIngredient] = useState(recipesByDiet);
+  // const filteredIngredients = useSelector((state) => state.filteredIngredients);
 
-  function filterByIngredient() {
-    if (recipesByDiet.length <= 0) setRecipesByIngredient(allRecipes);
-    if (filteredIngredients.length <= 0)
-      filterbyDiet === "All Diets"
-        ? setRecipesByIngredient(allRecipes)
-        : setRecipesByIngredient(recipesByDiet);
-    else
-      setRecipesByIngredient(
-        recipesByIngredient.filter((recipe) =>
-          recipe.ingredients.some((ingredient) =>
-            filteredIngredients.includes(ingredient.name)
-          )
-        )
-      );
-  }
+  // function filterByIngredient() {
+  //   if (recipesByDiet.length <= 0) setRecipesByIngredient(recipes);
+  //   if (filteredIngredients.length <= 0)
+  //     filterbyDiet === "All Diets"
+  //       ? setRecipesByIngredient(recipes)
+  //       : setRecipesByIngredient(recipesByDiet);
+  //   else
+  //     setRecipesByIngredient(
+  //       recipesByIngredient.filter((recipe) =>
+  //         recipe.ingredients.some((ingredient) =>
+  //           filteredIngredients.includes(ingredient.name)
+  //         )
+  //       )
+  //     );
+  // }
 
-  useEffect(() => {
-    filterByIngredient();
-    // console.log("allrecipes: ", allRecipes);
-    // console.log("recipesByDiet: ", recipesByDiet);
-    // console.log("recipesByIngredient: ", recipesByIngredient);
-  }, [filteredIngredients, recipesByDiet]);
+  // useEffect(() => {
+  //   filterByIngredient();
+  //   // console.log("allrecipes: ", allRecipes);
+  //   // console.log("recipesByDiet: ", recipesByDiet);
+  //   // console.log("recipesByIngredient: ", recipesByIngredient);
+  // }, [filteredIngredients, recipesByDiet]);
 
   //                 Filtro por Orden de Healthscore      //----------------------------
 
-  const orderBy = useSelector((state) => state.orderBy);
+  // const orderBy = useSelector((state) => state.orderBy);
 
-  const orderByProp = () => {
-    const { order, type } = orderBy;
+  // const orderByProp = () => {
+  //   const { order, type } = orderBy;
 
-    let cache = [...recipesByIngredient];
+  //   let cache = [...recipesByIngredient];
 
-    if (order === "") return setRecipesByIngredient(recipesByIngredient);
-    // El metodo sort ordena segun el valor mayor igual o menor que cero dependiendo la funciona comparadora
-    cache.sort((a, b) => {
-      if (a[type] < b[type])
-        return order === "A-Z" || order === "Menor a Mayor" ? -1 : 1;
-      if (a[type] > b[type])
-        return order === "A-Z" || order === "Menor a Mayor" ? 1 : -1;
-      return 0;
-    });
+  //   if (order === "") return setRecipesByIngredient(recipesByIngredient);
+  //   // El metodo sort ordena segun el valor mayor igual o menor que cero dependiendo la funciona comparadora
+  //   cache.sort((a, b) => {
+  //     if (a[type] < b[type])
+  //       return order === "A-Z" || order === "Menor a Mayor" ? -1 : 1;
+  //     if (a[type] > b[type])
+  //       return order === "A-Z" || order === "Menor a Mayor" ? 1 : -1;
+  //     return 0;
+  //   });
 
-    setRecipesByIngredient(cache);
-  };
+  //   setRecipesByIngredient(cache);
+  // };
 
-  useEffect(() => {
-    orderByProp();
-  }, [orderBy]);
+  // useEffect(() => {
+  //   orderByProp();
+  // }, [orderBy]);
 
   //                 Paginacion del contenido             //-----------------------------
 
@@ -145,15 +141,16 @@ export default function Home() {
 
   useEffect(() => {
     //Cambio de estado local de Total Recipes indicando los indices que tiene que renderizar en cada pagina
-    setTotalRecipes(
-      recipesByIngredient.slice(indexFirstPageRecipe(), indexLastPageRecipe())
-    );
-    setNumberOfPage(Math.ceil(recipesByIngredient.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
-  }, [recipesByIngredient, currentPage]);
+    recipesToShow &&
+      setTotalRecipes(
+        recipesToShow.slice(indexFirstPageRecipe(), indexLastPageRecipe())
+      );
+    recipesToShow && setNumberOfPage(Math.ceil(recipesToShow.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
+  }, [recipesToShow, currentPage, orderBy]);
 
   useEffect(() => {
     setCurrentPage(1); //setea el numero de pagina actual a 1 cuando recipesName Cambia
-  }, [recipesByIngredient]);
+  }, [recipesToShow]);
 
   /*const mapArrayDeObetos = allRecipes.map((r) =>{
     return {name:r.title,
@@ -195,9 +192,7 @@ export default function Home() {
           )}
 
           <div className={s.cardsContainer}>
-            {(orderBy.order !== "" ||
-              filterbyDiet !== "" ||
-              filteredIngredients.length <= 0) &&
+            {recipesToShow &&
               (totalRecipes
                 ?.slice(0, 3)
                 .map((recipe) => (
@@ -239,7 +234,7 @@ export default function Home() {
 
           <hr />
           <div className={s.divPagination}>
-            {(orderBy.order !== "" || filterbyDiet !== "") && (
+            {recipesToShow && (
               <Paginations
                 currentPage={currentPage}
                 numberOfPage={numberOfPage}
