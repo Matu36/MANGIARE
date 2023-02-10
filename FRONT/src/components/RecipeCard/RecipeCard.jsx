@@ -2,9 +2,11 @@ import React from "react";
 import s from "./RecipeCard.module.scss";
 import { Link } from "react-router-dom";
 
-function RecipeCard({ id, title, image, diets }) {
+
+function RecipeCard({ id, image, title, diets }) {
   return (
-    <Link className={s.link} to={`/recipes/${id}`}>
+  <Link to={`/recipes/${id}`}>
+
       <div className={s.card} id={id}>
         <img className={s.img} src={image} alt={title} />
 
@@ -25,8 +27,10 @@ function RecipeCard({ id, title, image, diets }) {
           </div>
         </div>
       </div>
-    </Link>
-  );
-}
+
+      </Link>
+
+      );
+    }
 
 export default RecipeCard;

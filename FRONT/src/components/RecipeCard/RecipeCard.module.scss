@@ -6,7 +6,7 @@
   box-shadow: 5px 5px 10px gray;
   overflow: hidden;
   width: 18rem;
-  height: 30rem;
+  height: 18rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,7 +16,7 @@
   transition: 0.5s;
 
   &:hover {
-    transform: scale(1.02);
+    transform: scale(1.1);
   }
 }
 
@@ -27,7 +27,10 @@
 .img {
   z-index: 0;
   position: absolute;
-  height: 30rem;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;    
+  filter:'contrast(70%)';
 }
 
 .titleDiv {
