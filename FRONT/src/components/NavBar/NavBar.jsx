@@ -1,6 +1,8 @@
 import React from "react";
 import s from "./NavBar.module.css";
 import { Link } from "react-router-dom";
+import { BsCartCheck } from "react-icons/bs";
+
 
 
 function NavBar() {
@@ -23,6 +25,11 @@ function NavBar() {
    <Link to = {"/contact"}>
     <button className= {s.btn1}>CONTACT</button>
    </Link>
+   <Link to = {"/shoppingCart"}>
+     <BsCartCheck />
+   </Link>
+   <h5> Shopping Cart</h5>
+
       </div>
 
   );
