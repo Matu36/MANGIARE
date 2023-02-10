@@ -98,6 +98,9 @@ export default function Home() {
     <div className={s.containerMain}>
       <NavBar />
       <SearchBar />
+      <br />
+      
+      <br />
 
       <div className={s.mainContainDiv}>
         <div className={s.filtersContainerDiv}>
