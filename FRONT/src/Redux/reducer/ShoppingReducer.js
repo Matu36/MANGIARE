@@ -15,7 +15,9 @@ export const shoppingInitialState = {
     
     ],
 
-    cart: []
+    cart: [],
+
+    totalPrice: 0
 }
 
 export function shoppingReducer (state, action) {
@@ -71,12 +73,15 @@ export function shoppingReducer (state, action) {
         }
 
         case TOTAL_PRICE: {
+
+            let priceTotal = state.cart.reduce((acc, item) => {
+               return acc + (item.quantity * item.price)
+                },0)
+console.log (priceTotal);
             return {
-                ...state,
-                cart: state.cart.map((item) => {
-                    return {...item, total: item.price * item.quantity}
-                })
-            }
+               ...state,
+                totalPrice: priceTotal,
+                            }
 
         }
 

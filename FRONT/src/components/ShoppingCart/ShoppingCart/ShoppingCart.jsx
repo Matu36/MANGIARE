@@ -1,15 +1,21 @@
 import React, { useReducer } from "react";
-import { ADD_TO_CART, CLEAR_CART, REMOVE_ALL_FROM_CART, REMOVE_ONE_FROM_CART } from "../../../Redux/actions/ShoppingActions";
+import { ADD_TO_CART, CLEAR_CART, REMOVE_ALL_FROM_CART, REMOVE_ONE_FROM_CART, TOTAL_PRICE } from "../../../Redux/actions/ShoppingActions";
 import { shoppingInitialState, shoppingReducer } from "../../../Redux/reducer/ShoppingReducer";
 import CartItem from "../CartItem/CartItem";
 import ProductItem from "../ProductItem/ProductItem";
+import s from "../ShoppingCart/ShoppingCart.module.css";
 
 export default function ShoppingCart () {
 const [state, dispatch] = useReducer (shoppingReducer, shoppingInitialState);
-const {products, cart} = state;
+const {products, cart, totalPrice} = state;
+console.log (state);
+console.log (totalPrice);
+console.log (cart);
 
 const addToCart = (id) => {console.log (id);
-dispatch({type: ADD_TO_CART, payload: id})
+dispatch({type: ADD_TO_CART, payload: id});
+dispatch ({type: TOTAL_PRICE});
+
 
 };
 
@@ -27,12 +33,9 @@ const clearCart = () => {
     dispatch ({type: CLEAR_CART})
 };
 
-const totalPrice = () => {
-    dispatch ({type: TOTAL_PRICE})
-}
-
 return (
     <div>
+        <div className= {s.article}>
 <h2> Shopping Cart</h2>
 <h3> Products </h3>
 <article className="box">
@@ -41,7 +44,9 @@ return (
 )}
 
 </article>
+</div>
 <h3>Cart</h3>
+
 <article className="box">
 
 <button onClick={clearCart}> Clean the Cart</button>
@@ -50,7 +55,7 @@ return (
     delFromCart = {delFromCart} />)
 }
 <br />
-<button onClick={totalPrice}>Total Price</button> 
+<h3> Total Price: $ {totalPrice}.00 </h3>
 
 
 </article>
