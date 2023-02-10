@@ -13,7 +13,12 @@ import Paginations from "../../components/Paginations/Paginations";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCardHorizontal";
 import Filters from "../../components/Filters/Filters";
-
+import {Box, Image, Text, IconButton, Button} from '@chakra-ui/react'
+import meat from '../../img/iconMeat.jpg'
+import carrot from '../../img/carrotIcon.png'
+import eggs from '../../img/eggsIcon.png'
+import chicken from '../../img/chickenIcon.png'
+import banner from '../../img/BannerHome.jpg'
 
 export default function Home() {
   let dispatch = useDispatch(); 
@@ -98,9 +103,101 @@ export default function Home() {
   return (
     <div className={s.containerMain} >
       <NavBar />
+      <Box width="100%" height="760px" marginTop= '1px' backgroundImage={banner} 
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', backgroundSize: 'cover',
+        backgroundPosition: 'center center'}}>
       
-   
+  <Text
+    style={{ fontFamily: 'Bistro Script, sans-serif' }}
+    fontWeight="regular"
+    fontSize="96px"
+    color="#D62929"
+    width="597px"
+    height="116px"
+    maxWidth="100%"
+    marginTop='40px'
+    
+  >
+    MANGIAR-E
+  </Text>
+  <Text
+    style={{ fontFamily: 'Caviar Dreams, sans-serif' }}
+    fontWeight="regular"
+    fontSize="50px"
+    color="#07CC03"    
+    marginTop="20px"
+  > Your ingredients, our recipes </Text>
+
+  <Box width="70%" height="100px" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row'}} >
+  <Text
+    style={{ fontFamily: 'Caviar Dreams, sans-serif' }}
+    fontWeight="regular"
+    fontSize="40px"
+    color="#D62929"
+    marginTop="20px"
+    marginRight="20px"
+  >Pick your ingredients!</Text>
+  
+  <Button
+      aria-label="Search"
+      width="60px"
+      height="60px"
+      backgroundImage={meat}
+      backgroundSize="contain"
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center center"
+      transition="all 0.2s ease-in-out"
+    _hover={{ transform: 'scale(1.2)' }}
+    />
+     <Button
+      aria-label="Search"
+      width="60px"
+      height="60px"
+      backgroundImage={carrot}
+      backgroundSize="contain"
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center center"
+      transition="all 0.2s ease-in-out"
+    _hover={{ transform: 'scale(1.2)' }}
+    />
+     <Button
+      aria-label="Search"
+      width="60px"
+      height="60px"
+      backgroundImage={eggs}
+      backgroundSize="contain"
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center center"
+      transition="all 0.2s ease-in-out"
+    _hover={{ transform: 'scale(1.2)' }}
+    />
+     <Button
+      aria-label="Search"
+      width="60px"
+      height="60px"
+      backgroundImage={chicken}
+      backgroundSize="contain"
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center center"
+      transition="all 0.2s ease-in-out"
+    _hover={{ transform: 'scale(1.2)' }}
+    />
+    
+  
+
+  </Box>
+    <Box width="50%" height="100px" marginTop='30px' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row'}}>
+      <Text 
+        style={{ fontFamily: 'Caviar Dreams, sans-serif' }}
+        fontWeight="regular"
+        fontSize="25px"
+        color="#D62929"
+        marginTop="20px" 
+      >Want more ingredients? Search here</Text>
       <SearchBar />
+      </Box>
+</Box>
+
       <div className ={s.img} alt="randomImg" />
 
       <div className={s.mainContainDiv}>
