@@ -15,15 +15,15 @@ import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCa
 import Filters from "../../components/Filters/Filters";
 
 export default function Home() {
-  let dispatch = useDispatch(); // hooks para conectar con la actions
+  let dispatch = useDispatch(); 
   const recipes = useSelector((state) => state.recipes);
   const recipesToShow = useSelector((state) => state.recipesToShow);
   const orderBy = useSelector((state) => state.orderBy);
+  const filteredIngredients = useSelector((state) => state.filteredIngredients);
   const recipeDetailIdAutocomplete = useSelector(
     (state) => state.recipeIdAutocomplete
   );
 
-  // componentDidMount para hacer la solicitud a la api/db al iniciar el componente Home una sola vez.
   useEffect(() => {
     dispatch(getRecipes());
     dispatch(getIngredients());
@@ -32,10 +32,6 @@ export default function Home() {
   useEffect(() => {
     dispatch(resetRecipesToShow());
   }, [recipes]);
-
-  // useEffect(() => {
-  //   console.log("las recetas cambiaron");
-  // }, [recipesToShow]);
 
   const [recipeByIdAutocomplete, setrecipeByIdAutocomplete] = useState();
 
@@ -146,7 +142,7 @@ export default function Home() {
         recipesToShow.slice(indexFirstPageRecipe(), indexLastPageRecipe())
       );
     recipesToShow && setNumberOfPage(Math.ceil(recipesToShow.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
-  }, [recipesToShow, currentPage, orderBy]);
+  }, [recipesToShow, currentPage, orderBy, filteredIngredients]);
 
   useEffect(() => {
     setCurrentPage(1); //setea el numero de pagina actual a 1 cuando recipesName Cambia

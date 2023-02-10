@@ -94,6 +94,28 @@ function Filters() {
     else dispatch(setFilteredIngredients(value));
   };
 
+  function filterRecipes(recipes, ingredients, filteredIngredients) {
+    const idsfilteredIngredients = ingredients
+      .filter((ingredient) => filteredIngredients.includes(ingredient.name))
+      .map((ingredient) => ingredient.id);
+
+    let filteredRecipes = recipes.filter((recipe) => {
+      const recipeIngredients = recipe.ingredients.map(
+        (ingredient) => ingredient.id
+      );
+      return idsfilteredIngredients.some((id) =>
+        recipeIngredients.includes(id)
+      );
+    });
+    dispatch(setRecipesToShow(filteredRecipes));
+  }
+
+  useEffect(() => {
+    filteredIngredients.length > 0
+      ? filterRecipes(recipes, ingredients, filteredIngredients)
+      : dispatch(resetRecipesToShow());
+  }, [filteredIngredients]);
+
   const handleClearButton = () => {
     clearFilters();
   };
@@ -138,7 +160,7 @@ function Filters() {
           CLEAR FILTERS
         </button>
       </div> */}
-      {/* <button onClick={() => console.log(ingredients)}>Ingredients</button> */}
+      <button onClick={() => console.log(ingredients)}>Ingredients</button>
       <button onClick={() => console.log(order)}>order by</button>
       <button onClick={() => console.log(recipes)}>Recipes</button>
       <button onClick={() => console.log(recipesToShow)}>recipesToShow</button>

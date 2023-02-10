@@ -36,7 +36,7 @@ const initialState = {
 
   filteredDiet: "",
 
-  orderBy: '',
+  orderBy: "",
 
   searchValueName: "",
 

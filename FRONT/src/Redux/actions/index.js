@@ -22,8 +22,7 @@ export const getRecipes = () => async (dispatch) => {
 };
 
 export const setRecipesToShow = (payload) => {
-  return (dispatch) =>
-    dispatch({ type: SET_RECIPES_TO_SHOW, payload });
+  return (dispatch) => dispatch({ type: SET_RECIPES_TO_SHOW, payload });
 };
 
 export const resetRecipesToShow = () => {
