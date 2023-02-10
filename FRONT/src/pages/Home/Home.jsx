@@ -101,13 +101,7 @@ export default function Home() {
       
    
       <SearchBar />
-<<<<<<< HEAD
       <div className ={s.img} alt="randomImg" />
-=======
-      <br />
-      
-      <br />
->>>>>>> c63b20dfbf0cb1cae5e8a8cb9c7d2605280abc83
 
       <div className={s.mainContainDiv}>
         <div className={s.filtersContainerDiv}>
@@ -129,7 +123,7 @@ export default function Home() {
                 ?.slice(0, 3)
                 .map((recipe) => (
                   <RecipeCard
-                  key={recipe.id}
+                    key={recipe.id}
                     id={recipe.id}
                     title={recipe.title}
                     image={recipe.image}
@@ -177,6 +171,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      </div>
+    </div>
   );
 }
