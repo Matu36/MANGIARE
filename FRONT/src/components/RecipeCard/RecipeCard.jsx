@@ -1,10 +1,10 @@
 import React from "react";
 import s from "./RecipeCard.module.scss";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function RecipeCard({ id, title, image, diets }) {
   return (
-    <NavLink to={`/recipes/${id}`}>
+    <Link className={s.link} to={`/recipes/${id}`}>
       <div className={s.card} id={id}>
         <img className={s.img} src={image} alt={title} />
 
@@ -25,7 +25,7 @@ function RecipeCard({ id, title, image, diets }) {
           </div>
         </div>
       </div>
-    </NavLink>
+    </Link>
   );
 }
 
