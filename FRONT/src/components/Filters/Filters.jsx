@@ -160,10 +160,6 @@ function Filters() {
           CLEAR FILTERS
         </button>
       </div> */}
-      <button onClick={() => console.log(ingredients)}>Ingredients</button>
-      <button onClick={() => console.log(order)}>order by</button>
-      <button onClick={() => console.log(recipes)}>Recipes</button>
-      <button onClick={() => console.log(recipesToShow)}>recipesToShow</button>
     </div>
   );
 }
