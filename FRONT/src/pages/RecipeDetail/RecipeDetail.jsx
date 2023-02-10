@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { getRecipeDetail } from "../../Redux/actions";
-import s from "../RecipeDetail/RecipeDetail.module.scss";
+import s from "../RecipeDetail/RecipeDetail.module.css";
 import NavBar from "../../components/NavBar/NavBar";
+import ShoppingCart from "../../components/ShoppingCart/ShoppingCart/ShoppingCart";
 
 const RecipeDetail = () => {
   let { id } = useParams();
@@ -42,12 +43,15 @@ const RecipeDetail = () => {
             return <li>{`${name} : ${amount} ${unit} $${price}`}</li>;
           })}
       </ul>
+      <div className= {s.sCart}>
       <ul className="recipeDetail">
         {diets &&
           diets.map((diet) => {
             return <li>{diet}</li>;
           })}
       </ul>
+      <ShoppingCart />
+      </div>
       <NavLink className={s.navlinkGoBackButton} to={"/home"}>
         <button>Go back</button>
       </NavLink>

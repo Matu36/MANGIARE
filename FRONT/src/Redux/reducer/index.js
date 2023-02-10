@@ -1,5 +1,7 @@
 import {
   GET_RECIPES,
+  SET_RECIPES_TO_SHOW,
+  RESET_RECIPES_TO_SHOW,
   GET_RECIPE_DETAIL,
   FILTER_BY_DIET,
   SET_ORDER_BY,
@@ -14,6 +16,7 @@ import {
 
 const initialState = {
   recipes: [],
+  recipesToShow: [],
   recipeDetail: {},
   recipeIdAutocomplete: null,
   diets: [
@@ -31,12 +34,9 @@ const initialState = {
     "fodmap friendly",
   ],
 
-  filterByDiet: "",
+  filteredDiet: "",
 
-  orderBy: {
-    order: "",
-    type: undefined,
-  },
+  orderBy: "",
 
   searchValueName: "",
 
@@ -50,7 +50,21 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         recipes: action.payload,
+        recipesToShow: action.payload,
       };
+
+    case SET_RECIPES_TO_SHOW:
+      return {
+        ...state,
+        recipesToShow: action.payload,
+      };
+
+    case RESET_RECIPES_TO_SHOW:
+      return {
+        ...state,
+        recipesToShow: state.recipes,
+      };
+
     case GET_RECIPE_DETAIL:
       return {
         ...state,
@@ -58,7 +72,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_DIET:
-      return { ...state, filterByDiet: action.payload };
+      return { ...state, filteredDiet: action.payload };
 
     case SET_ORDER_BY:
       return { ...state, orderBy: action.payload };
@@ -81,7 +95,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredIngredients: [],
-        filterByDiet: "",
+        filteredDiet: "",
       };
 
     case SET_RECIPEID_AUTOCOMPLETE:

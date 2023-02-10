@@ -1,4 +1,6 @@
 export const GET_RECIPES = "GET_RECIPES";
+export const SET_RECIPES_TO_SHOW = "SET_RECIPES_TO_SHOW";
+export const RESET_RECIPES_TO_SHOW = "RESET_RECIPES_TO_SHOW";
 export const GET_RECIPE_DETAIL = "GET_RECIPE_DETAIL";
 export const SET_ORDER_BY = "SET_ORDER_BY";
 export const FILTER_BY_DIET = "FILTER_BY_DIET";
@@ -17,6 +19,14 @@ export const getRecipes = () => async (dispatch) => {
     .then((json) => {
       dispatch({ type: GET_RECIPES, payload: json });
     });
+};
+
+export const setRecipesToShow = (payload) => {
+  return (dispatch) => dispatch({ type: SET_RECIPES_TO_SHOW, payload });
+};
+
+export const resetRecipesToShow = () => {
+  return (dispatch) => dispatch({ type: RESET_RECIPES_TO_SHOW });
 };
 
 //TRAE EL DETALLE DE LAS RECETAS
@@ -54,13 +64,13 @@ export const createRecipe = ({
 };
 
 //FILTRO POR DIETA
-export const filterByDiet = (diet) => {
-  return (dispatch) => dispatch({ type: "FILTER_BY_DIET", payload: diet });
+export const filterByDiet = (payload) => {
+  return (dispatch) => dispatch({ type: FILTER_BY_DIET, payload });
 };
 
 //FILTRA POR ORDEN
-export const setOrderBy = (order) => {
-  return (dispatch) => dispatch({ type: "SET_ORDER_BY", payload: order });
+export const setOrderBy = (payload) => {
+  return (dispatch) => dispatch({ type: SET_ORDER_BY, payload });
 };
 
 //FILTRA POR NOMBRE
