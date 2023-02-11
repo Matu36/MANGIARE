@@ -1,38 +1,24 @@
-import React, { useReducer } from "react";
-import { ADD_TO_CART, CLEAR_CART, REMOVE_ALL_FROM_CART, REMOVE_ONE_FROM_CART, TOTAL_PRICE } from "../../../Redux/actions/ShoppingActions";
+import React, { useState } from "react";
+import { ADD_TO_CART, REMOVE_ITEM } from "../../../Redux/actions/ShoppingActions";
 import { shoppingInitialState, shoppingReducer } from "../../../Redux/reducer/ShoppingReducer";
 import CartItem from "../CartItem/CartItem";
 import ProductItem from "../ProductItem/ProductItem";
 
-
 export default function ShoppingCart () {
-const [state, dispatch] = useReducer (shoppingReducer, shoppingInitialState);
-const {products, cart, totalPrice} = state;
-console.log (state);
-console.log (totalPrice);
-console.log (cart);
-
-const addToCart = (id) => {console.log (id);
-dispatch({type: ADD_TO_CART, payload: id});
-dispatch ({type: TOTAL_PRICE});
+    const dispatch = useDispatch();
+    const [{cart}, dispatchShop] = useReducer (shoppingReducer, shoppingInitialState);
 
 
-};
-
-
-const delFromCart = (id, all = false) => {
-    console.log (id, all);
-    if (all) {
-        dispatch ({type: REMOVE_ALL_FROM_CART, payload:id})
-    } else {
-        dispatch ({type: REMOVE_ONE_FROM_CART, payload:id})
+const handleChange = ({target}) => {
+    switch (target.name){
+        case 'amount': setState(state.map(el => ((el.id == target.id) ? ({...el, id: target.id, amount: target.value}) : el)));
+        case 'units': setState(state.map(el => ((el.id == target.id) ? ({...el, id: target.id, amount: target.value}) : el)));
+        //if (target.value > 0) dispatch({type: SET_TO_CART, payload: {id: target.id, unit: 'vemos!!!!!!!', amount: target.value}}); break;
+        default: break;
     }
-};
+}
 
-const clearCart = () => {
-    dispatch ({type: CLEAR_CART})
-};
-
+const handleRemove = payload => dispatch({type: payload ? REMOVE_ITEM : CLEAR_CART, payload})
 
 const productSelect = products.map((product) => 
 <ProductItem key = {product.id} data = {product} addToCart = {addToCart} />
@@ -66,6 +52,6 @@ return (
 
 </article>
     </div>
-)
+);
 
 }
