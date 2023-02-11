@@ -36,7 +36,6 @@ const RecipeDetail = () => {
 
   const handleOnUnitChange = (id, value) => {setList(list.map(el => (el.id != id) ? el : {...el, unit: value}))};
 
-  console.log(cart);
   return (
     <div className={s.containerMain}>
       <div className={s.containerButtonHome}>

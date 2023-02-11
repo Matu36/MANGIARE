@@ -9,8 +9,6 @@ return (
         <tbody>
         {
             props.items.map(el => {
-                console.log('el', el);
-                console.log('cart', props.cart);
                 return (
                 <tr key={el.id} className={s.tableRow + ` ${!el.amount && s.error}`}>
                     <td className={s.tableCell}>{el.name}</td>
