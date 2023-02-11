@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import s from './CreateRecipe.module.css';
 import logo from "../../img/creandoReceta.jpg";
+import IngredientsList from '../../components/IngredientsList/ingredientsList';
 //import {Redirect} from 'react-router-dom';
 
 class CreateRecipe extends React.Component {
@@ -53,8 +54,9 @@ class CreateRecipe extends React.Component {
       .then(() => this.setState({completed: true}))
   }
 
-  handleOnDelete = ({target}) => {
-    this.setState(old => ({...old, ingredients: old.ingredients.filter(el => el.id != target.id)}), () => console.log('cambio', this.state))
+  handleOnDelete = id => {
+    let ingredients = this.state.ingredients.filter(el => el.id != id);
+    this.setState(old => ({...old, ingredients, error: {...old.error, ingredients: !ingredients.length || ingredients.some(el => !el.amount)}}))
   }
 
   handleOnUnitChange = (id, value) => {
@@ -71,18 +73,17 @@ class CreateRecipe extends React.Component {
     switch (target.name){
       case 'title': error.title = (target.value.length < 4 || target.value.length > 25); break;
       case 'image': error.image = (target.value !== '' && !(/^(http(s)?:\/\/.)[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/g.test(target.value))); break;
-      case 'ingredient': error.ingredients = (!target.value)
       case 'instructions': error.instructions = (target.value.length < 4); break;
       default: break;
     }
 
-    let change = (target.name !== 'ingredient')
-      ? {[target.name]: target.value}
-      : {ingredients: this.state.ingredients.map(el => 
-        (el.id != target.id)
-          ? el
-          : {...el, amount: (target.value <= 0) ? 0 : target.value}
-        )}
+    let change;
+
+    if (target.name !== 'ingredient') change = {[target.name]: target.value}
+    else{
+      change = {ingredients: this.state.ingredients.map(el => (el.id != target.id) ? el : {...el, amount: (target.value <= 0) ? 0 : target.value})};
+      error.ingredients = change.ingredients.some(el => !el.amount);
+    }
 
     this.setState(old => ({...old, ...change, error}));
   }
@@ -105,33 +106,28 @@ class CreateRecipe extends React.Component {
         <img className= {s.image}src= {logo} alt="receta" />
         </div>
         <form onSubmit={this.handleSubmit}>
+        <div className= {s.body}>
           <table style={{width: '50%', margin: 'auto'}}>
-            <br />
-            
-            
-
-            <div className= {s.body}>
             <tbody>
               <tr>
-                <td width="50%"><label htmlFor className={s.label}>Title:</label></td>
+                <td width="50%"><label htmlFor="title" className={s.label}>Title:</label></td>
                 <td><input className= {s.input} type="text" id="title" name="title" value={this.state.title} placeholder= "Recipe title..." onChange={this.handleOnChange} /></td>
               </tr>
               <tr><td colSpan={2} style={{fontSize: 'smaller', paddingBottom: '20px', color: this.state.error.title ? 'red' : 'green'}}>Title must be between 4 and 25 characters string</td></tr>
               <tr>
-                <td ><label  htmlFor className={s.label}>Image URL:</label></td>
+                <td ><label  htmlFor="image"  className={s.label}>Image URL:</label></td>
                 <td><input className= {s.input}  type="url" id="image" name="image" value={this.state.image} placeholder="Recipe Image URL..." onChange={this.handleOnChange} /></td>
               </tr>
               <tr><td colSpan={2} style={{fontSize: 'smaller', paddingBottom: '20px', color: this.state.error.image ? 'red' : 'green'}}>URL must be an valid URL or empty</td></tr>
               <tr>
-                <td><label htmlFor className={s.label}>Instructions:</label></td>
+                <td><label htmlFor="instructions"  className={s.label}>Instructions:</label></td>
                 <td><input className= {s.input}  type="text" id="instructions" name="instructions" value={this.state.instructions} placeholder="Recipe Instructions..." onChange={this.handleOnChange} /></td>
               </tr>
               <tr><td colSpan={2} style={{fontSize: 'smaller', paddingBottom: '20px', color: this.state.error.instructions ? 'red' : 'green'}}>Instructions length min 4</td></tr>
             </tbody>
-            </div>
-            
           </table>
-      
+        </div>
+    
           <div className= {s.table }>
             <Diets onChange={this.handleDiets} diets={this.props.diets.filter(el => el !== 'All Diets')} actives={this.state.diets} />
             
@@ -151,30 +147,17 @@ class CreateRecipe extends React.Component {
               placeholder="Ingredients search"
             />
           </div>
-          <div style={{width: '50%', margin: 'auto'}}>
+          <div style={{width: '50%', padding: '20px', margin: 'auto'}}>
               {
                 this.state.ingredients.length
-                ? <table style={{margin: 'auto'}}>
-                    <tbody>
-                    {
-                      this.state.ingredients.map(el =>
-                        <tr key={el.id} className={`${(!el.amount) && s.error}`}>
-                          <td name="deleteIngredient" id={el.id} onClick={this.handleOnDelete}>X</td>
-                          <td>{el.name}</td>
-                          <td><input type="number" id={el.id} value={el.amount} name="ingredient" onChange={this.handleOnChange}></input></td>
-                          <td>
-                            <select name="units" onChange={({target}) => this.handleOnUnitChange(el.id, target.value)}>
-                            {
-                              el.units.map(unit => <option key={el.id + ' ' + unit} value={unit}>{unit}</option>)
-                            }
-                            </select>
-                          </td>
-                        </tr>
-                      )
-                    }
-                    
-                  </tbody>
-                </table>
+                ? <IngredientsList
+                  items = {this.state.ingredients}
+                  onChange = {this.handleOnChange}
+                  onUnitChange = {this.handleOnUnitChange}
+                  itemButton = {{
+                    caption: 'Remove',
+                    action: this.handleOnDelete
+                  }} />
                 : <p style={{fontSize: 'smaller', paddingBottom: '20px', color: 'red'}}>Recipe must have at least one ingredient</p>
               }
           </div>
