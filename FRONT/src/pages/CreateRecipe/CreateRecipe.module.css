@@ -47,14 +47,14 @@ border-radius: 20%;
 .label {
 
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: large;
+    font-size: 25px;
     font-weight: bold;
     
 }
     
 
 .input {
-    border-radius: 15%;
+    border-radius: 5%;
 
 }
 

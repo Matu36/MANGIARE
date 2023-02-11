@@ -52,10 +52,17 @@ const RecipeDetail = () => {
       
         <Box width = '40%' height ='40%' objectFit={'cover'} borderRadius= '10px'>
           <img src={image} alt={title} />
-
-    
-    
-      <div style={{width: '50%', margin: 'auto'}}>
+        </Box>
+      
+    <Tabs  align='center' variant='enclosed'>
+      <TabList>
+        <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Ingredients</Tab>
+        <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Instructions</Tab>
+        <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Diets</Tab>
+        <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Rating</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel backgroundColor='rgba(255, 255, 255, 0.7)'>
         {
           !list
             ? <h3>Loading...</h3>
@@ -70,25 +77,7 @@ const RecipeDetail = () => {
                 cart = {cart}
               />)
         }
-      </div>
 
-        </Box>
-      
-    <Tabs  align='center' variant='enclosed'>
-      <TabList>
-        <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Ingredients</Tab>
-        <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Recipe</Tab>
-        <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Diets</Tab>
-        <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Rating</Tab>
-      </TabList>
-      <TabPanels>
-        <TabPanel backgroundColor='rgba(255, 255, 255, 0.7)'>
-        <ul className="recipeDetail">
-        {ingredients &&
-          ingredients.map(({ name, amount, unit, price }) => {
-            return <li>{`${name} : ${amount} ${unit} $${price}`}</li>;
-          })}
-      </ul>
         </TabPanel>
             <TabPanel backgroundColor='rgba(255, 255, 255, 0.5)'>
         <Box width = '50%' color='black'>
