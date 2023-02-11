@@ -39,6 +39,7 @@ const RecipeDetail = () => {
   const handleOnUnitChange = (id, value) => {setList(list.map(el => (el.id != id) ? el : {...el, unit: value}))};
 
   return (
+    <>
     <Box width="100%" height="1200px" marginTop= '1px' backgroundImage={background} 
     style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', backgroundSize: 'cover', filter:'contrast(100%)',
       backgroundPosition: 'center center', backgroundAttachment: 'fixed'}}> 
@@ -117,7 +118,7 @@ const RecipeDetail = () => {
     <NavLink className={s.navlinkGoBackButton} to={"/home"}>
         <button>Go back</button>
       </NavLink>
-
+</>
   );
 };
 
