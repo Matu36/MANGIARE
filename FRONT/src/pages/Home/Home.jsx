@@ -19,6 +19,7 @@ import carrot from '../../img/carrotIcon.png'
 import eggs from '../../img/eggsIcon.png'
 import chicken from '../../img/chickenIcon.png'
 import banner from '../../img/BannerHome.jpg'
+import IngredientsList from "../../components/IngredientsList/ingredientsList";
 
 export default function Home() {
   let dispatch = useDispatch(); 
@@ -108,10 +109,9 @@ export default function Home() {
         backgroundPosition: 'center center'}}>
       
   <Text
-    style={{ fontFamily: 'Bistro Script, sans-serif' }}
-    fontWeight="regular"
-    fontSize="96px"
-    color="#D62929"
+    style={{ fontFamily: 'Bistro Script, sans-serif' }}    
+    fontSize="100px" 
+    fontWeight="bold"
     width="597px"
     height="116px"
     maxWidth="100%"
@@ -121,22 +121,19 @@ export default function Home() {
     MANGIAR-E
   </Text>
   <Text
-    style={{ fontFamily: 'Caviar Dreams, sans-serif' }}
-    fontWeight="regular"
-    fontSize="50px"
-    color="#07CC03"    
+    fontSize='3xl' textAlign="center" fontWeight="bold" color="yellow.500"    
     marginTop="20px"
   > Your ingredients, our recipes </Text>
 
   <Box width="70%" height="100px" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row'}} >
   <Text
     style={{ fontFamily: 'Caviar Dreams, sans-serif' }}
-    fontWeight="regular"
+    fontWeight="bold"
     fontSize="40px"
-    color="#D62929"
+    color="red.600"
     marginTop="20px"
     marginRight="20px"
-  >Pick your ingredients!</Text>
+  >Pick your ingredients</Text>
   
   <Button
       aria-label="Search"
