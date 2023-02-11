@@ -297,7 +297,7 @@ class CreateRecipe extends React.Component {
                     placeholder="Ingredients search"
                   />
                 </div>
-                <div style={{ width: "50%", padding: "20px", margin: "auto" }}>
+                <div style={{ width: "100%", padding: "20px", margin: "auto" }}>
                   {this.state.ingredients.length ? (
                     <IngredientsList
                       items={this.state.ingredients}
