@@ -13,7 +13,8 @@ import {
   SET_FILTERED_INGREDIENTS,
   DELETE_FILTERED_INGREDIENT,
   ADD_TO_CART,
-  REMOVE_TO_CART
+  REMOVE_TO_CART,
+  SET_CART,
 } from "../actions/index.js";
 
 const initialState = {
@@ -113,19 +114,46 @@ const rootReducer = (state = initialState, action) => {
 
     case CREATE_RECIPE:
       return { ...state, recipes: [...state.recipes, action.payload] };
-    
-    case REMOVE_TO_CART: return {...state, cart: action.payload ? state.cart.filter(item => ((item.id !== action.payload.id) || (item.unit !== action.payload.unit))) : []};   
-  
+
+    case REMOVE_TO_CART:
+      return {
+        ...state,
+        cart: action.payload
+          ? state.cart.filter(
+              (item) =>
+                item.id !== action.payload.id ||
+                item.unit !== action.payload.unit
+            )
+          : [],
+      };
+
     case ADD_TO_CART:
       let indexFound;
-      action.payload.forEach(el => {
-          indexFound = state.cart.findIndex(aux => ((aux.id === el.id) && (aux.unit === el.unit))); // Busco el id y la unit
-          if (indexFound === -1) state.cart.push(el) // si no lo encuentra, lo agrega
-          else state.cart = [...state.cart.slice(0, indexFound), {...el, amount: 1 * el.amount + 1 * state.cart[indexFound].amount}, ...state.cart.slice(indexFound + 1)] // si lo encuentra, agrega la cantidad
+      action.payload.forEach((el) => {
+        indexFound = state.cart.findIndex(
+          (aux) => aux.id === el.id && aux.unit === el.unit
+        ); // Busco el id y la unit
+        if (indexFound === -1)
+          state.cart.push(el); // si no lo encuentra, lo agrega
+        else
+          state.cart = [
+            ...state.cart.slice(0, indexFound),
+            {
+              ...el,
+              amount: 1 * el.amount + 1 * state.cart[indexFound].amount,
+            },
+            ...state.cart.slice(indexFound + 1),
+          ]; // si lo encuentra, agrega la cantidad
       });
-      return {...state};
+      return { ...state };
 
-      default:
+    case SET_CART:
+      return {
+        ...state,
+        cart: action.payload,
+      };
+
+    default:
       return { ...state };
   }
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -7,16 +8,20 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./Redux/store/index.js";
 import { ChakraProvider } from "@chakra-ui/react";
+import { Auth0ProviderModule } from "./auth0-provider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <StrictMode>
     <ChakraProvider>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Auth0ProviderModule>
+            <App />
+          </Auth0ProviderModule>
+        </BrowserRouter>
+      </Provider>
     </ChakraProvider>
   </StrictMode>
 );

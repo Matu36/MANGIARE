@@ -8,6 +8,7 @@ import {
   getRecipes,
   getIngredients,
   resetRecipesToShow,
+  setCart,
 } from "../../Redux/actions";
 import Paginations from "../../components/Paginations/Paginations";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
@@ -23,10 +24,11 @@ import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import {ArrowDownIcon} from '@chakra-ui/icons'
 
 export default function Home() {
-  let dispatch = useDispatch(); 
+  let dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
   const recipesToShow = useSelector((state) => state.recipesToShow);
   const orderBy = useSelector((state) => state.orderBy);
+  const cart = useSelector((state) => state.cart);
   const filteredIngredients = useSelector((state) => state.filteredIngredients);
   const recipeDetailIdAutocomplete = useSelector(
     (state) => state.recipeIdAutocomplete
@@ -40,6 +42,14 @@ export default function Home() {
   useEffect(() => {
     dispatch(resetRecipesToShow());
   }, [recipes]);
+
+  //                   --------------- localStorage ---------------
+  useEffect(() => {
+    let localStorage_cart = JSON.parse(localStorage.getItem("cart"));
+    if (!localStorage_cart) return;
+    else dispatch(setCart(localStorage_cart));
+  }, []);
+                  // --------------- fin localStorage ---------------
 
   const [recipeByIdAutocomplete, setrecipeByIdAutocomplete] = useState();
 
@@ -103,7 +113,7 @@ export default function Home() {
   };
 
   return (
-    <div className={s.containerMain} >
+    <div className={s.containerMain}>
       <NavBar />
       <Box width="100%" height="850px" marginTop= '1px' backgroundImage={banner} 
       style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', backgroundSize: 'cover',
@@ -209,7 +219,7 @@ export default function Home() {
 
 </Box>
 
-      <div className ={s.img} alt="randomImg" />
+      <div className={s.img} alt="randomImg" />
 
       <div className={s.mainContainDiv}>
         <div className={s.filtersContainerDiv}>
@@ -253,7 +263,6 @@ export default function Home() {
               <p>{randomTip()}</p>
             </div>
           </div>
-           
 
           <div className={s.moreRecipesDiv}>
             {totalRecipes?.slice(3).map((recipe) => (
