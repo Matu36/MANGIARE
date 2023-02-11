@@ -3,11 +3,15 @@ import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import style from "../LandingPage/LandingPage.module.css";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import { useAuth0 } from "@auth0/auth0-react";
 //import { useState } from "react";
 //import { validate } from "../../utils/validations";
 
 export default function LandingPage() {
   //const [errors, setErrors] = useState({});
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+  const { user, isauthenticated } = useAuth0();
 
   const divStyle = {
     display: "flex",
@@ -32,7 +36,6 @@ export default function LandingPage() {
     },
   ];
 
-
   //setErrors (
   //validate ({
   //Usuario: input.Usuario,
@@ -45,6 +48,18 @@ export default function LandingPage() {
     <div className={style.container}>
       <div className={style.divTitle}>
         <h1 className={style.tittle}>MANGIAR-E</h1>
+        <button
+          className={style.iniciosesionmasbotones}
+          onClick={() => loginWithRedirect()}
+        >
+          LOGIN
+        </button>
+        <button
+          className={style.iniciosesionmasbotones}
+          onClick={() => logout()}
+        >
+          LOGOUT
+        </button>
       </div>
       <div className={style.containerslydeYregistro}>
         <div className={style.iniciosesionmasbotones}>
@@ -54,7 +69,8 @@ export default function LandingPage() {
           <Slide>
             {slideImages.map((slideImage, index) => (
               <div key={index}>
-                <div className= {style.image}
+                <div
+                  className={style.image}
                   style={{
                     ...divStyle,
                     backgroundImage: `url(${slideImage.url})`,
@@ -65,9 +81,7 @@ export default function LandingPage() {
           </Slide>
         </div>
       </div>
-      <div className={style.colaborators}>
-        
-      </div>
+      <div className={style.colaborators}></div>
     </div>
   );
 }
