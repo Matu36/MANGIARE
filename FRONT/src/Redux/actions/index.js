@@ -13,6 +13,7 @@ export const SET_FILTERED_INGREDIENTS = "SET_FILTERED_INGREDIENTS";
 export const DELETE_FILTERED_INGREDIENT = "DELETE_FILTERED_INGREDIENT";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
+export const SET_CART = "SET_CART";
 
 //TRAE LAS RECETAS
 export const getRecipes = () => async (dispatch) => {
@@ -126,5 +127,12 @@ export const getIngredients = () => async (dispatch) =>
 });
 */
 
-export const addToCart = payload => {console.log('ejecuta'); return ({ type: ADD_TO_CART, payload })};
-export const removeToCart = payload => ({ type: REMOVE_TO_CART, payload });
+export const addToCart = (payload) => {
+  console.log("ejecuta");
+  return { type: ADD_TO_CART, payload };
+};
+export const removeToCart = (payload) => ({ type: REMOVE_TO_CART, payload });
+
+export const setCart = (payload) => {
+  return { type: SET_CART, payload };
+};
