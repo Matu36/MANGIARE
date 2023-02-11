@@ -52,6 +52,6 @@ return (
 
 </article>
     </div>
-)
+);
 
 }
