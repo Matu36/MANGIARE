@@ -7,6 +7,8 @@ import {
   setOrderBy,
   setRecipesToShow,
   resetRecipesToShow,
+  setFilteredRecipes,
+  resetFilteredRecipes,
   setFilteredIngredients,
   deleteFilteredIngredient,
   clearFilters,
@@ -34,18 +36,18 @@ function Filters() {
   };
 
   useEffect(() => {
-    if (filteredDiet === "All Diets") dispatch(resetRecipesToShow());
+    if (filteredDiet === "All Diets") dispatch(resetFilteredRecipes());
     else
       dispatch(
-        setRecipesToShow(
-          recipes.filter((recipe) =>
+        setFilteredRecipes(
+          recipesToShow.filter((recipe) =>
             recipe.diets.some(
               (diet) => diet.toLowerCase() === filteredDiet.toLowerCase()
             )
           )
         )
       );
-  }, [filteredDiet, recipes]);
+  }, [filteredDiet, recipes, recipesToShow]);
 
   const optionsOrderBy = [
     { label: "Select Order Alphabetical", value: "" },

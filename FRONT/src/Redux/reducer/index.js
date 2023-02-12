@@ -2,6 +2,8 @@ import {
   GET_RECIPES,
   SET_RECIPES_TO_SHOW,
   RESET_RECIPES_TO_SHOW,
+  SET_FILTERED_RECIPES,
+  RESET_FILTERED_RECIPES,
   GET_RECIPE_DETAIL,
   FILTER_BY_DIET,
   SET_ORDER_BY,
@@ -20,6 +22,7 @@ import {
 const initialState = {
   recipes: [],
   recipesToShow: [],
+  filteredRecipes: [],
   recipeDetail: {},
   recipeIdAutocomplete: null,
   diets: [
@@ -56,18 +59,33 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         recipes: action.payload,
         recipesToShow: action.payload,
+        filteredRecipes: action.payload,
       };
 
     case SET_RECIPES_TO_SHOW:
       return {
         ...state,
         recipesToShow: action.payload,
+        filteredRecipes: action.payload,
       };
 
     case RESET_RECIPES_TO_SHOW:
       return {
         ...state,
         recipesToShow: state.recipes,
+        filteredRecipes: state.recipes,
+      };
+
+    case SET_FILTERED_RECIPES:
+      return {
+        ...state,
+        filteredRecipes: action.payload,
+      };
+
+    case RESET_FILTERED_RECIPES:
+      return {
+        ...state,
+        filteredRecipes: state.recipesToShow,
       };
 
     case GET_RECIPE_DETAIL:
