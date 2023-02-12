@@ -68,14 +68,14 @@ const RecipeDetail = () => {
     }
   }, [recipe, ingredients, cart]);
 
-  const handleOnAdd = (id) =>
-    dispatch(addToCart(id ? [list.find((el) => el.id == id)] : list));
+  const handleOnAdd = (id, unit) =>
+    dispatch(addToCart(id ? [list.find((el) => ((el.id == id) && el.unit == unit))] : list));
 
-  const handleOnChange = ({ target }) => {
+  const handleOnChange = ({ target }, unit) => {
     setList(
       list.map((el) =>
-        el.id != target.id
-          ? el
+      ((el.id != target.id) || (el.unit != unit))
+      ? el
           : { ...el, amount: target.value <= 0 ? 0 : target.value }
       )
     );
