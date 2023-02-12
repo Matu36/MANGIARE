@@ -8,12 +8,14 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { filterByDiet, setOrderBy, getIngredients } from "../../Redux/actions/index.js";
 import s from "../SearchBar/searchBar.module.css";
 import Select from "react-select";
+import { useNavigate} from "react-router-dom";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
   const diets = useSelector((state) => state.diets);
   const orderBy = useSelector((state) => state.orderBy);
+  const navigate = useNavigate();
 
   const mapRecipes = recipes.map((r) => {
     return { name: r.title, id: r.id, img: r.image, diet: r.diets };
@@ -31,6 +33,8 @@ export default function SearchBar() {
     dispatch(setRecipeIdAutocomplete(item.id));
     dispatch(filterByDiet(""));
     dispatch(getIngredients(item.id))
+
+    navigate(`/recipes/${item.id}`);
   };
 
   const handleOnFocus = () => {
