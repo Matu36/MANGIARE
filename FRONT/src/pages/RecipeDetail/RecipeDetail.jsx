@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useReducer } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import {
@@ -26,6 +27,7 @@ import background from "../../img/BackgroundDetail.jpg";
 
 const RecipeDetail = () => {
   let { id } = useParams();
+  const { user } = useAuth0();
   let dispatch = useDispatch();
   let recipe = useSelector((state) => state.recipeDetail);
   const ingredients = useSelector((state) => state.ingredients);
@@ -35,7 +37,16 @@ const RecipeDetail = () => {
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    let new_owner = user ? user.email : "guest";
+    if (localStorage.cart) {
+      let LS_cart = JSON.parse(localStorage.cart);
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ ...LS_cart, [new_owner]: cart })
+      );
+    } else {
+      localStorage.setItem("cart", JSON.stringify({ [new_owner]: cart }));
+    }
   }, [cart]);
   //                 --------------- fin localStorage ---------------
 
