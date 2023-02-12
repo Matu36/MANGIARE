@@ -131,7 +131,7 @@ const rootReducer = (state = initialState, action) => {
       let indexFound;
       action.payload.forEach((el) => {
         indexFound = state.cart.findIndex(
-          (aux) => aux.id === el.id && aux.unit === el.unit
+          (aux) => aux.id == el.id && aux.unit == el.unit
         ); // Busco el id y la unit
         if (indexFound === -1)
           state.cart.push(el); // si no lo encuentra, lo agrega

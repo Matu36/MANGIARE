@@ -127,12 +127,8 @@ export const getIngredients = () => async (dispatch) =>
 });
 */
 
-export const addToCart = (payload) => {
-  console.log("ejecuta");
-  return { type: ADD_TO_CART, payload };
-};
+export const addToCart = (payload) => ({ type: ADD_TO_CART, payload });
+
 export const removeToCart = (payload) => ({ type: REMOVE_TO_CART, payload });
 
-export const setCart = (payload) => {
-  return { type: SET_CART, payload };
-};
+export const setCart = (payload) => ({ type: SET_CART, payload });
