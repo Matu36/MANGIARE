@@ -29,6 +29,7 @@ export default function Home() {
   const { user } = useAuth0();
   const recipes = useSelector((state) => state.recipes);
   const recipesToShow = useSelector((state) => state.recipesToShow);
+  const filteredRecipes = useSelector((state) => state.filteredRecipes);
   const orderBy = useSelector((state) => state.orderBy);
   const cart = useSelector((state) => state.cart);
   const filteredIngredients = useSelector((state) => state.filteredIngredients);
@@ -97,14 +98,14 @@ export default function Home() {
     //Cambio de estado local de Total Recipes indicando los indices que tiene que renderizar en cada pagina
     recipesToShow &&
       setTotalRecipes(
-        recipesToShow.slice(indexFirstPageRecipe(), indexLastPageRecipe())
+        filteredRecipes.slice(indexFirstPageRecipe(), indexLastPageRecipe())
       );
-    recipesToShow && setNumberOfPage(Math.ceil(recipesToShow.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
-  }, [recipesToShow, currentPage, orderBy, filteredIngredients]);
+    filteredRecipes && setNumberOfPage(Math.ceil(filteredRecipes.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
+  }, [filteredRecipes, currentPage, orderBy, filteredIngredients]);
 
   useEffect(() => {
     setCurrentPage(1); //setea el numero de pagina actual a 1 cuando recipesName Cambia
-  }, [recipesToShow]);
+  }, [filteredRecipes]);
 
   /*const mapArrayDeObetos = allRecipes.map((r) =>{
     return {name:r.title,

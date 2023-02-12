@@ -1,6 +1,8 @@
 export const GET_RECIPES = "GET_RECIPES";
 export const SET_RECIPES_TO_SHOW = "SET_RECIPES_TO_SHOW";
 export const RESET_RECIPES_TO_SHOW = "RESET_RECIPES_TO_SHOW";
+export const SET_FILTERED_RECIPES = "SET_FILTERED_RECIPES";
+export const RESET_FILTERED_RECIPES = "RESET_FILTERED_RECIPES";
 export const GET_RECIPE_DETAIL = "GET_RECIPE_DETAIL";
 export const SET_ORDER_BY = "SET_ORDER_BY";
 export const FILTER_BY_DIET = "FILTER_BY_DIET";
@@ -30,6 +32,14 @@ export const setRecipesToShow = (payload) => {
 
 export const resetRecipesToShow = () => {
   return (dispatch) => dispatch({ type: RESET_RECIPES_TO_SHOW });
+};
+
+export const setFilteredRecipes = (payload) => {
+  return (dispatch) => dispatch({ type: SET_FILTERED_RECIPES, payload });
+};
+
+export const resetFilteredRecipes = () => {
+  return (dispatch) => dispatch({ type: RESET_FILTERED_RECIPES });
 };
 
 //TRAE EL DETALLE DE LAS RECETAS
