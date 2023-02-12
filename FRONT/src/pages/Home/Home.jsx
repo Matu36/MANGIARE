@@ -8,23 +8,27 @@ import {
   getRecipes,
   getIngredients,
   resetRecipesToShow,
+  setCart,
 } from "../../Redux/actions";
 import Paginations from "../../components/Paginations/Paginations";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCardHorizontal";
 import Filters from "../../components/Filters/Filters";
-import {Box, Image, Text, IconButton, Button} from '@chakra-ui/react'
+import {Box, Image, Text, IconButton, Button, HStack} from '@chakra-ui/react'
 import meat from '../../img/iconMeat.jpg'
 import carrot from '../../img/carrotIcon.png'
 import eggs from '../../img/eggsIcon.png'
 import chicken from '../../img/chickenIcon.png'
 import banner from '../../img/BannerHome.jpg'
+import IngredientsList from "../../components/IngredientsList/ingredientsList";
+import {ArrowDownIcon} from '@chakra-ui/icons'
 
 export default function Home() {
-  let dispatch = useDispatch(); 
+  let dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
   const recipesToShow = useSelector((state) => state.recipesToShow);
   const orderBy = useSelector((state) => state.orderBy);
+  const cart = useSelector((state) => state.cart);
   const filteredIngredients = useSelector((state) => state.filteredIngredients);
   const recipeDetailIdAutocomplete = useSelector(
     (state) => state.recipeIdAutocomplete
@@ -38,6 +42,14 @@ export default function Home() {
   useEffect(() => {
     dispatch(resetRecipesToShow());
   }, [recipes]);
+
+  //                   --------------- localStorage ---------------
+  useEffect(() => {
+    let localStorage_cart = JSON.parse(localStorage.getItem("cart"));
+    if (!localStorage_cart) return;
+    else dispatch(setCart(localStorage_cart));
+  }, []);
+                  // --------------- fin localStorage ---------------
 
   const [recipeByIdAutocomplete, setrecipeByIdAutocomplete] = useState();
 
@@ -101,44 +113,42 @@ export default function Home() {
   };
 
   return (
-    <div className={s.containerMain} >
+    <div className={s.containerMain}>
       <NavBar />
-      <Box width="100%" height="760px" marginTop= '1px' backgroundImage={banner} 
+      <Box width="100%" height="850px" marginTop= '1px' backgroundImage={banner} 
       style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', backgroundSize: 'cover',
         backgroundPosition: 'center center'}}>
       
   <Text
-    style={{ fontFamily: 'Bistro Script, sans-serif' }}
-    fontWeight="regular"
-    fontSize="96px"
-    color="#D62929"
+    style={{ fontFamily: 'Bistro Script, sans-serif' }}    
+    fontSize="100px" 
+    fontWeight="bold"
     width="597px"
     height="116px"
     maxWidth="100%"
-    marginTop='40px'
+    marginTop='200px'
     
   >
     MANGIAR-E
   </Text>
+  
+ 
+  <Box width="70%" height="100px" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column'}} >
+    <Box flex='1' >
   <Text
     style={{ fontFamily: 'Caviar Dreams, sans-serif' }}
-    fontWeight="regular"
-    fontSize="50px"
-    color="#07CC03"    
-    marginTop="20px"
-  > Your ingredients, our recipes </Text>
-
-  <Box width="70%" height="100px" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row'}} >
-  <Text
-    style={{ fontFamily: 'Caviar Dreams, sans-serif' }}
-    fontWeight="regular"
-    fontSize="40px"
-    color="#D62929"
+    fontWeight="bold"
+    align="center"
+    fontSize="30px"
+    color="green.500"
     marginTop="20px"
     marginRight="20px"
-  >Pick your ingredients!</Text>
-  
+  >Tell us which ingredients you have and we'll show the best recipes that match with them </Text>
+  </Box>
+  <Box flex='1'>
+    <Box display='flex' justifyContent='center' alignItems='center' width='500px' marginTop='20px'>
   <Button
+      flex='1'
       aria-label="Search"
       width="60px"
       height="60px"
@@ -150,6 +160,7 @@ export default function Home() {
     _hover={{ transform: 'scale(1.2)' }}
     />
      <Button
+     flex='1'
       aria-label="Search"
       width="60px"
       height="60px"
@@ -161,6 +172,7 @@ export default function Home() {
     _hover={{ transform: 'scale(1.2)' }}
     />
      <Button
+     flex='1'
       aria-label="Search"
       width="60px"
       height="60px"
@@ -172,6 +184,7 @@ export default function Home() {
     _hover={{ transform: 'scale(1.2)' }}
     />
      <Button
+     flex='1'
       aria-label="Search"
       width="60px"
       height="60px"
@@ -182,23 +195,31 @@ export default function Home() {
       transition="all 0.2s ease-in-out"
     _hover={{ transform: 'scale(1.2)' }}
     />
-    
   
-
+    </Box>
+    </Box>
   </Box>
-    <Box width="50%" height="100px" marginTop='30px' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row'}}>
+    <Box width="50%" height="100px" marginTop='100px' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row'}}>
       <Text 
         style={{ fontFamily: 'Caviar Dreams, sans-serif' }}
-        fontWeight="regular"
+        fontWeight="bold"
+        fontStyle="italic"
         fontSize="25px"
-        color="#D62929"
+        color="yellow.700"
         marginTop="20px" 
-      >Want more ingredients? Search here</Text>
+      >Have some more ingredients? Search here</Text>
       <SearchBar />
       </Box>
+
+      <Text
+    fontSize='3xl' textAlign="center" fontWeight="bold" color="yellow.900"    
+    marginTop="20px"
+  > Check our recipes! </Text>
+  <ArrowDownIcon w={20} h={20} color="yellow.900" marginTop="20px" />
+
 </Box>
 
-      <div className ={s.img} alt="randomImg" />
+      <div className={s.img} alt="randomImg" />
 
       <div className={s.mainContainDiv}>
         <div className={s.filtersContainerDiv}>
@@ -242,7 +263,6 @@ export default function Home() {
               <p>{randomTip()}</p>
             </div>
           </div>
-           
 
           <div className={s.moreRecipesDiv}>
             {totalRecipes?.slice(3).map((recipe) => (
