@@ -17,6 +17,7 @@
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "lodash": "^4.17.21",
+    "mercadopago": "^1.5.15",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
     "pg": "^8.9.0",
