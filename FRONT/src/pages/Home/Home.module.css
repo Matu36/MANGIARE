@@ -1,6 +1,6 @@
 .containerMain {
-  background-color: #fbab7e;
-  background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+  background-color: #ffffff;
+  background-image: linear-gradient(62deg, #ffffff 0%, #ffffff 100%);
 }
 
 .divPagination {
@@ -13,24 +13,25 @@
   position: relative;
 }
 
-.filtersContainerDiv {
+/* .filtersContainerDiv {
   width: 20%;
   height: 30rem;
   position: sticky;
   top: 100px;
-}
+} */
 
 .mainRecipesDiv {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
 .cardsContainer {
   width: 100%;
-  padding: 2rem;
+  padding: 4rem;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;

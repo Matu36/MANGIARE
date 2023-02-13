@@ -1,5 +1,9 @@
 import {
   GET_RECIPES,
+  SET_RECIPES_TO_SHOW,
+  RESET_RECIPES_TO_SHOW,
+  SET_FILTERED_RECIPES,
+  RESET_FILTERED_RECIPES,
   GET_RECIPE_DETAIL,
   FILTER_BY_DIET,
   SET_ORDER_BY,
@@ -10,10 +14,15 @@ import {
   CREATE_RECIPE,
   SET_FILTERED_INGREDIENTS,
   DELETE_FILTERED_INGREDIENT,
+  ADD_TO_CART,
+  REMOVE_TO_CART,
+  SET_CART,
 } from "../actions/index.js";
 
 const initialState = {
   recipes: [],
+  recipesToShow: [],
+  filteredRecipes: [],
   recipeDetail: {},
   recipeIdAutocomplete: null,
   diets: [
@@ -31,17 +40,16 @@ const initialState = {
     "fodmap friendly",
   ],
 
-  filterByDiet: "",
+  filteredDiet: "",
 
-  orderBy: {
-    order: "",
-    type: undefined,
-  },
+  orderBy: "",
 
   searchValueName: "",
 
   ingredients: null,
   filteredIngredients: [],
+
+  cart: [], // [{id, name, price...}, {id, name, price...}...]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -50,7 +58,36 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         recipes: action.payload,
+        recipesToShow: action.payload,
+        filteredRecipes: action.payload,
       };
+
+    case SET_RECIPES_TO_SHOW:
+      return {
+        ...state,
+        recipesToShow: action.payload,
+        filteredRecipes: action.payload,
+      };
+
+    case RESET_RECIPES_TO_SHOW:
+      return {
+        ...state,
+        recipesToShow: state.recipes,
+        filteredRecipes: state.recipes,
+      };
+
+    case SET_FILTERED_RECIPES:
+      return {
+        ...state,
+        filteredRecipes: action.payload,
+      };
+
+    case RESET_FILTERED_RECIPES:
+      return {
+        ...state,
+        filteredRecipes: state.recipesToShow,
+      };
+
     case GET_RECIPE_DETAIL:
       return {
         ...state,
@@ -58,7 +95,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_DIET:
-      return { ...state, filterByDiet: action.payload };
+      return { ...state, filteredDiet: action.payload };
 
     case SET_ORDER_BY:
       return { ...state, orderBy: action.payload };
@@ -81,7 +118,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredIngredients: [],
-        filterByDiet: "",
+        filteredDiet: "",
       };
 
     case SET_RECIPEID_AUTOCOMPLETE:
@@ -95,6 +132,44 @@ const rootReducer = (state = initialState, action) => {
 
     case CREATE_RECIPE:
       return { ...state, recipes: [...state.recipes, action.payload] };
+
+    case REMOVE_TO_CART:
+      return {
+        ...state,
+        cart: action.payload
+          ? state.cart.filter(
+              (item) =>
+                item.id !== action.payload.id ||
+                item.unit !== action.payload.unit
+            )
+          : [],
+      };
+
+    case ADD_TO_CART:
+      let indexFound;
+      action.payload.forEach((el) => {
+        indexFound = state.cart.findIndex(
+          (aux) => aux.id == el.id && aux.unit == el.unit
+        ); // Busco el id y la unit
+        if (indexFound === -1)
+          state.cart.push(el); // si no lo encuentra, lo agrega
+        else
+          state.cart = [
+            ...state.cart.slice(0, indexFound),
+            {
+              ...el,
+              amount: 1 * el.amount + 1 * state.cart[indexFound].amount,
+            },
+            ...state.cart.slice(indexFound + 1),
+          ]; // si lo encuentra, agrega la cantidad
+      });
+      return { ...state };
+
+    case SET_CART:
+      return {
+        ...state,
+        cart: action.payload,
+      };
 
     default:
       return { ...state };

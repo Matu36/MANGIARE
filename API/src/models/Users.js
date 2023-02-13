@@ -26,8 +26,7 @@ module.exports = sequelize => {
       type: DataTypes.STRING(15),
       allowNull: false,
       validate: {
-        notEmpty: true,
-        isAlpha: true
+        notEmpty: true
       },
     },
     role: { // null: basic user ; false: admin user ; true: super admin user

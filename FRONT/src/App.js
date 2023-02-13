@@ -11,6 +11,8 @@ import axios from "axios";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Contact from "./pages/Contact/Contact";
 import MyRecipes from "./components/MyRecipes/MyRecipes";
+import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
+
 
 axios.defaults.baseURL = 'http://localhost:3001/'
 // axios.defaults.baseURL = [insertar URL del back deployado aquí]
@@ -30,6 +32,7 @@ export default function App() {
         <Route exact path="/aboutUs" element={<AboutUs />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/myRecipes" element={<MyRecipes />} />
+        <Route exact path="/shoppingCart" element={<ShoppingCart />} />
       </Routes>
     </>
   );

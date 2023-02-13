@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px gray;
+  overflow: hidden;
+  width: 18rem;
+  height: 18rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.link {
+  text-decoration: none;
+}
+
+.img {
+  z-index: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;    
+  filter:'contrast(70%)';
+}
+
+.titleDiv {
+  font-family: "Ubuntu", sans-serif;
+  // color: #fd9902;
+  color: #fdfdfd;
+  text-shadow: 1px 1px 3px rgb(0, 0, 0);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  margin-top: 1rem;
+  background-color: rgba($color: #4b4b4b, $alpha: 0.3);
+}
+
+.dietsDiv {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.dietsDiv p {
+  background-color: rgb(59, 111, 170);
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.bottomDiv {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.buttonDiv {
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.buttonDiv button {
+  padding: 5px 10px;
+  background-color: orange;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}

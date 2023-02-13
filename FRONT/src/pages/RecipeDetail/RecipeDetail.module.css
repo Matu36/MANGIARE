@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
 .containerMain {
 
   background-color: #fbab7e;
@@ -5,25 +7,25 @@
   
   }
 
-  .containerinstructions {
-background-color: white;
+.containerinstructions {
+    background-color: white;
     border-radius: 3px;
     width: 70%;
     padding: 2rem;
     box-sizing: border-box;
-  }
+}
 
-  .containerImageInstrutions {
+.containerImageInstrutions {
 
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  }
+}
 
-  .title {
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-  }
+.title {
+  font-family: 'Ubuntu', sans-serif;
+}
 
 .container {
   padding: 1rem;
@@ -44,30 +46,28 @@ background-color: white;
   align-items: center;
   gap: 1rem;
 }
-
-.img {
-  width: 80%;
-  height: auto;
-}
-
-.data {
+.containerImage {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px gray;
+  overflow: hidden;
+  width: 40rem;
+  height: 50rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 35%;
+  height: 25%;
+  object-fit: cover;
+}
+.containerImage img {
+  z-index: 0;
+  position: absolute;
+  height: 30rem;
 }
 
-.data span {
-  font-weight: bold;
-}
-
-.data ul {
-  list-style-position: inside;
-  background: #3399ff;
-  padding: 20px;
-}
-
-.data ul li {
-  background: #cce5ff;
-  color: darkblue;
-  margin: 5px;
+.buttonGoBack {
+  background-color: aliceblue;
 }
