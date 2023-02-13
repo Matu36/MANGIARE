@@ -38,22 +38,15 @@ const RecipeDetail = () => {
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
-    let LS_cart = JSON.parse(localStorage.getItem("cart"));
+    let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     if (!LS_cart) return;
     else {
-      if (user) {
-        let email = user.email;
-        LS_cart.hasOwnProperty(email)
-          ? dispatch(setCart(LS_cart[email]))
-          : dispatch(setCart([]));
-      } else {
-        LS_cart.hasOwnProperty("guest")
-          ? dispatch(setCart(LS_cart.guest))
-          : dispatch(setCart([]));
-      }
+      dispatch(setCart(LS_cart));
+      user
+        ? localStorage.setItem("MANGIARE_user", JSON.stringify(user.email))
+        : localStorage.setItem("MANGIARE_user", JSON.stringify("guest"));
     }
   }, [user]);
-
   //                 --------------- fin localStorage ---------------
 
   const { title, image, instructions, raiting, diets } = recipe;
@@ -76,15 +69,8 @@ const RecipeDetail = () => {
 
   const handleOnAdd = (id) => {
     let new_owner = user ? user.email : "guest";
-    if (localStorage.cart) {
-      let LS_cart = JSON.parse(localStorage.cart);
-      localStorage.setItem(
-        "cart",
-        JSON.stringify({ ...LS_cart, [new_owner]: cart })
-      );
-    } else {
-      localStorage.setItem("cart", JSON.stringify({ [new_owner]: cart }));
-    }
+    localStorage.setItem("MANGIARE_cart", JSON.stringify(cart));
+    localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
     return dispatch(addToCart(id ? [list.find((el) => el.id == id)] : list));
   };
 
