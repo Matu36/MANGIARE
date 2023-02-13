@@ -20,10 +20,10 @@ class ShoppingCart extends React.Component {
         fetch(`http://localhost:3001/checkout`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({...cart}),
+            body: JSON.stringify({user: {email: 'email1@email1.com'}, cart}),
           })
             .then(data => data.json())
-            .then(order => setState(old => ({...old, order})))
+            .then(order => this.setState(old => ({...old, order})))
     }
 
     render(){
