@@ -20,10 +20,22 @@ class ShoppingCart extends React.Component {
         fetch(`http://localhost:3001/checkout`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({...cart}),
+            body: JSON.stringify({user: {email: 'email1@email1.com'}, cart}),
           })
             .then(data => data.json())
-            .then(order => setState(old => ({...old, order})))
+            .then(order => {
+                this.setState(old => ({...old, order}))
+            })
+    }
+
+    handlePay = () => {
+        fetch(`http://localhost:3001/payment`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({user: {email: 'email1@email1.com'}, orderDetail: this.state.order.orderDetail}),
+          })
+            .then(data => data.json())
+            .then(({response}) => window.open(response.init_point))
     }
 
     render(){
@@ -47,7 +59,7 @@ class ShoppingCart extends React.Component {
                         </>)
                 }
                 {
-                    this.state.order && (<p>La orden {this.state.order.id} ha sido creada </p>)
+                    this.state.order?.orderId && (<><p>Order #{this.state.order.orderId} has been created!</p> <button onClick={this.handlePay}>PAY</button></>)
                 }
             </div>
         )
