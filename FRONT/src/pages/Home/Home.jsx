@@ -235,10 +235,10 @@ export default function Home() {
 
       <div className={s.img} alt="randomImg" />
 
-      <div className={s.mainContainDiv}>
         
           
-        </div>
+      <div className={s.mainContainDiv}>
+    </div>
         <div className={s.mainRecipesDiv}>
           {recipeByIdAutocomplete && (
             <RecipeCard
@@ -252,7 +252,7 @@ export default function Home() {
           <div className={s.cardsContainer}>
             {recipesToShow &&
               (totalRecipes
-                ?.slice(0, 4)
+                ?.slice(0, 8)
                 .map((recipe) => (
                   <RecipeCard
                     key={recipe.id}

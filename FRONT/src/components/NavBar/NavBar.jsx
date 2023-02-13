@@ -14,7 +14,7 @@ function NavBar() {
   return (
     <div className={s.container}>
       
-      <img style={{width: '130px', height: '80px'}} src={mangiare} alt="logo" className={s.logo} />
+      <img style={{width: '130px', height: '60px'}} src={mangiare} alt="logo" className={s.logo} />
       
       <Link to={"/home"}>
         <button className={s.btn1}>HOME</button>

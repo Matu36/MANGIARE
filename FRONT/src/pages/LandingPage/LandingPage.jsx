@@ -42,7 +42,7 @@ const LandingPage = ({ title }) => {
     <Box
       flex='1'
       as="header"
-      p={1}
+      // p={1}
       mt='40px'
       alignContent={'center'}
       // bg={bgColor[colorMode]}
@@ -53,7 +53,7 @@ const LandingPage = ({ title }) => {
         transform: isVisible ? 'translateY(0)' : 'translateY(-4rem)'
       }}
     >
-      <Image src={mangiare} alt="Mangiare" width="800px" height="400px"
+      <Image src={mangiare} alt="Mangiare" width="800px" height="350px"
     />
         
     </Box>
@@ -70,7 +70,7 @@ const LandingPage = ({ title }) => {
         transform: isSecondVisible ? 'translateY(0)' : 'translateY(-4rem)'
       }}
     >
-      <Text fontSize="30px" fontWeight="bold">
+      <Text fontSize="40px" fontWeight="bold">
         Your all-in-one solution for everyday cooking.
       </Text>
     </Box>
@@ -78,7 +78,7 @@ const LandingPage = ({ title }) => {
     <Link to="/home">
     <ButtonGroup spacing="6" marginTop="20px" marginLeft="20px">
       <Button colorScheme="teal" variant="solid" size="lg">
-        Let's cook!
+        Let's get cooking!
       </Button>
     </ButtonGroup>
     </Link>
