@@ -6,6 +6,7 @@ import {
   getRecipeDetail,
   getIngredients,
   addToCart,
+  setCart,
 } from "../../Redux/actions";
 import s from "../RecipeDetail/RecipeDetail.module.css";
 import NavBar from "../../components/NavBar/NavBar";
@@ -37,17 +38,22 @@ const RecipeDetail = () => {
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
-    let new_owner = user ? user.email : "guest";
-    if (localStorage.cart) {
-      let LS_cart = JSON.parse(localStorage.cart);
-      localStorage.setItem(
-        "cart",
-        JSON.stringify({ ...LS_cart, [new_owner]: cart })
-      );
-    } else {
-      localStorage.setItem("cart", JSON.stringify({ [new_owner]: cart }));
+    let LS_cart = JSON.parse(localStorage.getItem("cart"));
+    if (!LS_cart) return;
+    else {
+      if (user) {
+        let email = user.email;
+        LS_cart.hasOwnProperty(email)
+          ? dispatch(setCart(LS_cart[email]))
+          : dispatch(setCart([]));
+      } else {
+        LS_cart.hasOwnProperty("guest")
+          ? dispatch(setCart(LS_cart.guest))
+          : dispatch(setCart([]));
+      }
     }
-  }, [cart]);
+  }, [user]);
+
   //                 --------------- fin localStorage ---------------
 
   const { title, image, instructions, raiting, diets } = recipe;
@@ -68,8 +74,19 @@ const RecipeDetail = () => {
     }
   }, [recipe, ingredients, cart]);
 
-  const handleOnAdd = (id) =>
-    dispatch(addToCart(id ? [list.find((el) => el.id == id)] : list));
+  const handleOnAdd = (id) => {
+    let new_owner = user ? user.email : "guest";
+    if (localStorage.cart) {
+      let LS_cart = JSON.parse(localStorage.cart);
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ ...LS_cart, [new_owner]: cart })
+      );
+    } else {
+      localStorage.setItem("cart", JSON.stringify({ [new_owner]: cart }));
+    }
+    return dispatch(addToCart(id ? [list.find((el) => el.id == id)] : list));
+  };
 
   const handleOnChange = ({ target }) => {
     setList(
