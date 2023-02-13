@@ -7,6 +7,7 @@ export function LogoutButton() {
   const loggingOut = () => {
     localStorage.removeItem("MANGIARE_user");
     localStorage.removeItem("MANGIARE_cart");
+    localStorage.removeItem("MANGIARE_userInfo");
     logout({
       logoutParams: {
         returnTo: window.location.origin,
