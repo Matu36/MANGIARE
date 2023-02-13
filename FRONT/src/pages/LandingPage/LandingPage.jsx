@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Text, useColorMode, Flex, HStack, Button, ButtonGroup } from '@chakra-ui/react'
+import { Box, Text, useColorMode, Flex, HStack, Button, ButtonGroup, Image } from '@chakra-ui/react'
 import background from '../../img/LandingPageBackground.png'
 import { Link } from 'react-router-dom'
+import mangiare from '../../img/LandingTitle.png'
 
 
 const LandingPage = ({ title }) => {
@@ -43,6 +44,7 @@ const LandingPage = ({ title }) => {
       as="header"
       p={1}
       mt='40px'
+      alignContent={'center'}
       // bg={bgColor[colorMode]}
       rounded="lg"
       transition="all 4s"
@@ -51,11 +53,9 @@ const LandingPage = ({ title }) => {
         transform: isVisible ? 'translateY(0)' : 'translateY(-4rem)'
       }}
     >
-      <Text fontSize="100px" fontWeight="bold" style={{
-  paddingTop: '50px',
-}}>
-        MANGIAR-E
-      </Text>
+      <Image src={mangiare} alt="Mangiare" width="800px" height="400px"
+    />
+        
     </Box>
 
     <Box
@@ -64,6 +64,7 @@ const LandingPage = ({ title }) => {
       // bg={bgColor[colorMode]}
       rounded="lg"
       transition="all 4s"
+      alignContent={'center'}
       style={{
         opacity: isSecondVisible ? 1 : 0,
         transform: isSecondVisible ? 'translateY(0)' : 'translateY(-4rem)'
