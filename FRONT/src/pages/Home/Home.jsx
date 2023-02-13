@@ -180,62 +180,7 @@ export default function Home() {
             </Text>
           </Box>
           <Box flex="1">
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="500px"
-              marginTop="20px"
-            >
-              <Button
-                flex="1"
-                aria-label="Search"
-                width="60px"
-                height="60px"
-                backgroundImage={meat}
-                backgroundSize="contain"
-                backgroundRepeat="no-repeat"
-                backgroundPosition="center center"
-                transition="all 0.2s ease-in-out"
-                _hover={{ transform: "scale(1.2)" }}
-              />
-              <Button
-                flex="1"
-                aria-label="Search"
-                width="60px"
-                height="60px"
-                backgroundImage={carrot}
-                backgroundSize="contain"
-                backgroundRepeat="no-repeat"
-                backgroundPosition="center center"
-                transition="all 0.2s ease-in-out"
-                _hover={{ transform: "scale(1.2)" }}
-              />
-              <Button
-                flex="1"
-                aria-label="Search"
-                width="60px"
-                height="60px"
-                backgroundImage={eggs}
-                backgroundSize="contain"
-                backgroundRepeat="no-repeat"
-                backgroundPosition="center center"
-                transition="all 0.2s ease-in-out"
-                _hover={{ transform: "scale(1.2)" }}
-              />
-              <Button
-                flex="1"
-                aria-label="Search"
-                width="60px"
-                height="60px"
-                backgroundImage={chicken}
-                backgroundSize="contain"
-                backgroundRepeat="no-repeat"
-                backgroundPosition="center center"
-                transition="all 0.2s ease-in-out"
-                _hover={{ transform: "scale(1.2)" }}
-              />
-            </Box>
+           
           </Box>
         </Box>
         <Box
@@ -249,17 +194,8 @@ export default function Home() {
             flexDirection: "row",
           }}
         >
-          <Text
-            style={{ fontFamily: "Caviar Dreams, sans-serif" }}
-            fontWeight="bold"
-            fontStyle="italic"
-            fontSize="25px"
-            color="yellow.700"
-            marginTop="20px"
-          >
-            Have some more ingredients? Search here
-          </Text>
-          <SearchBar />
+          <Filters />
+          
         </Box>
 
         <Text
@@ -267,7 +203,7 @@ export default function Home() {
           textAlign="center"
           fontWeight="bold"
           color="yellow.900"
-          marginTop="20px"
+          marginTop="70px"
         >
           {" "}
           Check our recipes!{" "}
@@ -278,8 +214,8 @@ export default function Home() {
       <div className={s.img} alt="randomImg" />
 
       <div className={s.mainContainDiv}>
-        <div className={s.filtersContainerDiv}>
-          <Filters />
+        
+          
         </div>
         <div className={s.mainRecipesDiv}>
           {recipeByIdAutocomplete && (
@@ -294,7 +230,7 @@ export default function Home() {
           <div className={s.cardsContainer}>
             {recipesToShow &&
               (totalRecipes
-                ?.slice(0, 3)
+                ?.slice(0, 4)
                 .map((recipe) => (
                   <RecipeCard
                     key={recipe.id}
@@ -343,7 +279,7 @@ export default function Home() {
             )}
           </div>
         </div>
-      </div>
+     
     </div>
   );
 }

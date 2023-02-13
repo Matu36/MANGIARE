@@ -14,6 +14,8 @@ import {
   clearFilters,
 } from "../../Redux/actions/index.js";
 
+import { Box, HStack, VStack, Button, Text } from "@chakra-ui/react";
+
 function Filters() {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
@@ -123,24 +125,22 @@ function Filters() {
   };
 
   return (
-    <div className={s.container}>
-      <Select
-        className={s.select}
-        options={optionsDiets}
-        onChange={(e) => handleFilterbyDiet(e)}
-        placeholder="Order By Diets"
-      />
-      <Select
-        className={s.select}
-        options={optionsOrderBy}
-        onChange={(e) => handleOrder(e.value)}
-        placeholder="Order By Alphabetical"
-      />
-      <Select
-        className={s.select}
+    <Box
+    width="100%"
+    mt={38}
+    style={{
+      display: "flex",
+      alignItems: "",
+      justifyContent: "center",
+      flexDirection: "column",
+    }}
+  >
+    <VStack spacing='20px'>
+       <Select
+        className={s.selectIngredients}
         options={optionsIngredients}
         onChange={(e) => handleIngredientesFilter(e.value)}
-        placeholder="Seleccionar ingredientes"
+        placeholder="Select Ingredients"
       />
       <div className={s.selectedIngredientsDiv}>
         {filteredIngredients.length > 0
@@ -162,7 +162,23 @@ function Filters() {
           CLEAR FILTERS
         </button>
       </div> */}
-    </div>
+
+      <HStack spacing='100px'>
+      <Select
+        className={s.select}
+        options={optionsDiets}
+        onChange={(e) => handleFilterbyDiet(e)}
+        placeholder="Order By Diets"
+      />
+      <Select
+        className={s.select}
+        options={optionsOrderBy}
+        onChange={(e) => handleOrder(e.value)}
+        placeholder="Order By A-Z"
+      />
+     </HStack>
+    </VStack>
+    </Box>
   );
 }
 
