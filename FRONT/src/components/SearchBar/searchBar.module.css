@@ -1,5 +1,5 @@
 .container {
-    width: 100%;
+    width: 20%;
     height: 10rem;
     display: flex;
     justify-content: center;
@@ -9,6 +9,6 @@
 }
 
 .componentDiv {
-    width: 400px;
+    width: 300px;
 }
 

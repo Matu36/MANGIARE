@@ -1,5 +1,5 @@
 const { default: axios } = require('axios');
-const {Users, Orders, Order_details, Shopping_carts, Favorites, Recipes, Recipe_ingredients, Recipe_diets, Ingredients, Ingredient_units} = require('../db');
+const {Users, Orders, Order_details, Shopping_carts, Favorites, Recipes, Recipe_ingredients, Recipe_diets, Ingredients, Ingredient_units, Reviews} = require('../db');
 const {API_KEY} = process.env;
 
 async function locMock (){
@@ -61,6 +61,21 @@ async function locMock (){
     {recipeId: 3, ingredientId: 10, amount: 5, unit: 'units'},
     {recipeId: 3, ingredientId: 11, amount: .25, unit: 'pounds'},
     {recipeId: 3, ingredientId: 12, amount: .3, unit: 'pounds'},
+  ])
+
+  ///////////////// Reviews /////////////////////////////
+
+  await Reviews.bulkCreate([
+    {recipeId: 3, userId: 1, rate: 3, comment: 'Maso!'},
+    {recipeId: 2, userId: 1, rate: 4, comment: 'Rica!'},
+    {recipeId: 1, userId: 1, rate: 5, comment: 'Exquisita!'},
+
+    {recipeId: 2, userId: 2, rate: 5, comment: 'Exquisita!'},
+    {recipeId: 1, userId: 2, rate: 5, comment: 'Exquisita!'},
+
+    {recipeId: 1, userId: 3, rate: 1, comment: 'Horrible!'},
+    {recipeId: 2, userId: 3, rate: 2, comment: 'Fea!'},
+    {recipeId: 3, userId: 3, rate: 3, comment: 'Maso!'},
   ])
   
   ///////////////// Ingredient Units /////////////////////////////

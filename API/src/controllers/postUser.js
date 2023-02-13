@@ -2,7 +2,7 @@ const {Users} = require('../db.js');
 
 module.exports = async (req, res) => {
   try{
-    if ((!req.body?.username) || ((!req.body?.email))) throw 'No body params'
+    if (((!req.body?.username) && (!req.body?.password)) || ((!req.body?.email))) throw 'No body params'
 
     const [instance, created] = await Users.findOrCreate({
       where: {email: req.body.email.toLowerCase()},

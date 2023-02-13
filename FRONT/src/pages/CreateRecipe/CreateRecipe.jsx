@@ -107,7 +107,7 @@ class CreateRecipe extends React.Component {
     }));
   };
 
-  handleOnChange = ({ target }) => {
+  handleOnChange = ({ target }, unit) => {
     let error = { ...this.state.error };
 
     switch (target.name) {
@@ -134,7 +134,7 @@ class CreateRecipe extends React.Component {
     else {
       change = {
         ingredients: this.state.ingredients.map((el) =>
-          el.id != target.id
+          ((el.id != target.id) || (el.unit != unit))
             ? el
             : { ...el, amount: target.value <= 0 ? 0 : target.value }
         ),

@@ -1,10 +1,11 @@
 import React from "react";
 import s from "./NavBar.module.css";
 import { Link } from "react-router-dom";
-import { BsCartCheck } from "react-icons/bs";
+import { BsCartCheck, BsCart4 } from "react-icons/bs";
 import { useAuth0 } from "@auth0/auth0-react";
 import { LoginButton } from "../Auth0/login_button";
 import { LogoutButton } from "../Auth0/logout_button";
+import SearchBar from "../../components/SearchBar/searchBar";
 
 function NavBar() {
   const { isAuthenticated } = useAuth0();
@@ -16,20 +17,24 @@ function NavBar() {
       <Link to={"/createRecipe"}>
         <button className={s.btn1}>CREATE YOUR OWN RECIPE</button>
       </Link>
-      <Link to={"/myRecipes"}>
+      {/* <Link to={"/myRecipes"}>
         <button className={s.btn1}>MY RECIPES</button>
-      </Link>
-      <Link to={"/aboutUs"}>
+      </Link> */}
+      {/* <Link to={"/aboutUs"}>
         <button className={s.btn1}>ABOUT US</button>
-      </Link>
-      <Link to={"/contact"}>
+      </Link> */}
+      {/* <Link to={"/contact"}>
         <button className={s.btn1}>CONTACT</button>
-      </Link>
+      </Link> */}
+      <SearchBar />
+      <div className={s.btn1}>
       <Link to={"/shoppingCart"}>
-        <BsCartCheck />
+        <BsCart4 size ={30} />
       </Link>
-      <h5> Shopping Cart</h5>
+      </div >
+      <div className={s.btn1}>
       {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+      </div>
     </div>
   );
 }
