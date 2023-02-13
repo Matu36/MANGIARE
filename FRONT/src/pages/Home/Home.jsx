@@ -24,6 +24,7 @@ import banner from "../../img/BannerHome.jpg";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import { ArrowDownIcon } from "@chakra-ui/icons";
 
+
 export default function Home() {
   let dispatch = useDispatch();
   const { user } = useAuth0();
@@ -132,7 +133,7 @@ export default function Home() {
       <NavBar />
       <Box
         width="100%"
-        height="850px"
+        height="1100px"
         marginTop="1px"
         backgroundImage={banner}
         style={{
@@ -144,20 +145,29 @@ export default function Home() {
           backgroundPosition: "center center",
         }}
       >
+        <Box flex='1'   >
         <Text
           style={{ fontFamily: "Bistro Script, sans-serif" }}
-          fontSize="100px"
+
+          fontSize="80px"
           fontWeight="bold"
-          width="597px"
-          height="116px"
+          width="600px"
+          height="26px"
           maxWidth="100%"
-          marginTop="200px"
+          marginTop="330px"
+          textAlign={"center"}
         >
-          MANGIAR-E
+          Cooking, simplified
         </Text>
+
+
+        </Box>
+       
         <Box
           width="70%"
           height="100px"
+          marginTop="50px"
+          marginBottom="50px"
           style={{
             display: "flex",
             alignItems: "center",
@@ -171,12 +181,24 @@ export default function Home() {
               fontWeight="bold"
               align="center"
               fontSize="30px"
-              color="green.500"
-              marginTop="20px"
+              color="green.700"
+              marginTop="1px"
               marginRight="20px"
             >
               Tell us which ingredients you have and we'll show the best recipes
-              that match with them{" "}
+              that match with them. {" "}
+            </Text>
+            <Text style={{ fontFamily: "Caviar Dreams, sans-serif" }}
+              fontWeight="bold"
+              align="center"
+              fontSize="20px"
+              color="yellow.900"
+              marginTop="20px"
+              marginRight="20px"
+              backgroundColor="white" opacity="0.5"
+            >
+              Don't have all the ingredients? No worries! 
+              You can purchase the missing ones from a local producer by adding them to the shopping cart in the Recipe Detail
             </Text>
           </Box>
           <Box flex="1">
@@ -186,7 +208,7 @@ export default function Home() {
         <Box
           width="50%"
           height="100px"
-          marginTop="100px"
+          marginTop="60px"
           style={{
             display: "flex",
             alignItems: "center",
