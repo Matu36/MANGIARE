@@ -11,9 +11,9 @@ module.exports = async (req, res) => {
 
     const orderInstance = await Orders.create({userId: userInstance.dataValues.id});
 
-    const detailInstance = await Order_details.bulkCreate(req.body.cart.map(({id, unit, amount}) => ({orderId: orderInstance.dataValues.id, ingredientId: id, unit, amount})))
+    await Order_details.bulkCreate(req.body.cart.map(({id, unit, amount}) => ({orderId: orderInstance.dataValues.id, ingredientId: id, unit, amount})))
     
-    res.send({user: userInstance.dataValues, order: detailInstance.dataValues});
+    res.send({user: userInstance.dataValues, orderId: orderInstance.dataValues.id, orderDetail: req.body.cart.map(({id, name, amount, unit, price}) => ({title: name, description: amount + ' ' + unit, quantity: 1, currency_id: "$", unit_price: price * amount}))});
   }
   catch(error) {
     console.log(error);
