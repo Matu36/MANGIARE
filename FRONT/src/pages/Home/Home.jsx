@@ -27,7 +27,7 @@ import { ArrowDownIcon } from "@chakra-ui/icons";
 
 export default function Home() {
   let dispatch = useDispatch();
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const recipes = useSelector((state) => state.recipes);
   const recipesToShow = useSelector((state) => state.recipesToShow);
   const filteredRecipes = useSelector((state) => state.filteredRecipes);
@@ -49,22 +49,16 @@ export default function Home() {
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
-    let LS_cart = JSON.parse(localStorage.getItem("cart"));
+    let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     if (!LS_cart) return;
     else {
-      if (user) {
-        let email = user.email;
-        LS_cart.hasOwnProperty(email)
-          ? dispatch(setCart(LS_cart[email]))
-          : dispatch(setCart([]));
-      } else {
-        LS_cart.hasOwnProperty("guest")
-          ? dispatch(setCart(LS_cart.guest))
-          : dispatch(setCart([]));
+      dispatch(setCart(LS_cart));
+      if (isAuthenticated) {
+        localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
+        localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user))
       }
     }
-  }, [user]);
-
+  }, [user, isAuthenticated]);
   //                 --------------- fin localStorage ---------------
 
   const [recipeByIdAutocomplete, setrecipeByIdAutocomplete] = useState();

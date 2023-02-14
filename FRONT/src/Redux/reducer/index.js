@@ -17,6 +17,7 @@ import {
   ADD_TO_CART,
   REMOVE_TO_CART,
   SET_CART,
+  SET_ORDER_BY_PRICE_OR_RATING,
 } from "../actions/index.js";
 
 const initialState = {
@@ -40,16 +41,21 @@ const initialState = {
     "fodmap friendly",
   ],
 
-  filteredDiet: "",
+  filteredDiet: "All Diets",
 
   orderBy: "",
 
   searchValueName: "",
 
+  orderByPriceOrRating: {
+    type: undefined,
+    order: "",
+  },
+
   ingredients: null,
   filteredIngredients: [],
 
-  cart: [], // [{id, name, price...}, {id, name, price...}...]
+  cart: [], // [{id, name, price...}, {id, name, price...}...].
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -143,6 +149,11 @@ const rootReducer = (state = initialState, action) => {
                 item.unit !== action.payload.unit
             )
           : [],
+      };
+    case SET_ORDER_BY_PRICE_OR_RATING:
+      return {
+        ...state,
+        orderByPriceOrRating: action.payload,
       };
 
     case ADD_TO_CART:

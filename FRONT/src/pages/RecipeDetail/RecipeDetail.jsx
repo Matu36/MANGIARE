@@ -6,6 +6,7 @@ import {
   getRecipeDetail,
   getIngredients,
   addToCart,
+  setCart,
 } from "../../Redux/actions";
 import s from "../RecipeDetail/RecipeDetail.module.css";
 import NavBar from "../../components/NavBar/NavBar";
@@ -37,20 +38,18 @@ const RecipeDetail = () => {
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
-    let new_owner = user ? user.email : "guest";
-    if (localStorage.cart) {
-      let LS_cart = JSON.parse(localStorage.cart);
-      localStorage.setItem(
-        "cart",
-        JSON.stringify({ ...LS_cart, [new_owner]: cart })
-      );
-    } else {
-      localStorage.setItem("cart", JSON.stringify({ [new_owner]: cart }));
+    let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
+    if (!LS_cart) return;
+    else {
+      dispatch(setCart(LS_cart));
+      user
+        ? localStorage.setItem("MANGIARE_user", JSON.stringify(user.email))
+        : localStorage.setItem("MANGIARE_user", JSON.stringify("guest"));
     }
-  }, [cart]);
+  }, [user]);
   //                 --------------- fin localStorage ---------------
 
-  const { title, image, instructions, raiting, diets } = recipe;
+  const { title, image, instructions, rating, diets, price } = recipe;
 
   useEffect(() => {
     dispatch(getRecipeDetail(id));
@@ -68,14 +67,19 @@ const RecipeDetail = () => {
     }
   }, [recipe, ingredients, cart]);
 
-  const handleOnAdd = (id, unit) =>
-    dispatch(addToCart(id ? [list.find((el) => ((el.id == id) && el.unit == unit))] : list));
+  const handleOnAdd = (id, unit) => {
+    let new_owner = user ? user.email : "guest";
+    localStorage.setItem("MANGIARE_cart", JSON.stringify(cart));
+    localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
+    setList(list.map(el => ((el.id == id) && (el.unit == unit)) ? {...el, inCart: true} : {...el}));
+    return dispatch(addToCart(id ? [list.find((el) => el.id == id)] : list));
+  };
 
   const handleOnChange = ({ target }, unit) => {
     setList(
       list.map((el) =>
-      ((el.id != target.id) || (el.unit != unit))
-      ? el
+        el.id != target.id || el.unit != unit
+          ? el
           : { ...el, amount: target.value <= 0 ? 0 : target.value }
       )
     );
@@ -142,14 +146,14 @@ const RecipeDetail = () => {
                   <h3>Loading...</h3>
                 ) : (
                   <IngredientsList
-                    items={list.map((el) => ({ ...el, units: [el.unit] }))}
+                    items={list.map((el) => ({ ...el, units: [el.unit]}))}
                     onChange={handleOnChange}
                     onUnitChange={handleOnUnitChange}
                     itemButton={{
                       caption: "Add Item",
                       action: handleOnAdd,
                     }}
-                    cart={cart}
+                    //cart={cart}
                   />
                 )}
               </TabPanel>
@@ -175,7 +179,7 @@ const RecipeDetail = () => {
                   marginTop="1px"
                   fontSize="20px"
                 >
-                  Rating: {raiting}
+                  Rating: {rating}
                 </Box>
               </TabPanel>
             </TabPanels>

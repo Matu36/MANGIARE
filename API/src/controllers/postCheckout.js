@@ -2,11 +2,11 @@ const {Users, Order_details, Orders} = require('../db.js');
 
 module.exports = async (req, res) => {
   try{
-    if ((!req.body?.cart) || ((!req.body?.user) && (!req.body?.user.email))) throw 'No body params'
+    if ((!req.body?.cart) || (!req.body?.user)) throw 'No body params'
 
     const [userInstance, created] = await Users.findOrCreate({
-      where: {email: req.body.user.email.toLowerCase()},
-      defaults: {...req.body.user, username: 'algo', password: 'fruta', email: req.body.user.email.toLowerCase()}
+      where: {email: req.body.user.toLowerCase()},
+      defaults: {username: 'algo', password: 'fruta', email: req.body.user.toLowerCase()}
     });
 
     const orderInstance = await Orders.create({userId: userInstance.dataValues.id});
@@ -17,6 +17,6 @@ module.exports = async (req, res) => {
   }
   catch(error) {
     console.log(error);
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   }
 };
