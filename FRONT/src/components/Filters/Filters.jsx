@@ -107,7 +107,7 @@ function Filters() {
 
     if (order === "") return dispatch(setRecipesToShow(cache));
 
-    // El metodo sort ordena segun el valor mayor igual o menor que cero dependiendo la funciona comparadora
+    // El metodo sort ordena segun el valor mayor igual o menor que cero dependiendo la funciona comparadora.
     cache = cache.sort((a, b) => {
       if (a[type] < b[type]) return order === "Minor to Major" ? -1 : 1;
       if (a[type] > b[type]) return order === "Minor to Major" ? 1 : -1;
