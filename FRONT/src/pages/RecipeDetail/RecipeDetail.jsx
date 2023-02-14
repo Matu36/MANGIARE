@@ -107,7 +107,7 @@ const RecipeDetail = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <Box width="100%" height="4%" marginBottom="none">
+        <Box width="100%" height="10%" marginBottom="none">
           <NavBar />
         </Box>
 
@@ -123,10 +123,10 @@ const RecipeDetail = () => {
             filter: "contrast(90%)",
           }}
         >
-          <Text fontSize="60px">{title}</Text>
+          <Text fontSize='6xl' textAlign="center" fontWeight="bold" color="yellow.800" backgroundColor="white" opacity="0.5">{title}</Text>
 
           <Box width="40%" height="40%" objectFit={"cover"} borderRadius="10px">
-            <img src={image} alt={title} />
+            <img className={s.imageDetail} src={image} alt={title} />
           </Box>
 
           <Tabs align="center" variant="enclosed">
@@ -141,7 +141,7 @@ const RecipeDetail = () => {
               <Tab _selected={{ color: "white", bg: "blue.500" }}>Rating</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel backgroundColor="rgba(255, 255, 255, 0.7)">
+              <TabPanel backgroundColor="rgba(255, 255, 255, 0.7)" height={["200px", "300px", "400px"]} overflowY="scroll">
                 {!list ? (
                   <h3>Loading...</h3>
                 ) : (
@@ -157,8 +157,8 @@ const RecipeDetail = () => {
                   />
                 )}
               </TabPanel>
-              <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)">
-                <Box width="50%" color="black">
+              <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)" width='50%'>
+                <Box width="100%" color="black">
                   <p>{instructions}</p>
                 </Box>
               </TabPanel>
@@ -185,10 +185,11 @@ const RecipeDetail = () => {
             </TabPanels>
           </Tabs>
         </Box>
-      </Box>
-      <NavLink className={s.navlinkGoBackButton} to={"/home"}>
-        <button>Go back</button>
+        <NavLink className={s.navlinkGoBackButton} to={"/home"}>
+        <Button colorScheme="teal" variant="solid" size="lg">Go Home</Button>
       </NavLink>
+      </Box>
+    
     </>
   );
 };

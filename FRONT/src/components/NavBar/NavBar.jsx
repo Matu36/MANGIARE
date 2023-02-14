@@ -7,7 +7,7 @@ import { LoginButton } from "../Auth0/login_button";
 import { LogoutButton } from "../Auth0/logout_button";
 import SearchBar from "../../components/SearchBar/searchBar";
 import logo from "../../img/LOGO 2.png";
-import mangiare from "../../img/LandingTitle.png";
+import mangiare from "../../img/LOGO.png";
 import UserMenu from "../UserMenu/UserMenu";
 
 function NavBar() {
@@ -15,11 +15,11 @@ function NavBar() {
   return (
     <div className={s.container}>
       <Link to={"/home"}>
-      <img style={{width: '130px', height: '80px'}} src={mangiare} alt="logo" className={s.logo} />
+      <img style={{width: '65px', height: '60px'}} src={mangiare} alt="logo" className={s.logo} />
       </Link>
       
       <Link to={"/createRecipe"}>
-        <button className={s.btn1}>CREATE YOUR OWN RECIPE</button>
+        <button className={s.btn1}>CREATE RECIPE</button>
       </Link>
       {/* <Link to={"/myRecipes"}>
         <button className={s.btn1}>MY RECIPES</button>
@@ -32,13 +32,13 @@ function NavBar() {
       </Link> */}
       <SearchBar />
       
-      {isAuthenticated ? <div className={s.btn2}><UserMenu /> </div>: <div className={s.btn1}><LoginButton /></div>}
-      
       <div className={s.btn1}>
       <Link to={"/shoppingCart"}>
         <BsCart4 size ={30} />
       </Link>
       </div >
+      {isAuthenticated ? <div className={s.btn2}><UserMenu /> </div>: <div className={s.btn1}><LoginButton /></div>}
+      
     </div>
   );
 }

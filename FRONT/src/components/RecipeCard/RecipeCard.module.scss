@@ -5,6 +5,9 @@
   border-radius: 10px;
   box-shadow: 5px 5px 10px gray;
   overflow: hidden;
+ 
+  box-sizing: border-box;
+  margin-bottom: 20px;
   width: 18rem;
   height: 18rem;
   display: flex;
@@ -30,7 +33,7 @@
   height: 100%;
   width: 100%;
   object-fit: cover;    
-  filter:'contrast(70%)';
+  filter:'contrast(80%)';
 }
 
 .titleDiv {

@@ -1,8 +1,13 @@
 .buttonsPagination {
-    color:darkgoldenrod;
-    background-color: whitesmoke;
-    border: 1px solid grey;
+    color:rgb(43, 43, 42);
+    background-color: rgb(255, 252, 252);
+    border: 1px solid rgb(8, 8, 8);
     border-radius: 5px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 20px;
 }
 
 .actualPage {
@@ -14,4 +19,5 @@
 .pagesButtons {
     display: flex;
     justify-content: space-around;
+    font-size: large;
 }

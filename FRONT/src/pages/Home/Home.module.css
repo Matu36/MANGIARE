@@ -31,11 +31,16 @@
 
 .cardsContainer {
   width: 100%;
-  padding: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 6rem;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 .healtyTipDiv {

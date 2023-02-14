@@ -46,6 +46,13 @@
   align-items: center;
   gap: 1rem;
 }
+.imageDetail{
+  width: 560px;
+  height: 370px;
+  margin: auto;
+  padding: 20px 0;
+  border-radius: 50px;
+}
 .containerImage {
   background-color: #fff;
   border-radius: 10px;
