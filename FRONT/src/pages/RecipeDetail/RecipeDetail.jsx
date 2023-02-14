@@ -67,7 +67,7 @@ const RecipeDetail = () => {
     }
   }, [recipe, ingredients, cart]);
 
-  const handleOnAdd = (id) => {
+  const handleOnAdd = (id, unit) => {
     let new_owner = user ? user.email : "guest";
     localStorage.setItem("MANGIARE_cart", JSON.stringify(cart));
     localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
