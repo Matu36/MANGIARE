@@ -18,8 +18,11 @@ import {
   Textarea,
   Spacer,
   Input,
+  VStack,
+  HStack,
 } from "@chakra-ui/react";
-import background from "../../img/BackgroundCreateRecipe.png";
+import background from "../../img/BackgroundCreateRecipe3.png";
+import NavBar from "../../components/NavBar/NavBar";
 //import {Redirect} from 'react-router-dom';
 
 class CreateRecipe extends React.Component {
@@ -159,33 +162,39 @@ class CreateRecipe extends React.Component {
     return (
       <Box
         width="100%"
-        height="1200px"
+        height="800px"
         marginTop="1px"
         backgroundImage={background}
-        style={{
-          backgroundSize: "cover",
-          filter: "contrast(100%)",
-          backgroundPosition: "center center",
-          backgroundAttachment: "fixed",
-        }}
+        backgroundSize="cover"
+        
+      
       >
-        <Text fontSize="6xl" textAlign="center" fontWeight="bold" 
+        <NavBar/>
+        
+    
+        
+    <Flex flexDirection='column' marginTop='50px' >
+       <VStack flex='1'>
+        <Text fontSize="6xl" textAlign="left" fontWeight="bold" 
       color="teal.600" >
           {" "}
           Create your own Recipe!
         </Text>
-        <Text fontSize='3xl' textAlign="center" fontWeight="bold" color="yellow.600" backgroundColor="white" opacity="0.5">You can save your own recipes and write your cookbook online!</Text>
+        <Text fontSize='3xl' textAlign="left" fontWeight="bold" color="yellow.600" backgroundColor="white" opacity="0.5">Write your cookbook online</Text>
+        </VStack>
         <Box
           width="100%"
           mt={38}
+          marginLeft='20px'
           style={{
             display: "flex",
             alignItems: "",
-            justifyContent: "center",
+            justifyContent: "left",
             flexDirection: "row",
           }}
         >
-          <Box as="form" onSubmit={this.handleSubmit} width="80%">
+          <HStack>
+          <Box as="form" onSubmit={this.handleSubmit} width='1100px'>
             <Box display="flex" flexDirection="row" width="100%">
               <Box flex="1">
                 <div className={s.body}>
@@ -255,7 +264,7 @@ class CreateRecipe extends React.Component {
                   </table>
                 </div>
               </Box>
-              <Spacer></Spacer>
+              <Spacer w='30px'></Spacer>
 
               <Box flex="1" alignContent="center">
                 <Diets
@@ -278,9 +287,9 @@ class CreateRecipe extends React.Component {
                     placeholder="Recipe Instructions..."
                     onChange={this.handleOnChange}
                     className={s.input}
-                    backgroundColor="rgba(255, 255, 255, 0.7)"
+                    backgroundColor="rgba(255, 255, 255, 0.9)"
                     height="200px"
-                    width="500px"
+                    width="400px"
                     padding="10px"
                     fontSize="16px"
                   />
@@ -289,7 +298,7 @@ class CreateRecipe extends React.Component {
             </Box>
             <Box display="flex" flexDirection="row" width="100%">
               <Box flex="1">
-                <div style={{ width: "50%", margin: "auto" }}>
+                <div style={{ width: "70%", margin: "auto" }}>
                   <ReactSearchAutocomplete
                     showClear
                     showNoResultsText="No ingredients finded..."
@@ -351,12 +360,21 @@ class CreateRecipe extends React.Component {
                     m={4}
                     mt={8}
                   />
+                  
                 </Box>
-              </Flex>
-            </Box>
-          </Box>
-        </Box>
 
+              </Flex>
+
+            </Box>
+
+          </Box>
+          </HStack>
+        </Box>
+        
+        </Flex>
+      
+       
+       
       </Box>
     );
   }
