@@ -21,6 +21,7 @@ import {
   Tabs,
   TabList,
   TabPanels,
+  Spinner,
   Tab,
   TabPanel,
 } from "@chakra-ui/react";
@@ -35,6 +36,7 @@ const RecipeDetail = () => {
   const [list, setList] = useState(); // Traigo datos faltantes de ingredients
   //formato list: [{id, name, price}, {id, name, price}...]
   const cart = useSelector(({ cart }) => cart);
+  const [loading, setLoading] = useState(false);
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
@@ -47,12 +49,29 @@ const RecipeDetail = () => {
         : localStorage.setItem("MANGIARE_user", JSON.stringify("guest"));
     }
   }, [user]);
+
+  const handleLocalStorage = (ingredient) => {
+    let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
+    if (!LS_cart) {
+      let new_owner = user ? user.email : "guest";
+      localStorage.setItem("MANGIARE_cart", JSON.stringify([...ingredient]));
+      localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
+    } else {
+      let new_owner = user ? user.email : "guest";
+      localStorage.setItem("MANGIARE_cart", JSON.stringify([...LS_cart, ...ingredient]));
+      localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
+    }
+  };
   //                 --------------- fin localStorage ---------------
 
   const { title, image, instructions, rating, diets, price } = recipe;
 
   useEffect(() => {
-    dispatch(getRecipeDetail(id));
+    setLoading(true);
+    dispatch(getRecipeDetail(id)).then((data) => {
+      setLoading(false);
+      return data;
+    });
     dispatch(getIngredients());
   }, [id]);
 
@@ -68,9 +87,7 @@ const RecipeDetail = () => {
   }, [recipe, ingredients, cart]);
 
   const handleOnAdd = (id, unit) => {
-    let new_owner = user ? user.email : "guest";
-    localStorage.setItem("MANGIARE_cart", JSON.stringify(cart));
-    localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
+    handleLocalStorage([list.find((el) => el.id == id)])
     setList(list.map(el => ((el.id == id) && (el.unit == unit)) ? {...el, inCart: true} : {...el}));
     return dispatch(addToCart(id ? [list.find((el) => el.id == id)] : list));
   };
@@ -90,7 +107,17 @@ const RecipeDetail = () => {
   };
 
   return (
-    <>
+    <> {loading ? (
+      <div className={s.divSpinner}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </div>
+    ) : (
       <Box
         width="100%"
         height="1200px"
@@ -106,7 +133,7 @@ const RecipeDetail = () => {
           backgroundPosition: "center center",
           backgroundAttachment: "fixed",
         }}
-      >
+      >        
         <Box width="100%" height="10%" marginBottom="none">
           <NavBar />
         </Box>
@@ -189,9 +216,10 @@ const RecipeDetail = () => {
         <Button colorScheme="teal" variant="solid" size="lg">Go Home</Button>
       </NavLink>
       </Box>
-    
+    )}
     </>
   );
 };
+
 
 export default RecipeDetail;

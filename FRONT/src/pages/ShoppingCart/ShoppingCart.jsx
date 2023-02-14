@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import { setCart, removeToCart } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,8 +12,30 @@ export default function ShoppingCart () {
     const cart = useSelector(({cart}) => cart);
     const dispatch = useDispatch();
     const {email} = useAuth0().user || {email: null};
+    const {isAuthenticated, user} = useAuth0();
+
+
+   // --------------- localStorage ---------------
+    useEffect(() => {
+        let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
+        if (!LS_cart) return;
+        else {
+        dispatch(setCart(LS_cart));
+        if (isAuthenticated) {
+            localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
+            localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user))
+        }
+        }
+    }, [user, isAuthenticated]);
+
+    const handleLocalStorage = (id) => {
+        let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
+        localStorage.setItem("MANGIARE_cart", JSON.stringify(LS_cart.filter(i => i.id !== id)));
+      };
+    //                 --------------- fin localStorage ---------------
 
     const handleOnDelete = (id, unit) => {
+        handleLocalStorage(id)
         dispatch(removeToCart({id, unit}));
     };
 
