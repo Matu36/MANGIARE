@@ -50,7 +50,7 @@ const RecipeDetail = () => {
   }, [cart]);
   //                 --------------- fin localStorage ---------------
 
-  const { title, image, instructions, raiting, diets } = recipe;
+  const { title, image, instructions, rating, diets, price } = recipe;
 
   useEffect(() => {
     dispatch(getRecipeDetail(id));
@@ -69,13 +69,15 @@ const RecipeDetail = () => {
   }, [recipe, ingredients, cart]);
 
   const handleOnAdd = (id, unit) =>
-    dispatch(addToCart(id ? [list.find((el) => ((el.id == id) && el.unit == unit))] : list));
+    dispatch(
+      addToCart(id ? [list.find((el) => el.id == id && el.unit == unit)] : list)
+    );
 
   const handleOnChange = ({ target }, unit) => {
     setList(
       list.map((el) =>
-      ((el.id != target.id) || (el.unit != unit))
-      ? el
+        el.id != target.id || el.unit != unit
+          ? el
           : { ...el, amount: target.value <= 0 ? 0 : target.value }
       )
     );
@@ -175,7 +177,7 @@ const RecipeDetail = () => {
                   marginTop="1px"
                   fontSize="20px"
                 >
-                  Rating: {raiting}
+                  Rating: {rating}
                 </Box>
               </TabPanel>
             </TabPanels>
