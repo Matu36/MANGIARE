@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const GET_RECIPES = "GET_RECIPES";
 export const SET_RECIPES_TO_SHOW = "SET_RECIPES_TO_SHOW";
 export const RESET_RECIPES_TO_SHOW = "RESET_RECIPES_TO_SHOW";
@@ -19,10 +21,11 @@ export const SET_CART = "SET_CART";
 
 //TRAE LAS RECETAS
 export const getRecipes = () => async (dispatch) => {
-  return await fetch(`http://localhost:3001/recipes`)
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch({ type: GET_RECIPES, payload: json });
+  return await axios
+    .get(`/recipes`)
+    .then((response) => response.data)
+    .then((data) => {
+      dispatch({ type: GET_RECIPES, payload: data });
     });
 };
 
@@ -44,10 +47,8 @@ export const resetFilteredRecipes = () => {
 
 //TRAE EL DETALLE DE LAS RECETAS
 export const getRecipeDetail = (id) => async (dispatch) => {
-  let response = await fetch(`http://localhost:3001/recipes/${id}`).then(
-    (response) => response.json()
-  );
-  dispatch({ type: GET_RECIPE_DETAIL, payload: response[0] });
+  let response = await axios.get(`/recipes/${id}`);
+  dispatch({ type: GET_RECIPE_DETAIL, payload: response.data[0] });
 };
 
 //CREAR RECETA
@@ -59,20 +60,17 @@ export const createRecipe = ({
   diets,
   ingredients,
 }) => {
+  let recipe = {
+    id,
+    title,
+    instructions,
+    image,
+    diets,
+    ingredients,
+  };
   return (dispatch) =>
-    fetch(`http://localhost:3001/recipes`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id,
-        title,
-        instructions,
-        image,
-        diets,
-        ingredients,
-      }),
-    })
-      .then((data) => data.json())
+    axios
+      .post(`/recipes`, recipe)
       .then((payload) => dispatch({ type: CREATE_RECIPE, payload }));
 };
 
@@ -117,10 +115,10 @@ export const setRecipeIdAutocomplete = (recipeIdAutocomplete) => {
 
 //OBTIENE LOS INGREDIENTES DE DB - HABILITAR LUEGO DE IMPLEMENTAR EL ENDPOINT getIngredients
 
-export const getIngredients = () => async (dispatch) =>
-  await fetch(`http://localhost:3001/ingredients`)
-    .then((data) => data.json())
-    .then((payload) => dispatch({ type: GET_INGREDIENTS, payload }));
+export const getIngredients = () => async (dispatch) => {
+  let response = await axios.get(`/ingredients`);
+  return dispatch({ type: GET_INGREDIENTS, payload: response.data });
+};
 
 //OBTIENE INGREDIENTES HARCODEADOS - ELIMINAR LUEGO DE IMPLEMENTAR EL ENDPOINT getIngredients
 /*export const getIngredients = () => ({
