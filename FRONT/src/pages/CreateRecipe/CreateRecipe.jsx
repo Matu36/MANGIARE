@@ -80,7 +80,10 @@ class CreateRecipe extends React.Component {
           unit,
         })),
       })
-      .then(() => alert(`The Recipe '${this.state.title}' has been created!`))
+      .then(() => {
+        alert(`The Recipe '${this.state.title}' has been created!`)
+        window.location.href = '/home';
+      })
       .catch(() => alert(`Error ocurred.`))
       .then(() => this.setState({ completed: true }));
   };
@@ -334,7 +337,7 @@ class CreateRecipe extends React.Component {
                     {this.state.ingredients.reduce(
                       (aux, el) => aux + el.price * el.amount,
                       0
-                    )}
+                    ).toFixed(2)}
                   </p>
                 </Box>
                 <Box flex="1">

@@ -47,9 +47,22 @@ const RecipeDetail = () => {
         : localStorage.setItem("MANGIARE_user", JSON.stringify("guest"));
     }
   }, [user]);
+
+  const handleLocalStorage = (ingredient) => {
+    let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
+    if (!LS_cart) {
+      let new_owner = user ? user.email : "guest";
+      localStorage.setItem("MANGIARE_cart", JSON.stringify([...ingredient]));
+      localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
+    } else {
+      let new_owner = user ? user.email : "guest";
+      localStorage.setItem("MANGIARE_cart", JSON.stringify([...LS_cart, ...ingredient]));
+      localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
+    }
+  };
   //                 --------------- fin localStorage ---------------
 
-  const { title, image, instructions, raiting, diets } = recipe;
+  const { title, image, instructions, rating, diets, price } = recipe;
 
   useEffect(() => {
     dispatch(getRecipeDetail(id));
@@ -67,18 +80,21 @@ const RecipeDetail = () => {
     }
   }, [recipe, ingredients, cart]);
 
-  const handleOnAdd = (id) => {
-    let new_owner = user ? user.email : "guest";
-    localStorage.setItem("MANGIARE_cart", JSON.stringify(cart));
-    localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
+  const handleOnAdd = (id, unit) => {
+    handleLocalStorage([list.find((el) => el.id == id)]);
+    setList(
+      list.map((el) =>
+        el.id == id && el.unit == unit ? { ...el, inCart: true } : { ...el }
+      )
+    );
     return dispatch(addToCart(id ? [list.find((el) => el.id == id)] : list));
   };
 
   const handleOnChange = ({ target }, unit) => {
     setList(
       list.map((el) =>
-      ((el.id != target.id) || (el.unit != unit))
-      ? el
+        el.id != target.id || el.unit != unit
+          ? el
           : { ...el, amount: target.value <= 0 ? 0 : target.value }
       )
     );
@@ -106,7 +122,7 @@ const RecipeDetail = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <Box width="100%" height="4%" marginBottom="none">
+        <Box width="100%" height="10%" marginBottom="none">
           <NavBar />
         </Box>
 
@@ -122,10 +138,10 @@ const RecipeDetail = () => {
             filter: "contrast(90%)",
           }}
         >
-          <Text fontSize="60px">{title}</Text>
+          <Text fontSize='6xl' textAlign="center" fontWeight="bold" color="yellow.800" backgroundColor="white" opacity="0.5">{title}</Text>
 
           <Box width="40%" height="40%" objectFit={"cover"} borderRadius="10px">
-            <img src={image} alt={title} />
+            <img className={s.imageDetail} src={image} alt={title} />
           </Box>
 
           <Tabs align="center" variant="enclosed">
@@ -140,7 +156,7 @@ const RecipeDetail = () => {
               <Tab _selected={{ color: "white", bg: "blue.500" }}>Rating</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel backgroundColor="rgba(255, 255, 255, 0.7)">
+              <TabPanel backgroundColor="rgba(255, 255, 255, 0.7)" height={["200px", "300px", "400px"]} overflowY="scroll">
                 {!list ? (
                   <h3>Loading...</h3>
                 ) : (
@@ -152,12 +168,12 @@ const RecipeDetail = () => {
                       caption: "Add Item",
                       action: handleOnAdd,
                     }}
-                    cart={cart}
+                    //cart={cart}
                   />
                 )}
               </TabPanel>
-              <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)">
-                <Box width="50%" color="black">
+              <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)" width='50%'>
+                <Box width="100%" color="black">
                   <p>{instructions}</p>
                 </Box>
               </TabPanel>
@@ -178,16 +194,17 @@ const RecipeDetail = () => {
                   marginTop="1px"
                   fontSize="20px"
                 >
-                  Rating: {raiting}
+                  Rating: {rating}
                 </Box>
               </TabPanel>
             </TabPanels>
           </Tabs>
         </Box>
-      </Box>
-      <NavLink className={s.navlinkGoBackButton} to={"/home"}>
-        <button>Go back</button>
+        <NavLink className={s.navlinkGoBackButton} to={"/home"}>
+        <Button colorScheme="teal" variant="solid" size="lg">Go Home</Button>
       </NavLink>
+      </Box>
+    
     </>
   );
 };
