@@ -68,8 +68,10 @@ const RecipeDetail = () => {
     }
   }, [recipe, ingredients, cart]);
 
-  const handleOnAdd = (id, unit) =>
+  const handleOnAdd = (id, unit) => {
+    setList(list.map(el => ((el.id == id) && (el.unit == unit)) ? {...el, inCart: true} : {...el}));
     dispatch(addToCart(id ? [list.find((el) => ((el.id == id) && el.unit == unit))] : list));
+  }
 
   const handleOnChange = ({ target }, unit) => {
     setList(
@@ -142,14 +144,14 @@ const RecipeDetail = () => {
                   <h3>Loading...</h3>
                 ) : (
                   <IngredientsList
-                    items={list.map((el) => ({ ...el, units: [el.unit] }))}
+                    items={list.map((el) => ({ ...el, units: [el.unit]}))}
                     onChange={handleOnChange}
                     onUnitChange={handleOnUnitChange}
                     itemButton={{
                       caption: "Add Item",
                       action: handleOnAdd,
                     }}
-                    cart={cart}
+                    //cart={cart}
                   />
                 )}
               </TabPanel>

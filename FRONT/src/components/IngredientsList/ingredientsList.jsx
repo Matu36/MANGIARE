@@ -29,10 +29,7 @@ export default function IngredientsList (props) {
               </Button>
             </td>
             <td>
-              {props.cart &&
-                props.cart.some(aux => (aux.id === el.id) && (aux.unit === el.unit)) && (
-                  <Link to={"/shoppingCart"}><BsCartCheck /></Link>
-                )}
+              {el.inCart ? <Link to={"/shoppingCart"}><BsCartCheck /></Link> : <br />}
             </td>
           </tr>
         ))}
