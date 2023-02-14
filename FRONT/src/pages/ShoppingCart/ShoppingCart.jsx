@@ -4,6 +4,8 @@ import { setCart, removeToCart } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginButton } from "../../components/Auth0/login_button";
 import { useAuth0 } from "@auth0/auth0-react";
+import background from "../../img/CartShopBackground.png";
+import {Box, HStack, Grid, Text, Button, IconButton, Image, Flex, Spacer, Input, InputGroup, InputRightElement, InputLeftElement, InputLeftAddon, InputRightAddon, Stack, Center, Divider, useToast, VStack} from "@chakra-ui/react";
 
 export default function ShoppingCart () {
     const [orderState, setOrder] = React.useState();
@@ -52,10 +54,32 @@ export default function ShoppingCart () {
     }
 
     return (
-        <div style={{width: '50%', margin: 'auto'}}>
+        < Box
+        width="100%"
+        height="100vh"
+        marginTop="1px"        
+        style={{
+          display: "flex",
+          alignItems: "left",
+          justifyContent: "left",
+          flexDirection: "row",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+        }}
+      >
+        <Flex>
+            <Box w='40%' h='100vh' bgImage={background} style={{          
+          backgroundSize: "cover",
+          }} />
+            <Spacer width='400px'/>
+            <Box w = '600px'>
+                <Text fontSize="6xl" fontWeight="bold" color="yellow.500" style={{textAlign: "center"}}>
+                  Shopping Cart
+                </Text>
+                <VStack spacing={10} align="stretch" my={10}>
             {
                 (!cart?.length)
-                    ? <h2>The Shopping Cart is empty...</h2>
+                    ? <Text fontSize="2xl">The Shopping Cart is empty...</Text>
                     : (<>
                         <IngredientsList
                             items = {cart.map(el => ({...el, units: [el.unit]}))}
@@ -65,21 +89,35 @@ export default function ShoppingCart () {
                                 action: handleOnDelete
                             }}
                         />
-                        <br />
-                        <p>Total: ${cart.reduce((aux, el) => aux + el.amount * el.price, 0).toFixed(2)}</p>
+                        <HStack justify="space-between" align="flex-end" mt={10}>
+                        <Text fontSize="3xl" fontWeight="bold" color="green.500" style={{textAlign: "left"}}>
+                            Total: ${cart.reduce((aux, el) => aux + el.amount * el.price, 0).toFixed(2)}</Text>
                         <center>
                         {
                             email
-                                ? <button onClick={handleCheckout}>Checkout</button>
-                                : <><p>You must login before proceed to checkout</p> <LoginButton /></>
+                                ? <Button colorScheme="teal"  variant="solid" size="lg" onClick={handleCheckout}>
+                                Checkout
+                              </Button>
+                                : <><Text fontSize="lg" mr={2}>You must login before proceed to checkout</Text> <LoginButton /></>
                         }
                         </center>
+                        </HStack>
                     </>)
             }
             {
-                JSON.parse(localStorage.getItem('pendingPayment')) && (<><p>Order #{JSON.parse(localStorage.getItem('pendingPayment')).order.orderId} has been created!</p> <button onClick={handlePay}>PAY</button></>)
+                JSON.parse(localStorage.getItem('pendingPayment')) && (<HStack justify="space-between" align="flex-end">
+                <Text fontSize="3xl" fontWeight="bold" color="green.500">Order #{JSON.parse(localStorage.getItem('pendingPayment')).order.orderId} has been created!</Text> <Button onClick={handlePay} colorScheme="green" size="lg">
+PAY
+</Button>
+</HStack>)
             }
-        </div>
+
+            </VStack>
+
+                </Box>
+                <Box w = '600px'/>
+            </Flex>
+        </Box>
     )
     
 }
