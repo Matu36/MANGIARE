@@ -10,6 +10,7 @@ export const Auth0ProviderModule = ({ children }) => {
       authorizationParams={{
         redirect_uri: "http://localhost:3000/home",
       }}
+      cacheLocation="localstorage"
     >
       {children}
     </Auth0Provider>

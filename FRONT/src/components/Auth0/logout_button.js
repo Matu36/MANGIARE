@@ -4,17 +4,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 export function LogoutButton() {
   const { logout } = useAuth0();
 
-  return (
-    <button
-      onClick={() => {
-        logout({
-          logoutParams: {
-            returnTo: window.location.origin,
-          },
-        });
-      }}
-    >
-      Log out
-    </button>
-  );
+  const loggingOut = () => {
+    localStorage.removeItem("MANGIARE_user");
+    localStorage.removeItem("MANGIARE_cart");
+    localStorage.removeItem("MANGIARE_userInfo");
+    logout({
+      logoutParams: {
+        returnTo: window.location.origin,
+      },
+    });
+  };
+
+  return <button onClick={loggingOut}>Log out</button>;
 }
