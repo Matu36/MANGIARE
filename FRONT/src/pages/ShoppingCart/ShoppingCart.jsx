@@ -1,25 +1,25 @@
 import React from "react";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import { setCart, removeToCart } from "../../Redux/actions";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginButton } from "../../components/Auth0/login_button";
+import { useAuth0 } from "@auth0/auth0-react";
 
-class ShoppingCart extends React.Component {
-    constructor (props){
-        super(props);
-        this.state = {order: null}
-        localStorage.setItem('MANGIARE_user', JSON.stringify('yamil.leotta@gmail.com'));
-    }
+export default function ShoppingCart () {
+    const [orderState, setOrder] = React.useState();
+    const cart = useSelector(({cart}) => cart);
+    const dispatch = useDispatch();
+    const {email} = useAuth0().user || {email: null};
 
-    handleOnDelete = (id, unit) => {
-        this.props.removeToCart({id, unit});
+    const handleOnDelete = (id, unit) => {
+        dispatch(removeToCart({id, unit}));
     };
 
-    handleOnChange = ({target}, unit) => {
-        this.props.setCart(this.props.cart.map(el => ((el.id == target.id) && (el.unit == unit)) ? {...el, amount: target.value} : el));
+    const handleOnChange = ({target}, unit) => {
+        dispatch(setCart(cart.map(el => ((el.id == target.id) && (el.unit == unit)) ? {...el, amount: target.value} : el)));
     };
 
-    handleCheckout = (cart, email) => {
+    const handleCheckout = () => {
         fetch(`http://localhost:3001/checkout`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -27,14 +27,14 @@ class ShoppingCart extends React.Component {
           })
             .then(data => data.json())
             .then(order => {
-                this.props.setCart([]);
+                dispatch(setCart([]));
                 localStorage.removeItem('cart');
-                this.setState(old => ({...old, order}))
+                setOrder(order)
                 localStorage.setItem('pendingPayment', JSON.stringify({user: email, order}))
             })
     }
 
-    handlePay = () => {
+    const handlePay = () => {
         const {order, user} = JSON.parse(localStorage.getItem('pendingPayment'));
         const {orderDetail, orderId} = order;
 
@@ -51,38 +51,35 @@ class ShoppingCart extends React.Component {
             })
     }
 
-    render(){
-        return (
-            <div style={{width: '50%', margin: 'auto'}}>
-                {
-                    (!this.props.cart?.length)
-                        ? <h2>The Shopping Cart is empty...</h2>
-                        : (<>
-                            <IngredientsList
-                                items = {this.props.cart.map(el => ({...el, units: [el.unit]}))}
-                                onChange = {this.handleOnChange}
-                                itemButton = {{
-                                    caption: 'Remove Item',
-                                    action: this.handleOnDelete
-                                }}
-                            />
-                            <br />
-                            <p>Total: ${this.props.cart.reduce((aux, el) => aux + el.amount * el.price, 0).toFixed(2)}</p>
-                            <center>
-                            {
-                                ((JSON.parse(localStorage.getItem('MANGIARE_user'))) && (JSON.parse(localStorage.getItem('MANGIARE_user')) !== 'guest'))
-                                    ? <button onClick={() => this.handleCheckout(this.props.cart, JSON.parse(localStorage.getItem('MANGIARE_user')))}>Checkout</button>
-                                    : <><p>You must login before proceed to checkout</p> <LoginButton /></>
-                            }
-                            </center>
-                        </>)
-                }
-                {
-                    JSON.parse(localStorage.getItem('pendingPayment')) && (<><p>Order #{JSON.parse(localStorage.getItem('pendingPayment')).order.orderId} has been created!</p> <button onClick={this.handlePay}>PAY</button></>)
-                }
-            </div>
-        )
-    }
+    return (
+        <div style={{width: '50%', margin: 'auto'}}>
+            {
+                (!cart?.length)
+                    ? <h2>The Shopping Cart is empty...</h2>
+                    : (<>
+                        <IngredientsList
+                            items = {cart.map(el => ({...el, units: [el.unit]}))}
+                            onChange = {handleOnChange}
+                            itemButton = {{
+                                caption: 'Remove Item',
+                                action: handleOnDelete
+                            }}
+                        />
+                        <br />
+                        <p>Total: ${cart.reduce((aux, el) => aux + el.amount * el.price, 0).toFixed(2)}</p>
+                        <center>
+                        {
+                            email
+                                ? <button onClick={handleCheckout}>Checkout</button>
+                                : <><p>You must login before proceed to checkout</p> <LoginButton /></>
+                        }
+                        </center>
+                    </>)
+            }
+            {
+                JSON.parse(localStorage.getItem('pendingPayment')) && (<><p>Order #{JSON.parse(localStorage.getItem('pendingPayment')).order.orderId} has been created!</p> <button onClick={handlePay}>PAY</button></>)
+            }
+        </div>
+    )
+    
 }
-
-export default connect(({cart}) => ({cart}), {setCart, removeToCart})(ShoppingCart); 
