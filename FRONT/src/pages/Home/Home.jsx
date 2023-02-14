@@ -15,7 +15,7 @@ import Paginations from "../../components/Paginations/Paginations";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCardHorizontal";
 import Filters from "../../components/Filters/Filters";
-import { Box, Image, Text, IconButton, Button, HStack } from "@chakra-ui/react";
+import { Box, Spacer, Image, Text, IconButton, Button, HStack } from "@chakra-ui/react";
 import meat from "../../img/iconMeat.jpg";
 import carrot from "../../img/carrotIcon.png";
 import eggs from "../../img/eggsIcon.png";
@@ -127,7 +127,7 @@ export default function Home() {
       <NavBar />
       <Box
         width="100%"
-        height="1100px"
+        height="700px"
         marginTop="1px"
         backgroundImage={banner}
         style={{
@@ -145,10 +145,10 @@ export default function Home() {
 
           fontSize="80px"
           fontWeight="bold"
-          width="600px"
+          width="800px"
           height="26px"
           maxWidth="100%"
-          marginTop="330px"
+          marginTop="350px"
           textAlign={"center"}
         >
           Cooking, simplified
@@ -160,7 +160,7 @@ export default function Home() {
         <Box
           width="70%"
           height="100px"
-          marginTop="50px"
+          marginTop="100px"
           marginBottom="50px"
           style={{
             display: "flex",
@@ -174,7 +174,7 @@ export default function Home() {
               style={{ fontFamily: "Caviar Dreams, sans-serif" }}
               fontWeight="bold"
               align="center"
-              fontSize="30px"
+              fontSize="25px"
               color="green.700"
               marginTop="1px"
               marginRight="20px"
@@ -182,18 +182,7 @@ export default function Home() {
               Tell us which ingredients you have and we'll show the best recipes
               that match with them. {" "}
             </Text>
-            <Text style={{ fontFamily: "Caviar Dreams, sans-serif" }}
-              fontWeight="bold"
-              align="center"
-              fontSize="20px"
-              color="yellow.900"
-              marginTop="20px"
-              marginRight="20px"
-              backgroundColor="white" opacity="0.5"
-            >
-              Don't have all the ingredients? No worries! 
-              You can purchase the missing ones from a local producer by adding them to the shopping cart in the Recipe Detail
-            </Text>
+            
           </Box>
           <Box flex="1">
            
@@ -202,7 +191,7 @@ export default function Home() {
         <Box
           width="50%"
           height="100px"
-          marginTop="60px"
+          marginTop="20px"
           style={{
             display: "flex",
             alignItems: "center",
@@ -213,20 +202,33 @@ export default function Home() {
           <Filters />
           
         </Box>
+        <Text style={{ fontFamily: "Caviar Dreams, sans-serif" }}
+              fontWeight="bold"
+              align="center"
+              fontSize="20px"
+              color="yellow.900"
+              marginTop="100px"
+              marginRight="20px"
+              backgroundColor="white" opacity="0.7" borderRadius="10px" padding="10px"
+              width="50%"
+            >
+              Don't have all the ingredients? No worries! 
+              You can purchase the missing ones from a local producer by adding them to the shopping cart in the Recipe Detail
+            </Text>
 
         <Text
-          fontSize="3xl"
+          fontSize="5xl"
           textAlign="center"
           fontWeight="bold"
           color="yellow.900"
-          marginTop="70px"
+          marginTop="80px"
         >
           {" "}
           Check our recipes!{" "}
         </Text>
-        <ArrowDownIcon w={20} h={20} color="yellow.900" marginTop="20px" />
+       
       </Box>
-
+      <Spacer  h={20}  marginTop="20px" marginBottom="60px" />
       <div className={s.img} alt="randomImg" />
 
         

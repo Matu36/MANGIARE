@@ -126,7 +126,7 @@ const RecipeDetail = () => {
           <Text fontSize='6xl' textAlign="center" fontWeight="bold" color="yellow.800" backgroundColor="white" opacity="0.5">{title}</Text>
 
           <Box width="40%" height="40%" objectFit={"cover"} borderRadius="10px">
-            <img src={image} alt={title} />
+            <img className={s.imageDetail} src={image} alt={title} />
           </Box>
 
           <Tabs align="center" variant="enclosed">
