@@ -12,6 +12,7 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import Contact from "./pages/Contact/Contact";
 import MyRecipes from "./components/MyRecipes/MyRecipes";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
+import UserPage from "./components/userPage/UserPage";
 
 
 axios.defaults.baseURL = 'http://localhost:3001/'
@@ -33,6 +34,7 @@ export default function App() {
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/myRecipes" element={<MyRecipes />} />
         <Route exact path="/shoppingCart" element={<ShoppingCart />} />
+        <Route exact path="/user" element={<UserPage />} />
       </Routes>
     </>
   );
