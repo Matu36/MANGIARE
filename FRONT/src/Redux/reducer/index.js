@@ -41,7 +41,7 @@ const initialState = {
     "fodmap friendly",
   ],
 
-  filteredDiet: "",
+  filteredDiet: "All Diets",
 
   orderBy: "",
 
