@@ -41,7 +41,7 @@ const initialState = {
     "fodmap friendly",
   ],
 
-  filteredDiet: "",
+  filteredDiet: "All Diets",
 
   orderBy: "",
 
@@ -55,7 +55,7 @@ const initialState = {
   ingredients: null,
   filteredIngredients: [],
 
-  cart: [], // [{id, name, price...}, {id, name, price...}...]
+  cart: [], // [{id, name, price...}, {id, name, price...}...].
 };
 
 const rootReducer = (state = initialState, action) => {

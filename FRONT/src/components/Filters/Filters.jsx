@@ -27,8 +27,6 @@ function Filters() {
   const ingredients = useSelector((state) => state.ingredients);
   const filteredIngredients = useSelector((state) => state.filteredIngredients);
 
-  const order = useSelector((state) => state.orderBy);
-
   const optionsDiets = diets.map((diet) => {
     diet = diet[0].toUpperCase() + diet.slice(1);
     return { label: diet, value: diet };
@@ -63,9 +61,9 @@ function Filters() {
   };
 
   useEffect(() => {
-    let result;
+    let result = recipesToShow;
     if (orderBy === "az") {
-      result = recipesToShow.sort((a, b) => {
+      result = result.sort((a, b) => {
         a = a.title.toLowerCase();
         b = b.title.toLowerCase();
         if (a < b) return -1;
@@ -103,14 +101,13 @@ function Filters() {
   };
 
   const orderByProp = () => {
-    console.log(orderByPOrR);
     const { order, type } = orderByPOrR;
-
+    dispatch(setOrderBy(""));
     let cache = [...recipesToShow];
 
     if (order === "") return dispatch(setRecipesToShow(cache));
 
-    // El metodo sort ordena segun el valor mayor igual o menor que cero dependiendo la funciona comparadora
+    // El metodo sort ordena segun el valor mayor igual o menor que cero dependiendo la funciona comparadora.
     cache = cache.sort((a, b) => {
       if (a[type] < b[type]) return order === "Minor to Major" ? -1 : 1;
       if (a[type] > b[type]) return order === "Minor to Major" ? 1 : -1;
