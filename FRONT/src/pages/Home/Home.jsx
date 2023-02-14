@@ -274,7 +274,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={s.moreRecipesDiv}>
+          {/* <div className={s.moreRecipesDiv}>
             {totalRecipes?.slice(3).map((recipe) => (
               <RecipeCardHorizontal
                 key={recipe.id}
@@ -284,7 +284,7 @@ export default function Home() {
                 diets={recipe.diets}
               />
             ))}
-          </div>
+          </div> */}
 
           <hr />
           <div className={s.divPagination}>
