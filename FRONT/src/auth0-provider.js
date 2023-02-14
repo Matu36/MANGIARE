@@ -8,7 +8,7 @@ export const Auth0ProviderModule = ({ children }) => {
       domain={REACT_APP_AUTH0_DOMAIN}
       clientId={REACT_APP_AUTH0_CLIENT_ID}
       authorizationParams={{
-        redirect_uri: "http://localhost:3000/home",
+        redirect_uri: "https://mangiare.vercel.app/home",
       }}
       cacheLocation="localstorage"
     >
