@@ -17,6 +17,7 @@ import {
   ADD_TO_CART,
   REMOVE_TO_CART,
   SET_CART,
+  SET_ORDER_BY_PRICE_OR_RATING,
 } from "../actions/index.js";
 
 const initialState = {
@@ -45,6 +46,11 @@ const initialState = {
   orderBy: "",
 
   searchValueName: "",
+
+  orderByPriceOrRating: {
+    type: undefined,
+    order: "",
+  },
 
   ingredients: null,
   filteredIngredients: [],
@@ -143,6 +149,11 @@ const rootReducer = (state = initialState, action) => {
                 item.unit !== action.payload.unit
             )
           : [],
+      };
+    case SET_ORDER_BY_PRICE_OR_RATING:
+      return {
+        ...state,
+        orderByPriceOrRating: action.payload,
       };
 
     case ADD_TO_CART:

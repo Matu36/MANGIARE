@@ -12,6 +12,7 @@ import {
   setFilteredIngredients,
   deleteFilteredIngredient,
   clearFilters,
+  setOrderByPriceOrRating,
 } from "../../Redux/actions/index.js";
 
 import { Box, HStack, VStack, Button, Text } from "@chakra-ui/react";
@@ -84,6 +85,45 @@ function Filters() {
     } else return;
   }, [orderBy, recipesToShow]);
 
+  const optionOrderByPriceOrRating = [
+    { label: "Select Order", value: "" },
+    { label: "Major to Minor", value: "Major to Minor" },
+    { label: "Minor to Major", value: "Minor to Major" },
+  ];
+  const orderByPOrR = useSelector((state) => state.orderByPriceOrRating);
+
+  const handleOrderPriceOrRating = (e, { type }) => {
+    let cache = { ...orderByPOrR };
+
+    if (orderByPOrR.type !== type) cache.type = type;
+
+    cache.order = e.value;
+
+    dispatch(setOrderByPriceOrRating(cache));
+  };
+
+  const orderByProp = () => {
+    console.log(orderByPOrR);
+    const { order, type } = orderByPOrR;
+
+    let cache = [...recipesToShow];
+
+    if (order === "") return dispatch(setRecipesToShow(cache));
+
+    // El metodo sort ordena segun el valor mayor igual o menor que cero dependiendo la funciona comparadora
+    cache = cache.sort((a, b) => {
+      if (a[type] < b[type]) return order === "Minor to Major" ? -1 : 1;
+      if (a[type] > b[type]) return order === "Minor to Major" ? 1 : -1;
+      return 0;
+    });
+
+    dispatch(setRecipesToShow(cache));
+  };
+
+  useEffect(() => {
+    orderByProp();
+  }, [orderByPOrR]);
+
   const optionsIngredients =
     ingredients &&
     ingredients.map((i) => {
@@ -126,58 +166,70 @@ function Filters() {
 
   return (
     <Box
-    width="100%"
-    mt={38}
-    style={{
-      display: "flex",
-      alignItems: "",
-      justifyContent: "center",
-      flexDirection: "column",
-    }}
-  >
-    <VStack spacing='20px'>
-       <Select
-        className={s.selectIngredients}
-        options={optionsIngredients}
-        onChange={(e) => handleIngredientesFilter(e.value)}
-        placeholder="Select Ingredients"
-      />
-      <div className={s.selectedIngredientsDiv}>
-        {filteredIngredients.length > 0
-          ? filteredIngredients.map((i, index) => {
-              return (
-                <p
-                  key={index}
-                  className={s.ingredient}
-                  onClick={() => handleIngredientesFilter(i)}
-                >
-                  {`${i[0].toUpperCase()}${i.slice(1)}`} | X
-                </p>
-              );
-            })
-          : null}
-      </div>
-      {/* <div className={s.clearButtonDiv}>
+      width="100%"
+      mt={38}
+      style={{
+        display: "flex",
+        alignItems: "",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <VStack spacing="20px">
+        <Select
+          className={s.selectIngredients}
+          options={optionsIngredients}
+          onChange={(e) => handleIngredientesFilter(e.value)}
+          placeholder="Select Ingredients"
+        />
+        <div className={s.selectedIngredientsDiv}>
+          {filteredIngredients.length > 0
+            ? filteredIngredients.map((i, index) => {
+                return (
+                  <p
+                    key={index}
+                    className={s.ingredient}
+                    onClick={() => handleIngredientesFilter(i)}
+                  >
+                    {`${i[0].toUpperCase()}${i.slice(1)}`} | X
+                  </p>
+                );
+              })
+            : null}
+        </div>
+        {/* <div className={s.clearButtonDiv}>
         <button className={s.clearButton} onClick={handleClearButton}>
           CLEAR FILTERS
         </button>
       </div> */}
 
-      <HStack spacing='100px'>
-      <Select
-        className={s.select}
-        options={optionsDiets}
-        onChange={(e) => handleFilterbyDiet(e)}
-        placeholder="Order By Diets"
-      />
-      <Select
-        className={s.select}
-        options={optionsOrderBy}
-        onChange={(e) => handleOrder(e.value)}
-        placeholder="Order By A-Z"
-      />
-     </HStack>
-    </VStack>
+        <HStack spacing="100px">
+          <Select
+            className={s.select}
+            options={optionsDiets}
+            onChange={(e) => handleFilterbyDiet(e)}
+            placeholder="Order By Diets"
+          />
+          <Select
+            className={s.select}
+            options={optionsOrderBy}
+            onChange={(e) => handleOrder(e.value)}
+            placeholder="Order By A-Z"
+          />
+          <Select
+            className={s.select}
+            options={optionOrderByPriceOrRating}
+            onChange={(e) => handleOrderPriceOrRating(e, { type: "price" })}
+            placeholder="Order By Price"
+          />
+          <Select
+            className={s.select}
+            options={optionOrderByPriceOrRating}
+            onChange={(e) => handleOrderPriceOrRating(e, { type: "rating" })}
+            placeholder="Order By Rating"
+          />
+        </HStack>
+      </VStack>
     </Box>
   );
 }

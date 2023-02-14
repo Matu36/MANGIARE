@@ -16,6 +16,7 @@ export const DELETE_FILTERED_INGREDIENT = "DELETE_FILTERED_INGREDIENT";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
 export const SET_CART = "SET_CART";
+export const SET_ORDER_BY_PRICE_OR_RATING = "SET_ORDER_BY_PRICE_OR_RATING";
 
 //TRAE LAS RECETAS
 export const getRecipes = () => async (dispatch) => {
@@ -26,8 +27,17 @@ export const getRecipes = () => async (dispatch) => {
     });
 };
 
+export const setOrderByPriceOrRating = (payload) => {
+  return (dispatch) => {
+    dispatch({ type: SET_ORDER_BY_PRICE_OR_RATING, payload });
+  };
+};
+
 export const setRecipesToShow = (payload) => {
-  return (dispatch) => dispatch({ type: SET_RECIPES_TO_SHOW, payload });
+  return (dispatch) => {
+    console.log(payload);
+    dispatch({ type: SET_RECIPES_TO_SHOW, payload });
+  };
 };
 
 export const resetRecipesToShow = () => {
