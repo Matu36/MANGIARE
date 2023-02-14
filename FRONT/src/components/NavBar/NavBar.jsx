@@ -6,11 +6,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { LoginButton } from "../Auth0/login_button";
 import { LogoutButton } from "../Auth0/logout_button";
 import SearchBar from "../../components/SearchBar/searchBar";
+import logo from "../../img/LOGO 2.png";
+import mangiare from "../../img/LandingTitle.png";
 
 function NavBar() {
   const { isAuthenticated } = useAuth0();
   return (
     <div className={s.container}>
+      
+      <img style={{width: '130px', height: '80px'}} src={mangiare} alt="logo" className={s.logo} />
+      
       <Link to={"/home"}>
         <button className={s.btn1}>HOME</button>
       </Link>

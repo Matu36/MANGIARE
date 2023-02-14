@@ -24,9 +24,10 @@ import banner from "../../img/BannerHome.jpg";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import { ArrowDownIcon } from "@chakra-ui/icons";
 
+
 export default function Home() {
   let dispatch = useDispatch();
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const recipes = useSelector((state) => state.recipes);
   const recipesToShow = useSelector((state) => state.recipesToShow);
   const filteredRecipes = useSelector((state) => state.filteredRecipes);
@@ -48,22 +49,16 @@ export default function Home() {
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
-    let LS_cart = JSON.parse(localStorage.getItem("cart"));
+    let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     if (!LS_cart) return;
     else {
-      if (user) {
-        let email = user.email;
-        LS_cart.hasOwnProperty(email)
-          ? dispatch(setCart(LS_cart[email]))
-          : dispatch(setCart([]));
-      } else {
-        LS_cart.hasOwnProperty("guest")
-          ? dispatch(setCart(LS_cart.guest))
-          : dispatch(setCart([]));
+      dispatch(setCart(LS_cart));
+      if (isAuthenticated) {
+        localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
+        localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user))
       }
     }
-  }, [user]);
-
+  }, [user, isAuthenticated]);
   //                 --------------- fin localStorage ---------------
 
   const [recipeByIdAutocomplete, setrecipeByIdAutocomplete] = useState();
@@ -132,7 +127,7 @@ export default function Home() {
       <NavBar />
       <Box
         width="100%"
-        height="850px"
+        height="1100px"
         marginTop="1px"
         backgroundImage={banner}
         style={{
@@ -144,20 +139,29 @@ export default function Home() {
           backgroundPosition: "center center",
         }}
       >
+        <Box flex='1'   >
         <Text
           style={{ fontFamily: "Bistro Script, sans-serif" }}
-          fontSize="100px"
+
+          fontSize="80px"
           fontWeight="bold"
-          width="597px"
-          height="116px"
+          width="600px"
+          height="26px"
           maxWidth="100%"
-          marginTop="200px"
+          marginTop="330px"
+          textAlign={"center"}
         >
-          MANGIAR-E
+          Cooking, simplified
         </Text>
+
+
+        </Box>
+       
         <Box
           width="70%"
           height="100px"
+          marginTop="50px"
+          marginBottom="50px"
           style={{
             display: "flex",
             alignItems: "center",
@@ -171,77 +175,34 @@ export default function Home() {
               fontWeight="bold"
               align="center"
               fontSize="30px"
-              color="green.500"
-              marginTop="20px"
+              color="green.700"
+              marginTop="1px"
               marginRight="20px"
             >
               Tell us which ingredients you have and we'll show the best recipes
-              that match with them{" "}
+              that match with them. {" "}
+            </Text>
+            <Text style={{ fontFamily: "Caviar Dreams, sans-serif" }}
+              fontWeight="bold"
+              align="center"
+              fontSize="20px"
+              color="yellow.900"
+              marginTop="20px"
+              marginRight="20px"
+              backgroundColor="white" opacity="0.5"
+            >
+              Don't have all the ingredients? No worries! 
+              You can purchase the missing ones from a local producer by adding them to the shopping cart in the Recipe Detail
             </Text>
           </Box>
           <Box flex="1">
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="500px"
-              marginTop="20px"
-            >
-              <Button
-                flex="1"
-                aria-label="Search"
-                width="60px"
-                height="60px"
-                backgroundImage={meat}
-                backgroundSize="contain"
-                backgroundRepeat="no-repeat"
-                backgroundPosition="center center"
-                transition="all 0.2s ease-in-out"
-                _hover={{ transform: "scale(1.2)" }}
-              />
-              <Button
-                flex="1"
-                aria-label="Search"
-                width="60px"
-                height="60px"
-                backgroundImage={carrot}
-                backgroundSize="contain"
-                backgroundRepeat="no-repeat"
-                backgroundPosition="center center"
-                transition="all 0.2s ease-in-out"
-                _hover={{ transform: "scale(1.2)" }}
-              />
-              <Button
-                flex="1"
-                aria-label="Search"
-                width="60px"
-                height="60px"
-                backgroundImage={eggs}
-                backgroundSize="contain"
-                backgroundRepeat="no-repeat"
-                backgroundPosition="center center"
-                transition="all 0.2s ease-in-out"
-                _hover={{ transform: "scale(1.2)" }}
-              />
-              <Button
-                flex="1"
-                aria-label="Search"
-                width="60px"
-                height="60px"
-                backgroundImage={chicken}
-                backgroundSize="contain"
-                backgroundRepeat="no-repeat"
-                backgroundPosition="center center"
-                transition="all 0.2s ease-in-out"
-                _hover={{ transform: "scale(1.2)" }}
-              />
-            </Box>
+           
           </Box>
         </Box>
         <Box
           width="50%"
           height="100px"
-          marginTop="100px"
+          marginTop="60px"
           style={{
             display: "flex",
             alignItems: "center",
@@ -249,17 +210,8 @@ export default function Home() {
             flexDirection: "row",
           }}
         >
-          <Text
-            style={{ fontFamily: "Caviar Dreams, sans-serif" }}
-            fontWeight="bold"
-            fontStyle="italic"
-            fontSize="25px"
-            color="yellow.700"
-            marginTop="20px"
-          >
-            Have some more ingredients? Search here
-          </Text>
-          <SearchBar />
+          <Filters />
+          
         </Box>
 
         <Text
@@ -267,7 +219,7 @@ export default function Home() {
           textAlign="center"
           fontWeight="bold"
           color="yellow.900"
-          marginTop="20px"
+          marginTop="70px"
         >
           {" "}
           Check our recipes!{" "}
@@ -278,8 +230,8 @@ export default function Home() {
       <div className={s.img} alt="randomImg" />
 
       <div className={s.mainContainDiv}>
-        <div className={s.filtersContainerDiv}>
-          <Filters />
+        
+          
         </div>
         <div className={s.mainRecipesDiv}>
           {recipeByIdAutocomplete && (
@@ -294,7 +246,7 @@ export default function Home() {
           <div className={s.cardsContainer}>
             {recipesToShow &&
               (totalRecipes
-                ?.slice(0, 3)
+                ?.slice(0, 4)
                 .map((recipe) => (
                   <RecipeCard
                     key={recipe.id}
@@ -343,7 +295,7 @@ export default function Home() {
             )}
           </div>
         </div>
-      </div>
+     
     </div>
   );
 }

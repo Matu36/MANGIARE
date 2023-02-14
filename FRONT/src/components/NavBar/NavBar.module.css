@@ -13,6 +13,13 @@
     right: 0;
     z-index: 1;
 }
+.logo{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .btn1 {
     background-color: #ffffff; /* Green */
