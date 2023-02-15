@@ -20,6 +20,7 @@
     "lodash": "^4.17.21",
     "mercadopago": "^1.5.15",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.9.1",
     "path": "^0.12.7",
     "pg": "^8.9.0",
     "pg-hstore": "^2.3.4",
