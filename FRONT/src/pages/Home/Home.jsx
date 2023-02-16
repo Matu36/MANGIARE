@@ -5,17 +5,22 @@ import { useAuth0 } from "@auth0/auth0-react";
 import NavBar from "../../components/NavBar/NavBar";
 import SearchBar from "../../components/SearchBar/searchBar";
 import { healthyTips } from "../../components/healthyTips/healthyTips";
-import {
-  getRecipes,
-  getIngredients,
-  resetRecipesToShow,
-  setCart,
-} from "../../Redux/actions";
+import { getRecipes, resetRecipesToShow } from "../../Redux/actions/recipes";
+import { setCart } from "../../Redux/actions/cart";
+import { getIngredients } from "../../Redux/actions/ingredients";
 import Paginations from "../../components/Paginations/Paginations";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCardHorizontal";
 import Filters from "../../components/Filters/Filters";
-import { Box, Spacer, Image, Text, IconButton, Button, HStack } from "@chakra-ui/react";
+import {
+  Box,
+  Spacer,
+  Image,
+  Text,
+  IconButton,
+  Button,
+  HStack,
+} from "@chakra-ui/react";
 import meat from "../../img/iconMeat.jpg";
 import carrot from "../../img/carrotIcon.png";
 import eggs from "../../img/eggsIcon.png";
@@ -23,7 +28,6 @@ import chicken from "../../img/chickenIcon.png";
 import banner from "../../img/BannerHome.jpg";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import { ArrowDownIcon } from "@chakra-ui/icons";
-
 
 export default function Home() {
   let dispatch = useDispatch();
@@ -33,7 +37,9 @@ export default function Home() {
   const filteredRecipes = useSelector((state) => state.recipes.filteredRecipes);
   const orderBy = useSelector((state) => state.filters.orderBy);
   const cart = useSelector((state) => state.cart.cart);
-  const filteredIngredients = useSelector((state) => state.filters.filteredIngredients);
+  const filteredIngredients = useSelector(
+    (state) => state.filters.filteredIngredients
+  );
   const recipeDetailIdAutocomplete = useSelector(
     (state) => state.autocomplete.recipeIdAutocomplete
   );
@@ -55,7 +61,7 @@ export default function Home() {
       dispatch(setCart(LS_cart));
       if (isAuthenticated) {
         localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
-        localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user))
+        localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user));
       }
     }
   }, [user, isAuthenticated]);
@@ -139,24 +145,21 @@ export default function Home() {
           backgroundPosition: "center center",
         }}
       >
-        <Box flex='1'   >
-        <Text
-          style={{ fontFamily: "Bistro Script, sans-serif" }}
-
-          fontSize="80px"
-          fontWeight="bold"
-          width="800px"
-          height="26px"
-          maxWidth="100%"
-          marginTop="350px"
-          textAlign={"center"}
-        >
-          Cooking, simplified
-        </Text>
-
-
+        <Box flex="1">
+          <Text
+            style={{ fontFamily: "Bistro Script, sans-serif" }}
+            fontSize="80px"
+            fontWeight="bold"
+            width="800px"
+            height="26px"
+            maxWidth="100%"
+            marginTop="350px"
+            textAlign={"center"}
+          >
+            Cooking, simplified
+          </Text>
         </Box>
-       
+
         <Box
           width="70%"
           height="100px"
@@ -180,13 +183,10 @@ export default function Home() {
               marginRight="20px"
             >
               Tell us which ingredients you have and we'll show the best recipes
-              that match with them. {" "}
+              that match with them.{" "}
             </Text>
-            
           </Box>
-          <Box flex="1">
-           
-          </Box>
+          <Box flex="1"></Box>
         </Box>
         <Box
           width="50%"
@@ -200,21 +200,25 @@ export default function Home() {
           }}
         >
           <Filters />
-          
         </Box>
-        <Text style={{ fontFamily: "Caviar Dreams, sans-serif" }}
-              fontWeight="bold"
-              align="center"
-              fontSize="20px"
-              color="yellow.900"
-              marginTop="100px"
-              marginRight="20px"
-              backgroundColor="white" opacity="0.7" borderRadius="10px" padding="10px"
-              width="50%"
-            >
-              Don't have all the ingredients? No worries! 
-              You can purchase the missing ones from a local producer by adding them to the shopping cart in the Recipe Detail
-            </Text>
+        <Text
+          style={{ fontFamily: "Caviar Dreams, sans-serif" }}
+          fontWeight="bold"
+          align="center"
+          fontSize="20px"
+          color="yellow.900"
+          marginTop="100px"
+          marginRight="20px"
+          backgroundColor="white"
+          opacity="0.7"
+          borderRadius="10px"
+          padding="10px"
+          width="50%"
+        >
+          Don't have all the ingredients? No worries! You can purchase the
+          missing ones from a local producer by adding them to the shopping cart
+          in the Recipe Detail
+        </Text>
 
         <Text
           fontSize="5xl"
@@ -226,55 +230,51 @@ export default function Home() {
           {" "}
           Check our recipes!{" "}
         </Text>
-       
       </Box>
-      <Spacer  h={20}  marginTop="20px" marginBottom="60px" />
+      <Spacer h={20} marginTop="20px" marginBottom="60px" />
       <div className={s.img} alt="randomImg" />
 
-        
-          
-      <div className={s.mainContainDiv}>
-    </div>
-        <div className={s.mainRecipesDiv}>
-          {recipeByIdAutocomplete && (
-            <RecipeCard
-              id={recipeByIdAutocomplete.id}
-              title={recipeByIdAutocomplete.title}
-              image={recipeByIdAutocomplete.image}
-              diets={recipeByIdAutocomplete.diets}
-            />
-          )}
+      <div className={s.mainContainDiv}></div>
+      <div className={s.mainRecipesDiv}>
+        {recipeByIdAutocomplete && (
+          <RecipeCard
+            id={recipeByIdAutocomplete.id}
+            title={recipeByIdAutocomplete.title}
+            image={recipeByIdAutocomplete.image}
+            diets={recipeByIdAutocomplete.diets}
+          />
+        )}
 
-          <div className={s.cardsContainer}>
-            {recipesToShow &&
-              (totalRecipes
-                ?.slice(0, 8)
-                .map((recipe) => (
-                  <RecipeCard
-                    key={recipe.id}
-                    id={recipe.id}
-                    title={recipe.title}
-                    image={recipe.image}
-                    diets={recipe.diets}
-                  />
-                )) || (
-                <div className="nFound">
-                  <img className="not found" alt="no Results" />
-                  <h2>No se encontraron resultados</h2>
-                </div>
-              ))}
+        <div className={s.cardsContainer}>
+          {recipesToShow &&
+            (totalRecipes
+              ?.slice(0, 8)
+              .map((recipe) => (
+                <RecipeCard
+                  key={recipe.id}
+                  id={recipe.id}
+                  title={recipe.title}
+                  image={recipe.image}
+                  diets={recipe.diets}
+                />
+              )) || (
+              <div className="nFound">
+                <img className="not found" alt="no Results" />
+                <h2>No se encontraron resultados</h2>
+              </div>
+            ))}
+        </div>
+
+        <div className={s.healtyTipDiv}>
+          <div className={s.healtyTipIconDiv}>💡</div>
+          <div className={s.verticalDiv}></div>
+          <div className={s.healtyTipMainContain}>
+            <p>Healthy Tip</p>
+            <p>{randomTip()}</p>
           </div>
+        </div>
 
-          <div className={s.healtyTipDiv}>
-            <div className={s.healtyTipIconDiv}>💡</div>
-            <div className={s.verticalDiv}></div>
-            <div className={s.healtyTipMainContain}>
-              <p>Healthy Tip</p>
-              <p>{randomTip()}</p>
-            </div>
-          </div>
-
-          {/* <div className={s.moreRecipesDiv}>
+        {/* <div className={s.moreRecipesDiv}>
             {totalRecipes?.slice(3).map((recipe) => (
               <RecipeCardHorizontal
                 key={recipe.id}
@@ -286,18 +286,17 @@ export default function Home() {
             ))}
           </div> */}
 
-          <hr />
-          <div className={s.divPagination}>
-            {recipesToShow && (
-              <Paginations
-                currentPage={currentPage}
-                numberOfPage={numberOfPage}
-                handlePageNumber={handlePageNumber}
-              />
-            )}
-          </div>
+        <hr />
+        <div className={s.divPagination}>
+          {recipesToShow && (
+            <Paginations
+              currentPage={currentPage}
+              numberOfPage={numberOfPage}
+              handlePageNumber={handlePageNumber}
+            />
+          )}
         </div>
-     
+      </div>
     </div>
   );
 }

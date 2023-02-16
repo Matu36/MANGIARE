@@ -3,17 +3,20 @@ import s from "./Filters.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import {
-  filterByDiet,
   setOrderBy,
-  setRecipesToShow,
-  resetRecipesToShow,
-  setFilteredRecipes,
-  resetFilteredRecipes,
+  filterByDiet,
   setFilteredIngredients,
   deleteFilteredIngredient,
   clearFilters,
   setOrderByPriceOrRating,
-} from "../../Redux/actions/index.js";
+} from "../../Redux/actions/filters";
+
+import {
+  setRecipesToShow,
+  resetRecipesToShow,
+  setFilteredRecipes,
+  resetFilteredRecipes,
+} from "../../Redux/actions/recipes";
 
 import { Box, HStack, VStack, Button, Text } from "@chakra-ui/react";
 
@@ -25,8 +28,12 @@ function Filters() {
   const orderBy = useSelector((state) => state.filters.orderBy);
   const diets = useSelector((state) => state.filters.diets);
   const ingredients = useSelector((state) => state.ingredients.ingredients);
-  const filteredIngredients = useSelector((state) => state.filters.filteredIngredients);
-  const orderByPOrR = useSelector((state) => state.filters.orderByPriceOrRating);
+  const filteredIngredients = useSelector(
+    (state) => state.filters.filteredIngredients
+  );
+  const orderByPOrR = useSelector(
+    (state) => state.filters.orderByPriceOrRating
+  );
 
   const optionsDiets = diets.map((diet) => {
     diet = diet[0].toUpperCase() + diet.slice(1);

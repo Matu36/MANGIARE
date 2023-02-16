@@ -1,4 +1,4 @@
-import { GET_INGREDIENTS } from "../actions/index.js";
+import { GET_INGREDIENTS } from "../actions/ingredients";
 
 const initialState = {
   ingredients: null,

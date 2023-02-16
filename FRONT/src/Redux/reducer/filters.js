@@ -1,11 +1,11 @@
 import {
-  FILTER_BY_DIET,
   SET_ORDER_BY,
+  FILTER_BY_DIET,
   SET_FILTERED_INGREDIENTS,
   DELETE_FILTERED_INGREDIENT,
   CLEAR_FILTERS,
   SET_ORDER_BY_PRICE_OR_RATING,
-} from "../actions/index.js";
+} from "../actions/filters";
 
 const initialState = {
   filteredDiet: "All Diets",

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
-import { setCart, removeToCart } from "../../Redux/actions";
+import { setCart, removeToCart } from "../../Redux/actions/cart";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginButton } from "../../components/Auth0/login_button";
 import { useAuth0 } from "@auth0/auth0-react";

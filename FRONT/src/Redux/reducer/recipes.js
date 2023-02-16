@@ -6,7 +6,7 @@ import {
   RESET_FILTERED_RECIPES, 
   GET_RECIPE_DETAIL, 
   CREATE_RECIPE,
-} from "../actions/index.js";
+} from "../actions/recipes";
 
 const initialState = {
   recipes: [],

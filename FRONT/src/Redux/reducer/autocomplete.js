@@ -1,7 +1,7 @@
 import {
   SET_SEARCH_VALUE_NAME,
   SET_RECIPEID_AUTOCOMPLETE,
-} from "../actions/index.js";
+} from "../actions/autocomplete";
 
 const initialState = {
   recipeIdAutocomplete: null,
