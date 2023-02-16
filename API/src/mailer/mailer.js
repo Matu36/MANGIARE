@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 });
 
 transporter.verify().then(() => {
-  console.log("Emails: ✅");
+  console.log("Email service: ✅");
 });
 
 module.exports = transporter;
