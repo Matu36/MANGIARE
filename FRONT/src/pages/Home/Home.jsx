@@ -28,14 +28,14 @@ import { ArrowDownIcon } from "@chakra-ui/icons";
 export default function Home() {
   let dispatch = useDispatch();
   const { user, isAuthenticated } = useAuth0();
-  const recipes = useSelector((state) => state.recipes);
-  const recipesToShow = useSelector((state) => state.recipesToShow);
-  const filteredRecipes = useSelector((state) => state.filteredRecipes);
-  const orderBy = useSelector((state) => state.orderBy);
-  const cart = useSelector((state) => state.cart);
-  const filteredIngredients = useSelector((state) => state.filteredIngredients);
+  const recipes = useSelector((state) => state.recipes.recipes);
+  const recipesToShow = useSelector((state) => state.recipes.recipesToShow);
+  const filteredRecipes = useSelector((state) => state.recipes.filteredRecipes);
+  const orderBy = useSelector((state) => state.filters.orderBy);
+  const cart = useSelector((state) => state.cart.cart);
+  const filteredIngredients = useSelector((state) => state.filters.filteredIngredients);
   const recipeDetailIdAutocomplete = useSelector(
-    (state) => state.recipeIdAutocomplete
+    (state) => state.autocomplete.recipeIdAutocomplete
   );
 
   useEffect(() => {

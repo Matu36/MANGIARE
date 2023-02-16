@@ -30,11 +30,11 @@ const RecipeDetail = () => {
   let { id } = useParams();
   const { user } = useAuth0();
   let dispatch = useDispatch();
-  let recipe = useSelector((state) => state.recipeDetail);
-  const ingredients = useSelector((state) => state.ingredients);
+  let recipe = useSelector((state) => state.recipe.recipeDetail);
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
   const [list, setList] = useState(); // Traigo datos faltantes de ingredients
   //formato list: [{id, name, price}, {id, name, price}...]
-  const cart = useSelector(({ cart }) => cart);
+  const cart = useSelector((state) => state.cart.cart);
 
   //                   --------------- localStorage ---------------
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import recipes from "./recipes";
-import ingredients from './ingredients'
+import ingredients from "./ingredients";
 import filters from "./filters";
 import cart from "./cart";
 import autocomplete from "./autocomplete";

@@ -9,7 +9,7 @@ import {Box, HStack, Grid, Text, Button, IconButton, Image, Flex, Spacer, Input,
 
 export default function ShoppingCart () {
     const [orderState, setOrder] = React.useState();
-    const cart = useSelector(({cart}) => cart);
+    const cart = useSelector((state) => state.cart.cart);
     const dispatch = useDispatch();
     const {email} = useAuth0().user || {email: null};
     const { user, isAuthenticated } = useAuth0();

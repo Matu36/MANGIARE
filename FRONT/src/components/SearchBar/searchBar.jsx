@@ -12,9 +12,9 @@ import { useNavigate} from "react-router-dom";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
-  const recipes = useSelector((state) => state.recipes);
-  const diets = useSelector((state) => state.diets);
-  const orderBy = useSelector((state) => state.orderBy);
+  const recipes = useSelector((state) => state.recipes.recipes);
+  const diets = useSelector((state) => state.filters.diets);
+  const orderBy = useSelector((state) => state.filters.orderBy);
   const navigate = useNavigate();
 
   const mapRecipes = recipes.map((r) => {
