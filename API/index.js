@@ -8,17 +8,18 @@ const modelsMock = require("./src/helpers/modelsMock.js");
 
 conn
   .sync({
-     //force: true,
-      //alter: true
+    //force: true,
+    //alter: true
   })
   .then(async () => {
-    console.log("DB sincronized OK!");
-    server.listen(process.env.PORT || 3001 , () => {
-      console.log("Back server listening at" , process.env.PORT); // eslint-disable-line no-console
+    // console.log("DB sincronized OK!");
+    console.log("Database: ✅");
+    server.listen(process.env.PORT || 3001, () => {
+      console.log("Back server: ✅ - ( port:", process.env.PORT || 3001, ")"); // eslint-disable-line no-console
     });
   })
 
   // Inserts de prueba en DB
-   //.then(() => modelsMock(1000)) // nro Api Regs --- 0: ONLY LOCAL
+  //.then(() => modelsMock(1000)) // nro Api Regs --- 0: ONLY LOCAL
 
   .catch((err) => console.log(err));
