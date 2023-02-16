@@ -3,18 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setRecipeIdAutocomplete,
   setSearchValueName,
-} from "../../Redux/actions/index.js";
+} from "../../Redux/actions/autocomplete";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import { filterByDiet, setOrderBy, getIngredients } from "../../Redux/actions/index.js";
+import { filterByDiet, setOrderBy } from "../../Redux/actions/filters";
+import { getIngredients } from "../../Redux/actions/ingredients";
 import s from "../SearchBar/searchBar.module.css";
 import Select from "react-select";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
-  const recipes = useSelector((state) => state.recipes);
-  const diets = useSelector((state) => state.diets);
-  const orderBy = useSelector((state) => state.orderBy);
+  const recipes = useSelector((state) => state.recipes.recipes);
+  const diets = useSelector((state) => state.filters.diets);
+  const orderBy = useSelector((state) => state.filters.orderBy);
   const navigate = useNavigate();
 
   const mapRecipes = recipes.map((r) => {
@@ -32,7 +33,7 @@ export default function SearchBar() {
   const handleOnSelect = (item) => {
     dispatch(setRecipeIdAutocomplete(item.id));
     dispatch(filterByDiet(""));
-    dispatch(getIngredients(item.id))
+    dispatch(getIngredients(item.id));
 
     navigate(`/recipes/${item.id}`);
   };
