@@ -1,6 +1,7 @@
 const transporter = require("../mailer/mailer");
 const testing = require("./templates/testing");
 const newUser = require("./templates/newUser");
+const orderStatus = require("./templates/orderStatus");
 
 //                   ------------------ Parametros que recibe la función ------------------
 //
@@ -10,26 +11,37 @@ const newUser = require("./templates/newUser");
 
 // Ambos parametros son obligatorios si no el email no se enviará.
 
-const sendEmailWithTemplate = (to, template = "testing") => {
+const sendEmailWithTemplate = (to, template, data) => {
   console.log("Sending email...");
-
   let emailOptions;
 
-  if (template === "testing") {
-    emailOptions = {
-      from: "MANGIAR-E",
-      to,
-      subject: 'Testing email using templates',
-      html: testing({ email: to }),
-    };
-  }
-  if (template === "newUser") {
-    emailOptions = {
-      from: "MANGIAR-E",
-      to,
-      subject: "Welcome to Mangiare - Bring your ingredients to life!",
-      html: newUser({ email: to }),
-    };
+  switch (template) {
+    case "newUser":
+      emailOptions = {
+        from: "MANGIAR-E",
+        to,
+        subject: "Welcome to Mangiare - Bring your ingredients to life!",
+        html: newUser({ email: to }),
+      };
+      break;
+
+    case "orderStatus":
+      emailOptions = {
+        from: "MANGIAR-E",
+        to,
+        subject: "Update on your Mangiar-e purchase status",
+        html: orderStatus({ email: to, data}),
+      };
+      break;
+
+    default:
+      emailOptions = {
+        from: "MANGIAR-E",
+        to,
+        subject: "Testing email using templates",
+        html: testing({ email: to }),
+      };
+      break;
   }
 
   transporter.sendMail(emailOptions, (error, info) => {
