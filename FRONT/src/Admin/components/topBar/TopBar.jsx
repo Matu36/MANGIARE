@@ -1,8 +1,8 @@
-import "./topbar.css";
+import "./topBar.css";
 import {MdOutlineNotificationsNone} from "react-icons/md";
 import {GrLanguage} from "react-icons/gr";
 import {TbSettings} from "react-icons/tb";
-import LOGO from "../../../src/img/LOGOBIGOTIN.jpg"
+import LOGO from "../../../img/LOGOBIGOTIN.jpg";
 
 export default function TopBar() {
   return (
