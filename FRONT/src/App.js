@@ -15,7 +15,12 @@ import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import UserPage from "./components/userPage/UserPage";
 import Appmodel from "../src/Admin/Appmodel";
 import UserList from "./Admin/pages/userList/UserList";
-import UserEdit from "./Admin/components/userEdit/UserEdit";
+import Transactions from "./Admin/components/Transactions/Transactions";
+import Products from "../src/Admin/components/Products/Products";
+import Email from "./Admin/components/Email/Email";
+import Reviews from "./Admin/components/Reviews/Reviews";
+import Feedback from "../src/Admin/components/Feedback/Feedback";
+
 
 
 
@@ -40,7 +45,11 @@ export default function App() {
         <Route exact path="/user" element={<UserPage />} />
         <Route exact path="/admin" element={<Appmodel />} />
         <Route exact path="/admin/User" element={<UserList />} />
-        <Route exact path="/admin/User/:UserId" element={<UserEdit />} />
+        <Route exact path="/admin/Products" element={<Products />} />
+        <Route exact path="/admin/Transactions" element={<Transactions />} />
+        <Route exact path="/admin/Email" element={<Email />} />
+        <Route exact path="/admin/Reviews" element={<Reviews />} />
+        <Route exact path="/admin/Feedback" element={<Feedback />} />
         
       </Routes>
     </>
