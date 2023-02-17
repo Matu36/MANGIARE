@@ -4,6 +4,7 @@
 
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
+const transporter = require("./src/mailer/mailer");
 const modelsMock = require("./src/helpers/modelsMock.js");
 
 conn
@@ -12,10 +13,14 @@ conn
     //alter: true
   })
   .then(async () => {
-    // console.log("DB sincronized OK!");
-    console.log("Database: ✅");
+    console.log("Database:      ✅");
     server.listen(process.env.PORT || 3001, () => {
-      console.log("Back server: ✅ - ( port:", process.env.PORT || 3001, ")"); // eslint-disable-line no-console
+      console.log("Back server:   ✅  -  ( port:", process.env.PORT || 3001, ")"); // eslint-disable-line no-console
+    });
+  })
+  .then(async () => {
+    await transporter.verify().then(() => {
+      console.log("Email service: ✅");
     });
   })
 
