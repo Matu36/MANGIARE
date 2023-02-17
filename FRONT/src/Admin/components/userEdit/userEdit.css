@@ -75,7 +75,7 @@ margin-top: 20px;
 }
 
 .userShowInfo {
-    display: flex;
+    
     align-items: center;
     margin: 20px 0px;
     color: #444
@@ -84,4 +84,8 @@ margin-top: 20px;
 
 .userShowIcon {
 font-size: 14px;
+}
+
+.userShowInfoTitle {
+    margin-left: 10px;
 }

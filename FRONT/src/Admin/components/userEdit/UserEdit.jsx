@@ -39,7 +39,39 @@ export default function UserEdit() {
 </div>
 </div>
         </div>
-        <div className="userUpdate"></div>
+        <div className="userUpdate">
+<span className="userUpdateTitle">Edit </span>
+<form className="updateUserForm">
+<div className="userUpdateFormLeft">
+
+</div>
+
+<div className="userUpdateFormRight">
+<div className="userUpdateItem">
+<label> Username </label>
+<input type="text" placeholder="RichardLan" className="userUpdateInput"/>
+
+</div>
+<div className="userUpdateItem">
+<label> Email </label>
+<input type="text" placeholder="RichardLan@gmail.com" className="userUpdateInput"/>
+
+</div>
+<div className="userUpdateItem">
+<label> Addres </label>
+<input type="text" placeholder="12 n 322" className="userUpdateInput"/>
+
+</div>
+<div className="userUpdateItem">
+<label> Phone </label>
+<input type="text" placeholder="2215704647" className="userUpdateInput"/>
+
+</div>
+</div>
+
+</form>
+
+        </div>
         
       </div>
     </div>
