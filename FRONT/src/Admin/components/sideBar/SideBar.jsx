@@ -2,6 +2,7 @@ import "./sideBar.css";
 import {MdOutlineLineStyle, MdTimeline, MdTrendingUp, MdProductionQuantityLimits} from "react-icons/md"; 
 import {TbUsers, TbCoin, TbMessageCircle} from "react-icons/tb";
 import {VscGraph, VscMail, VscFeedback} from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
 
 export default function SideBar() {
@@ -30,7 +31,7 @@ Sales
           <ul className="sidebarList">
             <li className="sidebarListItem active">
 <TbUsers className="sidebarIcon"/>
-Users
+<Link to= "/admin/User"> Users </Link>
             </li>
             <li className="sidebarListItem">
 <MdProductionQuantityLimits className="sidebarIcon"/>
