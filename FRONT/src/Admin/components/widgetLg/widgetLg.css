@@ -1,0 +1,60 @@
+.widgetLg {
+    flex: 2;
+    box-shadow: 2px -1px 5px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 2px -1px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 2px -1px 5px 0px rgba(0,0,0,0.75);
+padding: 20px;
+}
+
+.widgetLgTitle {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.widgerLgImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.widgetLgButton {
+    padding: 5px 7px;
+    border: none;
+    border-radius: 10px;
+}
+
+.widgetLgButton.Approved {
+    background-color: #e5faf2;
+    color: #3bb077;
+}
+
+.widgetLgButton.Declined {
+    background-color: lightpink;
+    color: #d95087;
+}
+
+.widgetLgButton.Pending {
+    background-color: lightgrey;
+    color: #2a7ade;
+}
+
+.widgetLgTable {
+    width: 100%;
+    border-spacing: 20px;
+}
+
+.widgetLgTh {
+    text-align: left;
+}
+
+.widgetLgUser {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.widgetLgDate, .widgetLgAmount {
+font-weight: 300;
+}
