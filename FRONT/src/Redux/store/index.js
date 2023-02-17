@@ -6,4 +6,4 @@ import rootReducer from "../reducer";
 export const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
-); // rootReducer is the function that returns the state
+);

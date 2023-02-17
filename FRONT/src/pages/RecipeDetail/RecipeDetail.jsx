@@ -2,12 +2,9 @@ import React, { useEffect, useState, useReducer } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
-import {
-  getRecipeDetail,
-  getIngredients,
-  addToCart,
-  setCart,
-} from "../../Redux/actions";
+import { getRecipeDetail } from "../../Redux/actions/recipes";
+import { getIngredients } from "../../Redux/actions/ingredients";
+import { setCart, addToCart } from "../../Redux/actions/cart";
 import s from "../RecipeDetail/RecipeDetail.module.css";
 import NavBar from "../../components/NavBar/NavBar";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
@@ -31,12 +28,11 @@ const RecipeDetail = () => {
   let { id } = useParams();
   const { user } = useAuth0();
   let dispatch = useDispatch();
-  let recipe = useSelector((state) => state.recipeDetail);
-  const ingredients = useSelector((state) => state.ingredients);
+  let recipe = useSelector((state) => state.recipes.recipeDetail);
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
   const [list, setList] = useState(); // Traigo datos faltantes de ingredients
   //formato list: [{id, name, price}, {id, name, price}...]
-  const cart = useSelector(({ cart }) => cart);
-  const [loading, setLoading] = useState(false);
+  const cart = useSelector((state) => state.cart.cart);
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
@@ -58,7 +54,10 @@ const RecipeDetail = () => {
       localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
     } else {
       let new_owner = user ? user.email : "guest";
-      localStorage.setItem("MANGIARE_cart", JSON.stringify([...LS_cart, ...ingredient]));
+      localStorage.setItem(
+        "MANGIARE_cart",
+        JSON.stringify([...LS_cart, ...ingredient])
+      );
       localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
     }
   };
@@ -87,8 +86,12 @@ const RecipeDetail = () => {
   }, [recipe, ingredients, cart]);
 
   const handleOnAdd = (id, unit) => {
-    handleLocalStorage([list.find((el) => el.id == id)])
-    setList(list.map(el => ((el.id == id) && (el.unit == unit)) ? {...el, inCart: true} : {...el}));
+    handleLocalStorage([list.find((el) => el.id == id)]);
+    setList(
+      list.map((el) =>
+        el.id == id && el.unit == unit ? { ...el, inCart: true } : { ...el }
+      )
+    );
     return dispatch(addToCart(id ? [list.find((el) => el.id == id)] : list));
   };
 
@@ -150,7 +153,16 @@ const RecipeDetail = () => {
             filter: "contrast(90%)",
           }}
         >
-          <Text fontSize='6xl' textAlign="center" fontWeight="bold" color="yellow.800" backgroundColor="white" opacity="0.5">{title}</Text>
+          <Text
+            fontSize="6xl"
+            textAlign="center"
+            fontWeight="bold"
+            color="yellow.800"
+            backgroundColor="white"
+            opacity="0.5"
+          >
+            {title}
+          </Text>
 
           <Box width="40%" height="40%" objectFit={"cover"} borderRadius="10px">
             <img className={s.imageDetail} src={image} alt={title} />
@@ -168,12 +180,16 @@ const RecipeDetail = () => {
               <Tab _selected={{ color: "white", bg: "blue.500" }}>Rating</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel backgroundColor="rgba(255, 255, 255, 0.7)" height={["200px", "300px", "400px"]} overflowY="scroll">
+              <TabPanel
+                backgroundColor="rgba(255, 255, 255, 0.7)"
+                height={["200px", "300px", "400px"]}
+                overflowY="scroll"
+              >
                 {!list ? (
                   <h3>Loading...</h3>
                 ) : (
                   <IngredientsList
-                    items={list.map((el) => ({ ...el, units: [el.unit]}))}
+                    items={list.map((el) => ({ ...el, units: [el.unit] }))}
                     onChange={handleOnChange}
                     onUnitChange={handleOnUnitChange}
                     itemButton={{
@@ -184,7 +200,7 @@ const RecipeDetail = () => {
                   />
                 )}
               </TabPanel>
-              <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)" width='50%'>
+              <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)" width="50%">
                 <Box width="100%" color="black">
                   <p>{instructions}</p>
                 </Box>
@@ -213,10 +229,11 @@ const RecipeDetail = () => {
           </Tabs>
         </Box>
         <NavLink className={s.navlinkGoBackButton} to={"/home"}>
-        <Button colorScheme="teal" variant="solid" size="lg">Go Home</Button>
-      </NavLink>
+          <Button colorScheme="teal" variant="solid" size="lg">
+            Go Home
+          </Button>
+        </NavLink>
       </Box>
-    )}
     </>
   );
 };

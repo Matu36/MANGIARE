@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
-import { setCart, removeToCart } from "../../Redux/actions";
+import { setCart, removeToCart } from "../../Redux/actions/cart";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginButton } from "../../components/Auth0/login_button";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -9,13 +9,12 @@ import {Box, HStack, Grid, Text, Button, IconButton, Image, Flex, Spacer, Input,
 
 export default function ShoppingCart () {
     const [orderState, setOrder] = React.useState();
-    const cart = useSelector(({cart}) => cart);
+    const cart = useSelector((state) => state.cart.cart);
     const dispatch = useDispatch();
     const {email} = useAuth0().user || {email: null};
-    const {isAuthenticated, user} = useAuth0();
+    const { user, isAuthenticated } = useAuth0();
 
-
-   // --------------- localStorage ---------------
+    //                   --------------- localStorage ---------------
     useEffect(() => {
         let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
         if (!LS_cart) return;

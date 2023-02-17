@@ -1,6 +1,7 @@
 import React from "react";
 import Diets from "../../components/Diets/Diets";
-import { getIngredients, createRecipe } from "../../Redux/actions";
+import { createRecipe } from "../../Redux/actions/recipes";
+import { getIngredients } from "../../Redux/actions/ingredients";
 import { connect } from "react-redux";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import s from "./CreateRecipe.module.css";
@@ -84,8 +85,8 @@ class CreateRecipe extends React.Component {
         })),
       })
       .then(() => {
-        alert(`The Recipe '${this.state.title}' has been created!`)
-        window.location.href = '/home';
+        alert(`The Recipe '${this.state.title}' has been created!`);
+        window.location.href = "/home";
       })
       .catch(() => alert(`Error ocurred.`))
       .then(() => this.setState({ completed: true }));
@@ -140,7 +141,7 @@ class CreateRecipe extends React.Component {
     else {
       change = {
         ingredients: this.state.ingredients.map((el) =>
-          ((el.id != target.id) || (el.unit != unit))
+          el.id != target.id || el.unit != unit
             ? el
             : { ...el, amount: target.value <= 0 ? 0 : target.value }
         ),
@@ -166,215 +167,219 @@ class CreateRecipe extends React.Component {
         marginTop="1px"
         backgroundImage={background}
         backgroundSize="cover"
-        
-      
       >
-        <NavBar/>
-        
-    
-        
-    <Flex flexDirection='column' marginTop='50px' >
-       <VStack flex='1'>
-        <Text fontSize="6xl" textAlign="left" fontWeight="bold" 
-      color="teal.600" >
-          {" "}
-          Create your own Recipe!
-        </Text>
-        <Text fontSize='3xl' textAlign="left" fontWeight="bold" color="yellow.600" backgroundColor="white" opacity="0.5">Write your cookbook online</Text>
-        </VStack>
-        <Box
-          width="100%"
-          mt={38}
-          marginLeft='20px'
-          style={{
-            display: "flex",
-            alignItems: "",
-            justifyContent: "left",
-            flexDirection: "row",
-          }}
-        >
-          <HStack>
-          <Box as="form" onSubmit={this.handleSubmit} width='1100px'>
-            <Box display="flex" flexDirection="row" width="100%">
-              <Box flex="1">
-                <div className={s.body}>
-                  <table style={{ width: "100%", margin: "auto" }}>
-                    <tbody>
-                      <tr>
-                        <td width="80%">
-                          <label htmlFor="title" className={s.label}>
-                            Title:
-                          </label>
-                        </td>
-                        <td>
-                          <input
-                            className={s.input}
-                            type="text"
-                            id="title"
-                            name="title"
-                            value={this.state.title}
-                            placeholder="Recipe title..."
-                            onChange={this.handleOnChange}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          colSpan={2}
-                          style={{
-                            fontSize: "smaller",
-                            paddingBottom: "20px",
-                            color: this.state.error.title ? "red" : "green",
-                          }}
-                        >
-                          Title must be between 4 and 25 characters string
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <label htmlFor="image" className={s.label}>
-                            Image URL:
-                          </label>
-                        </td>
-                        <td>
-                          <input
-                            className={s.input}
-                            type="url"
-                            id="image"
-                            name="image"
-                            value={this.state.image}
-                            placeholder="Recipe Image URL..."
-                            onChange={this.handleOnChange}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          colSpan={2}
-                          style={{
-                            fontSize: "smaller",
-                            paddingBottom: "20px",
-                            color: this.state.error.image ? "red" : "green",
-                          }}
-                        >
-                          URL must be an valid URL or empty
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </Box>
-              <Spacer w='30px'></Spacer>
+        <NavBar />
 
-              <Box flex="1" alignContent="center">
-                <Diets
-                  onChange={this.handleDiets}
-                  diets={this.props.diets.filter((el) => el !== "All Diets")}
-                  actives={this.state.diets}
-                />
-              </Box>
-              <Box flex="1">
-                <Stack spacing={4}>
-                  <Box>
-                    <FormLabel fontSize='40px' >
-                      Instructions:
-                    </FormLabel>
+        <Flex flexDirection="column" marginTop="50px">
+          <VStack flex="1">
+            <Text
+              fontSize="6xl"
+              textAlign="left"
+              fontWeight="bold"
+              color="teal.600"
+            >
+              {" "}
+              Create your own Recipe!
+            </Text>
+            <Text
+              fontSize="3xl"
+              textAlign="left"
+              fontWeight="bold"
+              color="yellow.600"
+              backgroundColor="white"
+              opacity="0.5"
+            >
+              Write your cookbook online
+            </Text>
+          </VStack>
+          <Box
+            width="100%"
+            mt={38}
+            marginLeft="20px"
+            style={{
+              display: "flex",
+              alignItems: "",
+              justifyContent: "left",
+              flexDirection: "row",
+            }}
+          >
+            <HStack>
+              <Box as="form" onSubmit={this.handleSubmit} width="1100px">
+                <Box display="flex" flexDirection="row" width="100%">
+                  <Box flex="1">
+                    <div className={s.body}>
+                      <table style={{ width: "100%", margin: "auto" }}>
+                        <tbody>
+                          <tr>
+                            <td width="80%">
+                              <label htmlFor="title" className={s.label}>
+                                Title:
+                              </label>
+                            </td>
+                            <td>
+                              <input
+                                className={s.input}
+                                type="text"
+                                id="title"
+                                name="title"
+                                value={this.state.title}
+                                placeholder="Recipe title..."
+                                onChange={this.handleOnChange}
+                              />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              colSpan={2}
+                              style={{
+                                fontSize: "smaller",
+                                paddingBottom: "20px",
+                                color: this.state.error.title ? "red" : "green",
+                              }}
+                            >
+                              Title must be between 4 and 25 characters string
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label htmlFor="image" className={s.label}>
+                                Image URL:
+                              </label>
+                            </td>
+                            <td>
+                              <input
+                                className={s.input}
+                                type="url"
+                                id="image"
+                                name="image"
+                                value={this.state.image}
+                                placeholder="Recipe Image URL..."
+                                onChange={this.handleOnChange}
+                              />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              colSpan={2}
+                              style={{
+                                fontSize: "smaller",
+                                paddingBottom: "20px",
+                                color: this.state.error.image ? "red" : "green",
+                              }}
+                            >
+                              URL must be an valid URL or empty
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </Box>
-                  <Textarea
-                    id="instructions"
-                    name="instructions"
-                    value={this.state.instructions}
-                    placeholder="Recipe Instructions..."
-                    onChange={this.handleOnChange}
-                    className={s.input}
-                    backgroundColor="rgba(255, 255, 255, 0.9)"
-                    height="200px"
-                    width="400px"
-                    padding="10px"
-                    fontSize="16px"
-                  />
-                </Stack>
-              </Box>
-            </Box>
-            <Box display="flex" flexDirection="row" width="100%">
-              <Box flex="1">
-                <div style={{ width: "70%", margin: "auto" }}>
-                  <ReactSearchAutocomplete
-                    showClear
-                    showNoResultsText="No ingredients finded..."
-                    items={this.props.ingredients}
-                    onSelect={this.handleOnSelect}
-                    autoFocus
-                    formatResult={this.formatResult}
-                    placeholder="Ingredients search"
-                  />
-                </div>
-                <div style={{ width: "100%", padding: "20px", margin: "auto" }}>
-                  {this.state.ingredients.length ? (
-                    <IngredientsList
-                      items={this.state.ingredients}
-                      onChange={this.handleOnChange}
-                      onUnitChange={this.handleOnUnitChange}
-                      itemButton={{
-                        caption: "Remove",
-                        action: this.handleOnDelete,
-                      }}
+                  <Spacer w="30px"></Spacer>
+
+                  <Box flex="1" alignContent="center">
+                    <Diets
+                      onChange={this.handleDiets}
+                      diets={this.props.diets.filter(
+                        (el) => el !== "All Diets"
+                      )}
+                      actives={this.state.diets}
                     />
-                  ) : (
-                    <p
-                      style={{
-                        fontSize: "smaller",
-                        paddingBottom: "20px",
-                        color: "red",
-                      }}
+                  </Box>
+                  <Box flex="1">
+                    <Stack spacing={4}>
+                      <Box>
+                        <FormLabel fontSize="40px">Instructions:</FormLabel>
+                      </Box>
+                      <Textarea
+                        id="instructions"
+                        name="instructions"
+                        value={this.state.instructions}
+                        placeholder="Recipe Instructions..."
+                        onChange={this.handleOnChange}
+                        className={s.input}
+                        backgroundColor="rgba(255, 255, 255, 0.9)"
+                        height="200px"
+                        width="400px"
+                        padding="10px"
+                        fontSize="16px"
+                      />
+                    </Stack>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row" width="100%">
+                  <Box flex="1">
+                    <div style={{ width: "70%", margin: "auto" }}>
+                      <ReactSearchAutocomplete
+                        showClear
+                        showNoResultsText="No ingredients finded..."
+                        items={this.props.ingredients}
+                        onSelect={this.handleOnSelect}
+                        autoFocus
+                        formatResult={this.formatResult}
+                        placeholder="Ingredients search"
+                      />
+                    </div>
+                    <div
+                      style={{ width: "100%", padding: "20px", margin: "auto" }}
                     >
-                      Recipe must have at least one ingredient
-                    </p>
-                  )}
-                </div>
+                      {this.state.ingredients.length ? (
+                        <IngredientsList
+                          items={this.state.ingredients}
+                          onChange={this.handleOnChange}
+                          onUnitChange={this.handleOnUnitChange}
+                          itemButton={{
+                            caption: "Remove",
+                            action: this.handleOnDelete,
+                          }}
+                        />
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "smaller",
+                            paddingBottom: "20px",
+                            color: "red",
+                          }}
+                        >
+                          Recipe must have at least one ingredient
+                        </p>
+                      )}
+                    </div>
+                  </Box>
+                  <Spacer></Spacer>
+                  <Flex>
+                    <Box
+                      w="250px"
+                      h="20"
+                      backgroundColor="rgba(255, 255, 255, 0.7)"
+                      align="center"
+                    >
+                      <p className={s.cost}>
+                        Estimated cost of recipe: <br />{" "}
+                        {this.state.ingredients
+                          .reduce((aux, el) => aux + el.price * el.amount, 0)
+                          .toFixed(2)}
+                      </p>
+                    </Box>
+                    <Box flex="1">
+                      <Input
+                        type="submit"
+                        value="Submit"
+                        isDisabled={Object.values(this.state.error).includes(
+                          true
+                        )}
+                        variantColor="teal"
+                        variant="filled"
+                        size="lg"
+                        m={4}
+                        mt={8}
+                      />
+                    </Box>
+                  </Flex>
+                </Box>
               </Box>
-              <Spacer></Spacer>
-              <Flex>
-                <Box
-                  w="250px"
-                  h="20"
-                  backgroundColor="rgba(255, 255, 255, 0.7)"
-                  align="center"
-                >
-                  <p className={s.cost}>
-                    Estimated cost of recipe: <br />{" "}
-                    {this.state.ingredients.reduce(
-                      (aux, el) => aux + el.price * el.amount,
-                      0
-                    ).toFixed(2)}
-                  </p>
-                </Box>
-                <Box flex="1">
-                  <Input
-                    type="submit"
-                    value="Submit"
-                    isDisabled={Object.values(this.state.error).includes(true)}
-                    variantColor="teal"
-                    variant='filled'
-                    size="lg"
-                    m={4}
-                    mt={8}
-                  />
-                  
-                </Box>
-
-              </Flex>
-
-            </Box>
-
+            </HStack>
           </Box>
-          </HStack>
-        </Box>
-        
         </Flex>
-      
-       
-       
       </Box>
     );
   }

@@ -41,7 +41,7 @@ export default function IngredientsList (props) {
             </td>
             <td>
               <Button name="itemButton" onClick={() => props.itemButton.action(el.id, el.unit)}>
-                {props.itemButton.caption}
+              {props.itemButton.caption}
               </Button>
             </td>
             <td>
