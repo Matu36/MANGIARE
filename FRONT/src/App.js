@@ -13,6 +13,11 @@ import Contact from "./pages/Contact/Contact";
 import MyRecipes from "./components/MyRecipes/MyRecipes";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import UserPage from "./components/userPage/UserPage";
+import Appmodel from "../src/Admin/Appmodel";
+import UserList from "./Admin/pages/userList/UserList";
+import UserEdit from "./Admin/components/userEdit/UserEdit";
+
+
 
 // axios.defaults.baseURL = 'http://localhost:3001/'
 axios.defaults.baseURL = "https://mangiare-production.up.railway.app/";
@@ -33,6 +38,10 @@ export default function App() {
         <Route exact path="/myRecipes" element={<MyRecipes />} />
         <Route exact path="/shoppingCart" element={<ShoppingCart />} />
         <Route exact path="/user" element={<UserPage />} />
+        <Route exact path="/admin" element={<Appmodel />} />
+        <Route exact path="/admin/User" element={<UserList />} />
+        <Route exact path="/admin/User/:UserId" element={<UserEdit />} />
+        
       </Routes>
     </>
   );
