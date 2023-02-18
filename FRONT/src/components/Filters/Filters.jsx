@@ -3,29 +3,37 @@ import s from "./Filters.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import {
-  filterByDiet,
   setOrderBy,
-  setRecipesToShow,
-  resetRecipesToShow,
-  setFilteredRecipes,
-  resetFilteredRecipes,
+  filterByDiet,
   setFilteredIngredients,
   deleteFilteredIngredient,
   clearFilters,
   setOrderByPriceOrRating,
-} from "../../Redux/actions/index.js";
+} from "../../Redux/actions/filters";
+
+import {
+  setRecipesToShow,
+  resetRecipesToShow,
+  setFilteredRecipes,
+  resetFilteredRecipes,
+} from "../../Redux/actions/recipes";
 
 import { Box, HStack, VStack, Button, Text } from "@chakra-ui/react";
 
 function Filters() {
   const dispatch = useDispatch();
-  const recipes = useSelector((state) => state.recipes);
-  const recipesToShow = useSelector((state) => state.recipesToShow);
-  const filteredDiet = useSelector((state) => state.filteredDiet);
-  const orderBy = useSelector((state) => state.orderBy);
-  const diets = useSelector((state) => state.diets);
-  const ingredients = useSelector((state) => state.ingredients);
-  const filteredIngredients = useSelector((state) => state.filteredIngredients);
+  const recipes = useSelector((state) => state.recipes.recipes);
+  const recipesToShow = useSelector((state) => state.recipes.recipesToShow);
+  const filteredDiet = useSelector((state) => state.filters.filteredDiet);
+  const orderBy = useSelector((state) => state.filters.orderBy);
+  const diets = useSelector((state) => state.filters.diets);
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const filteredIngredients = useSelector(
+    (state) => state.filters.filteredIngredients
+  );
+  const orderByPOrR = useSelector(
+    (state) => state.filters.orderByPriceOrRating
+  );
 
   const optionsDiets = diets.map((diet) => {
     diet = diet[0].toUpperCase() + diet.slice(1);
@@ -88,7 +96,6 @@ function Filters() {
     { label: "Major to Minor", value: "Major to Minor" },
     { label: "Minor to Major", value: "Minor to Major" },
   ];
-  const orderByPOrR = useSelector((state) => state.orderByPriceOrRating);
 
   const handleOrderPriceOrRating = (e, { type }) => {
     let cache = { ...orderByPOrR };
