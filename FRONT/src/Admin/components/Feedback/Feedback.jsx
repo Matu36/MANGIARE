@@ -1,10 +1,6 @@
-import React from 'react';
-import "./feedback.css"
+import React from "react";
+import "./feedback.css";
 
 export default function Feedback() {
-  return (
-    <div>
-      Feedback
-    </div>
-  )
+  return <div>Feedback</div>;
 }

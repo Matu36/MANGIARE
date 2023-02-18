@@ -1,14 +1,14 @@
 .topbar {
-    width: 100px;
-    height: 50px;
-    background-color: white;
-    position: sticky;
+    margin-top: 60px;
+    background-color: whitesmoke;
+    position: fixed;
     top: 0;
-    z-index: 999;
+    z-index: 0;
+    width: 100%;
 }
 
 .topbarWraper {
-    height: 100px;
+    height: 60px;
     padding: 0px 20px;
     display: flex;
     align-items: center;
