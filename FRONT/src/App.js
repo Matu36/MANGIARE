@@ -21,9 +21,6 @@ import Email from "./Admin/components/Email/Email";
 import Reviews from "./Admin/components/Reviews/Reviews";
 import Feedback from "../src/Admin/components/Feedback/Feedback";
 
-
-
-
 // axios.defaults.baseURL = 'http://localhost:3001/'
 axios.defaults.baseURL = "https://mangiare-production.up.railway.app/";
 
@@ -44,13 +41,12 @@ export default function App() {
         <Route exact path="/shoppingCart" element={<ShoppingCart />} />
         <Route exact path="/user" element={<UserPage />} />
         <Route exact path="/admin" element={<Appmodel />} />
-        <Route exact path="/admin/User" element={<UserList />} />
-        <Route exact path="/admin/Products" element={<Products />} />
-        <Route exact path="/admin/Transactions" element={<Transactions />} />
-        <Route exact path="/admin/Email" element={<Email />} />
-        <Route exact path="/admin/Reviews" element={<Reviews />} />
-        <Route exact path="/admin/Feedback" element={<Feedback />} />
-        
+        <Route exact path="/admin/user" element={<UserList />} />
+        <Route exact path="/admin/products" element={<Products />} />
+        <Route exact path="/admin/pransactions" element={<Transactions />} />
+        <Route exact path="/admin/email" element={<Email />} />
+        <Route exact path="/admin/reviews" element={<Reviews />} />
+        <Route exact path="/admin/feedback" element={<Feedback />} />
       </Routes>
     </>
   );

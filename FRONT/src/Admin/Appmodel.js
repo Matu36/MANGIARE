@@ -9,7 +9,6 @@ export default function Appmodel() {
   return (
     <div className="contain">
       <NavBar />
-
       <TopBar />
       <div className="divContainerAdmin">
         <SideBar />
