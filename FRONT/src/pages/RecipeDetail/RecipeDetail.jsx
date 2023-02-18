@@ -33,6 +33,7 @@ const RecipeDetail = () => {
   const [list, setList] = useState(); // Traigo datos faltantes de ingredients
   //formato list: [{id, name, price}, {id, name, price}...]
   const cart = useSelector((state) => state.cart.cart);
+  const [loading, setLoading] = useState(false);
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
@@ -234,7 +235,10 @@ const RecipeDetail = () => {
           </Button>
         </NavLink>
       </Box>
+      
+    )}
     </>
+
   );
 };
 

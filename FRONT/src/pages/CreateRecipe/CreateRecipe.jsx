@@ -385,7 +385,7 @@ class CreateRecipe extends React.Component {
   }
 }
 
-export default connect(({ ingredients, diets }) => ({ ingredients, diets }), {
+export default connect(({ ingredients, filters }) => ({ ingredients: ingredients.ingredients, diets: filters.diets }), {
   getIngredients,
   createRecipe,
 })(CreateRecipe);
