@@ -24,6 +24,7 @@ import {
 } from "@chakra-ui/react";
 import background from "../../img/BackgroundCreateRecipe3.png";
 import NavBar from "../../components/NavBar/NavBar";
+import uploadImageToCloudinary from "../../utils/Cloudinary/uploadImage";
 //import {Redirect} from 'react-router-dom';
 
 class CreateRecipe extends React.Component {
@@ -32,7 +33,7 @@ class CreateRecipe extends React.Component {
     this.state = {
       title: "",
       instructions: "",
-      image: "",
+      image: null,
       ingredients: [],
       diets: [],
       error: {
@@ -71,13 +72,18 @@ class CreateRecipe extends React.Component {
     );
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
+
+    let imageUrl = null;
+    if (this.state.image) {
+      imageUrl = await uploadImageToCloudinary('recipes', this.state.image);
+    }
 
     this.props
       .createRecipe({
         ...this.state,
-        image: this.state.image ? this.state.image : null,
+        image: imageUrl ? imageUrl : null,
         ingredients: this.state.ingredients.map(({ id, amount, unit }) => ({
           id,
           amount,
@@ -117,16 +123,21 @@ class CreateRecipe extends React.Component {
   handleOnChange = ({ target }, unit) => {
     let error = { ...this.state.error };
 
+    let imageFile;
+    target.name === "image" ? (imageFile = target.files[0]) : null;
+
     switch (target.name) {
       case "title":
         error.title = target.value.length < 4 || target.value.length > 25;
         break;
       case "image":
+        const max_size = 10372672;
         error.image =
-          target.value !== "" &&
-          !/^(http(s)?:\/\/.)[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/g.test(
-            target.value
-          );
+          imageFile &&
+          (imageFile.size > max_size ||
+            (!imageFile.name.includes(".jpg") &&
+              !imageFile.name.includes(".jpeg") &&
+              !imageFile.name.includes(".png")));
         break;
       case "instructions":
         error.instructions = target.value.length < 4;
@@ -137,7 +148,9 @@ class CreateRecipe extends React.Component {
 
     let change;
 
-    if (target.name !== "ingredient") change = { [target.name]: target.value };
+    if (target.name === "image") change = { [target.name]: imageFile };
+    else if (target.name !== "ingredient")
+      change = { [target.name]: target.value };
     else {
       change = {
         ingredients: this.state.ingredients.map((el) =>
@@ -243,11 +256,17 @@ class CreateRecipe extends React.Component {
                           <tr>
                             <td>
                               <label htmlFor="image" className={s.label}>
-                                Image URL:
+                                Image file:
                               </label>
                             </td>
                             <td>
                               <input
+                                type="file"
+                                id="image"
+                                name="image"
+                                onChange={this.handleOnChange}
+                              />
+                              {/* <input
                                 className={s.input}
                                 type="url"
                                 id="image"
@@ -255,7 +274,7 @@ class CreateRecipe extends React.Component {
                                 value={this.state.image}
                                 placeholder="Recipe Image URL..."
                                 onChange={this.handleOnChange}
-                              />
+                              /> */}
                             </td>
                           </tr>
                           <tr>
@@ -267,7 +286,8 @@ class CreateRecipe extends React.Component {
                                 color: this.state.error.image ? "red" : "green",
                               }}
                             >
-                              URL must be an valid URL or empty
+                              Select a image file (.jpg, .jpeg, .png) up to 10
+                              mb
                             </td>
                           </tr>
                         </tbody>
@@ -385,7 +405,13 @@ class CreateRecipe extends React.Component {
   }
 }
 
-export default connect(({ ingredients, filters }) => ({ ingredients: ingredients.ingredients, diets: filters.diets }), {
-  getIngredients,
-  createRecipe,
-})(CreateRecipe);
+export default connect(
+  ({ ingredients, filters }) => ({
+    ingredients: ingredients.ingredients,
+    diets: filters.diets,
+  }),
+  {
+    getIngredients,
+    createRecipe,
+  }
+)(CreateRecipe);
