@@ -39,16 +39,16 @@ export default function SideBar() {
             </li>
             <li className="sidebarListItem">
               <MdProductionQuantityLimits className="sidebarIcon" />
-              <Link to= "/admin/Products">Products</Link>
+              <Link to="/admin/Products">Products</Link>
             </li>
 
             <li className="sidebarListItem">
               <TbCoin className="sidebarIcon" />
-              <Link to= "/admin/Transactions">Transactions</Link>
+              <Link to="/admin/Transactions">Transactions</Link>
             </li>
             <li className="sidebarListItem">
               <TbCoin className="sidebarIcon" />
-              <Link to = "/admin/Reviews">Reviews</Link>
+              <Link to="/admin/Reviews">Reviews</Link>
             </li>
           </ul>
         </div>
@@ -57,11 +57,11 @@ export default function SideBar() {
           <ul className="sidebarList">
             <li className="sidebarListItem active">
               <VscMail className="sidebarIcon" />
-              <Link to = "/admin/Email">eMail </Link>
+              <Link to="/admin/Email">eMail </Link>
             </li>
             <li className="sidebarListItem">
               <VscFeedback className="sidebarIcon" />
-              <Link to = "/admin/Feedback"> Feedback </Link>
+              <Link to="/admin/Feedback"> Feedback </Link>
             </li>
           </ul>
         </div>

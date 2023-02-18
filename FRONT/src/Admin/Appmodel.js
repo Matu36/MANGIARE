@@ -1,17 +1,20 @@
-import React from 'react';
+import React from "react";
 import "./Appmodel.css";
-import SideBar from './components/sideBar/SideBar'
-import TopBar from './components/topBar/TopBar'
-import HomeAdmin from './pages/home/HomeAdmin';
-
+import SideBar from "./components/sideBar/SideBar";
+import TopBar from "./components/topBar/TopBar";
+import HomeAdmin from "./pages/home/HomeAdmin";
+import NavBar from "./../components/NavBar/NavBar.jsx";
 
 export default function Appmodel() {
   return (
-    <div className='contain'>
+    <div className="contain">
+      <NavBar />
+
       <TopBar />
-      <div className='container'></div>
-      <SideBar />
-      <HomeAdmin />
+      <div className="divContainerAdmin">
+        <SideBar />
+        <HomeAdmin />
+      </div>
     </div>
-  )
+  );
 }
