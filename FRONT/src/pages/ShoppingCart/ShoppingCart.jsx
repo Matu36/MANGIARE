@@ -8,7 +8,7 @@ import background from "../../img/CartShopBackground.png";
 import {Box, HStack, Grid, Text, Button, IconButton, Image, Flex, Spacer, Input, InputGroup, InputRightElement, InputLeftElement, InputLeftAddon, InputRightAddon, Stack, Center, Divider, useToast, VStack} from "@chakra-ui/react";
 
 export default function ShoppingCart () {
-    const [orderState, setOrder] = React.useState();
+    const [state, setState] = React.useState({address: null, checkout: false});
     const cart = useSelector((state) => state.cart.cart);
     const dispatch = useDispatch();
     const {email} = useAuth0().user || {email: null};
@@ -33,6 +33,10 @@ export default function ShoppingCart () {
       };
     //                 --------------- fin localStorage ---------------
 
+    const handleOnAddressChange = ({target}) => {
+        setState({...state, [target.name]: target.value})
+    };
+    
     const handleOnDelete = (id, unit) => {
         handleLocalStorage(id)
         dispatch(removeToCart({id, unit}));
@@ -42,23 +46,27 @@ export default function ShoppingCart () {
         dispatch(setCart(cart.map(el => ((el.id == target.id) && (el.unit == unit)) ? {...el, amount: target.value} : el)));
     };
 
-    const handleCheckout = () => {
+    const handleConfirm = () => {
         fetch(`http://localhost:3001/checkout`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({user: email, cart}),
+            body: JSON.stringify({email, address: state.address, cart}),
           })
             .then(data => data.json())
             .then(order => {
                 dispatch(setCart([]));
                 localStorage.removeItem('cart');
-                setOrder(order)
-                localStorage.setItem('pendingPayment', JSON.stringify({user: email, order}))
+                console.log(order);
+//                window.location.href = `localhost:3000/order/${order.id}`;
+
             })
     }
 
+    const handleCheckout = () => {
+        setState({...state, checkout: true});
+    }
+
     const handlePay = () => {
-        const {order, user} = JSON.parse(localStorage.getItem('pendingPayment'));
         const {orderDetail, orderId} = order;
 
         fetch(`http://localhost:3001/payment`, {
@@ -69,7 +77,6 @@ export default function ShoppingCart () {
             .then(data => data.json())
             .then(({response}) => window.open(response.init_point))
             .then(() => {
-                localStorage.removeItem('pendingPayment');
                 window.location.href = '/home';
             })
     }
@@ -116,23 +123,52 @@ export default function ShoppingCart () {
                         <center>
                         {
                             email
-                                ? <Button colorScheme="teal"  variant="solid" size="lg" onClick={handleCheckout}>
-                                Checkout
-                              </Button>
+                                ? state.checkout
+                                    ?
+                                        <>
+                                            <label htmlFor="address">Shipping address:</label>
+                                            <br />
+                                            <input
+                                                type="text"
+                                                id="address"
+                                                name="address"
+                                                value={state.address || JSON.parse(localStorage.getItem("MANGIARE_userInfo")).address || ''}
+                                                placeholder="Confirm shipping address..."
+                                                onChange={handleOnAddressChange}
+                                            />
+                                            <br />
+                                            <br />
+                                            <Button colorScheme="teal"  variant="solid" size="lg"
+                                                isDisabled={!(state.address || JSON.parse(localStorage.getItem("MANGIARE_userInfo")).address || '').length}
+                                                onClick={handleConfirm}>
+                                                    Confirm
+                                            </Button>
+                                        </>
+                                    :
+                                    <Button colorScheme="teal"  variant="solid" size="lg"
+                                        onClick={handleCheckout}>
+                                            Checkout
+                                    </Button>
                                 : <><Text fontSize="lg" mr={2}>You must login before proceed to checkout</Text> <LoginButton /></>
                         }
                         </center>
                         </HStack>
                     </>)
             }
+
+
+
             {
-                JSON.parse(localStorage.getItem('pendingPayment')) && (<HStack justify="space-between" align="flex-end">
+                (<HStack justify="space-between" align="flex-end">
                 <Text fontSize="3xl" fontWeight="bold" color="green.500">Order #{JSON.parse(localStorage.getItem('pendingPayment')).order.orderId} has been created!</Text> <Button onClick={handlePay} colorScheme="green" size="lg">
 PAY
 </Button>
 </HStack>)
             }
 
+
+
+            
             </VStack>
 
                 </Box>

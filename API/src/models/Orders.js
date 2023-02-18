@@ -9,6 +9,10 @@ module.exports = sequelize => {
     tsPayment: {
       type: DataTypes.DATE,
       defaultValue: null
+    },
+    address: {
+      type: DataTypes.STRING,
+      defaultValue: null
     }
   }, {
     updatedAt: false
