@@ -1,10 +1,8 @@
-.container {
-    display: flex;
-    margin-top: 10px;
-}
 
-.contain {
-display: flex;
-height: 100vh;
-width: 100%;
+
+
+.divContainerAdmin {
+    display: flex;
+    height: 100vh;
+    margin-top: 150px;
 }
