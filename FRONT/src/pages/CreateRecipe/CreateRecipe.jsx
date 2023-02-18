@@ -77,7 +77,7 @@ class CreateRecipe extends React.Component {
 
     let imageUrl = null;
     if (this.state.image) {
-      imageUrl = await uploadImageToCloudinary('recipes', this.state.image);
+      imageUrl = await uploadImageToCloudinary("recipes", this.state.image);
     }
 
     this.props
@@ -266,15 +266,7 @@ class CreateRecipe extends React.Component {
                                 name="image"
                                 onChange={this.handleOnChange}
                               />
-                              {/* <input
-                                className={s.input}
-                                type="url"
-                                id="image"
-                                name="image"
-                                value={this.state.image}
-                                placeholder="Recipe Image URL..."
-                                onChange={this.handleOnChange}
-                              /> */}
+                              
                             </td>
                           </tr>
                           <tr>

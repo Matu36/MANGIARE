@@ -7,7 +7,7 @@ const uploadImageToCloudinary = async (folder, file, ref) => {
   const max_size = 10372672;
 
   if (file.size > max_size) {
-    console.log("Max size for files: 10 MB");
+    console.error("Max size for files: 10 MB");
     return;
   } else {
     const formData = new FormData();
