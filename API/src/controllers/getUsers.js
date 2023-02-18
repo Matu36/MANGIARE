@@ -1,4 +1,4 @@
-const {Reviews, Users} = require('../db.js');
+const {Users} = require('../db.js');
 
 module.exports = async (req, res) => {
   try{
@@ -8,14 +8,14 @@ module.exports = async (req, res) => {
 
     if (!requestUser) return res.status(403).send('Wrong user');
 
-    let returnedReviews;
+    let returnedUsers;
 
-    if (requestUser.dataValues.role !== null) returnedReviews = await Reviews.findAll();
-    else returnedReviews = await Reviews.findAll({where: {userId: req.body.id}});
+    if (requestUser.dataValues.role !== null) returnedUsers = await Users.findAll();
+    else returnedUsers = await Users.findAll({where: {id: req.body.id}});
 
-    return (!returnedReviews)
-      ? res.status(404).send('Reviews Not Found')
-      : res.send(returnedReviews);
+    return (!returnedUsers)
+      ? res.status(404).send('Users Not Found')
+      : res.send(returnedUsers);
   }
   catch(error) {
     console.log(error);

@@ -20,7 +20,8 @@ module.exports = sequelize => {
     },
     active: { // false: banned/disabled ; true: active
       type: DataTypes.BOOLEAN,
-      defaultValue: null
+      defaultValue: true,
+      allowNull: false
     }
   }, {
     updatedAt: false
