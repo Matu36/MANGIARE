@@ -1,7 +1,7 @@
 import { GET_INGREDIENTS } from "../actions/ingredients";
 
 const initialState = {
-  ingredients: null,
+  ingredients: [],
 };
 
 const ingredientsReducer = (state = initialState, action) => {

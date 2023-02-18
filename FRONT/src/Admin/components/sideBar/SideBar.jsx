@@ -30,11 +30,11 @@ export default function SideBar() {
             </li>
             <li className="sidebarListItem">
               <MdTimeline className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>Analytics</button>
+             Analytics
             </li>
             <li className="sidebarListItem">
               <MdTrendingUp className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>Sales</button>
+              Sales
             </li>
           </ul>
         </div>
@@ -43,7 +43,7 @@ export default function SideBar() {
           <ul className="sidebarList">
             <li className="sidebarListItem active">
               <TbUsers className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>Users </button>
+              <button onClick={(e) => handleHomeAdmin(e)}>Users</button>
             </li>
             <li className="sidebarListItem">
               <MdProductionQuantityLimits className="sidebarIcon" />

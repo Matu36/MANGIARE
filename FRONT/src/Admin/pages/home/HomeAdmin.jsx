@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Reviews from "../../components/Reviews/Reviews";
 import UserList from "../../pages/userList/UserList";
 import { resetHomeAdminShow } from "../../../Redux/actions/homeadmin";
+import Products from "../../components/Products/Products";
 
 export default function HomeAdmin() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default function HomeAdmin() {
     <div className="home">
       {homeShow === "Reviews" && <Reviews />}
       {homeShow === "Users" && <UserList />}
+      {homeShow === "Products" && <Products />}
       {homeShow === "Home" && (
         <div>
           {" "}
