@@ -397,6 +397,7 @@ class CreateRecipe extends React.Component {
   }
 }
 
+
 export default connect(
   ({ ingredients, filters }) => ({
     ingredients: ingredients.ingredients,
@@ -407,3 +408,4 @@ export default connect(
     createRecipe,
   }
 )(CreateRecipe);
+

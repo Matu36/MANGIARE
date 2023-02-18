@@ -4,6 +4,8 @@ import ingredients from "./ingredients";
 import filters from "./filters";
 import cart from "./cart";
 import autocomplete from "./autocomplete";
+import reviews from "./reviews";
+import homeadmin from "./homeadmin";
 
 export default combineReducers({
   recipes,
@@ -11,4 +13,6 @@ export default combineReducers({
   filters,
   cart,
   autocomplete,
+  reviews,
+  homeadmin,
 });

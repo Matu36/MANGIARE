@@ -53,6 +53,12 @@
   padding: 20px 0;
   border-radius: 50px;
 }
+
+.divSpinner {
+  display: flex;
+  margin-top: 20rem;
+  justify-content: center;
+}
 .containerImage {
   background-color: #fff;
   border-radius: 10px;
