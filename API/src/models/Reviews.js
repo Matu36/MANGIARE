@@ -22,8 +22,8 @@ module.exports = sequelize => {
     },
     visible: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaulValue: true
+      defaultValue: true,
+      allowNull: false
     }
   }, {
     updatedAt: false
