@@ -13,16 +13,13 @@ import { resetHomeAdminShow } from "../../../Redux/actions/homeadmin";
 export default function HomeAdmin() {
   const dispatch = useDispatch();
   const homeShow = useSelector((state) => state.homeadmin.homeShow);
-  useEffect(() => {
-    dispatch(resetHomeAdminShow());
-  }, [homeShow]);
+
   return (
     <div className="home">
       {homeShow === "Reviews" && <Reviews />}
       {homeShow === "Users" && <UserList />}
       {homeShow === "Home" && (
         <div>
-          {" "}
           <FeaturedInfo />
           <Chart
             data={data}

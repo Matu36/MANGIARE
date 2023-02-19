@@ -43,7 +43,7 @@ export default function SideBar() {
           <ul className="sidebarList">
             <li className="sidebarListItem active">
               <TbUsers className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>Users </button>
+              <button onClick={(e) => handleHomeAdmin(e)}>Users</button>
             </li>
             <li className="sidebarListItem">
               <MdProductionQuantityLimits className="sidebarIcon" />

@@ -26,6 +26,7 @@ export default function UserMenu() {
           variant="outline"
         />
         <MenuList>
+          <Link to={"/admin"}>Admin</Link>
           <Link to={"/home"}>Home</Link>
           <MenuDivider />
           <LogoutButton />

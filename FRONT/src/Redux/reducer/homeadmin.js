@@ -1,7 +1,7 @@
 import { HOME_ADMIN_SHOW, RESET_ADMIN_SHOW } from "../actions/homeadmin";
 
 const initialState = {
-  homeShow: "",
+  homeShow: "Home",
 };
 
 const homeAdminReducer = (state = initialState, action) => {
