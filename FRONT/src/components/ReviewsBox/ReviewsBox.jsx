@@ -102,7 +102,7 @@ const ReviewsBox = () => {
         </div>
       </div>
       <div className={s.cardContainer}>
-        {reviews &&
+        {reviews.length > 0 ? (
           reviews
             .filter((r) => r.recipeId === parseInt(id))
             .map(({ comment, image, rate, userId, createdAt }, i) => {
@@ -116,7 +116,12 @@ const ReviewsBox = () => {
                   createdAt={createdAt}
                 />
               );
-            })}
+            })
+        ) : (
+          <div className={s.noRecipesDiv}>
+            <p>No reviews yet. Write yours!</p>
+          </div>
+        )}
       </div>
     </div>
   );
