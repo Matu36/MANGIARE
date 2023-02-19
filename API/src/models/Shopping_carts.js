@@ -25,10 +25,3 @@ module.exports = sequelize => {
     timestamps: false
   }).removeAttribute('id');
 };
-
-/*
-                    id: 10716050,
-                    amount: 100,
-                    unitShort: "ml",
-                    unitLarge: "mililiters"
-*/
