@@ -93,7 +93,7 @@ const RecipeDetail = () => {
         el.id == id && el.unit == unit ? { ...el, inCart: true } : { ...el }
       )
     );
-    return dispatch(addToCart(id ? [list.find((el) => el.id == id)] : list));
+    return dispatch(addToCart(id ? [list.find((el) => el.id == id && el.unit == unit)] : list));
   };
 
   const handleOnChange = ({ target }, unit) => {
