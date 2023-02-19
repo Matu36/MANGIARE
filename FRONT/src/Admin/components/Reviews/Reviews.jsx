@@ -15,14 +15,16 @@ export default function Reviews() {
     <div>
       {reviews &&
         reviews.map(({ comment, image, rate, recipeId, userId, createdAt }) => {
-          <ReviewsCard
-            comment={comment}
-            image={image}
-            rate={rate}
-            recipeId={recipeId}
-            userId={userId}
-            createdAt={createdAt}
-          />;
+          return (
+            <ReviewsCard
+              comment={comment}
+              image={image}
+              rate={rate}
+              recipeId={recipeId}
+              userId={userId}
+              createdAt={createdAt}
+            />
+          );
         })}
     </div>
   );

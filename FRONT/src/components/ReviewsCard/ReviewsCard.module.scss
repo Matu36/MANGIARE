@@ -1,0 +1,40 @@
+$box-shadow: 5px 5px 10px gray;
+$border: 1px solid rgb(199, 199, 199);
+
+.container {
+  background-color: #fff;
+  border: $border;
+  width: 20rem;
+  min-height: 7.5rem;
+  border-radius: 10px;
+  box-shadow: $box-shadow;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+
+  .imgDiv {
+    width: 30%;
+  }
+
+  .infoDiv {
+    width: 70%;
+    border-left: $border;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .stars {
+        font-size: 12px;
+    }
+
+    .userDiv {
+        border-top: $border;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+    }
+  }
+}

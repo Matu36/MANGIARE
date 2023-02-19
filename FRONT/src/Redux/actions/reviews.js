@@ -10,3 +10,7 @@ export const getReviews = () => async (dispatch) => {
       dispatch({ type: GET_REVIEWS, payload: data });
     });
 };
+
+export const postReview = (payload) => async (dispatch) => {
+  return await axios.post(`/reviews`, payload);
+};
