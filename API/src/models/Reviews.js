@@ -20,6 +20,11 @@ module.exports = sequelize => {
     image: {
       type: DataTypes.STRING
     },
+    visible: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaulValue: true
+    }
   }, {
     updatedAt: false
   }).removeAttribute('id');
