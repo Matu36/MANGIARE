@@ -1,15 +1,21 @@
-const {Reviews} = require('../db.js');
+const {Reviews, Users} = require('../db.js');
 
 module.exports = async (req, res) => {
   try{
+    if ((!req.body?.id) || (!req.body?.email) || (!req.body?.active)) throw 'No body params or inactive user'
 
-    let reviews = ((req.params?.userId) || (req.params?.recipeId))
-        ? await Reviews.findAll({where: req.params})
-        : await Reviews.findAll()
+    let requestUser = await  Users.findOne({where: {id: req.body.id, email: req.body.email, active: true}});
 
-    return (!reviews)
+    if (!requestUser) return res.status(403).send('Wrong user');
+
+    let returnedReviews;
+
+    if (requestUser.dataValues.role !== null) returnedReviews = await Reviews.findAll();
+    else returnedReviews = await Reviews.findAll({where: {userId: req.body.id}});
+
+    return (!returnedReviews)
       ? res.status(404).send('Reviews Not Found')
-      : res.send(reviews);
+      : res.send(returnedReviews);
   }
   catch(error) {
     console.log(error);
