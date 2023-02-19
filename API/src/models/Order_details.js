@@ -20,6 +20,10 @@ module.exports = sequelize => {
       validate: {
         notEmpty: true
       }
+    },  
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false
     }
   }, {
     timestamps: false
