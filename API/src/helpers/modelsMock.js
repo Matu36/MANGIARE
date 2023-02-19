@@ -18,9 +18,11 @@ async function locMock() {
   ////////////////// Users //////////////////////
 
   await Users.bulkCreate([
-    { username: "nombre 1", email: "email1@email.com", password: "password 1" },
-    { username: "nombre 2", email: "email2@email.com", password: "password 2" },
-    { username: "nombre 3", email: "email3@email.com", password: "password 3" },
+    {email: 'email1@email.com'},
+    {email: 'email2@email.com'},
+    {email: 'email3@email.com'},
+    {email: 'yamil.leotta@gmail.com', address: 'Av. Siempreviva 742'}, // role: null -> basic user
+    {email: 'mangiare.email@gmail.com', role: false}, // role: false -> Admin
   ]);
 
   ////////////////// Orders //////////////////////
@@ -99,9 +101,10 @@ async function locMock() {
       recipeId: 3,
       userId: 1,
       rate: 3,
-      comment: "Maso!",
+      comment: "Maso! Esta review solo la ve un admin, y no se ve en el detalle de receta",
       image:
         "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+      visible: false
     },
     {
       recipeId: 2,
@@ -141,9 +144,10 @@ async function locMock() {
       recipeId: 1,
       userId: 3,
       rate: 1,
-      comment: "Horrible!",
+      comment: "Horrible! Esta review solo la ve un admin, y no se ve en el detalle de receta",
       image:
         "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+      visible: false
     },
     {
       recipeId: 2,
@@ -184,13 +188,13 @@ async function locMock() {
   ////////////////// Order_details //////////////////////
 
   await Order_details.bulkCreate([
-    { orderId: 1, ingredientId: 5, amount: 1, unit: "tablespoon" },
-    { orderId: 1, ingredientId: 12, amount: 2, unit: "pounds" },
-    { orderId: 3, ingredientId: 5, amount: 10, unit: "cups" },
-    { orderId: 3, ingredientId: 1, amount: 2, unit: "pounds" },
-    { orderId: 3, ingredientId: 2, amount: 300, unit: "pounds" },
-    { orderId: 2, ingredientId: 3, amount: 1, unit: "units" },
-    { orderId: 2, ingredientId: 4, amount: 2, unit: "pounds" },
+    {orderId: 1, ingredientId: 5, amount: 1, unit: 'tablespoon', price: 1.11},
+    {orderId: 1, ingredientId: 12, amount: 2, unit: 'pounds', price: 2.22},
+    {orderId: 3, ingredientId: 5, amount: 10, unit: 'cups', price: 3.33},
+    {orderId: 3, ingredientId: 1, amount: 2, unit: 'pounds', price: 4.44},
+    {orderId: 3, ingredientId: 2, amount: 3.5, unit: 'pounds', price: 5.55},
+    {orderId: 2, ingredientId: 3, amount: 1, unit: 'units', price: 6.66},
+    {orderId: 2, ingredientId: 4, amount: 2, unit: 'pounds', price: 7.77},
   ]);
 
   ////////////////// Shopping_carts //////////////////////
@@ -206,28 +210,18 @@ async function locMock() {
 
   ////////////////// New Order //////////////////////////
 
-  await Order_details.create({
-    orderId: (await Orders.create({ userId: 3 })).dataValues.id,
-    ingredientId: 1,
-    amount: 0.1,
-    unit: "pounds",
-  });
+  await Order_details.create({orderId: (await Orders.create({userId: 3})).dataValues.id, ingredientId: 1, amount: 0.1, unit: 'pounds', price: 1.5});
+
 
   //console.log(order.dataValues); // {id: 4.......}
 
   ///////////////// New Order (Shopping_cart & User based) /////////////////////////////
+/*
+  let cart = await Shopping_carts.findAll({where: {userId: 3}});
 
-  let cart = await Shopping_carts.findAll({ where: { userId: 3 } });
-
-  order = await Orders.create({ userId: 1 });
-  await Order_details.bulkCreate(
-    cart.map(({ dataValues }) => ({
-      ...dataValues,
-      id: null,
-      orderId: order.dataValues.id,
-    }))
-  );
-
+  order = await Orders.create({userId: 1});
+  await Order_details.bulkCreate(cart.map(({dataValues}) => ({...dataValues, id: null, orderId: order.dataValues.id})));
+*/
   //console.log((await Users.findByPk(1, {include: 'Orders', required: false})).toJSON());
 
   ///////////////// Favorites (Recipe & User) /////////////////////////////
