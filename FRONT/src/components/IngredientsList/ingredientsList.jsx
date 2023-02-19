@@ -20,7 +20,7 @@ export default function IngredientsList (props) {
         <Th textAlign='center'>Ingredient</Th>
         <Th textAlign='center'>Amount</Th>
         <Th textAlign='center'>Measure Unit</Th>
-        <Th textAlign='center'>Shopping Cart</Th>
+        <Th textAlign='center'>Add to Cart</Th>
       </Tr>
     </Thead>
       <tbody>
