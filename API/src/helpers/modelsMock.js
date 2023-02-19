@@ -101,9 +101,10 @@ async function locMock() {
       recipeId: 3,
       userId: 1,
       rate: 3,
-      comment: "Maso!",
+      comment: "Maso! Esta review solo la ve un admin, y no se ve en el detalle de receta",
       image:
         "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+      visible: false
     },
     {
       recipeId: 2,
@@ -143,9 +144,10 @@ async function locMock() {
       recipeId: 1,
       userId: 3,
       rate: 1,
-      comment: "Horrible!",
+      comment: "Horrible! Esta review solo la ve un admin, y no se ve en el detalle de receta",
       image:
         "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+      visible: false
     },
     {
       recipeId: 2,
