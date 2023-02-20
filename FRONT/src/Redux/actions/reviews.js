@@ -15,3 +15,7 @@ export const getReviews = () => async (dispatch) => {
 export const resetReviews = () => async (dispatch) => {
   return dispatch({ type: RESET_REVIEWS});
 };
+
+export const postReview = (payload) => async (dispatch) => {
+  return await axios.post(`/reviews`, payload);
+};

@@ -19,7 +19,6 @@ export const getRecipes = () => async (dispatch) => {
 
 export const setRecipesToShow = (payload) => {
   return (dispatch) => {
-    console.log(payload);
     dispatch({ type: SET_RECIPES_TO_SHOW, payload });
   };
 };

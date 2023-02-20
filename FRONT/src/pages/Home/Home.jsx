@@ -51,7 +51,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log(isAuthenticated);
     if (isAuthenticated) {
       onExecutePostEmail(user.email);
     }
