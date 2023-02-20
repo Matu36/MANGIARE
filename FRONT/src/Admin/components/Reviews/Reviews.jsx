@@ -60,6 +60,7 @@ export default function Reviews() {
   }, [filterReviews]);
 
   return (
+
     <div className="divContainerCards">
       <div className="divContainerHead">
         <Input
@@ -90,6 +91,7 @@ export default function Reviews() {
         numberOfPage={numberOfPage}
         handlePageNumber={handlePageNumber}
       />
+
     </div>
   );
 }

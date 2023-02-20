@@ -1,0 +1,142 @@
+$box-shadow: 5px 5px 10px gray;
+$border: 1px solid rgb(199, 199, 199);
+
+.container {
+  margin: 2rem;
+  width: 80%;
+  background-color: #fff;
+  padding: 2rem 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createReviewDiv {
+  // border: $border;
+  width: 95%;
+  min-height: 10rem;
+  display: flex;
+
+  .titleDiv {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+  }
+
+  .inputsDiv {
+    width: 70%;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .starsAndUploadImageDiv {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .starsInputDiv {
+      width: 20rem;
+      padding: 0.2rem;
+      box-sizing: border-box;
+      border: $border;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: 1rem;
+    }
+
+    .uploadImageDiv {
+      width: 22rem;
+      padding: 0.2rem;
+      box-sizing: border-box;
+      border: $border;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: 1rem;
+    }
+
+    .commentDiv {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .commentInput {
+      padding: 0.5rem;
+      border: $border;
+      border-radius: 5px;
+      width: 80%;
+      height: 5rem;
+      resize: none;
+    }
+
+    .postButton {
+      width: 20%;
+      background-color: #319795;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: bold;
+      transition: 0.2s;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #2c7a7b;
+        transition: 0s;
+      }
+    }
+  }
+}
+
+.cardContainer {
+  border: $border;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #fff;
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.noRecipesDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviewCreated {
+  width: 95%;
+  min-height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.logginButton {
+  width: 15%;
+  padding: 0.5rem 0;
+  background-color: #319795;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #2c7a7b;
+    transition: 0s;
+  }
+}
