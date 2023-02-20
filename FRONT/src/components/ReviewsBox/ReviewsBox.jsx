@@ -27,6 +27,11 @@ const ReviewsBox = () => {
         ...input,
         [name]: e.target.files[0],
       });
+    } else if (name === "rate") {
+      setInput({
+        ...input,
+        [name]: parseInt(value),
+      });
     } else {
       setInput({
         ...input,
@@ -38,20 +43,19 @@ const ReviewsBox = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { rate, image, comment } = input;
-    rate === "" ? setInput({ ...input, rate: "5" }) : null;
 
     let imageUrl;
     if (image) {
       imageUrl = await uploadImageToCloudinary("reviews", image);
     }
 
-    dispatch(
+    await dispatch(
       postReview({
-        rate,
-        image: imageUrl ? imageUrl : null,
+        userId: 4,
+        recipeId: parseInt(id),
+        rate: rate ? rate : 3,
         comment,
-        recipeId: id,
-        userId: 6,
+        image: imageUrl ? imageUrl : null,
       })
     );
 
