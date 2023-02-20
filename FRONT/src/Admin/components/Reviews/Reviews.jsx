@@ -60,7 +60,6 @@ export default function Reviews() {
   }, [filterReviews]);
 
   return (
-<<<<<<<<< Temporary merge branch 1
     <div className="divContainerCards">
       <div className="divContainerHead">
         <Input
