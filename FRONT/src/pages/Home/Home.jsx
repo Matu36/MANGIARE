@@ -52,11 +52,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    let currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
+    console.log(currentUser);
     if (isAuthenticated) {
-      onExecutePostEmail(user.email);
+      onExecutePostEmail(user);
+      console.log("getusers");
+      dispatch(getUsers(currentUser));
     }
-    dispatch(getUsers());
-    console.log("hizo el getUsers");
   }, [user, isAuthenticated]);
 
   useEffect(() => {

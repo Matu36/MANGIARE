@@ -19,12 +19,15 @@ import { getUsers } from "../../../Redux/actions/users";
 export default function HomeAdmin() {
   const dispatch = useDispatch();
   const homeShow = useSelector((state) => state.homeadmin.homeShow);
+  let currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   useEffect(() => {
+    console.log(currentUser);
     dispatch(getIngredients());
-    dispatch(getReviews());
-    dispatch(getUsers());
+    dispatch(getReviews(currentUser));
+    dispatch(getUsers(currentUser));
   }, []);
+
   return (
     <div className="home">
       {homeShow === "Reviews" && <Reviews />}

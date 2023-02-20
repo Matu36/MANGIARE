@@ -2,11 +2,10 @@ import axios from "axios";
 
 export const GET_USERS = "GET_USERS";
 
-export const getUsers = () => {
+export const getUsers = (currentUser) => {
   let user = {
-    id: 6,
-    email: "germannavarrete.info@gmail.com",
-    active: true,
+    id: currentUser.id,
+    email: currentUser.email,
   };
   return async (dispatch) => {
     await axios

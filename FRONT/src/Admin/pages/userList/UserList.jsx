@@ -18,8 +18,7 @@ import UserRow from "../../components/UserRow/UserRow";
 import { useSelector } from "react-redux";
 
 export default function UserList() {
-  const usersGlobals = useSelector((state) => state.users.users);
-  const users = usersGlobals.slice(0, usersGlobals.length - 1);
+  const users = useSelector((state) => state.users.users);
   const [search, setSearch] = useState("");
   const [filterUsers, setFilterUsers] = useState(users);
 
@@ -30,7 +29,7 @@ export default function UserList() {
 
   useEffect(() => {
     filterByUsers(search);
-  }, [search, users]);
+  }, [search]);
 
   const filterByUsers = (value) => {
     let arrayCache = [...users];
@@ -86,7 +85,7 @@ export default function UserList() {
       <TableContainer>
         <Table variant="striped" colorScheme="teal">
           <TableCaption>
-            Total registered users: {users.length - 1} users
+            Total registered users: {users.length} users
           </TableCaption>
           <Thead>
             <Tr>

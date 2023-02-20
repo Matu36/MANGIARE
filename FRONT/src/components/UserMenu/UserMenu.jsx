@@ -32,6 +32,11 @@ export default function UserMenu() {
         <MenuList>
           <Link to={"/home"}>Home</Link>
           <MenuDivider />
+          {userShow?.role !== null && (
+            <div>
+              <Link to={"/admin"}>Admin</Link> <MenuDivider />
+            </div>
+          )}
           <LogoutButton />
         </MenuList>
       </Menu>
@@ -46,14 +51,13 @@ export default function UserMenu() {
         variant="outline"
       />
       <MenuList>
-        {userShow?.role !== null && (
-          <fr>
-            <Link to={"/admin"}>Admin</Link> <MenuDivider />
-          </fr>
-        )}
-
         <Link to={"/user"}>My user</Link>
         <MenuDivider />
+        {userShow?.role !== null && (
+          <div>
+            <Link to={"/admin"}>Admin</Link> <MenuDivider />
+          </div>
+        )}
         <LogoutButton />
       </MenuList>
     </Menu>

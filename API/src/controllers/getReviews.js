@@ -2,22 +2,23 @@ const { Reviews, Users } = require("../db.js");
 
 module.exports = async (req, res) => {
   try {
-    if (!req.query?.id || !req.query?.email || !req.query?.active)
-      throw "No body query or inactive user";
+    let requestUser;
 
-    let requestUser = await Users.findOne({
-      where: { id: req.query.id, email: req.query.email, active: true },
-    });
-
-    if (!requestUser) return res.status(403).send("Wrong user");
+    if (req.query?.id && req.query?.email)
+      requestUser = await Users.findOne({
+        where: { id: req.query.id, email: req.query.email, active: true },
+      });
 
     let returnedReviews;
 
-    if (requestUser.dataValues.role !== null)
-      returnedReviews = await Reviews.findAll();
+    if (requestUser && requestUser?.dataValues.role !== null)
+      returnedReviews = await Reviews.findAll({
+        include: { model: Users, attributes: ["email"] },
+      });
     else
       returnedReviews = await Reviews.findAll({
-        where: { userId: req.query.id },
+        where: { visible: true },
+        include: { model: Users, attributes: ["email"] },
       });
 
     return !returnedReviews
