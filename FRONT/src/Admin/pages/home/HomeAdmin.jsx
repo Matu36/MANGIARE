@@ -8,11 +8,15 @@ import WidgetLg from "../../components/widgetLg/WidgetLg";
 import { useDispatch, useSelector } from "react-redux";
 import Reviews from "../../components/Reviews/Reviews";
 import UserList from "../../pages/userList/UserList";
-import { resetHomeAdminShow } from "../../../Redux/actions/homeadmin";
+import { getReviews } from "../../../Redux/actions/reviews.js";
 
 export default function HomeAdmin() {
   const dispatch = useDispatch();
   const homeShow = useSelector((state) => state.homeadmin.homeShow);
+
+  useEffect(() => {
+    dispatch(getReviews());
+  }, []);
 
   return (
     <div className="home">

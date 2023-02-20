@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getReviews } from "../../../Redux/actions/reviews.js";
 import ReviewsCard from "../ReviewsCard/ReviewsCard.jsx";
 import Paginations from "../../../components/Paginations/Paginations.jsx";
 import { Input } from "@chakra-ui/react";
 import "./Reviews.css";
 
 export default function Reviews() {
-  let dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
-
-  useEffect(() => {
-    dispatch(getReviews());
-  }, []);
 
   const [search, setSearch] = useState("");
   const [filterReviews, setFilterReviews] = useState(reviews);
@@ -24,15 +18,17 @@ export default function Reviews() {
 
   useEffect(() => {
     filterByReviews(search);
-  }, [filterReviews, search]);
+  }, [search, reviews]);
 
   const filterByReviews = (value) => {
-    let arrayCache = [...filterReviews];
-    arrayCache = arrayCache.filter((review) =>
-      review.comment.toLowerCase().includes(value.toLowerCase())
-    );
-
-    setFilterReviews(arrayCache);
+    let arrayCache = [...reviews];
+    if (value === "") setFilterReviews(reviews);
+    else {
+      arrayCache = arrayCache.filter((review) =>
+        review.comment.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilterReviews(arrayCache);
+    }
   };
 
   //                 Paginacion del contenido             //-----------------------------
@@ -51,12 +47,13 @@ export default function Reviews() {
 
   useEffect(() => {
     //Cambio de estado local de Total Recipes indicando los indices que tiene que renderizar en cada pagina
-    filterReviews &&
-      setTotalReviews(
-        filterReviews.slice(indexFirstPageRecipe(), indexLastPageRecipe())
-      );
-    filterReviews && setNumberOfPage(Math.ceil(filterReviews.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
-  }, [reviews, currentPage, filterReviews]);
+    setTotalReviews(
+      filterReviews.slice(indexFirstPageRecipe(), indexLastPageRecipe())
+    );
+    setNumberOfPage(Math.ceil(filterReviews.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
+  }, [filterReviews, currentPage]);
+
+  //console.log(totalreviews);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -74,27 +71,24 @@ export default function Reviews() {
         />
         <h1 className="titleReviews">Reviews</h1>
       </div>
-      {totalreviews &&
-        totalreviews.map((review) => {
-          return (
-            <ReviewsCard
-              key={`${review.userId}${review.recipeId}`}
-              comment={review.comment}
-              image={review.image}
-              rate={review.rate}
-              recipeId={review.recipeId}
-              userId={review.userId}
-              createdAt={review.createdAt}
-            />
-          );
-        })}
-      {filterReviews && (
-        <Paginations
-          currentPage={currentPage}
-          numberOfPage={numberOfPage}
-          handlePageNumber={handlePageNumber}
-        />
-      )}
+      {totalreviews?.map((review) => {
+        return (
+          <ReviewsCard
+            key={`${review.userId}${review.recipeId}`}
+            comment={review.comment}
+            image={review.image}
+            rate={review.rate}
+            recipeId={review.recipeId}
+            userId={review.userId}
+            createdAt={review.createdAt}
+          />
+        );
+      })}
+      <Paginations
+        currentPage={currentPage}
+        numberOfPage={numberOfPage}
+        handlePageNumber={handlePageNumber}
+      />
     </div>
   );
 }
