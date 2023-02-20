@@ -9,16 +9,19 @@ export const getIngredients = () => async (dispatch) => {
   
 };
 
-export const createIngredients = (ingredients) => {
-  return async (dispatch) => {
-    try {
-      await axios.post(`/ingredients`, ingredients);
-      return dispatch({
-        type: CREATE_INGREDIENTS,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+export const createIngredients = ({
+  name,
+  price,
+  units,
+}) => {
+  let ingredient = {
+    name,
+    price,
+    units,
   };
+  return (dispatch) =>
+    axios
+      .post(`/ingredients`, ingredient)
+      .then((payload) => dispatch({ type: CREATE_INGREDIENTS, payload }));
 };
 

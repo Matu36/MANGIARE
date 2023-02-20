@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./products.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../../../Redux/actions/ingredients";
 import Paginations from "../../../components/Paginations/Paginations";
-import { createIngredients } from "../../../Redux/actions/ingredients";
-import {
-  Input,
-  InputGroup,
-  FormControl,
-  FormLabel,
-  Button,
-  Heading,
-} from "@chakra-ui/react";
+import IngredientForm from "./CreateIngredient/CreateIngredient";
+
+import { Input, InputGroup } from "@chakra-ui/react";
 
 import {
   Table,
@@ -27,10 +20,6 @@ export default function UserList() {
   let dispatch = useDispatch();
   const products = useSelector((state) => state.ingredients.ingredients);
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, []);
-
   const rows = products.map((product) => {
     return {
       id: product.id,
@@ -39,32 +28,6 @@ export default function UserList() {
       units: product.units,
     };
   });
-
-  //PAGINADO
-
-  const [currentPage, setCurrentPage] = useState(1); //Pagina Actual seteada en 1
-  const [numberOfPage, setNumberOfPage] = useState(0); //Numero de Paginas seteado en 0
-  const [totalIngredients, setTotalIngredients] = useState([]); 
-
-  const indexFirstPageIngredient = () => (currentPage - 1) * 9; // Indice del primer Elemento
-  const indexLastPageIngredient = () => indexFirstPageIngredient() + 9; //Indice del segundo elemento
-
-  const handlePageNumber = (number) => {
-    
-    setCurrentPage(number);
-  };
-
-  useEffect(() => {
-    //Cambio de estado local de Total Recipes indicando los indices que tiene que
-    //renderizar en cada pagina
-    products &&
-      setTotalIngredients(
-        rows.slice(indexFirstPageIngredient(), indexLastPageIngredient())
-      );
-    rows && setNumberOfPage(Math.ceil(rows.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
-  }, [rows, currentPage]);
-
-  //FIN PAGINADO
 
   //SEARCHBAR
   const [search, setSearch] = useState("");
@@ -76,63 +39,54 @@ export default function UserList() {
   };
 
   useEffect(() => {
-    !search ? setIngredients(rows) : filterByIngredients(search);
-  }, [ingredients, search]);
+    filterByIngredients(search);
+  }, [rows, search]);
 
   const filterByIngredients = (value) => {
-    let arrayCache = [...ingredients];
+    let arrayCache = [...rows];
+    if (!search) setIngredients(rows);
+    else {
+      arrayCache = arrayCache.filter((ingredient) =>
+        ingredient.name.toLowerCase().includes(value.toLowerCase())
+      );
 
-    arrayCache = arrayCache.filter((ingredient) =>
-      ingredient.name.toLowerCase().includes(value.toLowerCase())
-    );
-
-    setIngredients(arrayCache);
-  };
-
-  //FIN SEARCHBAR
-
-  //CREACION DE INGREDIENTE
-  const [create, setCreate] = useState({
-    name: "",
-    price: "",
-    units: "",
-    ingredients: [],
-  });
-  
-  const handleChangeCreate = (e) => {
-    setCreate({
-      ...create,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    if (
-      create.name &&
-      create.price &&
-      create.units &&
-      create.ingredients.length
-    ) {
-      dispatch(createIngredients(create)); // crea el ingrediente
-      alert("Ingredient has create");
-      setCreate({
-        name: "",
-        price: "",
-        units: "",
-        ingredients: [],
-      });
+      setIngredients(arrayCache);
     }
   };
 
-  //FIN CREACION INGREDIENTE
+  //FIN SEARCHBAR
 
   const columns = [
     { field: "id", headerName: "ID", width: 5 },
     { field: "name", headerName: "Name", width: 130 },
     { field: "price", headerName: "Price", width: 130 },
-    {field: "units",headerName: "Units",width: 130,},
+    { field: "units", headerName: "Units", width: 130 },
   ];
+
+  //PAGINADO
+
+  const [currentPage, setCurrentPage] = useState(1); //Pagina Actual seteada en 1
+  const [numberOfPage, setNumberOfPage] = useState(0); //Numero de Paginas seteado en 0
+  const [totalIngredients, setTotalIngredients] = useState(rows);
+
+  const indexFirstPageIngredient = () => (currentPage - 1) * 9; // Indice del primer Elemento
+  const indexLastPageIngredient = () => indexFirstPageIngredient() + 9; //Indice del segundo elemento
+
+  const handlePageNumber = (number) => {
+    setCurrentPage(number);
+  };
+
+  useEffect(() => {
+    //Cambio de estado local de Total Recipes indicando los indices que tiene que
+    //renderizar en cada pagina
+
+    setTotalIngredients(
+      ingredients.slice(indexFirstPageIngredient(), indexLastPageIngredient())
+    );
+    setNumberOfPage(Math.ceil(ingredients.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
+  }, [ingredients, currentPage]);
+
+  //FIN PAGINADO
 
   return (
     <div>
@@ -156,15 +110,13 @@ export default function UserList() {
           </Tr>
         </Thead>
         <Tbody>
-          {ingredients
-            .slice(indexFirstPageIngredient(), indexLastPageIngredient())
-            .map((row) => (
-              <Tr key={row.id}>
-                {columns.map((column) => (
-                  <Td key={`${row.id}-${column.field}`}>{row[column.field]}</Td>
-                ))}
-              </Tr>
-            ))}
+          {totalIngredients.map((row) => (
+            <Tr key={row.id}>
+              {columns.map((column) => (
+                <Td key={`${row.id}-${column.field}`}>{row[column.field]}</Td>
+              ))}
+            </Tr>
+          ))}
           <div>
             <br />
             {products && (
@@ -177,50 +129,7 @@ export default function UserList() {
           </div>
           <br />
           <div>
-            <FormControl onSubmit={handleOnSubmit}>
-              <Heading size="md">Create a Ingredient</Heading>
-              <br />
-              <FormLabel>
-                <p>Name</p>
-                <Input
-                  type="text"
-                  name="name"
-                  value={create.name}
-                  autoComplete="off"
-                  placeholder="Ingredient Name"
-                  onChange={handleChangeCreate}
-                />
-              </FormLabel>
-
-              <FormLabel>
-                <p>Price</p>
-                <Input
-                  type="text"
-                  name="price"
-                  value={create.price}
-                  autoComplete="off"
-                  placeholder="Ingredient Price"
-                  onChange={handleChangeCreate}
-                />
-              </FormLabel>
-
-              <FormLabel>
-                <p>Units</p>
-                <Input
-                  type="text"
-                  name="units"
-                  value={create.units}
-                  autoComplete="off"
-                  placeholder="Ingredient Units"
-                  onChange={handleChangeCreate}
-                />
-              </FormLabel>
-              <div>
-                <Button type="submit" tertiary>
-                  Create Ingredient
-                </Button>
-              </div>
-            </FormControl>
+            <IngredientForm />
           </div>
         </Tbody>
       </Table>
