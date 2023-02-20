@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getReviews } from "../../../Redux/actions/reviews.js";
+import { getReviews, resetReviews } from "../../../Redux/actions/reviews.js";
 import ReviewsCard from "../ReviewsCard/ReviewsCard.jsx";
 import "./reviews.css";
 
@@ -11,6 +11,12 @@ export default function Reviews() {
   useEffect(() => {
     dispatch(getReviews());
   }, []);
+
+  useEffect(() => {
+dispatch (resetReviews())
+
+  }, [reviews])
+  
   return (
     <div>
       {reviews &&
