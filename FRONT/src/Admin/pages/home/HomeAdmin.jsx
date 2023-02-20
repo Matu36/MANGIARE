@@ -10,6 +10,7 @@ import Reviews from "../../components/Reviews/Reviews";
 import UserList from "../../pages/userList/UserList";
 import Products from "../../components/Products/Products";
 import { getIngredients } from "../../../Redux/actions/ingredients";
+import { getReviews } from "../../../Redux/actions/reviews";
 
 export default function HomeAdmin() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function HomeAdmin() {
 
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch(getReviews());
   }, []);
   return (
     <div className="home">
