@@ -12,6 +12,7 @@ import Paginations from "../../components/Paginations/Paginations";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCardHorizontal";
 import Filters from "../../components/Filters/Filters";
+import onExecutePostEmail from "../../components/Auth0/onLogin.js";
 import {
   Box,
   Spacer,
@@ -48,6 +49,13 @@ export default function Home() {
     dispatch(getRecipes());
     dispatch(getIngredients());
   }, []);
+
+  useEffect(() => {
+    console.log(isAuthenticated);
+    if (isAuthenticated) {
+      onExecutePostEmail(user.email);
+    }
+  }, [user, isAuthenticated]);
 
   useEffect(() => {
     dispatch(resetRecipesToShow());
