@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeHomeAdminShow } from "../../../Redux/actions/homeadmin";
 
+
 export default function SideBar() {
   const dispatch = useDispatch();
 
@@ -19,6 +20,7 @@ export default function SideBar() {
   };
 
   return (
+    
     <div className="sidebar">
       <div className="sidebarWrapper">
         <div className="sidebarMenu">
@@ -30,11 +32,11 @@ export default function SideBar() {
             </li>
             <li className="sidebarListItem">
               <MdTimeline className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>Analytics</button>
+             Analytics
             </li>
             <li className="sidebarListItem">
               <MdTrendingUp className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>Sales</button>
+              Sales
             </li>
           </ul>
         </div>
