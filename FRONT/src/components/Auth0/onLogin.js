@@ -12,7 +12,6 @@ const onExecutePostEmail = async (user) => {
     }).then((res) => res);
 
     localStorage.setItem("MANGIARE_userInfo", JSON.stringify(response.data));
->>>>>>>>> Temporary merge branch 2
   } catch (error) {
     console.error(error);
   }
