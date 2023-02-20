@@ -103,7 +103,7 @@ async function locMock() {
       rate: 3,
       comment: "Maso! Esta review solo la ve un admin, y no se ve en el detalle de receta",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://media.airedesantafe.com.ar/p/916dc6232d123e9a1a15a2647602d269/adjuntos/268/imagenes/001/997/0001997793/tartabjpg.jpg",
       visible: false
     },
     {
@@ -112,7 +112,7 @@ async function locMock() {
       rate: 4,
       comment: "Rica!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://vidasanalau.com/wp-content/uploads/2020/12/WhatsApp-Image-2020-12-20-at-23.36.34.jpeg",
     },
     {
       recipeId: 1,
@@ -120,7 +120,7 @@ async function locMock() {
       rate: 5,
       comment: "Exquisita!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://ww2.todorico.com.py/wp-content/uploads/2020/07/IMG_7743-1536x1536.jpg",
     },
 
     {
@@ -129,7 +129,7 @@ async function locMock() {
       rate: 5,
       comment: "Exquisita!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://i.pinimg.com/originals/46/46/f3/4646f3858f08bc11208a590aeeca819e.jpg",
     },
     {
       recipeId: 1,
@@ -137,7 +137,7 @@ async function locMock() {
       rate: 5,
       comment: "Exquisita!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://www.unileverfoodsolutions.com.ar/dam/global-ufs/mcos/sla/argentina/calcmenu/recipes/AR-recipes/In-Development/milanesa-a-la-napolitana-con-pur%C3%A9/main-header.jpg",
     },
 
     {
@@ -146,7 +146,7 @@ async function locMock() {
       rate: 1,
       comment: "Horrible! Esta review solo la ve un admin, y no se ve en el detalle de receta",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://www.unileverfoodsolutions.com.ar/dam/global-ufs/mcos/sla/argentina/calcmenu/recipes/AR-recipes/In-Development/milanesa-a-la-napolitana-con-pur%C3%A9/main-header.jpg",
       visible: false
     },
     {
@@ -155,7 +155,7 @@ async function locMock() {
       rate: 2,
       comment: "Fea!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://radiomitre-la100-prod.cdn.arcpublishing.com/resizer/hckax2afwe9VHyDLqWYV7ZbzSm8=/1200x0/smart/cloudfront-us-east-1.images.arcpublishing.com/radiomitre/RQMZ4TUVQRGHPBWGUZ6YJOTD7Y.jpg",
     },
     {
       recipeId: 3,
@@ -163,7 +163,7 @@ async function locMock() {
       rate: 3,
       comment: "Maso!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://media.airedesantafe.com.ar/p/916dc6232d123e9a1a15a2647602d269/adjuntos/268/imagenes/001/997/0001997793/tartabjpg.jpg",
     },
   ]);
 
