@@ -12,12 +12,24 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
-const ReviewsCard = ({ comment, image, rate, recipeId, userId, createdAt }) => {
+const ReviewsCard = ({
+  comment,
+  image,
+  rate,
+  recipeId,
+  userId,
+  createdAt,
+  visible,
+}) => {
   const reviews = useSelector((state) => state.reviews.reviews);
-
-  const handleHideReview = (e, userId, recipeId) => {
+  const handleHideReview = (e, userId, recipeId, visible) => {
     e.preventDefault();
-    let newReviews = [...reviews];
+    console.log(userId, recipeId, visible);
+
+    visible = !visible;
+
+    console.log(visible);
+    //dispatch(putReview(userId,recipeId,visible))
   };
 
   return (
@@ -30,7 +42,7 @@ const ReviewsCard = ({ comment, image, rate, recipeId, userId, createdAt }) => {
         <Image
           objectFit="cover"
           maxW={{ base: "100%", sm: "200px" }}
-          src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+          src={image}
           alt="Caffe Latte"
         />
 
@@ -51,7 +63,7 @@ const ReviewsCard = ({ comment, image, rate, recipeId, userId, createdAt }) => {
             variant="outline"
             size="sm"
             className="button"
-            onClick={(e) => handleHideReview(e, userId, recipeId)}
+            onClick={(e) => handleHideReview(e, userId, recipeId, visible)}
           >
             Hide Review
           </Button>

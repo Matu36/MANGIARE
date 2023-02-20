@@ -29,6 +29,7 @@ import chicken from "../../img/chickenIcon.png";
 import banner from "../../img/BannerHome.jpg";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import { ArrowDownIcon } from "@chakra-ui/icons";
+import { getUsers } from "../../Redux/actions/users";
 
 export default function Home() {
   let dispatch = useDispatch();
@@ -51,10 +52,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log(isAuthenticated);
     if (isAuthenticated) {
       onExecutePostEmail(user.email);
     }
+    dispatch(getUsers());
+    console.log("hizo el getUsers");
   }, [user, isAuthenticated]);
 
   useEffect(() => {

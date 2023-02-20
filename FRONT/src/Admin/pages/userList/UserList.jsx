@@ -1,214 +1,136 @@
 import React from "react";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import Paginations from "../../../components/Paginations/Paginations.jsx";
+import { Input } from "@chakra-ui/react";
 import {
   Table,
   Thead,
   Tbody,
+  Tfoot,
   Tr,
   Th,
   Td,
+  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
 import { MdOutlineDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
+import UserRow from "../../components/UserRow/UserRow";
+import { useSelector } from "react-redux";
 
 export default function UserList() {
-  const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "firstName", headerName: "First name", width: 130 },
-    { field: "lastName", headerName: "Last name", width: 130 },
-    {
-      field: "UserName",
-      headerName: "USERNAME",
+  const usersGlobals = useSelector((state) => state.users.users);
+  const users = usersGlobals.slice(0, usersGlobals.length - 1);
+  const [search, setSearch] = useState("");
+  const [filterUsers, setFilterUsers] = useState(users);
 
-      width: 130,
-    },
-    {
-      field: "Email",
-      headerName: "EMAIL",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-    },
-    { field: "Action", headerName: "ACTION", width: 130 },
-  ];
+  const handleOnChange = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
 
-  const rows = [
-    {
-      id: 1,
-      lastName: "Snow",
-      firstName: "Jon",
-      UserName: 35,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 2,
-      lastName: "Lannister",
-      firstName: "Cersei",
-      UserName: 42,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 3,
-      lastName: "Lannister",
-      firstName: "Jaime",
-      UserName: 45,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 4,
-      lastName: "Stark",
-      firstName: "Arya",
-      UserName: 16,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 5,
-      lastName: "Targaryen",
-      firstName: "Daenerys",
-      UserName: null,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 6,
-      lastName: "Melisandre",
-      firstName: null,
-      UserName: 150,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 7,
-      lastName: "Clifford",
-      firstName: "Ferrara",
-      UserName: 44,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 8,
-      lastName: "Frances",
-      firstName: "Rossini",
-      UserName: 36,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 9,
-      lastName: "Roxie",
-      firstName: "Harvey",
-      UserName: 65,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-  ];
+  useEffect(() => {
+    filterByUsers(search);
+  }, [search, users]);
+
+  const filterByUsers = (value) => {
+    let arrayCache = [...users];
+    if (value === "") setFilterUsers(users);
+    else {
+      arrayCache = arrayCache.filter((user) =>
+        user.email.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilterUsers(arrayCache);
+    }
+  };
+
+  //                 Paginacion del contenido             //-----------------------------
+
+  const [currentPage, setCurrentPage] = useState(1); //Pagina Actual seteada en 1
+  const [numberOfPage, setNumberOfPage] = useState(0); //Numero de Paginas seteado en 0
+  const [totalUsers, setTotalUsers] = useState(users); //Recetas Totales Seteada en Array Vacio
+
+  const indexFirstPageRecipe = () => (currentPage - 1) * 8; // Indice del primer Elemento
+  const indexLastPageRecipe = () => indexFirstPageRecipe() + 8; //Indice del segundo elemento
+
+  const handlePageNumber = (number) => {
+    //Manejo del numero de pagina
+    setCurrentPage(number);
+  };
+
+  useEffect(() => {
+    //Cambio de estado local de Total Recipes indicando los indices que tiene que renderizar en cada pagina
+    setTotalUsers(
+      filterUsers.slice(indexFirstPageRecipe(), indexLastPageRecipe())
+    );
+    setNumberOfPage(Math.ceil(filterUsers.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
+  }, [filterUsers, currentPage]);
+
+  //console.log(totalreviews);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterUsers]);
 
   return (
     <div>
-      <Table variant="simple" size="sm">
-        <Thead>
-          <Tr>
-            {columns.map((column) => (
-              <Th key={column.field}>{column.headerName}</Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {rows.map((row) => (
-            <Tr key={row.id}>
-              {columns.map((column) => (
-                <Td key={`${row.id}-${column.field}`}>{row[column.field]}</Td>
-              ))}
+      <div className="divContainerHead">
+        <Input
+          onChange={handleOnChange}
+          placeholder="Search Review for comment"
+          width="30rem"
+          background="white"
+          margin="10px"
+        />
+        <h1 className="titleReviews">Users</h1>
+      </div>
+      <TableContainer>
+        <Table variant="striped" colorScheme="teal">
+          <TableCaption>
+            Total registered users: {users.length - 1} users
+          </TableCaption>
+          <Thead>
+            <Tr>
+              <Th>Id</Th>
+              <Th>Email</Th>
+              <Th>address</Th>
+              <Th>role</Th>
+              <Th>active</Th>
+              <Th>createdAt</Th>
+              <Th>actions</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
+          </Thead>
+          <Tbody>
+            {totalUsers?.map((user) => {
+              return (
+                <UserRow
+                  id={user.id}
+                  email={user.email}
+                  address={user.address}
+                  role={user.role}
+                  active={user.active}
+                  createdAt={user.createdAt}
+                />
+              );
+            })}
+          </Tbody>
+          <Tfoot>
+            <Tr>
+              <Th>Id</Th>
+              <Th>Email</Th>
+              <Th>address</Th>
+              <Th>role</Th>
+              <Th>active</Th>
+              <Th>createdAt</Th>
+              <Th>actions</Th>
+            </Tr>
+          </Tfoot>
+        </Table>
+      </TableContainer>
+      <Paginations
+        currentPage={currentPage}
+        numberOfPage={numberOfPage}
+        handlePageNumber={handlePageNumber}
+      />
     </div>
   );
 }

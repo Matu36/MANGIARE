@@ -81,6 +81,7 @@ export default function Reviews() {
             recipeId={review.recipeId}
             userId={review.userId}
             createdAt={review.createdAt}
+            visible={review.visible}
           />
         );
       })}

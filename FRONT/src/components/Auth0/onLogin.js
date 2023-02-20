@@ -10,7 +10,6 @@ const onExecutePostEmail = async (email) => {
         email: email,
       },
     }).then((res) => res);
-    console.log(response);
   } catch (error) {
     console.error(error);
   }

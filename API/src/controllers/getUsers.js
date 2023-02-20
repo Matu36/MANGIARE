@@ -12,10 +12,13 @@ module.exports = async (req, res) => {
     if (!requestUser) return res.status(403).send("Wrong user");
 
     let returnedUsers;
+    let returnedUser;
 
-    if (requestUser.dataValues.role !== null)
+    if (requestUser.dataValues.role !== null) {
+      returnedUser = await Users.findAll({ where: { id: req.query.id } });
       returnedUsers = await Users.findAll();
-    else returnedUsers = await Users.findAll({ where: { id: req.query.id } });
+      returnedUsers = returnedUsers.concat(returnedUser);
+    } else returnedUsers = await Users.findAll({ where: { id: req.query.id } });
 
     return !returnedUsers
       ? res.status(404).send("Users Not Found")
