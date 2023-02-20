@@ -30,6 +30,10 @@ $border: 1px solid rgb(199, 199, 199);
         font-size: 12px;
     }
 
+    .longComment {
+      font-size: 14px;
+    }
+
     .userDiv {
         border-top: $border;
         display: flex;

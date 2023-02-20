@@ -40,7 +40,9 @@ const ReviewsCard = (props) => {
       </div>
       <div className={s.infoDiv}>
         <span className={s.stars}>{rateToStars(rate)}</span>
-        <span>{comment}</span>
+        <span className={comment.length > 30 ? s.longComment : null}>
+          {comment}
+        </span>
         <div className={s.userDiv}>
           <span>{userId}</span>
           <span>{trimDate(createdAt)}</span>
