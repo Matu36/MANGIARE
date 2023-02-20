@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./products.css";
+import { useDispatch, useSelector } from "react-redux";
+import Paginations from "../../../components/Paginations/Paginations";
+import IngredientForm from "./CreateIngredient/CreateIngredient";
+
+import { Input, InputGroup } from "@chakra-ui/react";
 
 import {
   Table,
@@ -10,189 +15,94 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
-import { MdOutlineDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 
 export default function UserList() {
+  let dispatch = useDispatch();
+  const products = useSelector((state) => state.ingredients.ingredients);
+
+  const rows = products.map((product) => {
+    return {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      units: product.units,
+    };
+  });
+
+  //SEARCHBAR
+  const [search, setSearch] = useState("");
+  const [ingredients, setIngredients] = useState(rows);
+
+  const handleOnChange = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    filterByIngredients(search);
+  }, [rows, search]);
+
+  const filterByIngredients = (value) => {
+    let arrayCache = [...rows];
+    if (!search) setIngredients(rows);
+    else {
+      arrayCache = arrayCache.filter((ingredient) =>
+        ingredient.name.toLowerCase().includes(value.toLowerCase())
+      );
+
+      setIngredients(arrayCache);
+    }
+  };
+
+  //FIN SEARCHBAR
+
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "firstName", headerName: "First name", width: 130 },
-    { field: "lastName", headerName: "Last name", width: 130 },
-    {
-      field: "UserName",
-      headerName: "USERNAME",
-
-      width: 130,
-    },
-    {
-      field: "Email",
-      headerName: "EMAIL",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-    },
-    { field: "Action", headerName: "ACTION", width: 130 },
+    { field: "id", headerName: "ID", width: 5 },
+    { field: "name", headerName: "Name", width: 130 },
+    { field: "price", headerName: "Price", width: 130 },
+    { field: "units", headerName: "Units", width: 130 },
   ];
 
-  const rows = [
-    {
-      id: 1,
-      lastName: "Snow",
-      firstName: "Jon",
-      UserName: 35,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 2,
-      lastName: "Lannister",
-      firstName: "Cersei",
-      UserName: 42,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 3,
-      lastName: "Lannister",
-      firstName: "Jaime",
-      UserName: 45,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 4,
-      lastName: "Stark",
-      firstName: "Arya",
-      UserName: 16,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 5,
-      lastName: "Targaryen",
-      firstName: "Daenerys",
-      UserName: null,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 6,
-      lastName: "Melisandre",
-      firstName: null,
-      UserName: 150,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 7,
-      lastName: "Clifford",
-      firstName: "Ferrara",
-      UserName: 44,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 8,
-      lastName: "Frances",
-      firstName: "Rossini",
-      UserName: 36,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: 9,
-      lastName: "Roxie",
-      firstName: "Harvey",
-      UserName: 65,
-      Email: "matipineda@gmail.com",
-      Action: (
-        <div>
-          <button>
-            <MdOutlineModeEdit />{" "}
-          </button>
-          <button>
-            <MdOutlineDeleteOutline />{" "}
-          </button>
-        </div>
-      ),
-    },
-  ];
+  //PAGINADO
+
+  const [currentPage, setCurrentPage] = useState(1); //Pagina Actual seteada en 1
+  const [numberOfPage, setNumberOfPage] = useState(0); //Numero de Paginas seteado en 0
+  const [totalIngredients, setTotalIngredients] = useState(rows);
+
+  const indexFirstPageIngredient = () => (currentPage - 1) * 9; // Indice del primer Elemento
+  const indexLastPageIngredient = () => indexFirstPageIngredient() + 9; //Indice del segundo elemento
+
+  const handlePageNumber = (number) => {
+    setCurrentPage(number);
+  };
+
+  useEffect(() => {
+    //Cambio de estado local de Total Recipes indicando los indices que tiene que
+    //renderizar en cada pagina
+
+    setTotalIngredients(
+      ingredients.slice(indexFirstPageIngredient(), indexLastPageIngredient())
+    );
+    setNumberOfPage(Math.ceil(ingredients.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
+  }, [ingredients, currentPage]);
+
+  //FIN PAGINADO
 
   return (
     <div>
       <Table variant="simple" size="sm">
         <Thead>
+          <div>
+            <InputGroup>
+              <Input
+                type="text"
+                placeholder="Search Ingredient "
+                onChange={handleOnChange}
+                value={search}
+                autoComplete="off"
+              />
+            </InputGroup>
+          </div>
           <Tr>
             {columns.map((column) => (
               <Th key={column.field}>{column.headerName}</Th>
@@ -200,13 +110,27 @@ export default function UserList() {
           </Tr>
         </Thead>
         <Tbody>
-          {rows.map((row) => (
+          {totalIngredients.map((row) => (
             <Tr key={row.id}>
               {columns.map((column) => (
                 <Td key={`${row.id}-${column.field}`}>{row[column.field]}</Td>
               ))}
             </Tr>
           ))}
+          <div>
+            <br />
+            {products && (
+              <Paginations
+                currentPage={currentPage}
+                numberOfPage={numberOfPage}
+                handlePageNumber={handlePageNumber}
+              />
+            )}
+          </div>
+          <br />
+          <div>
+            <IngredientForm />
+          </div>
         </Tbody>
       </Table>
     </div>
