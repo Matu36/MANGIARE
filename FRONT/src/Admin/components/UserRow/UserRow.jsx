@@ -8,10 +8,10 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
   const dispatch = useDispatch();
   const propToString = (value) => {
     if (value !== null) {
-      if (value) return "Super Admin";
-      else return "Admin";
+      if (value) return "True";
+      else return "False";
     }
-    return "User Basic";
+    return "Null";
   };
   const [newRole, setNewRole] = useState(propToString(role));
   const [roleEdit, setRoleEdit] = useState(false);
