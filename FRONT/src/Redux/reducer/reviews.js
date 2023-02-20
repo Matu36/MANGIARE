@@ -1,5 +1,4 @@
-import { GET_REVIEWS, RESET_REVIEWS } from "../actions/reviews.js";
-
+import { GET_REVIEWS } from "../actions/reviews.js";
 
 const initialState = {
   reviews: [],
@@ -11,11 +10,6 @@ const reviewsReducer = (state = initialState, action) => {
       return {
         ...state,
         reviews: action.payload,
-      };
-      case RESET_REVIEWS:
-      return {
-        ...state,
-        reviews: reviews,
       };
 
     default:

@@ -11,10 +11,14 @@ import {
 } from "@chakra-ui/react";
 import { LogoutButton } from "../Auth0/logout_button";
 import { Avatar } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 export default function UserMenu() {
   const { user } = useAuth0();
   let location = useLocation();
+  const userShow = useSelector(
+    (state) => state.users.users[state.users.users.length - 1]
+  );
 
   if (location.pathname == "/user") {
     return (
@@ -28,6 +32,11 @@ export default function UserMenu() {
         <MenuList>
           <Link to={"/home"}>Home</Link>
           <MenuDivider />
+          {userShow?.role !== null && (
+            <div>
+              <Link to={"/admin"}>Admin</Link> <MenuDivider />
+            </div>
+          )}
           <LogoutButton />
         </MenuList>
       </Menu>
@@ -42,10 +51,13 @@ export default function UserMenu() {
         variant="outline"
       />
       <MenuList>
-        <Link to={"/admin"}>Admin</Link>
-        <MenuDivider />
         <Link to={"/user"}>My user</Link>
         <MenuDivider />
+        {userShow?.role !== null && (
+          <div>
+            <Link to={"/admin"}>Admin</Link> <MenuDivider />
+          </div>
+        )}
         <LogoutButton />
       </MenuList>
     </Menu>

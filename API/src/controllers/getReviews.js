@@ -1,22 +1,30 @@
-const {Reviews, Users} = require('../db.js');
+const { Reviews, Users } = require("../db.js");
 
 module.exports = async (req, res) => {
-  try{
+  try {
     let requestUser;
 
-    if ((req.body?.id) && (req.body?.email))
-      requestUser = await  Users.findOne({where: {id: req.body.id, email: req.body.email, active: true}});
+    if (req.query?.id && req.query?.email)
+      requestUser = await Users.findOne({
+        where: { id: req.query.id, email: req.query.email, active: true },
+      });
 
     let returnedReviews;
 
-    if ((requestUser) && (requestUser?.dataValues.role !== null)) returnedReviews = await Reviews.findAll()
-    else returnedReviews = await Reviews.findAll({where: {visible: true}});
+    if (requestUser && requestUser?.dataValues.role !== null)
+      returnedReviews = await Reviews.findAll({
+        include: { model: Users, attributes: ["email"] },
+      });
+    else
+      returnedReviews = await Reviews.findAll({
+        where: { visible: true },
+        include: { model: Users, attributes: ["email"] },
+      });
 
-    return (!returnedReviews)
-      ? res.status(404).send('Reviews Not Found')
+    return !returnedReviews
+      ? res.status(404).send("Reviews Not Found")
       : res.send(returnedReviews);
-  }
-  catch(error) {
+  } catch (error) {
     console.log(error);
     res.status(500).send(error);
   }

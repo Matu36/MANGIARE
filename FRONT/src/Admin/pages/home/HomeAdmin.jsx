@@ -9,22 +9,35 @@ import { useDispatch, useSelector } from "react-redux";
 import Reviews from "../../components/Reviews/Reviews";
 import UserList from "../../pages/userList/UserList";
 import Products from "../../components/Products/Products";
+import Transactions from "../../components/Transactions/Transactions.jsx";
+import Email from "../../components/Email/Email.jsx";
+import Feedback from "../../components/Feedback/Feedback.jsx";
 import { getIngredients } from "../../../Redux/actions/ingredients";
+import { getReviews } from "../../../Redux/actions/reviews";
+import { getUsers } from "../../../Redux/actions/users";
 
 export default function HomeAdmin() {
   const dispatch = useDispatch();
   const homeShow = useSelector((state) => state.homeadmin.homeShow);
+  let currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
+
   useEffect(() => {
+    console.log(currentUser);
     dispatch(getIngredients());
+    dispatch(getReviews(currentUser));
+    dispatch(getUsers(currentUser));
   }, []);
+
   return (
     <div className="home">
       {homeShow === "Reviews" && <Reviews />}
       {homeShow === "Users" && <UserList />}
       {homeShow === "Products" && <Products />}
+      {homeShow === "Transactions" && <Transactions />}
+      {homeShow === "eMail" && <Email />}
+      {homeShow === "Feedback" && <Feedback />}
       {homeShow === "Home" && (
         <div>
-          {" "}
           <FeaturedInfo />
           <Chart
             data={data}

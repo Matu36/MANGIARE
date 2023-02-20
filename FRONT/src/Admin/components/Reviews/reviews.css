@@ -1,0 +1,16 @@
+.divContainerCards {
+    display: flex;
+    flex-direction: column;
+}
+.titleReviews {
+    font-size: 40px;
+    text-align: center;
+    margin-right: 20px;
+}
+.divContainerHead {
+    background-color: rgb(200, 231, 241);
+    margin: 0px 5px 5px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
