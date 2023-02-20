@@ -10,7 +10,7 @@ const onExecutePostEmail = async (email) => {
         email: email,
       },
     }).then((res) => res);
-    console.log(response);
+    localStorage.setItem("MANGIARE_userInfo", JSON.stringify(response.data));
   } catch (error) {
     console.error(error);
   }
