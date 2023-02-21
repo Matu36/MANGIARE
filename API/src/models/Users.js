@@ -22,7 +22,12 @@ module.exports = sequelize => {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
       allowNull: false
-    }
+    },
+    banned: { 
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false
+    },
   }, {
     updatedAt: false
   });
