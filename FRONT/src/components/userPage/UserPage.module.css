@@ -20,3 +20,29 @@
     margin-top:1px;
     margin-right:20px;
   }
+
+  .cardsContainer {
+    width: 100%;
+    padding: 4rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .orderItem{
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .actions{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }

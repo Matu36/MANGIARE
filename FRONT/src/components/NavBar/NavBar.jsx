@@ -21,7 +21,7 @@ function NavBar() {
       <Link to={"/createRecipe"}>
         <button className={s.btn1}>CREATE RECIPE</button>
       </Link>
-      {/* <Link to={"/myRecipes"}>
+     {/*  <Link to={"/myRecipes"}>
         <button className={s.btn1}>MY RECIPES</button>
       </Link> */}
       {/* <Link to={"/aboutUs"}>
