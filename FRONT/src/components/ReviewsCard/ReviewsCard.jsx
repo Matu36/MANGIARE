@@ -1,8 +1,10 @@
 import React from "react";
 import s from "./ReviewsCard.module.scss";
+import { FaTimesCircle } from "react-icons/fa";
 
 const ReviewsCard = (props) => {
   const png = "https://cdn-icons-png.flaticon.com/512/2253/2253461.png";
+  const user = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   const { comment, image, rate, userId, createdAt } = props;
 
@@ -35,6 +37,11 @@ const ReviewsCard = (props) => {
 
   return (
     <div className={s.container}>
+      {user && user.id === userId ? (
+        <div className={s.deleteButtonDiv}>
+          <FaTimesCircle />
+        </div>
+      ) : null}
       <div className={s.imgDiv}>
         <img src={image ? image : png} alt={userId} />
       </div>
