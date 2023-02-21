@@ -131,7 +131,7 @@ const ReviewsBox = () => {
         {reviews.length > 0 ? (
           reviews
             .filter((r) => r.recipeId === parseInt(id))
-            .map(({ comment, image, rate, userId, createdAt }, i) => {
+            .map(({ comment, image, rate, userId, createdAt, recipeId }, i) => {
               return (
                 <ReviewsCard
                   key={i}
@@ -140,6 +140,7 @@ const ReviewsBox = () => {
                   rate={rate}
                   userId={userId}
                   createdAt={createdAt}
+                  recipeId={recipeId}
                 />
               );
             })
