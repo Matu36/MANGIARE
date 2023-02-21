@@ -11,7 +11,7 @@ const onExecutePostEmail = async (user) => {
       },
     }).then((res) => res);
 
-    localStorage.setItem("MANGIARE_userInfo", JSON.stringify(response.data));
+    localStorage.setItem("MANGIARE_user", JSON.stringify(response.data));
   } catch (error) {
     console.error(error);
   }

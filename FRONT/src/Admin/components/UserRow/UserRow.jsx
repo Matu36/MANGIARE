@@ -6,12 +6,20 @@ import "./UserRow.css";
 
 const UserRow = ({ id, email, address, role, active, createdAt }) => {
   const dispatch = useDispatch();
-  const propToString = (value) => {
-    if (value !== null) {
-      if (value) return "True";
-      else return "False";
+  const propToString = (value, type) => {
+    if (type === "active") {
+      if (value !== null) {
+        if (value) return "True";
+        else return "False";
+      }
+      return "Null";
+    } else {
+      if (value !== null) {
+        if (value) return "Super Admin";
+        else return "Admin";
+      }
+      return "User";
     }
-    return "Null";
   };
   const [newRole, setNewRole] = useState(propToString(role));
   const [roleEdit, setRoleEdit] = useState(false);
@@ -44,7 +52,7 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
             className="selectRole"
           >
             <option value="null" selected>
-              User Basic
+              User
             </option>
             <option value="true">Super Admin</option>
             <option value="false">Admin</option>
@@ -53,7 +61,7 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
       ) : (
         <Td>{newRole}</Td>
       )}
-      <Td>{propToString(active)}</Td>
+      <Td>{propToString(active, "active")}</Td>
       <Td>
         {CreateAt[0]} - {CreateAt[1].split(".")[0]}
       </Td>
