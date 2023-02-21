@@ -23,6 +23,7 @@ async function locMock() {
     {email: 'email3@email.com'},
     {email: 'yamil.leotta@gmail.com', address: 'Av. Siempreviva 742'}, // role: null -> basic user
     {email: 'mangiare.email@gmail.com', role: false}, // role: false -> Admin
+    {email: 'mangiar-e@outlook.com', role: true}, // role: false -> Admin
   ]);
 
   ////////////////// Orders //////////////////////
