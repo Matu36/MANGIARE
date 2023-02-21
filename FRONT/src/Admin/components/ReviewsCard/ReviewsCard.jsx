@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ReviewsCard.css";
 import {
   Card,
@@ -22,6 +22,7 @@ const ReviewsCard = ({
   visible,
 }) => {
   const reviews = useSelector((state) => state.reviews.reviews);
+  const CreateAt = createdAt.split("T");
   const handleHideReview = (e, userId, recipeId, visible) => {
     e.preventDefault();
     console.log(userId, recipeId, visible);
@@ -31,6 +32,7 @@ const ReviewsCard = ({
     console.log(visible);
     //dispatch(putReview(userId,recipeId,visible))
   };
+  const handleRestrictReview = () => {};
 
   return (
     <div className="cardContainer">
@@ -49,7 +51,8 @@ const ReviewsCard = ({
         <Stack>
           <CardBody>
             <Heading size="md">
-              Rate Points: {rate} creation date: {createdAt.split("T")[0]}
+              Rate Points: {rate} creation date: {CreateAt[0]} -{" "}
+              {CreateAt[1].split(".")[0]}
             </Heading>
 
             <Text py="2" className="divText">
@@ -58,21 +61,33 @@ const ReviewsCard = ({
           </CardBody>
         </Stack>
         <div className="containerButtons">
-          <Button
-            colorScheme="teal"
-            variant="outline"
-            size="sm"
-            className="button"
-            onClick={(e) => handleHideReview(e, userId, recipeId, visible)}
-          >
-            Hide Review
-          </Button>
+          {visible ? (
+            <Button
+              colorScheme="red"
+              variant="outline"
+              size="sm"
+              className="button"
+              onClick={(e) => handleHideReview(e, userId, recipeId, visible)}
+            >
+              Hide Review
+            </Button>
+          ) : (
+            <Button
+              colorScheme="teal"
+              variant="outline"
+              size="sm"
+              className="button"
+              onClick={(e) => handleHideReview(e, userId, recipeId, visible)}
+            >
+              Show Review
+            </Button>
+          )}
           <Button
             colorScheme="red"
             variant="outline"
             size="sm"
             className="button"
-            onClick={(e) => handleHideReview(e, userId)}
+            onClick={(e) => handleRestrictReview(e, userId)}
           >
             Restrict Reviews
           </Button>
