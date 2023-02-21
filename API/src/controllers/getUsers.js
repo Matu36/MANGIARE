@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     if (!req.query?.id || !req.query?.email) throw "No query params";
 
     let requestUser = await Users.findOne({
-      where: { id: req.query.id, email: req.query.email, active: true },
+      where: { id: req.query.id, email: req.query.email },
     });
 
     if (!requestUser) return res.status(403).send("Wrong user");

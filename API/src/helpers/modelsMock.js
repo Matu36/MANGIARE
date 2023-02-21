@@ -19,7 +19,7 @@ async function locMock() {
 
   await Users.bulkCreate([
     {email: 'email1@email.com'},
-    {email: 'email2@email.com'},
+    {email: 'email2@email.com', banned: true},
     {email: 'email3@email.com'},
     {email: 'yamil.leotta@gmail.com', address: 'Av. Siempreviva 742'}, // role: null -> basic user
     {email: 'mangiare.email@gmail.com', role: false}, // role: false -> Admin
