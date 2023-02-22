@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const GET_USERS = "GET_USERS";
+const { REACT_APP_AUTH0_CLIENT_ID, REACT_APP_AUTH0_DOMAIN } = process.env;
 
 export const getUsers = (currentUser) => {
   let user = {
@@ -18,18 +19,35 @@ export const getUsers = (currentUser) => {
 };
 
 export const resetPassword = (email) => {
-  let user = {
-    client_id: "CLgKXjmteTQnzZDWOjjhhSNJjji9Znua",
+  const url = `https://${REACT_APP_AUTH0_DOMAIN}/dbconnections/change_password`;
+  const data = {
+    client_id: REACT_APP_AUTH0_CLIENT_ID,
     email: email,
     connection: "Username-Password-Authentication",
+    // You may also include other fields, such as 'password', 'connection_id', etc.
+  };
+
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const putNewRole = (newRole) => {
+  let user = {
+    role: newRole,
   };
   return async () => {
-    console.log(user);
     await axios
-      .post(
-        "https://dev-q0op6n5dd6lcy5o2.us.auth0.com/dbconnections/change_password",
-        { data: user }
-      )
+      .put("/users", { data: user })
       .then((response) => response.data)
       .catch((err) => {
         console.log(err), err;

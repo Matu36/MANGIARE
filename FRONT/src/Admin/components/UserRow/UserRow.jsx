@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import "./UserRow.css";
-import { resetPassword } from "../../../Redux/actions/users";
+import { resetPassword, putNewRole } from "../../../Redux/actions/users";
 
 const UserRow = ({ id, email, address, role, active, createdAt }) => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
     else if (e.target.value === "true") setNewRole(propToString(true));
     else setNewRole(propToString(false));
 
-    //dispatch(putNewRole(newRole))
+    dispatch(putNewRole(newRole));
   };
   useEffect(() => {
     setNewRole(newRole);
@@ -57,12 +57,11 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
         <Td>
           <select
             name="role"
+            defaultValue={null}
             onClick={(e) => handleChangeRole(e)}
             className="selectRole"
           >
-            <option value="null" selected>
-              User
-            </option>
+            <option value="null">User</option>
             <option value="true">Super Admin</option>
             <option value="false">Admin</option>
           </select>
