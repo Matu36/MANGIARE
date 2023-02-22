@@ -23,3 +23,7 @@ export const getReviews = (currentUser) => {
 export const postReview = (payload) => async (dispatch) => {
   return await axios.post(`/reviews`, payload);
 };
+
+export const deleteReview = (payload) => async (dispatch) => {
+  return await axios.delete(`/reviews`, { data: payload });
+};
