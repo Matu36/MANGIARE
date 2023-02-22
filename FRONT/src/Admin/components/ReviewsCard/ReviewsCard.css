@@ -1,0 +1,14 @@
+.cardContainer {
+    margin: 0px 20px 20px 20px
+}
+.containerButtons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.divText {
+    width: 100vh
+}
+.button {
+    margin: 2px 2px 2px 2px;
+}

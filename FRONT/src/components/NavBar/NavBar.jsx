@@ -15,9 +15,14 @@ function NavBar() {
   return (
     <div className={s.container}>
       <Link to={"/home"}>
-      <img style={{width: '65px', height: '60px'}} src={mangiare} alt="logo" className={s.logo} />
+        <img
+          style={{ width: "65px", height: "60px" }}
+          src={mangiare}
+          alt="logo"
+          className={s.logo}
+        />
       </Link>
-      
+
       <Link to={"/createRecipe"}>
         <button className={s.btn1}>CREATE RECIPE</button>
       </Link>
@@ -31,14 +36,21 @@ function NavBar() {
         <button className={s.btn1}>CONTACT</button>
       </Link> */}
       <SearchBar />
-      
+
       <div className={s.btn1}>
-      <Link to={"/shoppingCart"}>
-        <BsCart4 size ={30} />
-      </Link>
-      </div >
-      {isAuthenticated ? <div className={s.btn2}><UserMenu /> </div>: <div className={s.btn1}><LoginButton /></div>}
-      
+        <Link to={"/shoppingCart"}>
+          <BsCart4 size={30} />
+        </Link>
+      </div>
+      {isAuthenticated ? (
+        <div className={s.btn2}>
+          <UserMenu />{" "}
+        </div>
+      ) : (
+        <div className={s.btn1}>
+          <LoginButton />
+        </div>
+      )}
     </div>
   );
 }

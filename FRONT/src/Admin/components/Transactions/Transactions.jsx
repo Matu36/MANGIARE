@@ -1,5 +1,5 @@
-import React from 'react';
-import "./transactions.css"
+import React from "react";
+import "./transactions.css";
 
 import {
   Table,
@@ -13,8 +13,6 @@ import {
 import { MdOutlineDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 
 export default function UserList() {
-
-
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "firstName", headerName: "First name", width: 130 },
@@ -44,10 +42,12 @@ export default function UserList() {
       Email: "matipineda@gmail.com",
       Action: (
         <div>
-        <button><MdOutlineModeEdit /> </button>
-        <button>
-          <MdOutlineDeleteOutline />{" "}
-        </button>
+          <button>
+            <MdOutlineModeEdit />{" "}
+          </button>
+          <button>
+            <MdOutlineDeleteOutline />{" "}
+          </button>
         </div>
       ),
     },
@@ -59,10 +59,12 @@ export default function UserList() {
       Email: "matipineda@gmail.com",
       Action: (
         <div>
-        <button><MdOutlineModeEdit /> </button>
-        <button>
-          <MdOutlineDeleteOutline />{" "}
-        </button>
+          <button>
+            <MdOutlineModeEdit />{" "}
+          </button>
+          <button>
+            <MdOutlineDeleteOutline />{" "}
+          </button>
         </div>
       ),
     },
@@ -74,10 +76,12 @@ export default function UserList() {
       Email: "matipineda@gmail.com",
       Action: (
         <div>
-        <button><MdOutlineModeEdit /> </button>
-        <button>
-          <MdOutlineDeleteOutline />{" "}
-        </button>
+          <button>
+            <MdOutlineModeEdit />{" "}
+          </button>
+          <button>
+            <MdOutlineDeleteOutline />{" "}
+          </button>
         </div>
       ),
     },
@@ -89,10 +93,12 @@ export default function UserList() {
       Email: "matipineda@gmail.com",
       Action: (
         <div>
-        <button><MdOutlineModeEdit /> </button>
-        <button>
-          <MdOutlineDeleteOutline />{" "}
-        </button>
+          <button>
+            <MdOutlineModeEdit />{" "}
+          </button>
+          <button>
+            <MdOutlineDeleteOutline />{" "}
+          </button>
         </div>
       ),
     },
@@ -104,10 +110,12 @@ export default function UserList() {
       Email: "matipineda@gmail.com",
       Action: (
         <div>
-        <button><MdOutlineModeEdit /> </button>
-        <button>
-          <MdOutlineDeleteOutline />{" "}
-        </button>
+          <button>
+            <MdOutlineModeEdit />{" "}
+          </button>
+          <button>
+            <MdOutlineDeleteOutline />{" "}
+          </button>
         </div>
       ),
     },
@@ -119,10 +127,12 @@ export default function UserList() {
       Email: "matipineda@gmail.com",
       Action: (
         <div>
-        <button><MdOutlineModeEdit /> </button>
-        <button>
-          <MdOutlineDeleteOutline />{" "}
-        </button>
+          <button>
+            <MdOutlineModeEdit />{" "}
+          </button>
+          <button>
+            <MdOutlineDeleteOutline />{" "}
+          </button>
         </div>
       ),
     },
@@ -134,10 +144,12 @@ export default function UserList() {
       Email: "matipineda@gmail.com",
       Action: (
         <div>
-        <button><MdOutlineModeEdit /> </button>
-        <button>
-          <MdOutlineDeleteOutline />{" "}
-        </button>
+          <button>
+            <MdOutlineModeEdit />{" "}
+          </button>
+          <button>
+            <MdOutlineDeleteOutline />{" "}
+          </button>
         </div>
       ),
     },
@@ -149,10 +161,12 @@ export default function UserList() {
       Email: "matipineda@gmail.com",
       Action: (
         <div>
-        <button><MdOutlineModeEdit /> </button>
-        <button>
-          <MdOutlineDeleteOutline />{" "}
-        </button>
+          <button>
+            <MdOutlineModeEdit />{" "}
+          </button>
+          <button>
+            <MdOutlineDeleteOutline />{" "}
+          </button>
         </div>
       ),
     },
@@ -164,10 +178,12 @@ export default function UserList() {
       Email: "matipineda@gmail.com",
       Action: (
         <div>
-        <button><MdOutlineModeEdit /> </button>
-        <button>
-          <MdOutlineDeleteOutline />{" "}
-        </button>
+          <button>
+            <MdOutlineModeEdit />{" "}
+          </button>
+          <button>
+            <MdOutlineDeleteOutline />{" "}
+          </button>
         </div>
       ),
     },
@@ -175,7 +191,9 @@ export default function UserList() {
 
   return (
     <div>
-      <Table variant="simple" size="sm">
+      {" "}
+      Transactions Orders
+      {/* <Table variant="simple" size="sm">
         <Thead>
           <Tr>
             {columns.map((column) => (
@@ -192,7 +210,7 @@ export default function UserList() {
             </Tr>
           ))}
         </Tbody>
-      </Table>
+      </Table> */}
     </div>
   );
 }

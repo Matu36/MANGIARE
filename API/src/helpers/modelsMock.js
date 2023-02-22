@@ -18,19 +18,20 @@ async function locMock() {
   ////////////////// Users //////////////////////
 
   await Users.bulkCreate([
-    {email: 'email1@email.com'},
-    {email: 'email2@email.com'},
-    {email: 'email3@email.com'},
+    {email: 'email1@email.com', address: 'Dirección usuario 1' },
+    {email: 'email2@email.com', address: 'Dirección usuario 2', banned: true},
+    {email: 'email3@email.com', address: 'Dirección usuario 3' },
     {email: 'yamil.leotta@gmail.com', address: 'Av. Siempreviva 742'}, // role: null -> basic user
-    {email: 'mangiare.email@gmail.com', role: false}, // role: false -> Admin
+    {email: 'mangiare.email@gmail.com', address: 'Dirección del admin mangiare.email' , role: false}, // role: false -> Admin
+    {email: 'mangiar-e@outlook.com', role: true}, // role: true -> Super Admin
   ]);
 
   ////////////////// Orders //////////////////////
 
   await Orders.bulkCreate([
-    { userId: 1 },
-    { userId: 2, tsPayment: new Date(2023, 0, 1) },
-    { userId: 2 },
+    { userId: 1, address: 'Dirección usuario 1', preferenceId: 'codigo', merchant_orderId: 'codigo' },
+    { userId: 2, tsPayment: new Date(2023, 0, 1), status: 1, address: 'Dirección usuario 2', preferenceId: 'codigo', merchant_orderId: 'codigo' },
+    { userId: 2, tsPayment: new Date(2023, 0, 1), status: 2, address: 'Dirección usuario 2', preferenceId: 'codigo', merchant_orderId: 'codigo' },
   ]);
 
   ///////////////// Recipes /////////////////////////////
@@ -103,7 +104,7 @@ async function locMock() {
       rate: 3,
       comment: "Maso! Esta review solo la ve un admin, y no se ve en el detalle de receta",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://media.airedesantafe.com.ar/p/916dc6232d123e9a1a15a2647602d269/adjuntos/268/imagenes/001/997/0001997793/tartabjpg.jpg",
       visible: false
     },
     {
@@ -112,7 +113,7 @@ async function locMock() {
       rate: 4,
       comment: "Rica!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://vidasanalau.com/wp-content/uploads/2020/12/WhatsApp-Image-2020-12-20-at-23.36.34.jpeg",
     },
     {
       recipeId: 1,
@@ -120,7 +121,7 @@ async function locMock() {
       rate: 5,
       comment: "Exquisita!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://ww2.todorico.com.py/wp-content/uploads/2020/07/IMG_7743-1536x1536.jpg",
     },
 
     {
@@ -129,7 +130,7 @@ async function locMock() {
       rate: 5,
       comment: "Exquisita!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://i.pinimg.com/originals/46/46/f3/4646f3858f08bc11208a590aeeca819e.jpg",
     },
     {
       recipeId: 1,
@@ -137,7 +138,7 @@ async function locMock() {
       rate: 5,
       comment: "Exquisita!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://www.unileverfoodsolutions.com.ar/dam/global-ufs/mcos/sla/argentina/calcmenu/recipes/AR-recipes/In-Development/milanesa-a-la-napolitana-con-pur%C3%A9/main-header.jpg",
     },
 
     {
@@ -146,7 +147,7 @@ async function locMock() {
       rate: 1,
       comment: "Horrible! Esta review solo la ve un admin, y no se ve en el detalle de receta",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://www.unileverfoodsolutions.com.ar/dam/global-ufs/mcos/sla/argentina/calcmenu/recipes/AR-recipes/In-Development/milanesa-a-la-napolitana-con-pur%C3%A9/main-header.jpg",
       visible: false
     },
     {
@@ -155,7 +156,7 @@ async function locMock() {
       rate: 2,
       comment: "Fea!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://radiomitre-la100-prod.cdn.arcpublishing.com/resizer/hckax2afwe9VHyDLqWYV7ZbzSm8=/1200x0/smart/cloudfront-us-east-1.images.arcpublishing.com/radiomitre/RQMZ4TUVQRGHPBWGUZ6YJOTD7Y.jpg",
     },
     {
       recipeId: 3,
@@ -163,7 +164,7 @@ async function locMock() {
       rate: 3,
       comment: "Maso!",
       image:
-        "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png",
+        "https://media.airedesantafe.com.ar/p/916dc6232d123e9a1a15a2647602d269/adjuntos/268/imagenes/001/997/0001997793/tartabjpg.jpg",
     },
   ]);
 
@@ -210,7 +211,7 @@ async function locMock() {
 
   ////////////////// New Order //////////////////////////
 
-  await Order_details.create({orderId: (await Orders.create({userId: 3})).dataValues.id, ingredientId: 1, amount: 0.1, unit: 'pounds', price: 1.5});
+  await Order_details.create({orderId: (await Orders.create({userId: 3, preferenceId: 'codigo', merchant_orderId: 'codigo'})).dataValues.id, ingredientId: 1, amount: 0.1, unit: 'pounds', price: 1.5});
 
 
   //console.log(order.dataValues); // {id: 4.......}

@@ -21,9 +21,7 @@ import Email from "./Admin/components/Email/Email";
 import Reviews from "./Admin/components/Reviews/Reviews";
 import Feedback from "../src/Admin/components/Feedback/Feedback";
 
-
-axios.defaults.baseURL = 'http://localhost:3001/'
-
+axios.defaults.baseURL = "http://localhost:3001/";
 //axios.defaults.baseURL = "https://mangiare-production.up.railway.app/";
 
 export default function App() {

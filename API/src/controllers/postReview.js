@@ -1,20 +1,22 @@
-const {Reviews} = require("../db");
+const { Reviews, Users } = require("../db");
 
 const postReview = async (req, res) => {
-  const {userId,recipeId,rate,comment,image} = req.body;
   try {
-  let postReview=await Reviews.create({
-    userId,
-    recipeId,
-    rate,
-    comment,
-    image
-  })
+    if ((await Users.findByPk(req.body.userId)).banned) throw 'User banned';
 
+    const { userId, recipeId, rate, comment = null, image = null} = req.body;
+    let postReview = await Reviews.create({
+      userId,
+      recipeId,
+      rate,
+      comment,
+      image
+    });
 
     res.status(200).send(postReview);
   } catch (error) {
-    res.status(400).send(error.message);
+    console.log(error);
+    res.status(400).send(error);
   }
 };
 
