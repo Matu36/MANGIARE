@@ -16,9 +16,6 @@ import { useSelector } from "react-redux";
 export default function UserMenu() {
   const { user } = useAuth0();
   let location = useLocation();
-  // const userShow = useSelector(
-  //   (state) => state.users.users[state.users.users.length - 1]
-  // );
 
   const userShow = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
@@ -34,22 +31,11 @@ export default function UserMenu() {
         <MenuList>
           <Link to={"/home"}>Home</Link>
           <MenuDivider />
-          {userShow && userShow.role === true && (
+          {userShow && userShow.role !== null && (
             <div>
               <Link to={"/admin"}>Admin</Link> <MenuDivider />
             </div>
           )}
-
-          {/* {userShow.role !== null && userShow.role !== true ? null : (
-            <div>
-              <Link to={"/admin"}>Admin</Link> <MenuDivider />
-            </div>
-          )} */}
-          {/* {userShow?.role !== null && (
-            <div>
-              <Link to={"/admin"}>Admin</Link> <MenuDivider />
-            </div>
-          )} */}
           <LogoutButton />
         </MenuList>
       </Menu>
@@ -66,7 +52,7 @@ export default function UserMenu() {
       <MenuList>
         <Link to={"/user"}>My user</Link>
         <MenuDivider />
-        {userShow && userShow.role === true && (
+        {userShow && userShow.role !== null && (
           <div>
             <Link to={"/admin"}>Admin</Link> <MenuDivider />
           </div>
