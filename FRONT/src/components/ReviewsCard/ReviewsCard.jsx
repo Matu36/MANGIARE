@@ -1,10 +1,15 @@
 import React from "react";
 import s from "./ReviewsCard.module.scss";
+import { useDispatch } from "react-redux";
+import { FaTimesCircle } from "react-icons/fa";
+import { getReviews, deleteReview } from "../../Redux/actions/reviews";
 
 const ReviewsCard = (props) => {
+  let dispatch = useDispatch();
   const png = "https://cdn-icons-png.flaticon.com/512/2253/2253461.png";
+  const user = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
-  const { comment, image, rate, userId, createdAt } = props;
+  const { comment, image, rate, userId, createdAt, recipeId } = props;
 
   const rateToStars = (rate) => {
     switch (rate) {
@@ -33,8 +38,19 @@ const ReviewsCard = (props) => {
     return `${date} - ${hour}`;
   };
 
+  const handleDeleteReview = async () => {
+    let info = { userId, recipeId };
+    await dispatch(deleteReview(info));
+    dispatch(getReviews());
+  };
+
   return (
     <div className={s.container}>
+      {user && user.id === userId ? (
+        <div className={s.deleteButtonDiv} onClick={handleDeleteReview}>
+          <FaTimesCircle />
+        </div>
+      ) : null}
       <div className={s.imgDiv}>
         <img src={image ? image : png} alt={userId} />
       </div>
