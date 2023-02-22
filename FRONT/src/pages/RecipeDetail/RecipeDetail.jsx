@@ -4,6 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { getRecipeDetail } from "../../Redux/actions/recipes";
 import { getIngredients } from "../../Redux/actions/ingredients";
+import {
+  deleteReview,
+  getFavorites,
+  postReview,
+} from "../../Redux/actions/favorites";
 import { setCart, addToCart } from "../../Redux/actions/cart";
 import s from "../RecipeDetail/RecipeDetail.module.css";
 import NavBar from "../../components/NavBar/NavBar";
@@ -24,6 +29,7 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import background from "../../img/BackgroundDetail.jpg";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 const RecipeDetail = () => {
   let { id } = useParams();
@@ -35,6 +41,7 @@ const RecipeDetail = () => {
   //formato list: [{id, name, price}, {id, name, price}...]
   const cart = useSelector((state) => state.cart.cart);
   const [loading, setLoading] = useState(false);
+  const LS_user = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
@@ -118,6 +125,26 @@ const RecipeDetail = () => {
     setList(list.map((el) => (el.id != id ? el : { ...el, unit: value })));
   };
 
+  const favorites = useSelector((state) => state.favorites.favorites);
+
+  useEffect(() => {
+    dispatch(getFavorites());
+  }, []);
+
+  let filteredFavorites = favorites
+    .filter((f) => f.userId === LS_user.id)
+    .filter((f) => f.recipeId === parseInt(id));
+
+  const handleFavorite = async () => {
+    if (filteredFavorites.length > 0) {
+      await dispatch(deleteReview(LS_user.id, id));
+      dispatch(getFavorites());
+    } else {
+      await dispatch(postReview(LS_user.id, id));
+      dispatch(getFavorites());
+    }
+  };
+
   return (
     <>
       {" "}
@@ -180,8 +207,14 @@ const RecipeDetail = () => {
               height="40%"
               objectFit={"cover"}
               borderRadius="10px"
+              style={{
+                position: "relative",
+              }}
             >
               <img className={s.imageDetail} src={image} alt={title} />
+              <div className={s.favoriteButtonDiv} onClick={handleFavorite}>
+                {filteredFavorites.length > 0 ? <FaHeart /> : <FaRegHeart />}
+              </div>
             </Box>
 
             <Tabs align="center" variant="enclosed">
