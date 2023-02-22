@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
 
     if (req.query?.id && req.query?.email)
       requestUser = await Users.findOne({
-        where: { id: req.query.id, email: req.query.email, active: true },
+        where: { id: req.query.id, email: req.query.email },
       });
 
     let returnedReviews;

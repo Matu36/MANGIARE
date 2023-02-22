@@ -18,19 +18,20 @@ async function locMock() {
   ////////////////// Users //////////////////////
 
   await Users.bulkCreate([
-    {email: 'email1@email.com'},
-    {email: 'email2@email.com'},
-    {email: 'email3@email.com'},
+    {email: 'email1@email.com', address: 'Dirección usuario 1' },
+    {email: 'email2@email.com', address: 'Dirección usuario 2', banned: true},
+    {email: 'email3@email.com', address: 'Dirección usuario 3' },
     {email: 'yamil.leotta@gmail.com', address: 'Av. Siempreviva 742'}, // role: null -> basic user
-    {email: 'mangiare.email@gmail.com', role: false}, // role: false -> Admin
+    {email: 'mangiare.email@gmail.com', address: 'Dirección del admin mangiare.email' , role: false}, // role: false -> Admin
+    {email: 'mangiar-e@outlook.com', role: true}, // role: true -> Super Admin
   ]);
 
   ////////////////// Orders //////////////////////
 
   await Orders.bulkCreate([
-    { userId: 1 },
-    { userId: 2, tsPayment: new Date(2023, 0, 1) },
-    { userId: 2 },
+    { userId: 1, address: 'Dirección usuario 1', preferenceId: 'codigo', merchant_orderId: 'codigo' },
+    { userId: 2, tsPayment: new Date(2023, 0, 1), status: 1, address: 'Dirección usuario 2', preferenceId: 'codigo', merchant_orderId: 'codigo' },
+    { userId: 2, tsPayment: new Date(2023, 0, 1), status: 2, address: 'Dirección usuario 2', preferenceId: 'codigo', merchant_orderId: 'codigo' },
   ]);
 
   ///////////////// Recipes /////////////////////////////
@@ -210,7 +211,7 @@ async function locMock() {
 
   ////////////////// New Order //////////////////////////
 
-  await Order_details.create({orderId: (await Orders.create({userId: 3})).dataValues.id, ingredientId: 1, amount: 0.1, unit: 'pounds', price: 1.5});
+  await Order_details.create({orderId: (await Orders.create({userId: 3, preferenceId: 'codigo', merchant_orderId: 'codigo'})).dataValues.id, ingredientId: 1, amount: 0.1, unit: 'pounds', price: 1.5});
 
 
   //console.log(order.dataValues); // {id: 4.......}

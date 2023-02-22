@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const getIngredients = require('../controllers/getIngredients');
-const postIngredients = require('../controllers/postIngredients');
+const postIngredient = require('../controllers/postIngredient');
+const putIngredient = require('../controllers/putIngredient');
 
 router.get('/', getIngredients);
-router.post('/', postIngredients);
+router.post('/', postIngredient);
+router.put('/', putIngredient);
 
 module.exports = router;

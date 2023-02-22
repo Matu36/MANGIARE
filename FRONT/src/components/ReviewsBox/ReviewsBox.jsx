@@ -9,7 +9,7 @@ import { LoginButton } from "../../components/Auth0/login_button";
 
 const ReviewsBox = () => {
   let { id } = useParams();
-  let user = JSON.parse(localStorage.getItem("MANGIARE_userInfo"));
+  let user = JSON.parse(localStorage.getItem("MANGIARE_user"));
   let dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
   useEffect(() => {
@@ -131,7 +131,7 @@ const ReviewsBox = () => {
         {reviews.length > 0 ? (
           reviews
             .filter((r) => r.recipeId === parseInt(id))
-            .map(({ comment, image, rate, userId, createdAt }, i) => {
+            .map(({ comment, image, rate, userId, createdAt, recipeId }, i) => {
               return (
                 <ReviewsCard
                   key={i}
@@ -140,6 +140,7 @@ const ReviewsBox = () => {
                   rate={rate}
                   userId={userId}
                   createdAt={createdAt}
+                  recipeId={recipeId}
                 />
               );
             })
