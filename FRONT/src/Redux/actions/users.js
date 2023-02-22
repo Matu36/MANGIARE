@@ -17,6 +17,22 @@ export const getUsers = (currentUser) => {
   };
 };
 
-export const resetUsers = () => async (dispatch) => {
-  return dispatch({ type: RESET_USERS });
+export const resetPassword = (email) => {
+  let user = {
+    client_id: "CLgKXjmteTQnzZDWOjjhhSNJjji9Znua",
+    email: email,
+    connection: "Username-Password-Authentication",
+  };
+  return async () => {
+    console.log(user);
+    await axios
+      .post(
+        "https://dev-q0op6n5dd6lcy5o2.us.auth0.com/dbconnections/change_password",
+        { data: user }
+      )
+      .then((response) => response.data)
+      .catch((err) => {
+        console.log(err), err;
+      });
+  };
 };

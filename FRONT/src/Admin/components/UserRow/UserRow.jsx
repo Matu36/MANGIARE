@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Tr, Td } from "@chakra-ui/react";
-import { MdOutlineDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
+import {
+  MdOutlineDeleteOutline,
+  MdOutlineModeEdit,
+  MdRestore,
+} from "react-icons/md";
 import { useDispatch } from "react-redux";
 import "./UserRow.css";
+import { resetPassword } from "../../../Redux/actions/users";
 
 const UserRow = ({ id, email, address, role, active, createdAt }) => {
   const dispatch = useDispatch();
@@ -39,6 +44,10 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
 
   const CreateAt = createdAt.split("T");
 
+  const handleResetPassword = (e, valueEmail) => {
+    dispatch(resetPassword(valueEmail));
+  };
+
   return (
     <Tr key={id}>
       <Td>{id}</Td>
@@ -73,6 +82,9 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
         </button>
         <button>
           <MdOutlineDeleteOutline />
+        </button>
+        <button onClick={(e) => handleResetPassword(e, email)}>
+          <MdRestore />
         </button>
       </Td>
     </Tr>
