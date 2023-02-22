@@ -10,8 +10,21 @@ $border: 1px solid rgb(199, 199, 199);
   box-shadow: $box-shadow;
   padding: 1rem;
   box-sizing: border-box;
-  overflow: hidden;
+  // overflow: hidden;
   display: flex;
+  position: relative;
+
+  .deleteButtonDiv {
+    position: absolute;
+    font-size: 24px;
+    color: brown;
+    right: -7.5px;
+    top: -7.5px;
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 3px 3px 5px gray;
+  }
 
   .imgDiv {
     width: 30%;

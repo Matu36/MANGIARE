@@ -52,12 +52,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    let currentUser = JSON.parse(localStorage.getItem("MANGIARE_userInfo"));
-
     if (isAuthenticated) {
       onExecutePostEmail(user);
-      console.log("getusers");
-      dispatch(getUsers(currentUser));
     }
   }, [user, isAuthenticated]);
 
