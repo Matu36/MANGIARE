@@ -50,10 +50,22 @@ const RecipeDetail = () => {
     if (!LS_cart) {
       localStorage.setItem("MANGIARE_cart", JSON.stringify([...ingredient]));
     } else {
-      localStorage.setItem(
-        "MANGIARE_cart",
-        JSON.stringify([...LS_cart, ...ingredient])
+      let index = LS_cart.indexOf(
+        LS_cart.find((i) => i.id === ingredient[0].id)
       );
+      if (index === -1) {
+        localStorage.setItem(
+          "MANGIARE_cart",
+          JSON.stringify([...LS_cart, ...ingredient])
+        );
+      } else {
+        LS_cart[index] = {
+          ...LS_cart[index],
+          amount:
+            parseInt(LS_cart[index].amount) + parseInt(ingredient[0].amount),
+        };
+        localStorage.setItem("MANGIARE_cart", JSON.stringify(LS_cart));
+      }
     }
   };
   //                 --------------- fin localStorage ---------------
