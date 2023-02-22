@@ -67,10 +67,10 @@ export default function Home() {
     if (!LS_cart) return;
     else {
       dispatch(setCart(LS_cart));
-      if (isAuthenticated) {
-        localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
-        localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user));
-      }
+      // if (isAuthenticated) {
+      //   localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
+      //   localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user));
+      // }
     }
   }, [user, isAuthenticated]);
   //                 --------------- fin localStorage ---------------

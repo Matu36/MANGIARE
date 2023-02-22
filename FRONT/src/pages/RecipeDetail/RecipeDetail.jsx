@@ -42,25 +42,18 @@ const RecipeDetail = () => {
     if (!LS_cart) return;
     else {
       dispatch(setCart(LS_cart));
-      user
-        ? localStorage.setItem("MANGIARE_user", JSON.stringify(user.email))
-        : localStorage.setItem("MANGIARE_user", JSON.stringify("guest"));
     }
   }, [user]);
 
   const handleLocalStorage = (ingredient) => {
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     if (!LS_cart) {
-      let new_owner = user ? user.email : "guest";
       localStorage.setItem("MANGIARE_cart", JSON.stringify([...ingredient]));
-      localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
     } else {
-      let new_owner = user ? user.email : "guest";
       localStorage.setItem(
         "MANGIARE_cart",
         JSON.stringify([...LS_cart, ...ingredient])
       );
-      localStorage.setItem("MANGIARE_user", JSON.stringify(new_owner));
     }
   };
   //                 --------------- fin localStorage ---------------
@@ -94,7 +87,9 @@ const RecipeDetail = () => {
         el.id == id && el.unit == unit ? { ...el, inCart: true } : { ...el }
       )
     );
-    return dispatch(addToCart(id ? [list.find((el) => el.id == id && el.unit == unit)] : list));
+    return dispatch(
+      addToCart(id ? [list.find((el) => el.id == id && el.unit == unit)] : list)
+    );
   };
 
   const handleOnChange = ({ target }, unit) => {

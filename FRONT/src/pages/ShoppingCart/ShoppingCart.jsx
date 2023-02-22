@@ -7,55 +7,61 @@ import { useAuth0 } from "@auth0/auth0-react";
 import background from "../../img/CartShopBackground.png";
 import {
   Box,
-  HStack,  
+  HStack,
   Text,
   Button,
   Flex,
   Image,
-  Spacer, 
+  Spacer,
   VStack,
-  useToast, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay 
+  useToast,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import logo from "../../img/LOGO 2.png";
 
-export default function ShoppingCart () {
-    const [state, setState] = React.useState({address: null, checkout: false});
-    const cart = useSelector((state) => state.cart.cart);
-    const dispatch = useDispatch();
-    const {email} = useAuth0().user || {email: null};
-    const { user, isAuthenticated } = useAuth0();
+export default function ShoppingCart() {
+  const [state, setState] = React.useState({ address: null, checkout: false });
+  const cart = useSelector((state) => state.cart.cart);
+  const dispatch = useDispatch();
+  const { email } = useAuth0().user || { email: null };
+  const { user, isAuthenticated } = useAuth0();
 
-                // =============  ALERTA PARA EL USUARIO AL REMOVER ITEM  =============
-                const [isAlertOpen, setIsAlertOpen] = React.useState(false);
-                const [idToDelete, setIdToDelete] = React.useState(null);
-                const [unitToDelete, setUnitToDelete] = React.useState(null);
-              
-                const cancelRef = React.useRef();
-              
-                const handleOnDelete = (id, unit) => {
-                  setIdToDelete(id);
-                  setUnitToDelete(unit);
-                  setIsAlertOpen(true);
-                };
-              
-                const handleDeleteConfirmation = () => {
-                  handleLocalStorage(idToDelete);
-                  dispatch(removeToCart({ id: idToDelete, unit: unitToDelete }));
-                  setIsAlertOpen(false);
-                  const toast = useToast();
-                  toast({
-                    title: "Item removed",
-                    description: "The item has been successfully removed from your cart.",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                  });
-                };
-              
-                const handleDeleteCancel = () => {
-                  setIsAlertOpen(false);
-                };
+  // =============  ALERTA PARA EL USUARIO AL REMOVER ITEM  =============
+  const [isAlertOpen, setIsAlertOpen] = React.useState(false);
+  const [idToDelete, setIdToDelete] = React.useState(null);
+  const [unitToDelete, setUnitToDelete] = React.useState(null);
+
+  const cancelRef = React.useRef();
+
+  const handleOnDelete = (id, unit) => {
+    setIdToDelete(id);
+    setUnitToDelete(unit);
+    setIsAlertOpen(true);
+  };
+
+  const handleDeleteConfirmation = () => {
+    handleLocalStorage(idToDelete);
+    dispatch(removeToCart({ id: idToDelete, unit: unitToDelete }));
+    setIsAlertOpen(false);
+    const toast = useToast();
+    toast({
+      title: "Item removed",
+      description: "The item has been successfully removed from your cart.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
+  const handleDeleteCancel = () => {
+    setIsAlertOpen(false);
+  };
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
@@ -63,10 +69,6 @@ export default function ShoppingCart () {
     if (!LS_cart) return;
     else {
       dispatch(setCart(LS_cart));
-      if (isAuthenticated) {
-        localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
-        localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user));
-      }
     }
   }, [user, isAuthenticated]);
 
@@ -79,9 +81,9 @@ export default function ShoppingCart () {
   };
   //                 --------------- fin localStorage ---------------
 
-const handleOnAddressChange = ({target}) => {
-  setState({...state, [target.name]: target.value})
-};
+  const handleOnAddressChange = ({ target }) => {
+    setState({ ...state, [target.name]: target.value });
+  };
 
   const handleOnChange = ({ target }, unit) => {
     dispatch(
@@ -97,22 +99,22 @@ const handleOnAddressChange = ({target}) => {
 
   const handleConfirm = () => {
     fetch(`http://localhost:3001/orders`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({email, address: state.address, cart}),
-      })
-        .then(data => data.json())
-        .then(order => {
-            dispatch(setCart([]));
-            localStorage.removeItem('cart');
-            console.log(order);
-//          window.location.href = `localhost:3000/orders/${order.id}`;
-        })
-  }
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, address: state.address, cart }),
+    })
+      .then((data) => data.json())
+      .then((order) => {
+        dispatch(setCart([]));
+        localStorage.removeItem("cart");
+        console.log(order);
+        //          window.location.href = `localhost:3000/orders/${order.id}`;
+      });
+  };
 
   const handleCheckout = () => {
-    setState({...state, checkout: true});
-  }
+    setState({ ...state, checkout: true });
+  };
 
   return (
     <Box
@@ -173,80 +175,114 @@ const handleOnAddressChange = ({target}) => {
                       .toFixed(2)}
                   </Text>
                   <center>
-                    {email  
-                      ? state.checkout
-                        ?
-                          <>
-                              <label htmlFor="address">Shipping address:</label>
-                              <br />
-                              <input
-                                  type="text"
-                                  id="address"
-                                  name="address"
-                                  value={state.address || JSON.parse(localStorage.getItem("MANGIARE_userInfo")).address || ''}
-                                  placeholder="Confirm shipping address..."
-                                  onChange={handleOnAddressChange}
-                              />
-                              <br />
-                              <br />
-                              <Button colorScheme="teal"  variant="solid" size="lg"
-                                  isDisabled={!(state.address || JSON.parse(localStorage.getItem("MANGIARE_userInfo")).address || '').length}
-                                  onClick={handleConfirm}>
-                                      Confirm
-                              </Button>
-                          </>
-                        :
-                      <Button colorScheme="teal"  variant="solid" size="lg"
-                          onClick={handleCheckout}>
-                              Checkout
-                      </Button>
-                  : <><Text fontSize="lg" mr={2}>You must login before proceed to checkout</Text> <LoginButton /></>
-                    }
+                    {email ? (
+                      state.checkout ? (
+                        <>
+                          <label htmlFor="address">Shipping address:</label>
+                          <br />
+                          <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            value={
+                              state.address ||
+                              JSON.parse(
+                                localStorage.getItem("MANGIARE_userInfo")
+                              ).address ||
+                              ""
+                            }
+                            placeholder="Confirm shipping address..."
+                            onChange={handleOnAddressChange}
+                          />
+                          <br />
+                          <br />
+                          <Button
+                            colorScheme="teal"
+                            variant="solid"
+                            size="lg"
+                            isDisabled={
+                              !(
+                                state.address ||
+                                JSON.parse(
+                                  localStorage.getItem("MANGIARE_userInfo")
+                                ).address ||
+                                ""
+                              ).length
+                            }
+                            onClick={handleConfirm}
+                          >
+                            Confirm
+                          </Button>
+                        </>
+                      ) : (
+                        <Button
+                          colorScheme="teal"
+                          variant="solid"
+                          size="lg"
+                          onClick={handleCheckout}
+                        >
+                          Checkout
+                        </Button>
+                      )
+                    ) : (
+                      <>
+                        <Text fontSize="lg" mr={2}>
+                          You must login before proceed to checkout
+                        </Text>{" "}
+                        <LoginButton />
+                      </>
+                    )}
                   </center>
                 </HStack>
               </>
             )}
-            <NavLink to={"/home"} align='center'>
-              <Button colorScheme="teal" variant="solid" size="lg" >
+            <NavLink to={"/home"} align="center">
+              <Button colorScheme="teal" variant="solid" size="lg">
                 Go Home
               </Button>
             </NavLink>
           </VStack>
         </Box>
         <AlertDialog
-        isOpen={isAlertOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={handleDeleteCancel}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-          
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Remove Item
-            </AlertDialogHeader>
+          isOpen={isAlertOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={handleDeleteCancel}
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Remove Item
+              </AlertDialogHeader>
 
-            <AlertDialogBody>
-                
-              Are you sure you want to remove this item from your cart?
-            </AlertDialogBody>
-            
+              <AlertDialogBody>
+                Are you sure you want to remove this item from your cart?
+              </AlertDialogBody>
 
-            <AlertDialogFooter>
-            <Flex align="center">
-    <Image src={logo} alt="logo" width="50px" height="50px" mr={4} />
-    
-  </Flex>
-  <Spacer />
-              <Button ref={cancelRef} onClick={handleDeleteCancel}>
-                Cancel
-              </Button>
-              <Button colorScheme="red" ml={3} onClick={handleDeleteConfirmation}>
-                Remove
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+              <AlertDialogFooter>
+                <Flex align="center">
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    width="50px"
+                    height="50px"
+                    mr={4}
+                  />
+                </Flex>
+                <Spacer />
+                <Button ref={cancelRef} onClick={handleDeleteCancel}>
+                  Cancel
+                </Button>
+                <Button
+                  colorScheme="red"
+                  ml={3}
+                  onClick={handleDeleteConfirmation}
+                >
+                  Remove
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
         <Box w="600px" />
       </Flex>
     </Box>
