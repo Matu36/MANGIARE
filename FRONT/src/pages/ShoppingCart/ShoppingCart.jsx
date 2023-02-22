@@ -46,7 +46,7 @@ export default function ShoppingCart() {
   };
 
   const handleDeleteConfirmation = () => {
-    handleLocalStorage(idToDelete);
+    deleteFromLocalStorage(idToDelete);
     dispatch(removeToCart({ id: idToDelete, unit: unitToDelete }));
     setIsAlertOpen(false);
     const toast = useToast();
@@ -72,12 +72,20 @@ export default function ShoppingCart() {
     }
   }, [user, isAuthenticated]);
 
-  const handleLocalStorage = (id) => {
+  const deleteFromLocalStorage = (id) => {
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     localStorage.setItem(
       "MANGIARE_cart",
       JSON.stringify(LS_cart.filter((i) => i.id !== id))
     );
+  };
+
+  const changeFromLocalStorage = (target) => {
+    let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
+    let element = LS_cart.find((i) => parseInt(i.id) === parseInt(target.id));
+    let index = LS_cart.indexOf(element);
+    LS_cart[index].amount = target.value;
+    localStorage.setItem("MANGIARE_cart", JSON.stringify(LS_cart));
   };
   //                 --------------- fin localStorage ---------------
 
@@ -86,6 +94,7 @@ export default function ShoppingCart() {
   };
 
   const handleOnChange = ({ target }, unit) => {
+    changeFromLocalStorage(target);
     dispatch(
       setCart(
         cart.map((el) =>
