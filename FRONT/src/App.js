@@ -20,6 +20,7 @@ import Products from "../src/Admin/components/Products/Products";
 import Email from "./Admin/components/Email/Email";
 import Reviews from "./Admin/components/Reviews/Reviews";
 import Feedback from "../src/Admin/components/Feedback/Feedback";
+import Orders from "../src/components/userPage/Orders"
 
 
 
@@ -41,6 +42,7 @@ export default function App() {
         <Route exact path="/aboutUs" element={<AboutUs />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/myRecipes" element={<MyRecipes />} />
+        <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/shoppingCart" element={<ShoppingCart />} />
         <Route exact path="/user" element={<UserPage />} />
         <Route exact path="/admin" element={<Appmodel />} />

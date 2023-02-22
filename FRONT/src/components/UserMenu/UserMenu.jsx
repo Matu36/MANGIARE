@@ -46,6 +46,9 @@ export default function UserMenu() {
         <MenuDivider />
         <Link to={"/user"}>My user</Link>
         <MenuDivider />
+        <MenuDivider />
+        <Link to={"/orders"}>My Orders</Link>
+        <MenuDivider />
         <LogoutButton />
       </MenuList>
     </Menu>
