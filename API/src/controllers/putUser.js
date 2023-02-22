@@ -2,7 +2,7 @@ const {Users} = require('../db.js');
 
 module.exports = async (req, res) => {
   try{
-    let user = await Ingredients.findOne({where: {id: req.body.id}});
+    let user = await Users.findOne({where: {id: req.body.id}});
 
     await user.update({...req.body});
 
