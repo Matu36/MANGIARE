@@ -1,4 +1,4 @@
-import { GET_INGREDIENTS, CREATE_INGREDIENTS } from "../actions/ingredients";
+import { GET_INGREDIENTS, CREATE_INGREDIENTS, UPDATE_INGREDIENT } from "../actions/ingredients";
 
 const initialState = {
   ingredients: [],
@@ -11,6 +11,17 @@ const ingredientsReducer = (state = initialState, action) => {
       
       case CREATE_INGREDIENTS:
       return { ...state, ingredients: [...state.ingredients, action.payload] };
+
+      case UPDATE_INGREDIENT:
+      return {
+        ...state,
+        ingredients: state.ingredients.map(ingredient => {
+          if (ingredient.id === action.payload.id) {
+            return action.payload;
+          }
+          return ingredient;
+        })
+      };
 
     default:
       return { ...state };
