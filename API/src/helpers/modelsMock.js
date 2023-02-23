@@ -30,8 +30,9 @@ async function locMock() {
 
   await Orders.bulkCreate([
     { userId: 1, address: 'Dirección usuario 1', preferenceId: 'codigo', merchant_orderId: 'codigo' },
-    { userId: 2, tsPayment: new Date(2023, 0, 1), status: 1, address: 'Dirección usuario 2', preferenceId: 'codigo', merchant_orderId: 'codigo' },
+    { userId: 2, tsPayment: new Date(), status: 1, address: 'Dirección usuario 2', preferenceId: 'codigo', merchant_orderId: 'codigo' },
     { userId: 2, tsPayment: new Date(2023, 0, 1), status: 2, address: 'Dirección usuario 2', preferenceId: 'codigo', merchant_orderId: 'codigo' },
+    { userId: 2, tsPayment: new Date(2023, 0, 1), status: 1, adress: 'pepito', preferenceId: 'codigo', merchant_orderId: 'codigo' }
   ]);
 
   ///////////////// Recipes /////////////////////////////
@@ -62,7 +63,7 @@ async function locMock() {
   await Ingredients.create({ id: 1, name: "carne", price: 1500 });
   await Ingredients.create({ id: 2, name: "pan rallado", price: 1000 });
   await Ingredients.create({ id: 3, name: "huevos", price: 20 });
-  await Ingredients.create({ id: 4, name: "papa", price: 400 });
+  await Ingredients.create({ id: 4, name: "papa", price: 400, stock: 7 });
   await Ingredients.create({ id: 5, name: "leche", price: 50 });
   await Ingredients.create({ id: 6, name: "manteca", price: 30 });
 
@@ -193,9 +194,13 @@ async function locMock() {
     {orderId: 1, ingredientId: 12, amount: 2, unit: 'pounds', price: 2.22},
     {orderId: 3, ingredientId: 5, amount: 10, unit: 'cups', price: 3.33},
     {orderId: 3, ingredientId: 1, amount: 2, unit: 'pounds', price: 4.44},
+    {orderId: 3, ingredientId: 4, amount: 2, unit: 'pounds', price: 4.44},
     {orderId: 3, ingredientId: 2, amount: 3.5, unit: 'pounds', price: 5.55},
     {orderId: 2, ingredientId: 3, amount: 1, unit: 'units', price: 6.66},
     {orderId: 2, ingredientId: 4, amount: 2, unit: 'pounds', price: 7.77},
+    {orderId: 4, ingredientId: 5, amount: 10, unit: 'pounds', price: 5.55},
+    {orderId: 4, ingredientId: 1, amount: 2, unit: 'units', price: 6.66},
+    {orderId: 4, ingredientId: 4, amount: 5, unit: 'pounds', price: 7.77}
   ]);
 
   ////////////////// Shopping_carts //////////////////////
