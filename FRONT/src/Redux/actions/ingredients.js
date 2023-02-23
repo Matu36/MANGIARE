@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 export const CREATE_INGREDIENTS = "CREATE_INGREDIENTS";
+export const UPDATE_INGREDIENT = 'UPDATE_INGREDIENT';
 
 export const getIngredients = () => async (dispatch) => {
   let response = await axios.get(`/ingredients`);
@@ -23,5 +24,20 @@ export const createIngredients = ({
     axios
       .post(`/ingredients`, ingredient)
       .then((payload) => dispatch({ type: CREATE_INGREDIENTS, payload }));
+};
+
+export const updateIngredient = (ingredient) => {
+  return dispatch => {
+    axios.put(`/ingredients`, ingredient)
+      .then(res => {
+        dispatch({
+          type: UPDATE_INGREDIENT,
+          payload: { id: ingredient.id, price: ingredient.price }
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 };
 

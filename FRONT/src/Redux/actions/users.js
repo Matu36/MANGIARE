@@ -4,9 +4,12 @@ export const GET_USERS = "GET_USERS";
 const { REACT_APP_AUTH0_CLIENT_ID, REACT_APP_AUTH0_DOMAIN } = process.env;
 
 export const getUsers = (currentUser) => {
-  let user = {
-    id: currentUser.id,
-    email: currentUser.email,
+  let user;
+  if (currentUser) {
+    user = {
+      id: currentUser.id,
+      email: currentUser.email,
+    };
   };
   return async (dispatch) => {
     await axios
