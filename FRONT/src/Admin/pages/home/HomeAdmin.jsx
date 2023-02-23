@@ -44,9 +44,10 @@ export default function HomeAdmin() {
             grid
             dataKey="Active User"
           />
-          <div className="homeWidgets"></div>
+          <div className="homeWidgets">
           <WidgetSm />
           <WidgetLg />
+          </div>
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 .sidebar {
     flex: 1;
     height: calc(100vh - 50px);
-    background-color: antiquewhite;
+    background-color: green;
     position: sticky;
     top: 50px;
 }
@@ -16,8 +16,9 @@
 }
 
 .sidebarTitle {
-    font-size: 15px;
-    color:grey;
+    font-size: 25px;
+    color:white;
+    font-weight: bold;
 }
 
 .sidebarList {
@@ -31,11 +32,12 @@
     display: flex;
     align-items: center;
     border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: large;
 }
 
-.sidebarListItem.active, .sidebarListItem:hover {
-    background-color:azure;
-}
+
 
 .sidebarIcon {
     margin-right: 5px;

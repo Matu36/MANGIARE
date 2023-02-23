@@ -3,6 +3,7 @@ import { MdOutlineNotificationsNone } from "react-icons/md";
 import { GrLanguage } from "react-icons/gr";
 import { TbSettings } from "react-icons/tb";
 import LOGO from "../../../img/LOGOBIGOTIN.jpg";
+import { Box } from "@chakra-ui/react";
 
 export default function TopBar() {
   return (
@@ -14,11 +15,11 @@ export default function TopBar() {
         <div className="topRight">
           <div className="topBarIconContainer">
             <MdOutlineNotificationsNone />
-            <span className="topIconBadge">2</span>
+            
           </div>
           <div className="topBarIconContainer">
             <GrLanguage />
-            <span className="topIconBadge">2</span>
+           
           </div>
           <div className="topBarIconContainer">
             <TbSettings />

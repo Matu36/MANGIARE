@@ -5,6 +5,7 @@
     top: 0;
     z-index: 1;
     width: 100%;
+    background-image:url("../../../img/FONDOTOPBARADMIN.jpg")
 }
 
 .topbarWraper {
@@ -16,10 +17,12 @@
 }
 
 .logo {
-    font-weight: bold;
-    font-size: 30px;
-    color: darkblue;
-    cursor: pointer;
+    text-align: left; 
+font-family: Arial white; 
+font-weight: bold; 
+font-size: 40px; 
+color: black; 
+text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 
 .topRight {
