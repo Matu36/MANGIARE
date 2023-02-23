@@ -45,6 +45,7 @@ export default function Home() {
   const recipeDetailIdAutocomplete = useSelector(
     (state) => state.autocomplete.recipeIdAutocomplete
   );
+  const [userLocalstorage, setUserLocalstorage] = useState();
 
   useEffect(() => {
     dispatch(getRecipes());
@@ -52,10 +53,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      onExecutePostEmail(user);
-    }
-  }, [user, isAuthenticated]);
+    setUserLocalstorage(JSON.parse(localStorage.getItem("MANGIARE_user")));
+  }, [isAuthenticated]);
 
   useEffect(() => {
     dispatch(resetRecipesToShow());
@@ -67,10 +66,10 @@ export default function Home() {
     if (!LS_cart) return;
     else {
       dispatch(setCart(LS_cart));
-      if (isAuthenticated) {
-        localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
-        localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user));
-      }
+      // if (isAuthenticated) {
+      //   localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
+      //   localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user));
+      // }
     }
   }, [user, isAuthenticated]);
   //                 --------------- fin localStorage ---------------
@@ -138,7 +137,7 @@ export default function Home() {
 
   return (
     <div className={s.containerMain}>
-      <NavBar />
+      <NavBar userLocalstorage={userLocalstorage} />
       <Box
         width="100%"
         height="700px"
