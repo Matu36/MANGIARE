@@ -8,7 +8,7 @@ export default function IngredientForm() {
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
-                         //CREACION DE INGREDIENTE //
+  //CREACION DE INGREDIENTE //
   const [ingredient, setIngredient] = useState({
     name: "",
     price: "",
@@ -48,7 +48,7 @@ export default function IngredientForm() {
     }
   };
 
-                         //FIN CREACION DE INGREDIENTE //
+  //FIN CREACION DE INGREDIENTE //
 
   //METODO SELECT MULTIPLE VALUE PARA UNITS
 
@@ -67,8 +67,6 @@ export default function IngredientForm() {
     return false;
   });
 
-  
-
   const handleSelectChange = (event) => {
     const options = event.target.options;
     const selectedValues = [];
@@ -77,8 +75,8 @@ export default function IngredientForm() {
         selectedValues.push(options[i].value);
       }
     }
-    const newItems = selectedValues.map(value => value + ", ");
-    setSelectedItems(selectedItems.concat(newItems));
+    const newItems = selectedValues.map((value) => value + ", ");
+    setSelectedItems(selectedItems.concat(selectnewItemsedValues));
   };
 
   function deleteItem(item) {
@@ -133,7 +131,7 @@ export default function IngredientForm() {
 
           {selectedItems.map((item, index) => (
             <span key={index}>
-              {item} 
+              {item}
               <button onClick={() => deleteItem(item)}>
                 <BsTrash />{" "}
               </button>

@@ -7,6 +7,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { updateIngredient } from "../../../Redux/actions/ingredients";
 import { Input, InputGroup } from "@chakra-ui/react";
 
+
 import {
   Table,
   Thead,
