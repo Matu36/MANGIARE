@@ -45,6 +45,7 @@ export default function Home() {
   const recipeDetailIdAutocomplete = useSelector(
     (state) => state.autocomplete.recipeIdAutocomplete
   );
+  const [userLocalstorage, setUserLocalstorage] = useState();
 
   useEffect(() => {
     dispatch(getRecipes());
@@ -52,10 +53,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      onExecutePostEmail(user);
-    }
-  }, [user, isAuthenticated]);
+    setUserLocalstorage(JSON.parse(localStorage.getItem("MANGIARE_user")));
+  }, [isAuthenticated]);
 
   useEffect(() => {
     dispatch(resetRecipesToShow());
@@ -138,7 +137,7 @@ export default function Home() {
 
   return (
     <div className={s.containerMain}>
-      <NavBar />
+      <NavBar userLocalstorage={userLocalstorage} />
       <Box
         width="100%"
         height="700px"

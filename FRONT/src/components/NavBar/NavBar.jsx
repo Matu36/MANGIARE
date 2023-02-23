@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import s from "./NavBar.module.css";
 import { Link } from "react-router-dom";
 import { BsCartCheck, BsCart4 } from "react-icons/bs";
@@ -9,9 +9,17 @@ import SearchBar from "../../components/SearchBar/searchBar";
 import logo from "../../img/LOGO 2.png";
 import mangiare from "../../img/LOGO.png";
 import UserMenu from "../UserMenu/UserMenu";
+import onExecutePostEmail from "../Auth0/onLogin.js";
 
-function NavBar() {
-  const { isAuthenticated } = useAuth0();
+function NavBar(userLocalstorage) {
+  const { user, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      onExecutePostEmail(user);
+    }
+  }, [user, isAuthenticated]);
+
   return (
     <div className={s.container}>
       <Link to={"/home"}>
@@ -44,7 +52,7 @@ function NavBar() {
       </div>
       {isAuthenticated ? (
         <div className={s.btn2}>
-          <UserMenu />{" "}
+          <UserMenu userLocalstorage={userLocalstorage} />{" "}
         </div>
       ) : (
         <div className={s.btn1}>

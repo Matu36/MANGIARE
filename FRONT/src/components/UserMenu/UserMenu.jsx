@@ -13,11 +13,9 @@ import { LogoutButton } from "../Auth0/logout_button";
 import { Avatar } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
-export default function UserMenu() {
+export default function UserMenu(userLocalstorage) {
   const { user } = useAuth0();
   let location = useLocation();
-
-  const userShow = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   if (location.pathname == "/user") {
     return (
@@ -31,7 +29,7 @@ export default function UserMenu() {
         <MenuList>
           <Link to={"/home"}>Home</Link>
           <MenuDivider />
-          {userShow && userShow.role !== null && (
+          {userLocalstorage && userLocalstorage.role !== null && (
             <div>
               <Link to={"/admin"}>Admin</Link> <MenuDivider />
             </div>
@@ -41,25 +39,44 @@ export default function UserMenu() {
       </Menu>
     );
   }
-  return (
-    <Menu>
-      <MenuButton
-        as={IconButton}
-        aria-label="Options"
-        icon={<Avatar size="md" name={user.name} src={user.image} />}
-        variant="outline"
-      />
-      <MenuList>
-        <Link to={"/user"}>My user</Link>
-        <MenuDivider />
-        {userShow && userShow.role !== null && (
-          <div>
-            <Link to={"/admin"}>Admin</Link> <MenuDivider />
-          </div>
-        )}
+  if (location.pathname == "/home")
+    return (
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<Avatar size="md" name={user.name} src={user.image} />}
+          variant="outline"
+        />
+        <MenuList>
+          <Link to={"/user"}>My user</Link>
+          <MenuDivider />
+          {userLocalstorage && userLocalstorage.role !== null && (
+            <div>
+              <Link to={"/admin"}>Admin</Link> <MenuDivider />
+            </div>
+          )}
 
-        <LogoutButton />
-      </MenuList>
-    </Menu>
-  );
+          <LogoutButton />
+        </MenuList>
+      </Menu>
+    );
+  if (location.pathname == "/admin")
+    return (
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<Avatar size="md" name={user.name} src={user.image} />}
+          variant="outline"
+        />
+        <MenuList>
+          <Link to={"/home"}>Home</Link>
+          <MenuDivider />
+          <Link to={"/user"}>My user</Link>
+          <MenuDivider />
+          <LogoutButton />
+        </MenuList>
+      </Menu>
+    );
 }
