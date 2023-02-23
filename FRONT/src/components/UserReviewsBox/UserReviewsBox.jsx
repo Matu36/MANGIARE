@@ -1,12 +1,11 @@
 import s from "./UserReviewsBox.module.scss";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getReviews } from "../../Redux/actions/reviews";
 import ReviewsCard from "../ReviewsCard/ReviewsCard.jsx";
 
 const UserReviewsBox = () => {
-  let { id } = useParams();
   let user = JSON.parse(localStorage.getItem("MANGIARE_user"));
   let dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
