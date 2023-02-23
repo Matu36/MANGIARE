@@ -3,8 +3,10 @@ import "./products.css";
 import { useDispatch, useSelector } from "react-redux";
 import Paginations from "../../../components/Paginations/Paginations";
 import IngredientForm from "./CreateIngredient/CreateIngredient";
-
+import { BiEditAlt } from "react-icons/bi";
+import { updateIngredient } from "../../../Redux/actions/ingredients";
 import { Input, InputGroup } from "@chakra-ui/react";
+
 
 import {
   Table,
@@ -14,6 +16,7 @@ import {
   Th,
   Td,
   TableContainer,
+  Box
 } from "@chakra-ui/react";
 
 export default function UserList() {
@@ -55,6 +58,37 @@ export default function UserList() {
   };
 
   //FIN SEARCHBAR
+
+  //EDITAR PRECIO
+
+  const [editIndex, setEditIndex] = useState(null);
+  const [editPrice, setEditPrice] = useState(null);
+
+  const handleEdit = (index, price) => {
+    setEditIndex(index);
+    setEditPrice(price);
+  };
+
+  const handlePriceChange = (price) => {
+    setEditPrice(price);
+  };
+
+  const handleSave = (index) => {
+    const updatedIngredient = {
+      id: totalIngredients[index - 1].id,
+      price: editPrice
+    };
+    dispatch(updateIngredient(updatedIngredient));
+    setEditIndex(null);
+    setEditPrice(null);
+  };
+
+  const handleCancel = () => {
+    setEditIndex(null);
+    setEditPrice(null);
+  };
+
+  //FIN EDITAR PRECIO
 
   const columns = [
     { field: "id", headerName: "ID", width: 5 },
@@ -113,10 +147,35 @@ export default function UserList() {
           {totalIngredients.map((row) => (
             <Tr key={row.id}>
               {columns.map((column) => (
-                <Td key={`${row.id}-${column.field}`}>{row[column.field]}</Td>
+                <Td key={`${row.id}-${column.field}`}>
+                  {column.field === "price" && editIndex === row.id ? (
+                    <div>
+                      <Input
+                        type="number"
+                        value={editPrice}
+                        onChange={(e) => handlePriceChange(e.target.value)}
+                      />
+                      <button onClick={() => handleSave(row.id)}>Save</button>
+                      <br />
+                      <button onClick={handleCancel}>Cancel</button>
+                    </div>
+                  ) : (
+                    <div>
+                      {row[column.field]}
+                      {column.field === "price" && (
+                        <Box ml="auto">
+                        <button onClick={() => handleEdit(row.id, row.price)}>
+                          <BiEditAlt />
+                        </button>
+                        </Box>
+                      )}
+                    </div>
+                  )}
+                </Td>
               ))}
             </Tr>
           ))}
+
           <div>
             <br />
             {products && (

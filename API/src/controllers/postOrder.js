@@ -7,14 +7,14 @@ mercadopago.configure({ access_token: MERCADOPAGO_KEY });
 
 module.exports = async (req, res) => {
   try{
-    if ((!req.body?.cart) || (!req.body?.email) || (!req.body?.userId) || (!req.body?.address)) throw 'No body params';
+    if ((!req.body?.cart) || (!req.body?.email) || (!req.body?.address)) throw 'No body params'; // || (!req.body?.userId) 
 
-    const userInstance = await Users.findOne({where: {email: req.body.email, id: req.body.userId}});
+    const userInstance = await Users.findOne({where: {email: req.body.email}}); // , id: req.body.userId
 
     if (!userInstance) throw 'Unregistred user';
 
     let preference = {
-      items: req.body.cart.map(({amount, price}) => ({quantity: amount, unit_price: price})),
+      items: req.body.cart.map(({amount, price}) => ({quantity: 1, unit_price: amount * price})),
       back_urls: {
         success: "localhost:3000/orders",
         failure: "localhost:3000/orders"

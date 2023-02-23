@@ -22,7 +22,6 @@ export default function HomeAdmin() {
   let currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   useEffect(() => {
-    console.log(currentUser);
     dispatch(getIngredients());
     dispatch(getReviews(currentUser));
     dispatch(getUsers(currentUser));
@@ -45,9 +44,10 @@ export default function HomeAdmin() {
             grid
             dataKey="Active User"
           />
-          <div className="homeWidgets"></div>
+          <div className="homeWidgets">
           <WidgetSm />
           <WidgetLg />
+          </div>
         </div>
       )}
     </div>

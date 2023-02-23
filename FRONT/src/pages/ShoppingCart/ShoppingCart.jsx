@@ -64,6 +64,7 @@ export default function ShoppingCart() {
   };
 
   //                   --------------- localStorage ---------------
+
   useEffect(() => {
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     if (!LS_cart) return;
@@ -71,6 +72,13 @@ export default function ShoppingCart() {
       dispatch(setCart(LS_cart));
     }
   }, [user, isAuthenticated]);
+
+  useEffect(() => {
+    setState({
+      ...state,
+      address: JSON.parse(localStorage.getItem("MANGIARE_user"))?.address || "",
+    });
+  }, []);
 
   const deleteFromLocalStorage = (id) => {
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
@@ -110,14 +118,18 @@ export default function ShoppingCart() {
     fetch(`http://localhost:3001/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, address: state.address, cart }),
+      body: JSON.stringify({
+        email,
+        address: state.address,
+        cart,
+        userId: user.id,
+      }),
     })
       .then((data) => data.json())
       .then((order) => {
         dispatch(setCart([]));
-        localStorage.removeItem("cart");
-        console.log(order);
-        //          window.location.href = `localhost:3000/orders/${order.id}`;
+        localStorage.removeItem("MANGIARE_cart");
+        window.location.href = `localhost:3000/orders/${order.id}`;
       });
   };
 
@@ -193,13 +205,7 @@ export default function ShoppingCart() {
                             type="text"
                             id="address"
                             name="address"
-                            value={
-                              state.address ||
-                              JSON.parse(
-                                localStorage.getItem("MANGIARE_userInfo")
-                              ).address ||
-                              ""
-                            }
+                            value={state.address}
                             placeholder="Confirm shipping address..."
                             onChange={handleOnAddressChange}
                           />
@@ -209,15 +215,7 @@ export default function ShoppingCart() {
                             colorScheme="teal"
                             variant="solid"
                             size="lg"
-                            isDisabled={
-                              !(
-                                state.address ||
-                                JSON.parse(
-                                  localStorage.getItem("MANGIARE_userInfo")
-                                ).address ||
-                                ""
-                              ).length
-                            }
+                            isDisabled={!state.address.length}
                             onClick={handleConfirm}
                           >
                             Confirm

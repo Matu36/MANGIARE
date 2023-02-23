@@ -41,12 +41,6 @@ export default function App() {
         <Route exact path="/shoppingCart" element={<ShoppingCart />} />
         <Route exact path="/user" element={<UserPage />} />
         <Route exact path="/admin" element={<Appmodel />} />
-        <Route exact path="/admin/user" element={<UserList />} />
-        <Route exact path="/admin/products" element={<Products />} />
-        <Route exact path="/admin/pransactions" element={<Transactions />} />
-        <Route exact path="/admin/email" element={<Email />} />
-        <Route exact path="/admin/reviews" element={<Reviews />} />
-        <Route exact path="/admin/feedback" element={<Feedback />} />
       </Routes>
     </>
   );
