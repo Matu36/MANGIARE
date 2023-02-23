@@ -1,5 +1,6 @@
 .topbar {
     margin-top: 60px;
+    height: 80px;
     background-color: whitesmoke;
     position: fixed;
     top: 0;
@@ -14,6 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
 .logo {
