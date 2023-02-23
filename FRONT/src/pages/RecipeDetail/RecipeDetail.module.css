@@ -84,3 +84,26 @@
 .buttonGoBack {
   background-color: aliceblue;
 }
+
+
+.favoriteButtonDiv {
+  position: absolute;
+  right: 10px;
+  bottom: 20px;
+  color: #fff;
+  font-size: 30px;
+  width: 55px;
+  height: 55px;
+  background-color: rgb(219, 16, 43);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.favoriteButtonDiv:hover {
+  transition: 0s;
+  background-color: rgb(255, 11, 44);
+  cursor: pointer;
+}
