@@ -24,6 +24,7 @@ import { getFavorites } from "../../Redux/actions/favorites";
 import banner from "../../img/BannerHome.jpg";
 import { Avatar } from "@chakra-ui/react";
 import RecipesBox from "../../components/RecipesBox/RecipesBox";
+import { getRecipes } from "../../Redux/actions/recipes";
 
 export default function UserPage() {
   let dispatch = useDispatch();
@@ -35,15 +36,18 @@ export default function UserPage() {
   const recipes = useSelector((state) => state.recipes.recipes);
 
   useEffect(() => {
+    dispatch(getRecipes());
     dispatch(getFavorites());
   }, []);
 
   let filteredFavorites = favorites.filter((f) => f.userId === LS_user.id);
-  let filteredRecipes = [];
+  let userFavorites = [];
   recipes.forEach((r) => {
     if (filteredFavorites.some((f) => r.id === f.recipeId))
-      filteredRecipes.push(r);
+      userFavorites.push(r);
   });
+
+  let filteredRecipes = recipes.filter((r) => r.userId === LS_user.id);
 
   return (
     <div className={s.containerMain}>
@@ -84,7 +88,8 @@ export default function UserPage() {
           <Text className={s.userName}>{name}</Text>
         </Box>
       </Box>
-      <RecipesBox title="Favorites" recipes={filteredRecipes} />
+      <RecipesBox title="Favorites" recipes={userFavorites} />
+      <RecipesBox title="Created recipes" recipes={filteredRecipes} />
 
       {/* <div>
         <Box
