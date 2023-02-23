@@ -6,6 +6,7 @@ const putReview = async (req, res) => {
     if (!recipeId && !userId) {
       return res.status(400).send("No body Params");
     }
+
     //como reviews no tiene una PK incremental no puedo seleccionar un review correcto a banear y por eso
     //selecciono todos los comentarios de un usuario en una receta.
     let reviews = await Reviews.findAll({
@@ -16,9 +17,10 @@ const putReview = async (req, res) => {
       return res.status(400).send("Visible reviews not found");
     }
     for (let review of reviews) {
-      await review.update({ visible: !review.visible });
+      await review.update({ visible: req.body.visible });
     }
     return res.status(200).send("Review updated successfully");
+
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message);

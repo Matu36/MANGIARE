@@ -9,13 +9,22 @@ import { useDispatch } from "react-redux";
 import "./UserRow.css";
 import { resetPassword, putNewRole } from "../../../Redux/actions/users";
 
-const UserRow = ({ id, email, address, role, active, createdAt }) => {
+const UserRow = ({
+  id,
+  email,
+  address,
+  role,
+  active,
+  banned,
+  createdAt,
+  setFilterUsers,
+}) => {
   const dispatch = useDispatch();
   const propToString = (value, type) => {
-    if (type === "active") {
+    if (type !== "role") {
       if (value !== null) {
-        if (value) return "True";
-        else return "False";
+        if (value) return "Yes";
+        else return "No";
       }
       return "Null";
     } else {
@@ -26,17 +35,20 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
       return "User";
     }
   };
-  const [newRole, setNewRole] = useState(propToString(role));
+  const [newRole, setNewRole] = useState(role);
   const [roleEdit, setRoleEdit] = useState(false);
-  const handleEditUsersRole = (e, roleEdit) => {
+  const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
+
+  const handleEditUsersRole = (e, roleEdit, newRole, id) => {
     setRoleEdit(!roleEdit);
+    if (roleEdit) {
+      dispatch(putNewRole(id, newRole));
+    }
   };
   const handleChangeRole = (e) => {
-    if (e.target.value === "null") setNewRole(propToString(null));
-    else if (e.target.value === "true") setNewRole(propToString(true));
-    else setNewRole(propToString(false));
-
-    dispatch(putNewRole(newRole));
+    if (e.target.value === "null") setNewRole(null);
+    else if (e.target.value === "true") setNewRole(true);
+    else setNewRole(false);
   };
   useEffect(() => {
     setNewRole(newRole);
@@ -67,18 +79,21 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
           </select>
         </Td>
       ) : (
-        <Td>{newRole}</Td>
+        <Td>{propToString(newRole, "role")}</Td>
       )}
       <Td>{propToString(active, "active")}</Td>
+      <Td>{propToString(banned, "banned")}</Td>
       <Td>
         {CreateAt[0]} - {CreateAt[1].split(".")[0]}
       </Td>
       <Td>
-        <button>
-          <MdOutlineModeEdit
-            onClick={(e) => handleEditUsersRole(e, roleEdit)}
-          />
-        </button>
+        {currentUser.role && (
+          <button>
+            <MdOutlineModeEdit
+              onClick={(e) => handleEditUsersRole(e, roleEdit, newRole, id)}
+            />
+          </button>
+        )}
         <button>
           <MdOutlineDeleteOutline />
         </button>

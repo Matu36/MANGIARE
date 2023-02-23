@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReviewsCard from "../ReviewsCard/ReviewsCard.jsx";
+//import ReviewsCard from "../../../components/ReviewsCard/ReviewsCard.jsx";
 import Paginations from "../../../components/Paginations/Paginations.jsx";
 import { Input } from "@chakra-ui/react";
-//import "../Reviews/Reviews.css";
+import "../Reviews/Reviews.css";
 
 export default function Reviews() {
   const reviews = useSelector((state) => state.reviews.reviews);
