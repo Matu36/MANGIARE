@@ -64,11 +64,7 @@ export default function ShoppingCart() {
   };
 
   //                   --------------- localStorage ---------------
-  useEffect(() => {
-    let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
-    if (!LS_cart) return;
-    else {
-      dispatch(setCart(LS_cart));
+
   useEffect(() => {
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     if (!LS_cart) return;
@@ -78,7 +74,10 @@ export default function ShoppingCart() {
   }, [user, isAuthenticated]);
 
   useEffect(() => {
-      setState({...state, address: JSON.parse(localStorage.getItem("MANGIARE_user"))?.address || ''});
+    setState({
+      ...state,
+      address: JSON.parse(localStorage.getItem("MANGIARE_user"))?.address || "",
+    });
   }, []);
 
   const deleteFromLocalStorage = (id) => {
@@ -117,18 +116,23 @@ export default function ShoppingCart() {
 
   const handleConfirm = () => {
     fetch(`http://localhost:3001/orders`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({email, address: state.address, cart, userId: user.id}),
-      })
-        .then(data => data.json())
-        .then(order => {
-            dispatch(setCart([]));
-            localStorage.removeItem('cart');
-            console.log(order);
-          window.location.href = `localhost:3000/orders/${order.id}`;
-        })
-  }
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        address: state.address,
+        cart,
+        userId: user.id,
+      }),
+    })
+      .then((data) => data.json())
+      .then((order) => {
+        dispatch(setCart([]));
+        localStorage.removeItem("cart");
+        console.log(order);
+        window.location.href = `localhost:3000/orders/${order.id}`;
+      });
+  };
 
   const handleCheckout = () => {
     setState({ ...state, checkout: true });

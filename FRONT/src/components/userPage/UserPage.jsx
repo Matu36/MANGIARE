@@ -11,7 +11,7 @@ import { Avatar } from '@chakra-ui/react'
 
 export default function UserPage () {
     let { user } = useAuth0();
-    const name = user.name;
+    // const name = user.name;
     
 
     return(
