@@ -12,7 +12,7 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import Contact from "./pages/Contact/Contact";
 import MyRecipes from "./components/MyRecipes/MyRecipes";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
-import UserPage from "./components/userPage/UserPage";
+import UserPage from "./pages/userPage/UserPage";
 import Appmodel from "../src/Admin/Appmodel";
 import UserList from "./Admin/pages/userList/UserList";
 import Transactions from "./Admin/components/Transactions/Transactions";
