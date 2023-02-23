@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import s from "./UserPage.module.css";
 import {
@@ -19,15 +20,30 @@ import {
 } from "@chakra-ui/react";
 import Filters from "../../components/Filters/Filters";
 import { ArrowDownIcon } from "@chakra-ui/icons";
+import { getFavorites } from "../../Redux/actions/favorites";
 import banner from "../../img/BannerHome.jpg";
 import { Avatar } from "@chakra-ui/react";
 import RecipesBox from "../../components/RecipesBox/RecipesBox";
 
 export default function UserPage() {
+  let dispatch = useDispatch();
   let { user } = useAuth0();
-  const name = user.name;
+  const name = user ? user.name : null;
+  const LS_user = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
-  console.log(user);
+  const favorites = useSelector((state) => state.favorites.favorites);
+  const recipes = useSelector((state) => state.recipes.recipes);
+
+  useEffect(() => {
+    dispatch(getFavorites());
+  }, []);
+
+  let filteredFavorites = favorites.filter((f) => f.userId === LS_user.id);
+  let filteredRecipes = [];
+  recipes.forEach((r) => {
+    if (filteredFavorites.some((f) => r.id === f.recipeId))
+      filteredRecipes.push(r);
+  });
 
   return (
     <div className={s.containerMain}>
@@ -52,7 +68,7 @@ export default function UserPage() {
             size="2xl"
             bg="teal.500"
             className={s.profileImg}
-            src={user.picture}
+            // src={user.picture}
           />
         </Box>
 
@@ -68,15 +84,7 @@ export default function UserPage() {
           <Text className={s.userName}>{name}</Text>
         </Box>
       </Box>
-          <RecipesBox />
-
-
-
-
-
-
-
-
+      <RecipesBox title="Favorites" recipes={filteredRecipes} />
 
       {/* <div>
         <Box
