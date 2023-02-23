@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Tr, Td } from "@chakra-ui/react";
-import { MdOutlineDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
+import {
+  MdOutlineDeleteOutline,
+  MdOutlineModeEdit,
+  MdRestore,
+} from "react-icons/md";
 import { useDispatch } from "react-redux";
 import "./UserRow.css";
+import { resetPassword, putNewRole } from "../../../Redux/actions/users";
 
 const UserRow = ({ id, email, address, role, active, createdAt }) => {
   const dispatch = useDispatch();
@@ -31,13 +36,17 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
     else if (e.target.value === "true") setNewRole(propToString(true));
     else setNewRole(propToString(false));
 
-    //dispatch(putNewRole(newRole))
+    dispatch(putNewRole(newRole));
   };
   useEffect(() => {
     setNewRole(newRole);
   }, [roleEdit]);
 
   const CreateAt = createdAt.split("T");
+
+  const handleResetPassword = (e, valueEmail) => {
+    dispatch(resetPassword(valueEmail));
+  };
 
   return (
     <Tr key={id}>
@@ -48,12 +57,11 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
         <Td>
           <select
             name="role"
+            defaultValue={null}
             onClick={(e) => handleChangeRole(e)}
             className="selectRole"
           >
-            <option value="null" selected>
-              User
-            </option>
+            <option value="null">User</option>
             <option value="true">Super Admin</option>
             <option value="false">Admin</option>
           </select>
@@ -73,6 +81,9 @@ const UserRow = ({ id, email, address, role, active, createdAt }) => {
         </button>
         <button>
           <MdOutlineDeleteOutline />
+        </button>
+        <button onClick={(e) => handleResetPassword(e, email)}>
+          <MdRestore />
         </button>
       </Td>
     </Tr>

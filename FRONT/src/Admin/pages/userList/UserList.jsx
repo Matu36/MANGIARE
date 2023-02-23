@@ -48,8 +48,8 @@ export default function UserList() {
   const [numberOfPage, setNumberOfPage] = useState(0); //Numero de Paginas seteado en 0
   const [totalUsers, setTotalUsers] = useState(users); //Recetas Totales Seteada en Array Vacio
 
-  const indexFirstPageRecipe = () => (currentPage - 1) * 8; // Indice del primer Elemento
-  const indexLastPageRecipe = () => indexFirstPageRecipe() + 8; //Indice del segundo elemento
+  const indexFirstPageRecipe = () => (currentPage - 1) * 9; // Indice del primer Elemento
+  const indexLastPageRecipe = () => indexFirstPageRecipe() + 9; //Indice del segundo elemento
 
   const handlePageNumber = (number) => {
     //Manejo del numero de pagina

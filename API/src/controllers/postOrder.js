@@ -7,9 +7,9 @@ mercadopago.configure({ access_token: MERCADOPAGO_KEY });
 
 module.exports = async (req, res) => {
   try{
-    if ((!req.body?.cart) || (!req.body?.email) || (!req.body?.userId) || (!req.body?.address)) throw 'No body params';
+    if ((!req.body?.cart) || (!req.body?.email) || (!req.body?.address)) throw 'No body params'; // || (!req.body?.userId) 
 
-    const userInstance = await Users.findOne({where: {email: req.body.email, id: req.body.userId}});
+    const userInstance = await Users.findOne({where: {email: req.body.email}}); // , id: req.body.userId
 
     if (!userInstance) throw 'Unregistred user';
 
