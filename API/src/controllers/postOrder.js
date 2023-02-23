@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
     if (!userInstance) throw 'Unregistred user';
 
     let preference = {
-      items: req.body.cart.map(({amount, price}) => ({quantity: amount, unit_price: price})),
+      items: req.body.cart.map(({amount, price}) => ({quantity: 1, unit_price: amount * price})),
       back_urls: {
         success: "localhost:3000/orders",
         failure: "localhost:3000/orders"
