@@ -131,9 +131,11 @@ const RecipeDetail = () => {
     dispatch(getFavorites());
   }, []);
 
-  let filteredFavorites = favorites
-    .filter((f) => f.userId === LS_user.id)
-    .filter((f) => f.recipeId === parseInt(id));
+  let filteredFavorites =
+    LS_user &&
+    favorites
+      .filter((f) => f.userId === LS_user.id)
+      .filter((f) => f.recipeId === parseInt(id));
 
   const handleFavorite = async () => {
     if (filteredFavorites.length > 0) {
@@ -212,9 +214,11 @@ const RecipeDetail = () => {
               }}
             >
               <img className={s.imageDetail} src={image} alt={title} />
-              <div className={s.favoriteButtonDiv} onClick={handleFavorite}>
-                {filteredFavorites.length > 0 ? <FaHeart /> : <FaRegHeart />}
-              </div>
+              {filteredFavorites ? (
+                <div className={s.favoriteButtonDiv} onClick={handleFavorite}>
+                  {filteredFavorites.length > 0 ? <FaHeart /> : <FaRegHeart />}
+                </div>
+              ) : null}
             </Box>
 
             <Tabs align="center" variant="enclosed">
