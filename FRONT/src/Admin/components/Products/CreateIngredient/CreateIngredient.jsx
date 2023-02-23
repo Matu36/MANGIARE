@@ -8,11 +8,14 @@ export default function IngredientForm() {
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
+                         //CREACION DE INGREDIENTE //
   const [ingredient, setIngredient] = useState({
     name: "",
     price: "",
     units: [],
   });
+
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const handleOnChange = (e) => {
     if (e.target.name === "units") {
@@ -26,19 +29,26 @@ export default function IngredientForm() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (ingredient.name && ingredient.price && ingredient.units) {
-      dispatch(createIngredients(ingredient)); // crea el ingrediente
+    if (ingredient.name && ingredient.price && selectedItems.length) {
+      const newIngredient = {
+        ...ingredient,
+        units: selectedItems,
+      };
+      dispatch(createIngredients(newIngredient));
       window.location.reload();
-      alert("Ingredient has created");
+      alert("Ingredient has been created");
       setIngredient({
         name: "",
         price: "",
         units: [],
       });
+      setSelectedItems([]);
     } else {
       alert("Please, check the information");
     }
   };
+
+                         //FIN CREACION DE INGREDIENTE //
 
   //METODO SELECT MULTIPLE VALUE PARA UNITS
 
@@ -57,7 +67,7 @@ export default function IngredientForm() {
     return false;
   });
 
-  const [selectedItems, setSelectedItems] = useState([]);
+  
 
   const handleSelectChange = (event) => {
     const options = event.target.options;
@@ -67,7 +77,8 @@ export default function IngredientForm() {
         selectedValues.push(options[i].value);
       }
     }
-    setSelectedItems(selectedItems.concat(selectedValues));
+    const newItems = selectedValues.map(value => value + ", ");
+    setSelectedItems(selectedItems.concat(newItems));
   };
 
   function deleteItem(item) {
@@ -122,13 +133,14 @@ export default function IngredientForm() {
 
           {selectedItems.map((item, index) => (
             <span key={index}>
-              {item}
+              {item} 
               <button onClick={() => deleteItem(item)}>
                 <BsTrash />{" "}
               </button>
             </span>
           ))}
         </div>
+        <br />
         <div>
           <Button type="submit">Create Ingredient</Button>
         </div>

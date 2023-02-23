@@ -26,13 +26,13 @@ export const createIngredients = ({
       .then((payload) => dispatch({ type: CREATE_INGREDIENTS, payload }));
 };
 
-export const updateIngredient = (id, data) => {
+export const updateIngredient = (ingredient) => {
   return dispatch => {
-    axios.put(`/ingredients/${id}`, data)
+    axios.put(`/ingredients`, ingredient)
       .then(res => {
         dispatch({
           type: UPDATE_INGREDIENT,
-          payload: res.data
+          payload: { id: ingredient.id, price: ingredient.price }
         });
       })
       .catch(error => {
