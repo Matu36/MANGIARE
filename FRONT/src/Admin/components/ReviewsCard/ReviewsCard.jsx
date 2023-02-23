@@ -28,7 +28,6 @@ const ReviewsCard = ({
 
   const handleHideReview = (e, userId, recipeId, visible) => {
     e.preventDefault();
-    console.log(userId, recipeId, visible);
 
     setVisibleState(!visible);
     visible = !visible;
