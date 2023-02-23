@@ -88,8 +88,10 @@ export default function UserPage() {
           <Text className={s.userName}>{name}</Text>
         </Box>
       </Box>
-      <RecipesBox title="Favorites" recipes={userFavorites} />
-      <RecipesBox title="Created recipes" recipes={filteredRecipes} />
+      <div className={s.recipesBoxesContainer}>
+        <RecipesBox title="Favorites" recipes={userFavorites} />
+        <RecipesBox title="Created recipes" recipes={filteredRecipes} />
+      </div>
 
       {/* <div>
         <Box
