@@ -32,7 +32,7 @@ $border: 1px solid rgb(199, 199, 199);
       overflow: hidden;
       display: flex;
       gap: 0.2rem;
-      border-top: 1px solid gray;
+      border-top: $border;
       transition: 0.2s;
 
       &:hover {
@@ -70,7 +70,6 @@ $border: 1px solid rgb(199, 199, 199);
 
       .recipeTitleDiv {
         width: 70%;
-        // border: 1px solid red;
         display: flex;
         align-items: center;
         padding: 0.5rem;

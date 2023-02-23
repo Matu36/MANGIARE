@@ -24,6 +24,7 @@ import { getFavorites } from "../../Redux/actions/favorites";
 import banner from "../../img/BannerHome.jpg";
 import { Avatar } from "@chakra-ui/react";
 import RecipesBox from "../../components/RecipesBox/RecipesBox";
+import UserReviewsBox from "../../components/UserReviewsBox/UserReviewsBox";
 import { getRecipes } from "../../Redux/actions/recipes";
 
 export default function UserPage() {
@@ -91,6 +92,7 @@ export default function UserPage() {
       <div className={s.recipesBoxesContainer}>
         <RecipesBox title="Favorites" recipes={userFavorites} />
         <RecipesBox title="Created recipes" recipes={filteredRecipes} />
+        <UserReviewsBox />
       </div>
 
       {/* <div>
