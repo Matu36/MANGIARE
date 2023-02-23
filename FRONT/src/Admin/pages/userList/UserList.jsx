@@ -13,7 +13,6 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
-import { MdOutlineDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 import UserRow from "../../components/UserRow/UserRow";
 import { useSelector } from "react-redux";
 
@@ -46,10 +45,10 @@ export default function UserList() {
 
   const [currentPage, setCurrentPage] = useState(1); //Pagina Actual seteada en 1
   const [numberOfPage, setNumberOfPage] = useState(0); //Numero de Paginas seteado en 0
-  const [totalUsers, setTotalUsers] = useState(users); //Recetas Totales Seteada en Array Vacio
+  const [totalUsers, setTotalUsers] = useState(filterUsers); //Recetas Totales Seteada en Array Vacio
 
-  const indexFirstPageRecipe = () => (currentPage - 1) * 8; // Indice del primer Elemento
-  const indexLastPageRecipe = () => indexFirstPageRecipe() + 8; //Indice del segundo elemento
+  const indexFirstPageRecipe = () => (currentPage - 1) * 9; // Indice del primer Elemento
+  const indexLastPageRecipe = () => indexFirstPageRecipe() + 9; //Indice del segundo elemento
 
   const handlePageNumber = (number) => {
     //Manejo del numero de pagina
@@ -62,13 +61,11 @@ export default function UserList() {
       filterUsers.slice(indexFirstPageRecipe(), indexLastPageRecipe())
     );
     setNumberOfPage(Math.ceil(filterUsers.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
-  }, [filterUsers, currentPage]);
-
-  //console.log(totalreviews);
+  }, [filterUsers, currentPage, users]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterUsers]);
+  }, [filterUsers, users]);
 
   return (
     <div>
@@ -94,6 +91,7 @@ export default function UserList() {
               <Th>address</Th>
               <Th>role</Th>
               <Th>active</Th>
+              <Th>banned</Th>
               <Th>createdAt</Th>
               <Th>actions</Th>
             </Tr>
@@ -107,7 +105,9 @@ export default function UserList() {
                   address={user.address}
                   role={user.role}
                   active={user.active}
+                  banned={user.banned}
                   createdAt={user.createdAt}
+                  setFilterUsers={setFilterUsers}
                 />
               );
             })}
@@ -119,6 +119,7 @@ export default function UserList() {
               <Th>address</Th>
               <Th>role</Th>
               <Th>active</Th>
+              <Th>banned</Th>
               <Th>createdAt</Th>
               <Th>actions</Th>
             </Tr>
