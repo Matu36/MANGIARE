@@ -64,6 +64,7 @@ export default function ShoppingCart () {
     else {
       dispatch(setCart(LS_cart));
       if (isAuthenticated) {
+        setState({...state, address: user.address});
         localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
         localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user));
       }
@@ -99,14 +100,14 @@ const handleOnAddressChange = ({target}) => {
     fetch(`http://localhost:3001/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({email, address: state.address, cart}),
+        body: JSON.stringify({email, address: state.address, cart, userId: user.id}),
       })
         .then(data => data.json())
         .then(order => {
             dispatch(setCart([]));
             localStorage.removeItem('cart');
             console.log(order);
-//          window.location.href = `localhost:3000/orders/${order.id}`;
+          window.location.href = `localhost:3000/orders/${order.id}`;
         })
   }
 
@@ -183,14 +184,14 @@ const handleOnAddressChange = ({target}) => {
                                   type="text"
                                   id="address"
                                   name="address"
-                                  value={state.address || JSON.parse(localStorage.getItem("MANGIARE_userInfo")).address || ''}
+                                  value={state.address}
                                   placeholder="Confirm shipping address..."
                                   onChange={handleOnAddressChange}
                               />
                               <br />
                               <br />
                               <Button colorScheme="teal"  variant="solid" size="lg"
-                                  isDisabled={!(state.address || JSON.parse(localStorage.getItem("MANGIARE_userInfo")).address || '').length}
+                                  isDisabled={!state.address}
                                   onClick={handleConfirm}>
                                       Confirm
                               </Button>
