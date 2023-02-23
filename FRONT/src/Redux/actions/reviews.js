@@ -27,3 +27,22 @@ export const postReview = (payload) => async (dispatch) => {
 export const deleteReview = (payload) => async (dispatch) => {
   return await axios.delete(`/reviews`, { data: payload });
 };
+
+export const putReview = (userId, recipeId, visible) => {
+  let user = {
+    userId: userId,
+    recipeId: recipeId,
+    visible: visible,
+  };
+  return async () => {
+    await axios
+      .put("/reviews", user)
+      .then((response) => {
+        console.log(response.data);
+        response.data;
+      })
+      .catch((err) => {
+        console.log(err), err;
+      });
+  };
+};

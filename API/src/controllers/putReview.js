@@ -7,12 +7,12 @@ const putReview = async (req, res) => {
       return res.status(404).send("No body Params");
     }
     let review = await Reviews.findOne({
-      where: { recipeId, userId, visible: true },
+      where: { recipeId, userId },
     });
     if (!review) {
       return res.status(404).send("Visible review not found");
     }
-    let result = await review.update({ visible: false });
+    let result = await review.update({ visible: req.body.visible });
     return res.status(200).send(result);
   } catch (err) {
     console.log(err);

@@ -1,6 +1,7 @@
 .divContainerCards {
     display: flex;
     flex-direction: column;
+    width: 100%
 }
 .titleReviews {
     font-size: 40px;
