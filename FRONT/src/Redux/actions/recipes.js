@@ -42,6 +42,7 @@ export const getRecipeDetail = (id) => async (dispatch) => {
 
 export const createRecipe = ({
   id,
+  userId,
   title,
   instructions,
   image,
@@ -50,6 +51,7 @@ export const createRecipe = ({
 }) => {
   let recipe = {
     id,
+    userId,
     title,
     instructions,
     image,

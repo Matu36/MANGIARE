@@ -1,24 +1,28 @@
 const { Recipes, Recipe_diets, Recipe_ingredients } = require("../db");
-const {Op} = require('sequelize');
+const { Op } = require("sequelize");
 
 const postRecipe = async (req, res) => {
   try {
-    const { title, image, diets, instructions, ingredients } = req.body;
+    const { title, image, diets, instructions, ingredients, userId } = req.body;
 
-    let id = 1 + await Recipes.count({
-      where: {
-        id: {
-          [Op.lt]: 60000
-        }}
-      });
+    let id =
+      1 +
+      (await Recipes.count({
+        where: {
+          id: {
+            [Op.lt]: 60000,
+          },
+        },
+      }));
 
     let createdRecipe = await Recipes.create({
       id,
+      userId,
       title,
       instructions,
       image,
     });
-    
+
     await Recipe_ingredients.bulkCreate(
       ingredients.map((el) => ({
         recipeId: id,
@@ -27,7 +31,7 @@ const postRecipe = async (req, res) => {
         unit: el.unit,
       }))
     );
-    
+
     await Recipe_diets.bulkCreate(
       diets.map((el) => ({
         recipeId: id,
@@ -37,6 +41,7 @@ const postRecipe = async (req, res) => {
 
     res.status(200).send(createdRecipe);
   } catch (error) {
+    console.log(error);
     res.status(400).send(error.message);
   }
 };
