@@ -28,6 +28,7 @@ import UserReviewsBox from "../../components/UserReviewsBox/UserReviewsBox";
 import { getRecipes } from "../../Redux/actions/recipes";
 import UserOrdersBox from "../../components/UserOrdersBox/UserOrdersBox";
 import { LogoutButton } from "../../components/Auth0/logout_button";
+import Orders from "../Orders/Orders";
 
 export default function UserPage() {
   let dispatch = useDispatch();
@@ -61,10 +62,13 @@ export default function UserPage() {
           <Text className={s.userName}>{name}</Text>
         </div>
         <div className={s.boxesContainer}>
-          <UserOrdersBox />
           <RecipesBox title="Favorites" recipes={userFavorites} />
           <RecipesBox title="Created recipes" recipes={filteredRecipes} />
           <UserReviewsBox />
+          {/* <UserOrdersBox /> */}
+          <div className={s.ordersContainer}>
+            <Orders />
+          </div>
         </div>
       </div>
     </div>
