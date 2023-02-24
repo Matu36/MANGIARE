@@ -65,12 +65,15 @@ export default function UserPage() {
 
   let filteredRecipes = recipes.filter((r) => r.userId === LS_user.id);
 
+  let order_id = params.get("id");
+  console.log(order_id);
+
   return (
     <div className={s.containerMain}>
       <NavBar />
       <div className={s.container}>
         <div className={s.userInfoDiv}>
-          <Avatar className={s.profileImg} src={user.picture} />
+          <Avatar className={s.profileImg} src={user ? user.picture : null} />
           <Text className={s.userName}>{name}</Text>
         </div>
         <div className={s.boxesContainer}>
@@ -79,7 +82,7 @@ export default function UserPage() {
           <UserReviewsBox />
           {/* <UserOrdersBox /> */}
           <div className={s.ordersContainer}>
-            <Orders order_id={params.get("id")} />
+            <Orders order_id={order_id} />
           </div>
         </div>
       </div>
