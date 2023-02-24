@@ -1,0 +1,42 @@
+$box-shadow: 5px 5px 10px gray;
+$border: 1px solid rgb(199, 199, 199);
+
+.container {
+  border: $border;
+  box-shadow: $box-shadow;
+  width: 20rem;
+  min-height: 5rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleDiv {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.3rem;
+
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.cardContainer {
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.noRecipesDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+

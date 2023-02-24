@@ -51,7 +51,7 @@ export default function SideBar() {
 
             <li className="sidebarListItem">
               <TbCoin className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>Transactions</button>
+              <button onClick={(e) => handleHomeAdmin(e)}>Orders</button>
             </li>
             <li className="sidebarListItem">
               <TbCoin className="sidebarIcon" />

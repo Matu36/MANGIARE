@@ -24,7 +24,9 @@ import { getFavorites } from "../../Redux/actions/favorites";
 import banner from "../../img/BannerHome.jpg";
 import { Avatar } from "@chakra-ui/react";
 import RecipesBox from "../../components/RecipesBox/RecipesBox";
+import UserReviewsBox from "../../components/UserReviewsBox/UserReviewsBox";
 import { getRecipes } from "../../Redux/actions/recipes";
+import UserOrdersBox from "../../components/UserOrdersBox/UserOrdersBox";
 
 export default function UserPage() {
   let dispatch = useDispatch();
@@ -88,9 +90,11 @@ export default function UserPage() {
           <Text className={s.userName}>{name}</Text>
         </Box>
       </Box>
-      <div className={s.recipesBoxesContainer}>
+      <div className={s.boxesContainer}>
         <RecipesBox title="Favorites" recipes={userFavorites} />
         <RecipesBox title="Created recipes" recipes={filteredRecipes} />
+        <UserReviewsBox />
+        <UserOrdersBox />
       </div>
 
       {/* <div>
