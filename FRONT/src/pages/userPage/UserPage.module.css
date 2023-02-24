@@ -37,3 +37,10 @@
   align-items: flex-start;
   flex-wrap: wrap;
 }
+
+.ordersContainer {
+  margin-top: 2rem;
+  width: 97%;
+  border: 1px solid rgb(199, 199, 199);
+  box-shadow: 5px 5px 10px gray;
+}

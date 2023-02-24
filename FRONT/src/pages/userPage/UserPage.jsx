@@ -28,12 +28,15 @@ import UserReviewsBox from "../../components/UserReviewsBox/UserReviewsBox";
 import { getRecipes } from "../../Redux/actions/recipes";
 import UserOrdersBox from "../../components/UserOrdersBox/UserOrdersBox";
 import { LogoutButton } from "../../components/Auth0/logout_button";
+import Orders from "../Orders/Orders";
 
 export default function UserPage() {
   let dispatch = useDispatch();
   let { user } = useAuth0();
   const name = user ? user.name : null;
   const LS_user = JSON.parse(localStorage.getItem("MANGIARE_user"));
+
+  const params = new URLSearchParams(window.location.search);
 
   const favorites = useSelector((state) => state.favorites.favorites);
   const recipes = useSelector((state) => state.recipes.recipes);
@@ -42,6 +45,16 @@ export default function UserPage() {
     dispatch(getRecipes());
     dispatch(getFavorites());
   }, []);
+
+  if (params.get("status") === "approved" && params.get("preference_id"))
+    fetch("http://localhost:3001/payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        status: params.get("status"),
+        preference_id: params.get("preference_id"),
+      }),
+    });
 
   let filteredFavorites = favorites.filter((f) => f.userId === LS_user.id);
   let userFavorites = [];
@@ -61,10 +74,13 @@ export default function UserPage() {
           <Text className={s.userName}>{name}</Text>
         </div>
         <div className={s.boxesContainer}>
-          <UserOrdersBox />
           <RecipesBox title="Favorites" recipes={userFavorites} />
           <RecipesBox title="Created recipes" recipes={filteredRecipes} />
           <UserReviewsBox />
+          {/* <UserOrdersBox /> */}
+          <div className={s.ordersContainer}>
+            <Orders order_id={params.get("id")} />
+          </div>
         </div>
       </div>
     </div>
