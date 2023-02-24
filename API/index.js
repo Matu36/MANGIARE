@@ -9,7 +9,7 @@ const modelsMock = require("./src/helpers/modelsMock.js");
 
 conn
   .sync({
-    //force: true,
+    force: true,
     //alter: true
   })
   .then(async () => {
@@ -29,6 +29,6 @@ conn
   })
 
   // Inserts de prueba en DB
-  //.then(() => modelsMock(1000)) // nro Api Regs --- 0: ONLY LOCAL
+  .then(() => modelsMock(1000)) // nro Api Regs --- 0: ONLY LOCAL
 
   .catch((err) => console.log(err));
