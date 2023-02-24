@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { createIngredients } from "../../../../Redux/actions/ingredients";
 import { Input, FormLabel, Button } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
+import "./createingredient.css";
 
 export default function IngredientForm() {
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
-  //CREACION DE INGREDIENTE //
+                         //CREACION DE INGREDIENTE //
   const [ingredient, setIngredient] = useState({
     name: "",
     price: "",
@@ -48,7 +49,7 @@ export default function IngredientForm() {
     }
   };
 
-  //FIN CREACION DE INGREDIENTE //
+                         //FIN CREACION DE INGREDIENTE //
 
   //METODO SELECT MULTIPLE VALUE PARA UNITS
 
@@ -67,6 +68,8 @@ export default function IngredientForm() {
     return false;
   });
 
+  
+
   const handleSelectChange = (event) => {
     const options = event.target.options;
     const selectedValues = [];
@@ -75,8 +78,8 @@ export default function IngredientForm() {
         selectedValues.push(options[i].value);
       }
     }
-    const newItems = selectedValues.map((value) => value + ", ");
-    setSelectedItems(selectedItems.concat(selectnewItemsedValues));
+    const newItems = selectedValues.map(value => value + ", ");
+    setSelectedItems(selectedItems.concat(newItems));
   };
 
   function deleteItem(item) {
@@ -90,8 +93,8 @@ export default function IngredientForm() {
 
   return (
     <form onSubmit={handleOnSubmit}>
-      <div>
-        <h4> Create Ingredient</h4>
+      <div className="allcontain">
+        <div className="title"> Create Ingredient</div>
       </div>
       <div>
         <FormLabel>
@@ -119,9 +122,11 @@ export default function IngredientForm() {
           />
         </FormLabel>
         <br />
-        <div>
-          <h5>Units</h5>
-          <select multiple onChange={handleSelectChange}>
+        
+        <div className="unitsingredient">
+          <div className="units">Units</div>
+          <div className="select">
+          <select multiple onChange={handleSelectChange}className="selec">
             {rowsFilter.map((unit, index) => (
               <option key={index} value={unit.units}>
                 {unit.units}
@@ -130,18 +135,20 @@ export default function IngredientForm() {
           </select>
 
           {selectedItems.map((item, index) => (
-            <span key={index}>
-              {item}
+            <span key={index} className= "itemsselected">
+              {item} 
               <button onClick={() => deleteItem(item)}>
                 <BsTrash />{" "}
               </button>
             </span>
           ))}
         </div>
+        </div>
         <br />
-        <div>
+        <div className="btn">
           <Button type="submit">Create Ingredient</Button>
         </div>
+        
       </div>
     </form>
   );

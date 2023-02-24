@@ -6,7 +6,7 @@ import IngredientForm from "./CreateIngredient/CreateIngredient";
 import { BiEditAlt, BsSave2 } from "react-icons/bi";
 import { updateIngredient } from "../../../Redux/actions/ingredients";
 import { Input, InputGroup } from "@chakra-ui/react";
-import "./products.css"
+import "./products.css";
 
 import {
   Table,
@@ -124,24 +124,21 @@ export default function UserList() {
 
   return (
     <div>
-      <Table variant="simple" size="sm">
-        <Thead>
-          <div>
-            <InputGroup>
-              <Input
-                type="text"
-                placeholder="Search Ingredient "
-                onChange={handleOnChange}
-                value={search}
-                autoComplete="off"
-                width="30rem"
+      <div className="my-container">
+        <Input
+          type="text"
+          placeholder="Search Ingredient "
+          onChange={handleOnChange}
+          value={search}
+          autoComplete="off"
+          width="30rem"
           background="white"
           margin="10px"
-              />
-              
-            </InputGroup>
-            
-          </div>
+        />
+        <h1 className="titleIngredients">Ingredients</h1>
+      </div>
+      <Table variant="striped" colorScheme="teal">
+        <Thead>
           <Tr>
             {columns.map((column) => (
               <Th key={column.field}>{column.headerName}</Th>
@@ -153,7 +150,7 @@ export default function UserList() {
             <Tr key={row.id}>
               {columns.map((column) => (
                 <Td
-                  fontWeight="bold"
+                  
                   width="20%"
                   key={`${row.id}-${column.field}`}
                 >
