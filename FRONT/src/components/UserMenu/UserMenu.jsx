@@ -39,6 +39,7 @@ export default function UserMenu(userLocalstorage) {
       </Menu>
     );
   }
+
   if (location.pathname == "/home")
     return (
       <Menu>
@@ -79,4 +80,5 @@ export default function UserMenu(userLocalstorage) {
         </MenuList>
       </Menu>
     );
+
 }
