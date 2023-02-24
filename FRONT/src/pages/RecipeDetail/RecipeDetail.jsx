@@ -28,7 +28,7 @@ import {
   Tab,
   TabPanel,
 } from "@chakra-ui/react";
-import background from "../../img/BackgroundDetail.jpg";
+import background from "../../img/RDetailBG.jpg";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 const RecipeDetail = () => {
@@ -185,10 +185,10 @@ const RecipeDetail = () => {
           style={{
            
             justifyContent: "center",
+            backgroundSize: "cover",
             
             filter: "contrast(100%)",
-            backgroundPosition: "center center",
-           
+            backgroundPosition: "center bottom 45%",           
           }}
           
           >
