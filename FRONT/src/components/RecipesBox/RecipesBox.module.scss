@@ -26,31 +26,32 @@ $border: 1px solid rgb(199, 199, 199);
     flex-direction: column;
     gap: 0.2rem;
 
+    .itemContainer {
+      display: flex;
+      border-top: $border;
+      transition: 0.2s;
+
+      &:hover {
+        transition: 0;
+        background-color: #dddddd;
+      }
+    }
+
     .recipeItem {
       width: 100%;
       height: 3rem;
       overflow: hidden;
       display: flex;
       gap: 0.2rem;
-      border-top: 1px solid gray;
-      transition: 0.2s;
-
-      &:hover {
-        cursor: pointer;
-        transition: 0;
-        background-color: #dddddd;
-      }
 
       .imageDivContainer {
         width: 30%;
         display: flex;
         justify-content: center;
         align-items: center;
-        // border: 1px solid red;
 
         .imageDiv {
           border: 2px solid black;
-
           width: 70%;
           height: 90%;
           display: flex;
@@ -62,19 +63,37 @@ $border: 1px solid rgb(199, 199, 199);
           .image {
             min-height: 100%;
             min-width: 100%;
-            // max-height: 90%;
-            // border-radius: 5px;
           }
         }
       }
 
       .recipeTitleDiv {
         width: 70%;
-        // border: 1px solid red;
         display: flex;
         align-items: center;
-        padding: 0.5rem;
+        flex-wrap: wrap;
         box-sizing: border-box;
+        letter-spacing: -1px;
+        line-height: 15px;
+      }
+    }
+
+    .heartButtonDiv {
+      border-left: $border;
+      padding: 0.2rem;
+      box-sizing: border-box;
+      width: 15%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgb(219, 16, 43);
+      font-size: 24px;
+      transition: 0.2s;
+
+      &:hover {
+        transition: 0s;
+        color: rgb(255, 11, 44);
+        cursor: pointer;
       }
     }
   }

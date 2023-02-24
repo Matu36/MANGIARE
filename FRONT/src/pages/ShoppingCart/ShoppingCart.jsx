@@ -130,8 +130,10 @@ export default function ShoppingCart() {
       .then((order) => {
         dispatch(setCart([]));
         localStorage.removeItem("MANGIARE_cart");
+
         //window.location.href = `localhost:3000/orders/${order.id}`;
         window.location.href = `https://mangiare-production.up.railway.app/orders/${order.id}`;
+
       });
   };
 

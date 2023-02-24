@@ -14,12 +14,7 @@ import MyRecipes from "./components/MyRecipes/MyRecipes";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import UserPage from "./pages/userPage/UserPage";
 import Appmodel from "../src/Admin/Appmodel";
-import UserList from "./Admin/pages/userList/UserList";
-import Transactions from "./Admin/components/Transactions/Transactions";
-import Products from "../src/Admin/components/Products/Products";
-import Email from "./Admin/components/Email/Email";
-import Reviews from "./Admin/components/Reviews/Reviews";
-import Feedback from "../src/Admin/components/Feedback/Feedback";
+import Orders from "./pages/Orders/Orders";
 
 //axios.defaults.baseURL = "http://localhost:3001/";
 axios.defaults.baseURL = "https://mangiare-production.up.railway.app/";
@@ -35,6 +30,7 @@ export default function App() {
         <Route exact path="formUser" element={<CreateUser />} />
         <Route exact path="/recipes/:id" element={<RecipeDetail />} />
         <Route exact path="/createRecipe" element={<CreateRecipe />} />
+        <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/aboutUs" element={<AboutUs />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/myRecipes" element={<MyRecipes />} />

@@ -1,4 +1,4 @@
-const {Users, Orders} = require('../db.js');
+const {Users, Orders, Order_details, Ingredients} = require('../db.js');
 
 module.exports = async (req, res) => {
   try{
@@ -10,8 +10,12 @@ module.exports = async (req, res) => {
 
     let returnedOrders;
 
-    if ((requestUser.dataValues.role !== null) && (req.query?.all === true)) returnedOrders = await Orders.findAll({include: 'Order_details'});
-    else returnedOrders = await Orders.findAll({where: {id: req.query.id}, include: 'Order_details'});
+    if ((requestUser.dataValues.role !== null) && (req.query?.all === 'true')) returnedOrders = await Orders.findAll({include: [{model: Order_details, include: {model: Ingredients, attributes: ['name']}}, {model: Users, attributes: ['email']}]});
+    else returnedOrders = await Orders.findAll({where: {userId: req.query.id}, include: [{model: Order_details, include: {model: Ingredients, attributes: ['name']}}, {model: Users, attributes: ['email']}]});
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
 
     return (!returnedOrders)
       ? res.status(404).send('Orders Not Found')

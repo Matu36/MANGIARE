@@ -1,30 +1,46 @@
 .containerMain {
-    background-color: #ffffff;
-    background-image: linear-gradient(62deg, #ffffff 0%, #ffffff 100%);
-  }
+  background-color: #ffffff;
+}
+
+.container {
+  margin-top: 6rem;
+  display: flex;
+}
+
+.userInfoDiv {
+  width: 20%;
+  height: 30rem;
+  background-color: #0c1d2c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  gap: 2rem;
+}
 
 .profileImg {
-    width: 100%;
-    font-weight:bold;
-    max-width: 100%;
-    margin-top: 100px;
-    text-align: center;
-  }
+  width: 6rem;
+  height: auto;
+}
 
-.userName{
-    font-family: Caviar Dreams, sans-serif;
-    font-weight: bold;
-    text-align:center;
-    font-size:60px;
-    color:green;
-    margin-top:1px;
-    margin-right:20px;
-  }
+.userName {
+  color: #fff;
+}
 
-  .recipesBoxesContainer {
-    display: flex;
-    padding: 3rem;
-    box-sizing: border-box;
-    justify-content: space-evenly;
-    align-items: flex-start;
-  }
+.boxesContainer {
+  width: 80%;
+  display: flex;
+  padding: 2rem;
+  box-sizing: border-box;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.ordersContainer {
+  margin-top: 2rem;
+  width: 97%;
+  border: 1px solid rgb(199, 199, 199);
+  box-shadow: 5px 5px 10px gray;
+}

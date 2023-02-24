@@ -22,10 +22,12 @@ module.exports = async (req, res) => {
         unit_price: amount * price,
       })),
       back_urls: {
+
         //success: "localhost:3000/orders",
         success: "https://mangiare.vercel.app/orders",
         //failure: "localhost:3000/orders"
         failure: "https://mangiare.vercel.app/orders",
+
       },
       auto_return: "approved",
       binary_mode: true,

@@ -1,0 +1,18 @@
+.ordersTable{
+    width: 100%;
+}
+.ordersTable td, .ordersTable th{
+    text-align: center;
+}
+.ordersTable tr, .ordersTable th{
+    height: 50px;
+}
+.par{
+    background-color:blanchedalmond;
+}
+.ordersTable .orderItem, .ordersTable thead, .ordersTable tbody tr:hover{
+    background-color: burlywood;
+}
+.ordersTable button{
+    padding: 10px;
+}
