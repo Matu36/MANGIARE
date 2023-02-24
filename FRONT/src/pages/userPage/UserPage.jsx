@@ -27,6 +27,7 @@ import RecipesBox from "../../components/RecipesBox/RecipesBox";
 import UserReviewsBox from "../../components/UserReviewsBox/UserReviewsBox";
 import { getRecipes } from "../../Redux/actions/recipes";
 import UserOrdersBox from "../../components/UserOrdersBox/UserOrdersBox";
+import { LogoutButton } from "../../components/Auth0/logout_button";
 
 export default function UserPage() {
   let dispatch = useDispatch();
@@ -54,111 +55,18 @@ export default function UserPage() {
   return (
     <div className={s.containerMain}>
       <NavBar />
-      <Box
-        width="100%"
-        marginTop="1px"
-        backgroundImage={banner}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-          borderBottom: "5px solid black",
-        }}
-      >
-        <Box flex="1">
-          {/* <Avatar size='' name={user.name} src='https://bit.ly/sage-adebayo' className={s.profileImg}/> */}
-          <Avatar
-            size="2xl"
-            bg="teal.500"
-            className={s.profileImg}
-            // src={user.picture}
-          />
-        </Box>
-
-        <Box
-          width="70%"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexDirection: "column",
-          }}
-        >
+      <div className={s.container}>
+        <div className={s.userInfoDiv}>
+          <Avatar className={s.profileImg} src={user.picture} />
           <Text className={s.userName}>{name}</Text>
-        </Box>
-      </Box>
-      <div className={s.boxesContainer}>
-        <RecipesBox title="Favorites" recipes={userFavorites} />
-        <RecipesBox title="Created recipes" recipes={filteredRecipes} />
-        <UserReviewsBox />
-        <UserOrdersBox />
+        </div>
+        <div className={s.boxesContainer}>
+          <UserOrdersBox />
+          <RecipesBox title="Favorites" recipes={userFavorites} />
+          <RecipesBox title="Created recipes" recipes={filteredRecipes} />
+          <UserReviewsBox />
+        </div>
       </div>
-
-      {/* <div>
-        <Box
-          width="100%"
-          height="100%"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexDirection: "column",
-          }}
-        >
-          <Text fontSize="5xl" fontWeight="bold" color="yellow.900">
-            Your recipes!{" "}
-          </Text>
-        </Box>
-        <Center>
-          <SimpleGrid
-            spacing={4}
-            templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-          >
-            <Card>
-              <CardHeader>
-                <Heading size="md"> Probando las modificacioens</Heading>
-              </CardHeader>
-              <CardBody>
-                <Text>
-                  View a summary of all your customers over the last month.
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Button>View here</Button>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Heading size="md"> Customer dashboard</Heading>
-              </CardHeader>
-              <CardBody>
-                <Text>
-                  View a summary of all your customers over the last month.
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Button>View here</Button>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Heading size="md"> Customer dashboard</Heading>
-              </CardHeader>
-              <CardBody>
-                <Text>
-                  View a summary of all your customers over the last month.
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Button>View here</Button>
-              </CardFooter>
-            </Card>
-          </SimpleGrid>
-        </Center>
-      </div> */}
     </div>
   );
 }
