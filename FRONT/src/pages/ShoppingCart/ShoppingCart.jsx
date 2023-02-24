@@ -115,7 +115,8 @@ export default function ShoppingCart() {
   };
 
   const handleConfirm = () => {
-    fetch(`http://localhost:3001/orders`, {
+    //fetch(`http://localhost:3001/orders`, {
+    fetch(`https://mangiare-production.up.railway.app/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -129,7 +130,8 @@ export default function ShoppingCart() {
       .then((order) => {
         dispatch(setCart([]));
         localStorage.removeItem("MANGIARE_cart");
-        window.location.href = `localhost:3000/orders/${order.id}`;
+        //window.location.href = `localhost:3000/orders/${order.id}`;
+        window.location.href = `https://mangiare-production.up.railway.app/orders/${order.id}`;
       });
   };
 
