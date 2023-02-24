@@ -16,7 +16,6 @@ import UserPage from "./pages/userPage/UserPage";
 import Appmodel from "../src/Admin/Appmodel";
 import Orders from "./pages/Orders/Orders";
 
-import Orders from "../src/components/userPage/Orders"
 
 
 //axios.defaults.baseURL = "http://localhost:3001/";
