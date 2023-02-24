@@ -3,10 +3,10 @@ import "./products.css";
 import { useDispatch, useSelector } from "react-redux";
 import Paginations from "../../../components/Paginations/Paginations";
 import IngredientForm from "./CreateIngredient/CreateIngredient";
-import { BiEditAlt } from "react-icons/bi";
+import { BiEditAlt, BsSave2 } from "react-icons/bi";
 import { updateIngredient } from "../../../Redux/actions/ingredients";
 import { Input, InputGroup } from "@chakra-ui/react";
-
+import "./products.css";
 
 import {
   Table,
@@ -16,7 +16,7 @@ import {
   Th,
   Td,
   TableContainer,
-  Box
+  Box,
 } from "@chakra-ui/react";
 
 export default function UserList() {
@@ -76,7 +76,7 @@ export default function UserList() {
   const handleSave = (index) => {
     const updatedIngredient = {
       id: totalIngredients[index - 1].id,
-      price: editPrice
+      price: editPrice,
     };
     dispatch(updateIngredient(updatedIngredient));
     setEditIndex(null);
@@ -124,19 +124,21 @@ export default function UserList() {
 
   return (
     <div>
-      <Table variant="simple" size="sm">
+      <div className="my-container">
+        <Input
+          type="text"
+          placeholder="Search Ingredient "
+          onChange={handleOnChange}
+          value={search}
+          autoComplete="off"
+          width="30rem"
+          background="white"
+          margin="10px"
+        />
+        <h1 className="titleIngredients">Ingredients</h1>
+      </div>
+      <Table variant="striped" colorScheme="teal">
         <Thead>
-          <div>
-            <InputGroup>
-              <Input
-                type="text"
-                placeholder="Search Ingredient "
-                onChange={handleOnChange}
-                value={search}
-                autoComplete="off"
-              />
-            </InputGroup>
-          </div>
           <Tr>
             {columns.map((column) => (
               <Th key={column.field}>{column.headerName}</Th>
@@ -147,26 +149,41 @@ export default function UserList() {
           {totalIngredients.map((row) => (
             <Tr key={row.id}>
               {columns.map((column) => (
-                <Td key={`${row.id}-${column.field}`}>
+                <Td
+                  
+                  width="20%"
+                  key={`${row.id}-${column.field}`}
+                >
                   {column.field === "price" && editIndex === row.id ? (
-                    <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
                       <Input
                         type="number"
                         value={editPrice}
                         onChange={(e) => handlePriceChange(e.target.value)}
                       />
+
                       <button onClick={() => handleSave(row.id)}>Save</button>
-                      <br />
+
                       <button onClick={handleCancel}>Cancel</button>
                     </div>
                   ) : (
-                    <div>
-                      {row[column.field]}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>{row[column.field]}</div>
                       {column.field === "price" && (
                         <Box ml="auto">
-                        <button onClick={() => handleEdit(row.id, row.price)}>
-                          <BiEditAlt />
-                        </button>
+                          <button onClick={() => handleEdit(row.id, row.price)}>
+                            <BiEditAlt />
+                          </button>
                         </Box>
                       )}
                     </div>

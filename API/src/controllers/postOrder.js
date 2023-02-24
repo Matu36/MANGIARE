@@ -16,8 +16,8 @@ module.exports = async (req, res) => {
     let preference = {
       items: req.body.cart.map(({amount, price}) => ({quantity: 1, unit_price: amount * price})),
       back_urls: {
-        success: "localhost:3000/orders",
-        failure: "localhost:3000/orders"
+        success: "localhost:3000/user",
+        failure: "localhost:3000/user"
       },
       auto_return: "approved",
       binary_mode: true,

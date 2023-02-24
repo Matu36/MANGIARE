@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createIngredients } from "../../../../Redux/actions/ingredients";
 import { Input, FormLabel, Button } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
+import "./createingredient.css";
 
 export default function IngredientForm() {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ export default function IngredientForm() {
       }
     }
     const newItems = selectedValues.map((value) => value + ", ");
-    setSelectedItems(selectedItems.concat(selectnewItemsedValues));
+    setSelectedItems(selectedItems.concat(newItems));
   };
 
   function deleteItem(item) {
@@ -90,8 +91,8 @@ export default function IngredientForm() {
 
   return (
     <form onSubmit={handleOnSubmit}>
-      <div>
-        <h4> Create Ingredient</h4>
+      <div className="allcontain">
+        <div className="title"> Create Ingredient</div>
       </div>
       <div>
         <FormLabel>
@@ -119,27 +120,30 @@ export default function IngredientForm() {
           />
         </FormLabel>
         <br />
-        <div>
-          <h5>Units</h5>
-          <select multiple onChange={handleSelectChange}>
-            {rowsFilter.map((unit, index) => (
-              <option key={index} value={unit.units}>
-                {unit.units}
-              </option>
-            ))}
-          </select>
 
-          {selectedItems.map((item, index) => (
-            <span key={index}>
-              {item}
-              <button onClick={() => deleteItem(item)}>
-                <BsTrash />{" "}
-              </button>
-            </span>
-          ))}
+        <div className="unitsingredient">
+          <div className="units">Units</div>
+          <div className="select">
+            <select multiple onChange={handleSelectChange} className="selec">
+              {rowsFilter.map((unit, index) => (
+                <option key={index} value={unit.units}>
+                  {unit.units}
+                </option>
+              ))}
+            </select>
+
+            {selectedItems.map((item, index) => (
+              <span key={index} className="itemsselected">
+                {item}
+                <button onClick={() => deleteItem(item)}>
+                  <BsTrash />{" "}
+                </button>
+              </span>
+            ))}
+          </div>
         </div>
         <br />
-        <div>
+        <div className="btn">
           <Button type="submit">Create Ingredient</Button>
         </div>
       </div>
