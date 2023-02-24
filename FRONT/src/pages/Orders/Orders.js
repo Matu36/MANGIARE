@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Menu, IconButton, MenuButton, MenuItem, MenuList, MenuDivider, Box, useQuery} from "@chakra-ui/react";
-import { useParams, useLocation } from "react-router-dom";
-import axios from "axios";
-import { useDeferredValue } from "react";
 
 export default function Orders(props) {
     const [orders, setOrders] = useState();
     const params = new URLSearchParams(window.location.search);
     const user = JSON.parse(localStorage.getItem("MANGIARE_user"));
     
-    console.log(params.get('status'), params.get('preference_id'), params.get('all'));
-
     if ((params.get('status') === 'approved') && (params.get('preference_id')))
         fetch(`http://localhost:3001/payment`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({status: params.get('status'), preference_id: params.get('preference_id')}),
             })
+                .then(data => data.json())
+//                .then(order => window.location.href = `/orders?id=${order.id}`)
   
+/*
     useEffect(() => {
         console.log(orders);
     }, [orders]);
+*/
 
     useEffect(() => {
         fetch(`http://localhost:3001/orders?id=${user.id}&email=${user.email}${props.all ? '&all=true' : ''}`)
             .then(resp => resp.json())
-            .then(data => setOrders(data));
+            .then(data => {setOrders(data)});
     }, []);
 
     const handlePay = (preferenceId) => {
-        window.open(`https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preferenceId}`);
+        window.open(`https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preferenceId}`, "_self");
     }
 
     const handleStatus = async (status, orderId) => {
