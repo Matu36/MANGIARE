@@ -129,7 +129,7 @@ export default function ShoppingCart() {
       .then((order) => {
         dispatch(setCart([]));
         localStorage.removeItem("MANGIARE_cart");
-        window.location.href = window.location.href = `/orders?id=${order.id}`;
+        window.location.href = window.location.href = `/users?id=${order.id}`;
       });
   };
 
