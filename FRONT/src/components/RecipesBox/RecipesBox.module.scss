@@ -68,11 +68,13 @@ $border: 1px solid rgb(199, 199, 199);
       }
 
       .recipeTitleDiv {
-        width: 55%;
+        width: 70%;
         display: flex;
         align-items: center;
-        padding: 0.5rem;
+        flex-wrap: wrap;
         box-sizing: border-box;
+        letter-spacing: -1px;
+        line-height: 15px;
       }
     }
 
