@@ -52,7 +52,7 @@ export default function Orders(props) {
             {
                 state.orders?.map((el, idx) => (
                     <React.Fragment key={idx}>
-                        <tr className={((el.id === state.orderActive) || (!state.orderActive && el.id === props.order_id)) ? s.orderItem : ((idx % 2) ? '' : s.par)} onClick={() => setState({...state, orderActive: el.id})}>
+                        <tr className={((el.id === state.orderActive) || (!state.orderActive && el.id == props.order_id)) ? s.orderItem : ((idx % 2) ? '' : s.par)} onClick={() => setState({...state, orderActive: el.id})}>
                             {props.all ? <td>{el.User.email}</td> : ''}
                             <td>{el.id}</td>
                             <td>{el.createdAt}</td>
@@ -76,7 +76,7 @@ export default function Orders(props) {
                                 {((el.status === 2) && (user.role !== null) && (props.all)) ? <button onClick={() => handleStatus(3, el.id)}>Send</button> : ''}
                             </td>
                         </tr>
-                        {((state.orderActive === el.id) || (!state.orderActive && el.id === props.order_id)) ? <tr className={s.orderItem}>
+                        {((state.orderActive === el.id) || (!state.orderActive && el.id == props.order_id)) ? <tr className={s.orderItem}>
                             <td colSpan={props.all ? 6 : 5} style={{padding: '30px 0'}}>
                                 <IngredientsList items={el.Order_details.map(({IngredientId, amount, unit, price, Ingredient}) => ({id: IngredientId, amount, unit, price, name: Ingredient.name}))} orderDetail={true}/>
                             </td>
