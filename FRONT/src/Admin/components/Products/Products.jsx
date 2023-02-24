@@ -6,6 +6,7 @@ import IngredientForm from "./CreateIngredient/CreateIngredient";
 import { BiEditAlt, BsSave2 } from "react-icons/bi";
 import { updateIngredient } from "../../../Redux/actions/ingredients";
 import { Input, InputGroup } from "@chakra-ui/react";
+import "./products.css"
 
 import {
   Table,
@@ -133,8 +134,13 @@ export default function UserList() {
                 onChange={handleOnChange}
                 value={search}
                 autoComplete="off"
+                width="30rem"
+          background="white"
+          margin="10px"
               />
+              
             </InputGroup>
+            
           </div>
           <Tr>
             {columns.map((column) => (
