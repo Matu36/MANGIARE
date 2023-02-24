@@ -10,8 +10,8 @@ module.exports = async (req, res) => {
 
     let returnedOrders;
 
-    if ((requestUser.dataValues.role !== null) && (req.query?.all === true)) returnedOrders = await Orders.findAll({include: 'Order_details'});
-    else returnedOrders = await Orders.findAll({where: {id: req.query.id}, include: 'Order_details'});
+    if ((requestUser.dataValues.role !== null) && (req.query?.all === 'true')) returnedOrders = await Orders.findAll({include: 'Order_details'});
+    else returnedOrders = await Orders.findAll({where: {userId: req.query.id}, include: 'Order_details'});
 
     return (!returnedOrders)
       ? res.status(404).send('Orders Not Found')

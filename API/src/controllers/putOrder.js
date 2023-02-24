@@ -2,14 +2,17 @@ const {Orders, Users} = require('../db.js');
 
 module.exports = async (req, res) => {
   try{
+    //userId: dueño de la orden
+    //orderId: orden a modificar
     if ((!req.body.userId) || (!req.body.orderId) || (!req.body.status)) throw "No body params";
     
     let user = await Users.findOne({where: {id: req.body.userId}});
     if (!user) return res.status(404).send('No User Found');
-    if ((user.role === null) && (orderId != user.id)) return res.status(403).send('Forbidden');
     
     let orderInstance = await Orders.findByPk(req.body.orderId);
     if (!orderInstance) return res.status(404).send('No Order Found')
+
+    if ((user.role === null) && (orderInstance.userId != user.id)) return res.status(403).send('Forbidden');
 
     // Prohibiciones user Basic
     if (user.role === null)
