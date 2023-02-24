@@ -11,14 +11,10 @@ import mangiare from "../../img/LOGO.png";
 import UserMenu from "../UserMenu/UserMenu";
 import onExecutePostEmail from "../Auth0/onLogin.js";
 
-function NavBar(userLocalstorage) {
+function NavBar() {
   const { user, isAuthenticated } = useAuth0();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      onExecutePostEmail(user);
-    }
-  }, [user, isAuthenticated]);
+  console.log("nabvbar");
 
   return (
     <div className={s.container}>
@@ -52,7 +48,7 @@ function NavBar(userLocalstorage) {
       </div>
       {isAuthenticated ? (
         <div className={s.btn2}>
-          <UserMenu userLocalstorage={userLocalstorage} />{" "}
+          <UserMenu />{" "}
         </div>
       ) : (
         <div className={s.btn1}>

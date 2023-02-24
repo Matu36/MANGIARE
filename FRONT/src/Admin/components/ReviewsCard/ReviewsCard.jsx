@@ -26,13 +26,12 @@ const ReviewsCard = ({
   const dispatch = useDispatch();
   const CreateAt = createdAt.split("T");
 
-  const handleHideReview = (e, userId, recipeId, visible) => {
+  const handleHideReview = (e, userId, recipeId) => {
     e.preventDefault();
 
     setVisibleState(!visible);
-    visible = !visible;
 
-    dispatch(putReview(userId, recipeId, visible));
+    dispatch(putReview(userId, recipeId));
   };
   const handleRestrictReview = () => {};
 
@@ -89,9 +88,7 @@ const ReviewsCard = ({
               variant="outline"
               size="sm"
               className="button"
-              onClick={(e) =>
-                handleHideReview(e, userId, recipeId, visibleState)
-              }
+              onClick={(e) => handleHideReview(e, userId, recipeId)}
             >
               Hide Review
             </Button>
@@ -101,9 +98,7 @@ const ReviewsCard = ({
               variant="outline"
               size="sm"
               className="button"
-              onClick={(e) =>
-                handleHideReview(e, userId, recipeId, visibleState)
-              }
+              onClick={(e) => handleHideReview(e, userId, recipeId)}
             >
               Show Review
             </Button>

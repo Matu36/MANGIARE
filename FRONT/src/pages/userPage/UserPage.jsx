@@ -74,7 +74,7 @@ export default function UserPage() {
             size="2xl"
             bg="teal.500"
             className={s.profileImg}
-            // src={user.picture}
+            src={user.picture}
           />
         </Box>
 
