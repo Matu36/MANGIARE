@@ -13,6 +13,10 @@ module.exports = async (req, res) => {
     if ((requestUser.dataValues.role !== null) && (req.query?.all === 'true')) returnedOrders = await Orders.findAll({include: 'Order_details'});
     else returnedOrders = await Orders.findAll({where: {userId: req.query.id}, include: 'Order_details'});
 
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
+
     return (!returnedOrders)
       ? res.status(404).send('Orders Not Found')
       : res.send(returnedOrders);
