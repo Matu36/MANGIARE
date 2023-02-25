@@ -14,11 +14,9 @@ conn
   })
   .then(async () => {
     console.log("Database:      ✅");
-    server.listen(process.env.PORT || 3001, () => {
+    server.listen(3001, () => {
       console.log(
-        "Back server:   ✅  -  ( port:",
-        process.env.PORT || 3001,
-        ")"
+        "Back server:   ✅  -  ( port: 3001 )"
       ); // eslint-disable-line no-console
     });
   })
