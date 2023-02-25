@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import s from './IngredientsList.module.css';
 import { Link } from "react-router-dom";
 import { BsCartCheck } from "react-icons/bs";
 import { Table, Input, Select, Button, Icon,
@@ -13,6 +12,8 @@ import { Table, Input, Select, Button, Icon,
   TableContainer, } from "@chakra-ui/react";
 
 export default function IngredientsList (props) {
+  
+
   return (
     <Table variant ='striped' width="100%" >
       <Thead>
@@ -24,14 +25,14 @@ export default function IngredientsList (props) {
         {props.orderDetail ? <Th textAlign='center'>'Total Price'</Th> : ''}
       </Tr>
     </Thead>
-      <tbody>
+      <Tbody>
         {props.items.map((el, idx) => (
-          <tr key={idx}>
-            <td>{el.name}</td>
-            <td>
+          <Tr key={idx}>
+            <Td>{el.name}</Td>
+            <Td>
               {props.orderDetail ? el.amount : <Input type="number" id={el.id} value={el.amount} name="ingredient" onChange={event => props.onChange(event, el.unit)} />}
-            </td>
-            <td>
+            </Td>
+            <Td>
               {
                 props.orderDetail
                   ? el.unit
@@ -44,8 +45,8 @@ export default function IngredientsList (props) {
                       ))}
                     </Select>
               }
-            </td>
-            <td>
+            </Td>
+            <Td>
             {
                 props.orderDetail
                   ? `$${el.price.toFixed(2)}`
@@ -54,14 +55,15 @@ export default function IngredientsList (props) {
                       {props.itemButton.caption}
                     </Button>
             }
-            </td>
-            <td>
+            </Td>
+            <Td>
               {el.inCart ? <Link to={"/shoppingCart"}><BsCartCheck /></Link> : ' '}
               {props.orderDetail ? `$${(el.price * el.amount).toFixed(2)}` : ' '}
-            </td>
-          </tr>
+              {/* {props.orderDetail ? total+=(el.price * el.amount).toFixed(2) : total+=0} */}
+            </Td>
+          </Tr>
         ))}
-      </tbody>
+      </Tbody>
     </Table>
   );
 }
