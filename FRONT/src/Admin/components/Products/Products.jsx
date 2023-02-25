@@ -19,7 +19,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-export default function UserList() {
+export default function Products() {
   let dispatch = useDispatch();
   const products = useSelector((state) => state.ingredients.ingredients);
 

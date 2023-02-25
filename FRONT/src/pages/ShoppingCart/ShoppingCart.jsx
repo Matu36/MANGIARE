@@ -25,6 +25,8 @@ import {
 import { NavLink } from "react-router-dom";
 import logo from "../../img/LOGO 2.png";
 import NavBar from "../../components/NavBar/NavBar";
+const { REACT_APP_FRONT_URL, REACT_APP_BACK_URL } = process.env;
+
 
 export default function ShoppingCart() {
   const [state, setState] = React.useState({ address: null, checkout: false });
@@ -120,7 +122,7 @@ export default function ShoppingCart() {
   };
 
   const handleConfirm = () => {
-    fetch(`http://localhost:3001/orders`, {
+    fetch(`${REACT_APP_BACK_URL}/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -134,7 +136,7 @@ export default function ShoppingCart() {
       .then((order) => {
         dispatch(setCart([]));
         localStorage.removeItem("MANGIARE_cart");
-        window.location.href = window.location.href = `/user?id=${order.id}`;
+        window.location.href = `${REACT_APP_FRONT_URL}/user?id=${order.id}`;
       });
   };
 

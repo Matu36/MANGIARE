@@ -1,16 +1,16 @@
 .ordersTable{
     width: 100%;
 }
-.ordersTable td, th{
+.ordersTable td, .ordersTable th{
     text-align: center;
 }
-.ordersTable tr, th{
+.ordersTable tr, .ordersTable th{
     height: 50px;
 }
 .par{
     background-color:blanchedalmond;
 }
-.ordersTable .orderItem, thead, tbody tr:hover{
+.ordersTable .orderItem, .ordersTable thead, .ordersTable tbody tr:hover{
     background-color: burlywood;
 }
 .ordersTable button{
