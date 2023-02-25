@@ -23,8 +23,8 @@ module.exports = async (req, res) => {
       })),
       back_urls: {
 
-        success: `${FRONT_URL}/orders`,
-        success: `${FRONT_URL}/orders`,
+        success: `${FRONT_URL}/user`,
+        success: `${FRONT_URL}/user`,
 
       },
       auto_return: "approved",

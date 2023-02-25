@@ -15,9 +15,9 @@ import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import UserPage from "./pages/userPage/UserPage";
 import Appmodel from "../src/Admin/Appmodel";
 import Orders from "./pages/Orders/Orders";
-const { BACK_URL } = process.env;
+const { REACT_APP_BACK_URL } = process.env;
 
-axios.defaults.baseURL = `${BACK_URL}`;
+axios.defaults.baseURL = `${REACT_APP_BACK_URL}`;
 
 export default function App() {
   return (

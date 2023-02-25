@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import s from './Orders.module.css';
 import IngredientsList from '../../components/IngredientsList/ingredientsList';
-const { BACK_URL } = process.env;
+const { REACT_APP_BACK_URL } = process.env;
 
 export default function Orders(props) {
     const [state, setState] = useState({orders: null, orderActive: null});
@@ -14,7 +14,7 @@ export default function Orders(props) {
 */
 
     useEffect(() => {
-        fetch(`${BACK_URL}/orders?id=${user.id}&email=${user.email}${props.all ? '&all=true' : ''}`)
+        fetch(`${REACT_APP_BACK_URL}/orders?id=${user.id}&email=${user.email}${props.all ? '&all=true' : ''}`)
             .then(resp => resp.json())
             .then(data => {setState({...state, orders: data})});
         }, []);
@@ -24,7 +24,7 @@ export default function Orders(props) {
     }
 
     const handleStatus = async (status, orderId) => {
-        fetch(`${BACK_URL}/orders`, {
+        fetch(`${REACT_APP_BACK_URL}/orders`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({status, orderId, userId: user.id}),

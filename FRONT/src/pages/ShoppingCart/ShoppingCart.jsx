@@ -24,7 +24,7 @@ import {
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import logo from "../../img/LOGO 2.png";
-const { FRONT_URL, BACK_URL } = process.env;
+const { REACT_APP_FRONT_URL, REACT_APP_BACK_URL } = process.env;
 
 export default function ShoppingCart() {
   const [state, setState] = React.useState({ address: null, checkout: false });
@@ -116,7 +116,7 @@ export default function ShoppingCart() {
   };
 
   const handleConfirm = () => {
-    fetch(`${BACK_URL}/orders`, {
+    fetch(`${REACT_APP_BACK_URL}/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -130,7 +130,7 @@ export default function ShoppingCart() {
       .then((order) => {
         dispatch(setCart([]));
         localStorage.removeItem("MANGIARE_cart");
-        window.location.href = `${FRONT_URL}/users?id=${order.id}`;
+        window.location.href = `${REACT_APP_FRONT_URL}/user?id=${order.id}`;
       });
   };
 
