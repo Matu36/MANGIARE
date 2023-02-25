@@ -29,6 +29,7 @@ import { getRecipes } from "../../Redux/actions/recipes";
 import UserOrdersBox from "../../components/UserOrdersBox/UserOrdersBox";
 import { LogoutButton } from "../../components/Auth0/logout_button";
 import Orders from "../Orders/Orders";
+const { BACK_URL } = process.env;
 
 export default function UserPage() {
   let dispatch = useDispatch();
@@ -47,7 +48,7 @@ export default function UserPage() {
   }, []);
 
   if (params.get("status") === "approved" && params.get("preference_id"))
-    fetch("http://localhost:3001/payment", {
+    fetch(`${BACK_URL}/payment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
