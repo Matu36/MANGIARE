@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import s from './Orders.module.css';
 import IngredientsList from '../../components/IngredientsList/ingredientsList';
+import {Table,Thead,Tfoot,Tbody,Tr,Th,Td,TableCaption,TableContainer, WrapItem, Button, Box} from '@chakra-ui/react';
+import Order from "./Order";
+import NavBar from "../../components/NavBar/NavBar";
+import banner from "../../img/BannerHome.jpg";
+
 
 export default function Orders(props) {
     const [state, setState] = useState({orders: null, orderActive: null});
     const params = new URLSearchParams(window.location.search);
     const user = JSON.parse(localStorage.getItem("MANGIARE_user"));
+    const arrStatus = ['Payment pending', 'Stock pending', 'In preparation', 'Sent', 'Canceled'];
     
 /*
     useEffect(() => {
@@ -36,8 +42,93 @@ export default function Orders(props) {
                 })
     }
 
-    return(
-        <table width='100%' className={s.ordersTable}>
+    const CancelButton = () => {
+        return(
+            <WrapItem>
+                <Button colorScheme='red' onClick={() => handleStatus(4, el.id)}>Cancel</Button>
+            </WrapItem>
+        );
+    }
+
+    const PayButton = () => {
+        return(
+            <WrapItem>
+                <Button colorScheme='green' onClick={() => handlePay(el.preferenceId)}>Pagar</Button>
+            </WrapItem>
+        )
+    }
+
+    const SendButton = () => {
+        return (
+            <WrapItem>
+                <Button colorScheme='blue' onClick={() => handleStatus(3, el.id)}>Send</Button>
+            </WrapItem>
+        )
+    }
+
+    const Main = () => {
+        return (
+            <TableContainer width="90%" backgroundColor="white">
+                        <Table variant='simple'> 
+                            <Thead>
+                                <Tr>
+                                    {props.all ? <Th fontSize="2xl">User Email</Th> : ''}
+                                    <Th fontSize="2xl">Order Number</Th>
+                                    <Th fontSize="2xl">Creation date</Th>
+                                    <Th fontSize="2xl" >Total</Th>
+                                    <Th fontSize="2xl" >State</Th>
+                                    <Th fontSize="2xl" style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        }} >Actions</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {
+                                    state.orders?.map((el, idx) => (
+                                        <React.Fragment key={idx}>
+                                            <Order props={props} el={el} idx={idx} />
+                                        </React.Fragment>
+                                    ))
+                                }
+                            </Tbody>
+                        </Table>
+                    </TableContainer>
+        )
+    }
+
+    return( 
+        <>
+            <NavBar />
+            {!props.all ? 
+            <div className="body">  
+            <Box width="100%"
+                    height="99.9vh"
+                    marginTop="1px"
+                    backgroundImage={banner}
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center center",
+                    }}>
+                    <Main />
+
+                </Box>
+            </div>: <Main />}
+            
+
+                
+
+        </>
+    )}
+
+
+    
+        {/* <table width='100%' className={s.ordersTable}>
             <thead>
                 <tr>
                     {props.all ? <th>User Email</th> : ''}
@@ -52,7 +143,7 @@ export default function Orders(props) {
             {
                 state.orders?.map((el, idx) => (
                     <React.Fragment key={idx}>
-                        <tr className={((el.id === state.orderActive) || (!state.orderActive && el.id == props.order_id)) ? s.orderItem : ((idx % 2) ? '' : s.par)} onClick={() => setState({...state, orderActive: el.id})}>
+                         <tr className={((el.id === state.orderActive) || (!state.orderActive && el.id == props.order_id)) ? s.orderItem : ((idx % 2) ? '' : s.par)} onClick={() => setState({...state, orderActive: el.id})}>
                             {props.all ? <td>{el.User.email}</td> : ''}
                             <td>{el.id}</td>
                             <td>{el.createdAt}</td>
@@ -68,6 +159,7 @@ export default function Orders(props) {
                                                 ? 'Sent'
                                                 : 'Canceled'
                                 }</td>
+                               
                             <td>
                                 {(((!el.status) || (el.status === 1) && (user.role !== null) && props.all)) ? <button onClick={() => handleStatus(4, el.id)}>Cancel</button> : ''}
 
@@ -85,6 +177,5 @@ export default function Orders(props) {
                 ))
             }
             </tbody>
-        </table>
-    )
-}
+        </table> */}
+

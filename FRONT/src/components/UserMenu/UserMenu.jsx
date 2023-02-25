@@ -29,6 +29,8 @@ export default function UserMenu(userLocalstorage) {
         <MenuList>
           <Link to={"/home"}>Home</Link>
           <MenuDivider />
+          <Link to={"/orders"}>Orders</Link>
+          <MenuDivider />
           {userLocalstorage && userLocalstorage.role !== null && (
             <div>
               <Link to={"/admin"}>Admin</Link> <MenuDivider />
@@ -50,6 +52,8 @@ export default function UserMenu(userLocalstorage) {
         />
         <MenuList>
           <Link to={"/user"}>My user</Link>
+          <MenuDivider />
+          <Link to={"/orders"}>Orders</Link>
           <MenuDivider />
           {userLocalstorage && userLocalstorage.role !== null && (
             <div>
@@ -75,8 +79,33 @@ export default function UserMenu(userLocalstorage) {
           <MenuDivider />
           <Link to={"/user"}>My user</Link>
           <MenuDivider />
+          <Link to={"/orders"}>Orders</Link>
+          <MenuDivider />
           <LogoutButton />
         </MenuList>
       </Menu>
     );
+    if (location.pathname == "/orders")
+      return (
+        <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<Avatar size="md" name={user.name} src={user.image} />}
+          variant="outline"
+        />
+        <MenuList>
+          <Link to={"/home"}>Home</Link>
+          <MenuDivider />
+          <Link to={"/user"}>My user</Link>
+          <MenuDivider />
+          {userLocalstorage && userLocalstorage.role !== null && (
+            <div>
+              <Link to={"/admin"}>Admin</Link> <MenuDivider />
+            </div>
+          )}
+          <LogoutButton />
+        </MenuList>
+      </Menu>
+      )
 }

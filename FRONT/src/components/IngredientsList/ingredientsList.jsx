@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import s from './IngredientsList.module.css';
 import { Link } from "react-router-dom";
 import { BsCartCheck } from "react-icons/bs";
 import { Table, Input, Select, Button, Icon,
@@ -13,6 +12,8 @@ import { Table, Input, Select, Button, Icon,
   TableContainer, } from "@chakra-ui/react";
 
 export default function IngredientsList (props) {
+  
+
   return (
     <Table variant ='striped' width="100%" >
       <Thead>
@@ -24,7 +25,7 @@ export default function IngredientsList (props) {
         {props.orderDetail ? <Th textAlign='center'>'Total Price'</Th> : ''}
       </Tr>
     </Thead>
-      <tbody>
+      <Tbody>
         {props.items.map((el, idx) => (
           <tr key={idx}>
             <td>{el.name}</td>
@@ -58,10 +59,11 @@ export default function IngredientsList (props) {
             <td>
               {el.inCart ? <Link to={"/shoppingCart"}><BsCartCheck /></Link> : ' '}
               {props.orderDetail ? `$${(el.price * el.amount).toFixed(2)}` : ' '}
+              {/* {props.orderDetail ? total+=(el.price * el.amount).toFixed(2) : total+=0} */}
             </td>
           </tr>
         ))}
-      </tbody>
+      </Tbody>
     </Table>
   );
 }
