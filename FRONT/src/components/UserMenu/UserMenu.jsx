@@ -39,7 +39,8 @@ export default function UserMenu(userLocalstorage) {
       </Menu>
     );
   }
-  if (location.pathname == "/home")
+  if (location.pathname == "/home"  || location.pathname == "/shoppingCart" 
+  || location.pathname === "/createRecipe" || location.pathname === "/admin" || location.pathname.includes("/recipes/"))
     return (
       <Menu>
         <MenuButton
@@ -61,22 +62,95 @@ export default function UserMenu(userLocalstorage) {
         </MenuList>
       </Menu>
     );
-  if (location.pathname == "/admin")
-    return (
-      <Menu>
-        <MenuButton
-          as={IconButton}
-          aria-label="Options"
-          icon={<Avatar size="md" name={user.name} src={user.image} />}
-          variant="outline"
-        />
-        <MenuList>
-          <Link to={"/home"}>Home</Link>
-          <MenuDivider />
-          <Link to={"/user"}>My user</Link>
-          <MenuDivider />
-          <LogoutButton />
-        </MenuList>
-      </Menu>
-    );
+//   if (location.pathname == "/admin")
+//     return (
+//       <Menu>
+//         <MenuButton
+//           as={IconButton}
+//           aria-label="Options"
+//           icon={<Avatar size="md" name={user.name} src={user.image} />}
+//           variant="outline"
+//         />
+//         <MenuList>
+//           <Link to={"/home"}>Home</Link>
+//           <MenuDivider />
+//           <Link to={"/user"}>My user</Link>
+//           <MenuDivider />
+//           <LogoutButton />
+//         </MenuList>
+//       </Menu>
+//     );
+
+// if (location.pathname == "/createRecipe")
+// return (
+//   <Menu>
+//     <MenuButton
+//       as={IconButton}
+//       aria-label="Options"
+//       icon={<Avatar size="md" name={user.name} src={user.image} />}
+//       variant="outline"
+//     />
+//     <MenuList>
+//       <Link to={"/user"}>My user</Link>
+//       <MenuDivider />
+//       {userLocalstorage && userLocalstorage.role !== null && (
+//         <div>
+//           <Link to={"/admin"}>Admin</Link> <MenuDivider />
+//         </div>
+//       )}
+
+//       <LogoutButton />
+//     </MenuList>
+//   </Menu>
+// )
+// if (location.pathname == "/shoppingCart")
+// return (
+//   <Menu>
+//     <MenuButton
+//       as={IconButton}
+//       aria-label="Options"
+//       icon={<Avatar size="md" name={user.name} src={user.image} />}
+//       variant="outline"
+//     />
+//     <MenuList>
+//       <Link to={"/user"}>My user</Link>
+//       <MenuDivider />
+//       {userLocalstorage && userLocalstorage.role !== null && (
+//         <div>
+//           <Link to={"/admin"}>Admin</Link> <MenuDivider />
+//         </div>
+//       )}
+
+//       <LogoutButton />
+//     </MenuList>
+//   </Menu>
+
+
+// )
+
+// if (location.pathname.includes("/recipes/"))
+//     return (
+//       <Menu>
+//         <MenuButton
+//           as={IconButton}
+//           aria-label="Options"
+//           icon={<Avatar size="md" name={user.name} src={user.image} />}
+//           variant="outline"
+//         />
+//         <MenuList>
+//           <Link to={"/user"}>My user</Link>
+//           <MenuDivider />
+//           {userLocalstorage && userLocalstorage.role !== null && (
+//             <div>
+//               <Link to={"/admin"}>Admin</Link> <MenuDivider />
+//             </div>
+//           )}
+
+//           <LogoutButton />
+//         </MenuList>
+//       </Menu>
+//     )
+
+    ;
 }
+
