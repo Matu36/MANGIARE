@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import s from './Orders.module.css';
 import IngredientsList from '../../components/IngredientsList/ingredientsList';
+const { REACT_APP_BACK_URL } = process.env;
 
 export default function Orders(props) {
     const [state, setState] = useState({orders: null, orderActive: null});
-    const params = new URLSearchParams(window.location.search);
     const user = JSON.parse(localStorage.getItem("MANGIARE_user"));
     
 /*
@@ -14,7 +14,7 @@ export default function Orders(props) {
 */
 
     useEffect(() => {
-        fetch(`http://localhost:3001/orders?id=${user.id}&email=${user.email}${props.all ? '&all=true' : ''}`)
+        fetch(`${REACT_APP_BACK_URL}/orders?id=${user.id}&email=${user.email}${props.all ? '&all=true' : ''}`)
             .then(resp => resp.json())
             .then(data => {setState({...state, orders: data})});
         }, []);
@@ -24,7 +24,7 @@ export default function Orders(props) {
     }
 
     const handleStatus = async (status, orderId) => {
-        fetch(`http://localhost:3001/orders`, {
+        fetch(`${REACT_APP_BACK_URL}/orders`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({status, orderId, userId: user.id}),

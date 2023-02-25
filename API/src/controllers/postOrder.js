@@ -1,18 +1,18 @@
 const { Users, Order_details, Orders } = require("../db.js");
 const mercadopago = require("mercadopago");
 const { merchant_orders } = require("mercadopago");
-const { MERCADOPAGO_KEY } = process.env;
+const { MERCADOPAGO_KEY, FRONT_URL } = process.env;
 
 mercadopago.configure({ access_token: MERCADOPAGO_KEY });
 
 module.exports = async (req, res) => {
   try {
     if (!req.body?.cart || !req.body?.email || !req.body?.address)
-      throw "No body params"; // || (!req.body?.userId)
+      throw "No body params";
 
     const userInstance = await Users.findOne({
       where: { email: req.body.email },
-    }); // , id: req.body.userId
+    });
 
     if (!userInstance) throw "Unregistred user";
 
@@ -23,10 +23,8 @@ module.exports = async (req, res) => {
       })),
       back_urls: {
 
-        //success: "localhost:3000/orders",
-        success: "https://mangiare.vercel.app/orders",
-        //failure: "localhost:3000/orders"
-        failure: "https://mangiare.vercel.app/orders",
+        success: `${FRONT_URL}/user`,
+        success: `${FRONT_URL}/user`,
 
       },
       auto_return: "approved",
@@ -36,13 +34,9 @@ module.exports = async (req, res) => {
     mercadopago.preferences
       .create(preference)
       .then(async (respPref) => {
-        //console.log('30', respPref.response);
-
         mercadopago.merchant_orders
           .create({ preference_id: respPref.response.id })
           .then(async (respMerc) => {
-            //console.log('36', respMerc.response);
-
             const orderInstance = await Orders.create({
               userId: userInstance.dataValues.id,
               preferenceId: respMerc.response.preference_id,
@@ -72,17 +66,3 @@ module.exports = async (req, res) => {
     res.status(400).send(error);
   }
 };
-
-/* Para probar por postman
-
-{"userId": 3,
-"email": "email3@email.com",
-"address": "direccion de entrega 123",
-"cart": [
-    { "id": 4, "amount": 1, "unit": "pounds", "price": 10 },
-    { "id": 5, "amount": 2, "unit": "cup", "price": 20 },
-    { "id": 6, "amount": 3, "unit": "tablespoon", "price": 30 }
-    ]
-}
-
-*/
