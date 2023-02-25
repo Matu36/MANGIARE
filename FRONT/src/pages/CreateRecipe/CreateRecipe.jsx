@@ -28,7 +28,6 @@ import NavBar from "../../components/NavBar/NavBar";
 import uploadImageToCloudinary from "../../utils/Cloudinary/uploadImage";
 //import {Redirect} from 'react-router-dom';
 
-
 class CreateRecipe extends React.Component {
   constructor(props) {
     super(props);
@@ -82,9 +81,12 @@ class CreateRecipe extends React.Component {
       imageUrl = await uploadImageToCloudinary("recipes", this.state.image);
     }
 
+    let userId = JSON.parse(localStorage.getItem("MANGIARE_user")).id;
+
     this.props
       .createRecipe({
         ...this.state,
+        userId: userId ? userId : null,
         image: imageUrl ? imageUrl : null,
         ingredients: this.state.ingredients.map(({ id, amount, unit }) => ({
           id,
@@ -275,7 +277,6 @@ class CreateRecipe extends React.Component {
                                 name="image"
                                 onChange={this.handleOnChange}
                               />
-                              
                             </td>
                           </tr>
                           <tr>
@@ -383,7 +384,6 @@ class CreateRecipe extends React.Component {
                         )}
                         variantColor="teal"
                         align="center"
-
                         variant="filled"
                         size="lg"
                         m={4}
@@ -401,7 +401,6 @@ class CreateRecipe extends React.Component {
   }
 }
 
-
 export default connect(
   ({ ingredients, filters }) => ({
     ingredients: ingredients.ingredients,
@@ -412,4 +411,3 @@ export default connect(
     createRecipe,
   }
 )(CreateRecipe);
-

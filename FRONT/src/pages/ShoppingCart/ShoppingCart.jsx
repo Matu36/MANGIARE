@@ -27,7 +27,6 @@ import logo from "../../img/LOGO 2.png";
 import NavBar from "../../components/NavBar/NavBar";
 const { REACT_APP_FRONT_URL, REACT_APP_BACK_URL } = process.env;
 
-
 export default function ShoppingCart() {
   const [state, setState] = React.useState({ address: null, checkout: false });
   const cart = useSelector((state) => state.cart.cart);
@@ -73,10 +72,6 @@ export default function ShoppingCart() {
     if (!LS_cart) return;
     else {
       dispatch(setCart(LS_cart));
-      if (isAuthenticated) {
-        localStorage.setItem("MANGIARE_user", JSON.stringify(user.email));
-        localStorage.setItem("MANGIARE_userInfo", JSON.stringify(user));
-      }
     }
   }, [user, isAuthenticated]);
 
@@ -159,7 +154,7 @@ export default function ShoppingCart() {
       }}
     >
       <NavBar />
-      <Flex marginTop='70px'>
+      <Flex marginTop="70px">
         <Box
           w="40%"
           h="100vh"
