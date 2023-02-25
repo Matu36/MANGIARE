@@ -1,8 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import "./widgetSm.css";
-import UserRichard from "../../../img/UserRichard.png";
-import {MdVisibility} from "react-icons/md";
 import PerfilVacio from "../../../img/PERFILVACIO.png";
 
 export default function WidgetSm() {
