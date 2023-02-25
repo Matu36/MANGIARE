@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+const {REACT_APP_BACK_URL} = process.env;
 import {Table, Tr, Td, WrapItem, Button, Portal, Box} from '@chakra-ui/react';
 import {
     Popover,
@@ -16,7 +17,7 @@ import styled from "@emotion/styled";
 import Modal from "../../components/Modal/Modal";
 
 export default function Order({number, props, el, idx, price, status, list}) {
-    const [estadoModal1, setEstadoModal1] = useState(false);
+    const [estadoModal1, setEstadoModal1] =  useState(el.id == props.order_id ? true : false);
     const arrStatus = ['Payment pending', 'Stock pending', 'In preparation', 'Sent', 'Canceled'];
     const [state, setState] = useState({orders: null, orderActive: null});
     const user = JSON.parse(localStorage.getItem("MANGIARE_user"));
@@ -26,8 +27,9 @@ export default function Order({number, props, el, idx, price, status, list}) {
         window.open(`https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preferenceId}`, "_self");
     }
 
+    
     const handleStatus = async (status, orderId) => {
-        fetch(`http://localhost:3001/orders`, {
+        fetch(`${REACT_APP_BACK_URL}/orders`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({status, orderId, userId: user.id}),

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import s from './Orders.module.css';
+const {REACT_APP_BACK_URL} = process.env;
 import IngredientsList from '../../components/IngredientsList/ingredientsList';
 import {Table,Thead,Tfoot,Tbody,Tr,Th,Td,TableCaption,TableContainer, WrapItem, Button, Box} from '@chakra-ui/react';
 import Order from "./Order";
@@ -20,7 +21,7 @@ export default function Orders(props) {
 */
 
     useEffect(() => {
-        fetch(`http://localhost:3001/orders?id=${user.id}&email=${user.email}${props.all ? '&all=true' : ''}`)
+        fetch(`${REACT_APP_BACK_URL}/orders?id=${user.id}&email=${user.email}${props.all ? '&all=true' : ''}`)
             .then(resp => resp.json())
             .then(data => {setState({...state, orders: data})});
         }, []);
@@ -30,7 +31,7 @@ export default function Orders(props) {
     }
 
     const handleStatus = async (status, orderId) => {
-        fetch(`http://localhost:3001/orders`, {
+        fetch(`${REACT_APP_BACK_URL}/orders`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({status, orderId, userId: user.id}),
@@ -41,6 +42,8 @@ export default function Orders(props) {
                     setState({...state, orders: state.orders.map(el => (el.id === order.id) ? {...el, status: order.status} : el)})
                 })
     }
+
+    console.log(REACT_APP_BACK_URL);
 
     const CancelButton = () => {
         return(

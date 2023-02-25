@@ -1,0 +1,20 @@
+.tableCell{
+    padding: 10px;
+    text-align: center;
+}
+.tableRow{
+    border: thin solid;
+    background-color: lightgreen;
+}
+.tableCell button{
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+}
+.tableCell select{
+    width: 100%;
+}
+.error{
+    background-color: lightcoral;
+}
