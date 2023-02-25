@@ -47,7 +47,7 @@ const paymentReceived = (props) => {
       <body>
         <img src="https://mangiare.vercel.app/static/media/LandingTitle.e92b7fdb33ac266bc895.png" alt="mangiare logo"/>
         <p><b>Hello ${email},</b></p>
-        <p>We are pleased to inform you that we have received your payment for the order #: ${orderNumber}</p>
+        <p>We are pleased to inform you that we have received your payment for the <a href='${FRONT_URL}/user?id=${orderNumber}'>order #: ${orderNumber}</a></p>
         <p>Your purchase is being prepared for shipment and you will receive another email in the next few minutes with information about the shipment status and an estimated delivery date.</p>
         <p>Thank you for shopping at Mangiar-e. If you have any questions or need assistance, please do not hesitate to contact our customer service team anytime.</p>
         <p>Don't forget to continue visiting our app <a href='${FRONT_URL}'>MANGIAR-E</a> to get the best recipes!</p>
