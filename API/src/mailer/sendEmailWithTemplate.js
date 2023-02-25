@@ -2,6 +2,8 @@ const transporter = require("../mailer/mailer");
 const testing = require("./templates/testing");
 const newUser = require("./templates/newUser");
 const orderStatus = require("./templates/orderStatus");
+const orderConfirmed = require("./templates/orderConfirmed");
+const paymentReceived = require("./templates/paymentReceived");
 
 //                   ------------------ Parametros que recibe la función ------------------
 //
@@ -30,7 +32,25 @@ const sendEmailWithTemplate = (to, template, data) => {
         from: "MANGIAR-E",
         to,
         subject: "Update on your Mangiar-e purchase status",
-        html: orderStatus({ email: to, data}),
+        html: orderStatus({ email: to, data }),
+      };
+      break;
+
+    case "orderConfirmed":
+      emailOptions = {
+        from: "MANGIAR-E",
+        to,
+        subject: "Your Mangiar-e Order Has Been Confirmed",
+        html: orderConfirmed({ email: to, data }),
+      };
+      break;
+
+    case "paymentReceived":
+      emailOptions = {
+        from: "MANGIAR-E",
+        to,
+        subject: "Payment Received - Thank you for your purchase at Mangiar-e",
+        html: paymentReceived({email: to, data}),
       };
       break;
 
