@@ -71,7 +71,7 @@ export default function WidgetLg(props) {
         </tr>
       </thead>
       <tbody>
-        {state.orders?.slice(-5).map((el, idx) => (
+        {state.orders?.slice(-7).map((el, idx) => (
           <React.Fragment key={idx}>
             <tr
               className={
@@ -82,7 +82,7 @@ export default function WidgetLg(props) {
                   ? ""
                   : s.par
               }
-              onClick={() => setState({ ...state, orderActive: el.id })}
+              
             >
               {props.all ? <td>{el.User.email}</td> : ""}
               <td>{el.id}</td>

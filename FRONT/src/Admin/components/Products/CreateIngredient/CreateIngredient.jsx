@@ -135,7 +135,7 @@ export default function IngredientForm() {
             {selectedItems.map((item, index) => (
               <span key={index} className="itemsselected">
                 {item}
-                <button onClick={() => deleteItem(item)}>
+                <button type="button" onClick={() => deleteItem(item)}>
                   <BsTrash />{" "}
                 </button>
               </span>

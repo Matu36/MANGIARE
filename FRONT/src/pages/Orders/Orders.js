@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import s from "./Orders.module.css";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 const { REACT_APP_BACK_URL } = process.env;
-import { Input,  } from "@chakra-ui/react";
 
 export default function Orders(props) {
   const [state, setState] = useState({ orders: null, orderActive: null });
@@ -51,52 +50,9 @@ export default function Orders(props) {
       });
   };
 
-  //SEARCHBAR
-
-  const users = state.orders?.map((order) => ({
-    email: order.User.email, order })) || [];
-    
-  
-  const [search, setSearch] = useState("");
-  const [orders, setOrders] = useState(state.orders);
- 
-  const handleOnChange = (e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
-  
-  useEffect(() => {
-    filterByEmail(search);
-  }, [search]);
-  
-  const filterByEmail = (value) => {
-    let arrayCache = state.orders;
-    if (!arrayCache) return; // Si state.orders es null, no hacemos nada
-    if (!value) setOrders(arrayCache);
-    else {
-      arrayCache = arrayCache?.filter((el) =>
-        el.User.email.toLowerCase().includes(value.toLowerCase())
-      );
-      setOrders(arrayCache);
-    }
-    console.log (arrayCache)
-  };
-  
-
-  //FIN SEARCHBAR
 
   return (
     <table width="100%" className={s.ordersTable}>
-      <Input
-          type="text"
-          placeholder="Search by Email "
-          onChange={handleOnChange}
-          value={search}
-          autoComplete="off"
-          width="30rem"
-          background="white"
-          margin="10px"
-        />
       <thead>
         <tr>
           {props.all ? <th>User Email</th> : ""}

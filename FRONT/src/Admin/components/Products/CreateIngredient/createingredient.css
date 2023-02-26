@@ -49,3 +49,7 @@ top: 710px;
     top: 680px
 }
 
+.itemsselected {
+    padding: 5px;
+    font-size: large;
+}
