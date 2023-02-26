@@ -24,6 +24,7 @@ import {
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import logo from "../../img/LOGO 2.png";
+import NavBar from "../../components/NavBar/NavBar";
 const { REACT_APP_FRONT_URL, REACT_APP_BACK_URL } = process.env;
 
 export default function ShoppingCart() {
@@ -152,7 +153,8 @@ export default function ShoppingCart() {
         backgroundPosition: "center center",
       }}
     >
-      <Flex>
+      <NavBar />
+      <Flex marginTop="70px">
         <Box
           w="40%"
           h="100vh"

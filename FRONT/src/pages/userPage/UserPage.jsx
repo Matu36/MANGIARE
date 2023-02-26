@@ -45,17 +45,19 @@ export default function UserPage() {
   useEffect(() => {
     dispatch(getRecipes());
     dispatch(getFavorites());
-  }, []);
 
-  if (params.get("status") === "approved" && params.get("preference_id"))
-    fetch(`${REACT_APP_BACK_URL}/payment`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        status: params.get("status"),
-        preference_id: params.get("preference_id"),
-      }),
-    });
+    if (params.get("status") === "approved" && params.get("preference_id")) {
+      fetch(`${REACT_APP_BACK_URL}/payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: LS_user.email,
+          status: params.get("status"),
+          preference_id: params.get("preference_id"),
+        }),
+      });
+    }
+  }, []);
 
   let filteredFavorites = favorites.filter((f) => f.userId === LS_user.id);
   let userFavorites = [];
@@ -67,7 +69,6 @@ export default function UserPage() {
   let filteredRecipes = recipes.filter((r) => r.userId === LS_user.id);
 
   let order_id = params.get("id");
-  console.log(order_id);
 
   return (
     <div className={s.containerMain}>

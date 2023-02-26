@@ -165,6 +165,7 @@ const RecipeDetail = () => {
           width="100%"
           height="auto"
           marginTop="1px"
+          paddingTop="70px"
           
           style={{
             display: "flex",
@@ -172,12 +173,14 @@ const RecipeDetail = () => {
             justifyContent: "center",
             flexDirection: "column",
             backgroundSize: "cover",
-            filter: "contrast(100%)",
+            
             backgroundPosition: "center center",
-            backgroundAttachment: "fixed",
+            
           }}
         >
-          <Box width="90%" height="10%" marginBottom="none">
+          <Box width="90%" height="10%" marginBottom="none"  
+          
+          >
             <NavBar />
           </Box>
           <Box width="100%" height="20rem" marginBottom="none"

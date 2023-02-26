@@ -2,6 +2,7 @@ const { Users, Order_details, Orders } = require("../db.js");
 const mercadopago = require("mercadopago");
 const { merchant_orders } = require("mercadopago");
 const { MERCADOPAGO_KEY, FRONT_URL } = process.env;
+const sendEmailWithTemplate = require("../mailer/sendEmailWithTemplate");
 
 mercadopago.configure({ access_token: MERCADOPAGO_KEY });
 
@@ -22,10 +23,8 @@ module.exports = async (req, res) => {
         unit_price: amount * price,
       })),
       back_urls: {
-
         success: `${FRONT_URL}/user`,
-        success: `${FRONT_URL}/user`,
-
+        failure: `${FRONT_URL}/user`,
       },
       auto_return: "approved",
       binary_mode: true,
@@ -55,6 +54,14 @@ module.exports = async (req, res) => {
             );
 
             res.send(orderInstance);
+            return orderInstance;
+          })
+          .then((orderInstance) => {
+            sendEmailWithTemplate(req.body.email, "orderConfirmed", {
+              orderNumber: orderInstance.id,
+              items: req.body.cart,
+              preferenceId: orderInstance.preferenceId
+            });
           });
       })
       .catch((error) => {
