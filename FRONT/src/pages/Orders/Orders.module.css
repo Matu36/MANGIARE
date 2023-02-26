@@ -16,3 +16,51 @@
 .ordersTable button{
     padding: 10px;
 }
+.containerMain {
+    background-color: #ffffff;
+    background-image: linear-gradient(62deg, #ffffff 0%, #ffffff 100%);
+  }
+
+.profileImg {
+    width: 100%;
+    font-weight:bold;
+    max-width: 100%;
+    margin-top: 100px;
+    text-align: center;
+  }
+
+.userName{
+    font-family: Caviar Dreams, sans-serif;
+    font-weight: bold;
+    text-align:center;
+    font-size:60px;
+    color:green;
+    margin-top:1px;
+    margin-right:20px;
+  }
+
+  .cardsContainer {
+    width: 100%;
+    padding: 4rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .orderItem{
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .actions{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
