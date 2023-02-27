@@ -165,7 +165,6 @@ const RecipeDetail = () => {
           width="100%"
           height="auto"
           marginTop="1px"
-          
           style={{
             display: "flex",
             alignItems: "center",
@@ -177,23 +176,21 @@ const RecipeDetail = () => {
             backgroundAttachment: "fixed",
           }}
         >
-          <Box width="90%" height="10%" marginBottom="none">
-            <NavBar />
-          </Box>
-          <Box width="100%" height="20rem" marginBottom="none"
-          backgroundImage={background} 
-          style={{
-           
-            justifyContent: "center",
-            backgroundSize: "cover",
-            
-            filter: "contrast(100%)",
-            backgroundPosition: "center bottom 45%",           
-          }}
-          
-          >
-            
-          </Box>
+          <Box width="90%" height="10%" marginBottom="none"></Box>
+          <NavBar />
+          <Box
+            width="100%"
+            height="20rem"
+            marginBottom="none"
+            backgroundImage={background}
+            style={{
+              justifyContent: "center",
+              backgroundSize: "cover",
+
+              filter: "contrast(100%)",
+              backgroundPosition: "center bottom 45%",
+            }}
+          ></Box>
 
           <Box
             width="100%"
@@ -235,7 +232,7 @@ const RecipeDetail = () => {
               ) : null}
             </Box>
 
-            <Tabs align="center" variant="enclosed" marginTop='100px'>
+            <Tabs align="center" variant="enclosed" marginTop="100px">
               <TabList>
                 <Tab _selected={{ color: "white", bg: "blue.500" }}>
                   Ingredients

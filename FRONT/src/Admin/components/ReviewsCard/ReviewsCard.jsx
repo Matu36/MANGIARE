@@ -11,29 +11,18 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { putReview } from "../../../Redux/actions/reviews";
 
 const ReviewsCard = ({
   comment,
   image,
   rate,
+  createdAt,
   recipeId,
   userId,
-  createdAt,
   visible,
+  handleHideReview,
 }) => {
-  const [visibleState, setVisibleState] = useState(visible);
-  const dispatch = useDispatch();
   const CreateAt = createdAt.split("T");
-
-  const handleHideReview = (e, userId, recipeId) => {
-    e.preventDefault();
-
-    setVisibleState(!visible);
-
-    dispatch(putReview(userId, recipeId));
-  };
-  const handleRestrictReview = () => {};
 
   const rateToStars = (rate) => {
     switch (rate) {
@@ -51,6 +40,12 @@ const ReviewsCard = ({
         break;
     }
   };
+  const [visibleButton, setVisibleButton] = useState();
+
+  const handleHideClick = (userId, recipeId) => {
+    setVisibleButton(!visible);
+    handleHideReview(userId, recipeId);
+  };
 
   return (
     <div className="cardContainer">
@@ -61,34 +56,35 @@ const ReviewsCard = ({
       >
         <Image
           objectFit="cover"
-          maxW={{ base: "100%", sm: "200px" }}
+          maxW={{ base: "100%", sm: "100px" }}
           src={image}
           alt="Caffe Latte"
         />
 
         <Stack>
-          <CardBody>
+          <CardBody className="containerCardText">
             <Heading size="md">
               Rate: <span>{rateToStars(rate)} </span>
               creation date:{" "}
               <span>
                 {CreateAt[0]} - {CreateAt[1].split(".")[0]}{" "}
               </span>
+              <br></br>
+              <span>Comments:</span>
             </Heading>
-
             <Text py="2" className="divText">
-              {comment}
+              {!visible && <strong>(Reviews Oculted)</strong>} {comment}
             </Text>
           </CardBody>
         </Stack>
         <div className="containerButtons">
-          {visibleState ? (
+          {visible ? (
             <Button
               colorScheme="red"
               variant="outline"
               size="sm"
               className="button"
-              onClick={(e) => handleHideReview(e, userId, recipeId)}
+              onClick={() => handleHideClick(userId, recipeId)}
             >
               Hide Review
             </Button>
@@ -98,7 +94,7 @@ const ReviewsCard = ({
               variant="outline"
               size="sm"
               className="button"
-              onClick={(e) => handleHideReview(e, userId, recipeId)}
+              onClick={() => handleHideClick(userId, recipeId)}
             >
               Show Review
             </Button>
@@ -108,7 +104,7 @@ const ReviewsCard = ({
             variant="outline"
             size="sm"
             className="button"
-            onClick={(e) => handleRestrictReview(e, userId)}
+            onClick={() => handleRestrictClick(userId)}
           >
             Restrict Reviews
           </Button>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { createContext, useEffect } from "react";
 import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import "./homeAdmin.css";
@@ -19,7 +19,7 @@ import Orders from "../../../pages/Orders/Orders";
 export default function HomeAdmin() {
   const dispatch = useDispatch();
   const homeShow = useSelector((state) => state.homeadmin.homeShow);
-  let currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
+  const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -32,7 +32,7 @@ export default function HomeAdmin() {
       {homeShow === "Reviews" && <Reviews />}
       {homeShow === "Users" && <UserList />}
       {homeShow === "Products" && <Products />}
-      {homeShow === "Orders" && <Orders all={true}/>}
+      {homeShow === "Orders" && <Orders all={true} />}
       {homeShow === "eMail" && <Email />}
       {homeShow === "Feedback" && <Feedback />}
       {homeShow === "Home" && (
@@ -45,8 +45,8 @@ export default function HomeAdmin() {
             dataKey="Active User"
           />
           <div className="homeWidgets">
-          <WidgetSm />
-          <WidgetLg />
+            <WidgetSm />
+            <WidgetLg />
           </div>
         </div>
       )}

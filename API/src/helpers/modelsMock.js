@@ -163,8 +163,7 @@ async function locMock() {
       recipeId: 3,
       userId: 1,
       rate: 3,
-      comment:
-        "Maso! Esta review solo la ve un admin, y no se ve en el detalle de receta",
+      comment: "Maso!",
       image:
         "https://media.airedesantafe.com.ar/p/916dc6232d123e9a1a15a2647602d269/adjuntos/268/imagenes/001/997/0001997793/tartabjpg.jpg",
       visible: false,
@@ -207,8 +206,7 @@ async function locMock() {
       recipeId: 1,
       userId: 3,
       rate: 1,
-      comment:
-        "Horrible! Esta review solo la ve un admin, y no se ve en el detalle de receta",
+      comment: "Horrible!",
       image:
         "https://www.unileverfoodsolutions.com.ar/dam/global-ufs/mcos/sla/argentina/calcmenu/recipes/AR-recipes/In-Development/milanesa-a-la-napolitana-con-pur%C3%A9/main-header.jpg",
       visible: false,

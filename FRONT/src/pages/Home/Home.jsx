@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import s from "./Home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -45,20 +45,11 @@ export default function Home() {
   const recipeDetailIdAutocomplete = useSelector(
     (state) => state.autocomplete.recipeIdAutocomplete
   );
-  const [role, setRole] = useState();
 
   useEffect(() => {
     dispatch(getRecipes());
     dispatch(getIngredients());
   }, []);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      onExecutePostEmail(user);
-      console.log("Carga Localstorage");
-      setRole(JSON.parse(localStorage.getItem("MANGIARE_user")));
-    }
-  }, [user, isAuthenticated]);
 
   useEffect(() => {
     dispatch(resetRecipesToShow());

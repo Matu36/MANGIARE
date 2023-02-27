@@ -19,7 +19,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-export default function UserList() {
+export default function Products() {
   let dispatch = useDispatch();
   const products = useSelector((state) => state.ingredients.ingredients);
 
@@ -149,11 +149,7 @@ export default function UserList() {
           {totalIngredients.map((row) => (
             <Tr key={row.id}>
               {columns.map((column) => (
-                <Td
-                  
-                  width="20%"
-                  key={`${row.id}-${column.field}`}
-                >
+                <Td width="20%" key={`${row.id}-${column.field}`}>
                   {column.field === "price" && editIndex === row.id ? (
                     <div
                       style={{

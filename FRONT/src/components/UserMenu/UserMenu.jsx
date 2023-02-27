@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -16,8 +16,13 @@ import { useSelector } from "react-redux";
 export default function UserMenu() {
   const { user, isAuthenticated } = useAuth0();
   let location = useLocation();
-  const userLocal = JSON.parse(localStorage.getItem("MANGIARE_user"));
-  console.log("usermenu", userLocal);
+  const [userLocal, setUserLocal] = useState(null);
+
+  useEffect(() => {
+    setUserLocal(JSON.parse(localStorage.getItem("MANGIARE_user")));
+  }, []);
+
+  //console.log("usermenu", userLocal);
 
   if (location.pathname == "/user") {
     return (
@@ -31,11 +36,11 @@ export default function UserMenu() {
         <MenuList>
           <Link to={"/home"}>Home</Link>
           <MenuDivider />
-          {
+          {userLocal && userLocal?.role !== null && (
             <div>
               <Link to={"/admin"}>Admin</Link> <MenuDivider />
             </div>
-          }
+          )}
           <LogoutButton />
         </MenuList>
       </Menu>
@@ -47,17 +52,17 @@ export default function UserMenu() {
         <MenuButton
           as={IconButton}
           aria-label="Options"
-          icon={<Avatar size="md" name={user.name} src={user.image} />}
+          icon={<Avatar size="md" name={user.name} src={user.picture} />}
           variant="outline"
         />
         <MenuList>
           <Link to={"/user"}>My user</Link>
           <MenuDivider />
-          {
+          {userLocal && userLocal?.role !== null && (
             <div>
               <Link to={"/admin"}>Admin</Link> <MenuDivider />
             </div>
-          }
+          )}
 
           <LogoutButton />
         </MenuList>
@@ -69,7 +74,7 @@ export default function UserMenu() {
         <MenuButton
           as={IconButton}
           aria-label="Options"
-          icon={<Avatar size="md" name={user.name} src={user.image} />}
+          icon={<Avatar size="md" name={user.name} src={user.picture} />}
           variant="outline"
         />
         <MenuList>

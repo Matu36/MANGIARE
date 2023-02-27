@@ -33,7 +33,7 @@ export const putReview = (userId, recipeId) => {
     userId: userId,
     recipeId: recipeId,
   };
-  return async () => {
+  return async () =>
     await axios
       .put("/reviews", user)
       .then((response) => {
@@ -43,5 +43,4 @@ export const putReview = (userId, recipeId) => {
       .catch((err) => {
         console.log(err), err;
       });
-  };
 };
