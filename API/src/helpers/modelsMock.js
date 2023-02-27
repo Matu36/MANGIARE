@@ -15,24 +15,87 @@ const {
 const { API_KEY } = process.env;
 
 async function locMock() {
+  console.log("Generando registros harcodeados...");
+
   ////////////////// Users //////////////////////
 
   await Users.bulkCreate([
-    {email: 'email1@email.com', address: 'Dirección usuario 1' },
-    {email: 'email2@email.com', address: 'Dirección usuario 2', banned: true},
-    {email: 'email3@email.com', address: 'Dirección usuario 3' },
-    {email: 'yamil.leotta@gmail.com', address: 'Av. Siempreviva 742'}, // role: null -> basic user
-    {email: 'mangiare.email@gmail.com', address: 'Dirección del admin mangiare.email' , role: false}, // role: false -> Admin
-    {email: 'mangiar-e@outlook.com', role: true}, // role: true -> Super Admin
+    { email: "email1@email.com", address: "Dirección usuario 1" },
+    { email: "email2@email.com", address: "Dirección usuario 2", banned: true },
+    { email: "email3@email.com", address: "Dirección usuario 3" },
+    { email: "yamil.leotta@gmail.com", address: "Av. Siempreviva 742" },
+    { email: "germannavarrete.info@gmail.com", address: "12 de Octubre 1160" }, // role: null -> basic user
+    {
+      email: "mangiare.email@gmail.com",
+      address: "Dirección del admin mangiare.email",
+      role: false,
+    }, // role: false -> Admin
+    { email: "mangiar-e@outlook.com", role: true }, // role: true -> Super Admin
   ]);
 
   ////////////////// Orders //////////////////////
 
   await Orders.bulkCreate([
-    { userId: 1, address: 'Dirección usuario 1', preferenceId: 'codigo', merchant_orderId: 'codigo' },
-    { userId: 2, tsPayment: new Date(), status: 1, address: 'Dirección usuario 2', preferenceId: 'codigo', merchant_orderId: 'codigo' },
-    { userId: 2, tsPayment: new Date(2023, 0, 1), status: 2, address: 'Dirección usuario 2', preferenceId: 'codigo', merchant_orderId: 'codigo' },
-    { userId: 2, tsPayment: new Date(2023, 0, 1), status: 1, adress: 'pepito', preferenceId: 'codigo', merchant_orderId: 'codigo' }
+    {
+      userId: 1,
+      address: "Dirección usuario 1",
+      preferenceId: "codigo",
+      merchant_orderId: "codigo",
+    },
+    {
+      userId: 2,
+      tsPayment: new Date(),
+      status: 1,
+      address: "Dirección usuario 2",
+      preferenceId: "codigo",
+      merchant_orderId: "codigo",
+    },
+    {
+      userId: 2,
+      tsPayment: new Date(2023, 0, 1),
+      status: 2,
+      address: "Dirección usuario 2",
+      preferenceId: "codigo",
+      merchant_orderId: "codigo",
+    },
+    {
+      userId: 2,
+      tsPayment: new Date(2023, 0, 1),
+      status: 1,
+      adress: "pepito",
+      preferenceId: "codigo",
+      merchant_orderId: "codigo",
+    },
+    {
+      userId: 1,
+      address: "Dirección usuario 1",
+      preferenceId: "codigo",
+      merchant_orderId: "codigo",
+    },
+    {
+      userId: 2,
+      tsPayment: new Date(),
+      status: 1,
+      address: "Dirección usuario 2",
+      preferenceId: "codigo",
+      merchant_orderId: "codigo",
+    },
+    {
+      userId: 2,
+      tsPayment: new Date(2023, 0, 1),
+      status: 2,
+      address: "Dirección usuario 2",
+      preferenceId: "codigo",
+      merchant_orderId: "codigo",
+    },
+    {
+      userId: 2,
+      tsPayment: new Date(2023, 0, 1),
+      status: 1,
+      adress: "pepito",
+      preferenceId: "codigo",
+      merchant_orderId: "codigo",
+    },
   ]);
 
   ///////////////// Recipes /////////////////////////////
@@ -103,10 +166,10 @@ async function locMock() {
       recipeId: 3,
       userId: 1,
       rate: 3,
-      comment: "Maso! Esta review solo la ve un admin, y no se ve en el detalle de receta",
+      comment: "Maso!",
       image:
         "https://media.airedesantafe.com.ar/p/916dc6232d123e9a1a15a2647602d269/adjuntos/268/imagenes/001/997/0001997793/tartabjpg.jpg",
-      visible: false
+      visible: false,
     },
     {
       recipeId: 2,
@@ -146,10 +209,10 @@ async function locMock() {
       recipeId: 1,
       userId: 3,
       rate: 1,
-      comment: "Horrible! Esta review solo la ve un admin, y no se ve en el detalle de receta",
+      comment: "Horrible!",
       image:
         "https://www.unileverfoodsolutions.com.ar/dam/global-ufs/mcos/sla/argentina/calcmenu/recipes/AR-recipes/In-Development/milanesa-a-la-napolitana-con-pur%C3%A9/main-header.jpg",
-      visible: false
+      visible: false,
     },
     {
       recipeId: 2,
@@ -190,17 +253,17 @@ async function locMock() {
   ////////////////// Order_details //////////////////////
 
   await Order_details.bulkCreate([
-    {orderId: 1, ingredientId: 5, amount: 1, unit: 'tablespoon', price: 1.11},
-    {orderId: 1, ingredientId: 12, amount: 2, unit: 'pounds', price: 2.22},
-    {orderId: 3, ingredientId: 5, amount: 10, unit: 'cups', price: 3.33},
-    {orderId: 3, ingredientId: 1, amount: 2, unit: 'pounds', price: 4.44},
-    {orderId: 3, ingredientId: 4, amount: 2, unit: 'pounds', price: 4.44},
-    {orderId: 3, ingredientId: 2, amount: 3.5, unit: 'pounds', price: 5.55},
-    {orderId: 2, ingredientId: 3, amount: 1, unit: 'units', price: 6.66},
-    {orderId: 2, ingredientId: 4, amount: 2, unit: 'pounds', price: 7.77},
-    {orderId: 4, ingredientId: 5, amount: 10, unit: 'pounds', price: 5.55},
-    {orderId: 4, ingredientId: 1, amount: 2, unit: 'units', price: 6.66},
-    {orderId: 4, ingredientId: 4, amount: 5, unit: 'pounds', price: 7.77}
+    { orderId: 1, ingredientId: 5, amount: 1, unit: "tablespoon", price: 1.11 },
+    { orderId: 1, ingredientId: 12, amount: 2, unit: "pounds", price: 2.22 },
+    { orderId: 3, ingredientId: 5, amount: 10, unit: "cups", price: 3.33 },
+    { orderId: 3, ingredientId: 1, amount: 2, unit: "pounds", price: 4.44 },
+    { orderId: 3, ingredientId: 4, amount: 2, unit: "pounds", price: 4.44 },
+    { orderId: 3, ingredientId: 2, amount: 3.5, unit: "pounds", price: 5.55 },
+    { orderId: 2, ingredientId: 3, amount: 1, unit: "units", price: 6.66 },
+    { orderId: 2, ingredientId: 4, amount: 2, unit: "pounds", price: 7.77 },
+    { orderId: 4, ingredientId: 5, amount: 10, unit: "pounds", price: 5.55 },
+    { orderId: 4, ingredientId: 1, amount: 2, unit: "units", price: 6.66 },
+    { orderId: 4, ingredientId: 4, amount: 5, unit: "pounds", price: 7.77 },
   ]);
 
   ////////////////// Shopping_carts //////////////////////
@@ -216,13 +279,24 @@ async function locMock() {
 
   ////////////////// New Order //////////////////////////
 
-  await Order_details.create({orderId: (await Orders.create({userId: 3, preferenceId: 'codigo', merchant_orderId: 'codigo'})).dataValues.id, ingredientId: 1, amount: 0.1, unit: 'pounds', price: 1.5});
-
+  await Order_details.create({
+    orderId: (
+      await Orders.create({
+        userId: 3,
+        preferenceId: "codigo",
+        merchant_orderId: "codigo",
+      })
+    ).dataValues.id,
+    ingredientId: 1,
+    amount: 0.1,
+    unit: "pounds",
+    price: 1.5,
+  });
 
   //console.log(order.dataValues); // {id: 4.......}
 
   ///////////////// New Order (Shopping_cart & User based) /////////////////////////////
-/*
+  /*
   let cart = await Shopping_carts.findAll({where: {userId: 3}});
 
   order = await Orders.create({userId: 1});
@@ -384,7 +458,7 @@ async function apiMock(apiRegs = 10) {
 }
 
 module.exports = async (api) => {
-  locMock();
-  apiMock(api);
+  await locMock();
+  await apiMock(api);
   console.log("Mock agregados a DB!");
 };

@@ -22,8 +22,8 @@ module.exports = async (req, res) => {
         unit_price: amount * price,
       })),
       back_urls: {
-        success: `${FRONT_URL}/user`,
-        failure: `${FRONT_URL}/user`,
+        success: `${FRONT_URL}/home`,
+        failure: `${FRONT_URL}/home`,
       },
       auto_return: "approved",
       binary_mode: true,
@@ -39,6 +39,7 @@ module.exports = async (req, res) => {
               userId: userInstance.dataValues.id,
               preferenceId: respMerc.response.preference_id,
               merchant_orderId: respMerc.response.id,
+              address: req.body.address
             });
             // init_point: https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=48965690-ddb3e9dd-7963-474a-adc8-246bde9b0935
 

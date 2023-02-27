@@ -6,6 +6,7 @@ const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const transporter = require("./src/mailer/mailer");
 const modelsMock = require("./src/helpers/modelsMock.js");
+const { PORT } = process.env;
 
 const { PORT } = process.env;
 
@@ -17,7 +18,9 @@ conn
   .then(async () => {
     console.log("Database:      ✅");
     server.listen(PORT || 3001, () => {
-      console.log("Back server:   ✅  -  ( port: 3001 )"); // eslint-disable-line no-console
+
+      console.log(`Back server:   ✅  -  (port: ${PORT || 3001})`); // eslint-disable-line no-console
+
     });
   })
   .then(async () => {

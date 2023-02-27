@@ -4,7 +4,7 @@ import {
   MdOutlineLineStyle,
   MdTimeline,
   MdTrendingUp,
-  MdProductionQuantityLimits,
+  MdProductionQuantityLimits,MdRateReview
 } from "react-icons/md";
 import { TbUsers, TbCoin, TbMessageCircle } from "react-icons/tb";
 import { VscGraph, VscMail, VscFeedback } from "react-icons/vsc";
@@ -47,7 +47,7 @@ export default function SideBar() {
             </li>
             <li className="sidebarListItem">
               <MdProductionQuantityLimits className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>Products</button>
+              <button onClick={(e) => handleHomeAdmin(e)}>Ingredients</button>
             </li>
 
             <li className="sidebarListItem">
@@ -55,17 +55,21 @@ export default function SideBar() {
               <button onClick={(e) => handleHomeAdmin(e)}>Orders</button>
             </li>
             <li className="sidebarListItem">
-              <TbCoin className="sidebarIcon" />
+              <MdRateReview className="sidebarIcon" />
               <button onClick={(e) => handleHomeAdmin(e)}>Reviews</button>
             </li>
-          </ul>
-        </div>
-       <Player
+            <li className="sidebarListItem">
+            <Player
         src= 'https://assets4.lottiefiles.com/packages/lf20_jBvjF3.json'
         className="player"
         loop
         autoplay
       />
+      </li>
+          </ul>
+        </div>
+
+       
        
         </div>
       </div>

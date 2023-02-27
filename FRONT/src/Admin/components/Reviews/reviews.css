@@ -1,8 +1,3 @@
-.divContainerCards {
-    display: flex;
-    flex-direction: column;
-    width: 100%
-}
 .titleReviews {
     font-size: 40px;
     text-align: center;
@@ -13,5 +8,5 @@
     margin: 0px 5px 5px 5px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }

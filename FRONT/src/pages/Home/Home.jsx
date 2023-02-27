@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import s from "./Home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -30,6 +30,7 @@ import banner from "../../img/BannerHome.jpg";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import { ArrowDownIcon } from "@chakra-ui/icons";
 import { getUsers } from "../../Redux/actions/users";
+const { REACT_APP_BACK_URL } = process.env;
 
 export default function Home() {
   let dispatch = useDispatch();
@@ -47,14 +48,25 @@ export default function Home() {
   );
   const [userLocalstorage, setUserLocalstorage] = useState();
 
+  const params = new URLSearchParams(window.location.search);
+  const LS_user = JSON.parse(localStorage.getItem("MANGIARE_user"));
+
   useEffect(() => {
     dispatch(getRecipes());
     dispatch(getIngredients());
-  }, []);
 
-  useEffect(() => {
-    setUserLocalstorage(JSON.parse(localStorage.getItem("MANGIARE_user")));
-  }, [isAuthenticated]);
+    if (params.get("status") === "approved" && params.get("preference_id")) {
+      fetch(`${REACT_APP_BACK_URL}/payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: LS_user.email,
+          status: params.get("status"),
+          preference_id: params.get("preference_id"),
+        }),
+      });
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(resetRecipesToShow());
@@ -137,7 +149,7 @@ export default function Home() {
 
   return (
     <div className={s.containerMain}>
-      <NavBar userLocalstorage={userLocalstorage} />
+      <NavBar />
       <Box
         width="100%"
         height="700px"

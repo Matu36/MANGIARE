@@ -13,12 +13,12 @@ import onExecutePostEmail from "../Auth0/onLogin.js";
 
 function NavBar(userLocalstorage) {
   const { user, isAuthenticated } = useAuth0();
-  const [cartItems, setCartItems] = useState(0)
+  const [cartItems, setCartItems] = useState(0);
 
   // const LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart")) || [];
 
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("MANGIARE_cart"))
+    const items = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     setCartItems(items ? items.length : 0);
   }, [userLocalstorage]);
 
@@ -55,9 +55,8 @@ function NavBar(userLocalstorage) {
 
       <div className={s.shoppingCartButton}>
         <Link to={"/shoppingCart"}>
-        {cartItems > 0 && <div className={s.cartItemCount}>{cartItems}</div>}
+          {cartItems > 0 && <div className={s.cartItemCount}>{cartItems}</div>}
           <BsCart4 size={30} />
-         
         </Link>
       </div>
       {isAuthenticated ? (
@@ -69,7 +68,6 @@ function NavBar(userLocalstorage) {
           <LoginButton />
         </div>
       )}
-      
     </div>
   );
 }
