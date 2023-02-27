@@ -30,7 +30,7 @@ export default function HomeAdmin() {
     <div className="home">
       {homeShow === "Reviews" && <Reviews />}
       {homeShow === "Users" && <UserList />}
-      {homeShow === "Products" && <Products />}
+      {homeShow === "Ingredients" && <Products />}
       {homeShow === "Orders" && <Orders all={true}/>}
       {homeShow === "eMail" && <Email />}
       {homeShow === "Feedback" && <Feedback />}
