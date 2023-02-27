@@ -3,33 +3,13 @@ import NavBar from "../../components/NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import s from "./UserPage.module.css";
-import {
-  Box,
-  Image,
-  Text,
-  IconButton,
-  Button,
-  HStack,
-  Card,
-  CardHeader,
-  Heading,
-  CardBody,
-  CardFooter,
-  SimpleGrid,
-  Center,
-} from "@chakra-ui/react";
-import Filters from "../../components/Filters/Filters";
-import { ArrowDownIcon } from "@chakra-ui/icons";
+import { Text } from "@chakra-ui/react";
 import { getFavorites } from "../../Redux/actions/favorites";
-import banner from "../../img/BannerHome.jpg";
 import { Avatar } from "@chakra-ui/react";
 import RecipesBox from "../../components/RecipesBox/RecipesBox";
 import UserReviewsBox from "../../components/UserReviewsBox/UserReviewsBox";
 import { getRecipes } from "../../Redux/actions/recipes";
-import UserOrdersBox from "../../components/UserOrdersBox/UserOrdersBox";
-import { LogoutButton } from "../../components/Auth0/logout_button";
 import Orders from "../Orders/Orders";
-const { REACT_APP_BACK_URL } = process.env;
 
 export default function UserPage() {
   let dispatch = useDispatch();
@@ -45,18 +25,6 @@ export default function UserPage() {
   useEffect(() => {
     dispatch(getRecipes());
     dispatch(getFavorites());
-
-    if (params.get("status") === "approved" && params.get("preference_id")) {
-      fetch(`${REACT_APP_BACK_URL}/payment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: LS_user.email,
-          status: params.get("status"),
-          preference_id: params.get("preference_id"),
-        }),
-      });
-    }
   }, []);
 
   let filteredFavorites = favorites.filter((f) => f.userId === LS_user.id);

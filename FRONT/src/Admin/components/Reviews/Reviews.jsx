@@ -3,14 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import ReviewsCard from "../ReviewsCard/ReviewsCard.jsx";
 //import ReviewsCard from "../../../components/ReviewsCard/ReviewsCard.jsx";
 import Paginations from "../../../components/Paginations/Paginations.jsx";
-import { Input } from "@chakra-ui/react";
+import { Card, Button, Input } from "@chakra-ui/react";
 import "../Reviews/reviews.css";
+import { getReviews, putReview } from "../../../Redux/actions/reviews";
+import axios from "axios";
 
 export default function Reviews() {
-  const reviews = useSelector((state) => state.reviews.reviews);
+  const dispatch = useDispatch();
+  const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
+  const reviewsGlobal = useSelector((state) => state.reviews.reviews);
+
+  useEffect(() => {
+    dispatch(getReviews(currentUser));
+  }, []);
 
   const [search, setSearch] = useState("");
-  const [filterReviews, setFilterReviews] = useState(reviews);
+  const [filterReviews, setFilterReviews] = useState(reviewsGlobal);
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -19,11 +27,11 @@ export default function Reviews() {
 
   useEffect(() => {
     filterByReviews(search);
-  }, [search, reviews]);
+  }, [search]);
 
   const filterByReviews = (value) => {
-    let arrayCache = [...reviews];
-    if (value === "") setFilterReviews(reviews);
+    let arrayCache = [...reviewsGlobal];
+    if (value === "") setFilterReviews(reviewsGlobal);
     else {
       arrayCache = arrayCache.filter((review) =>
         review.comment.toLowerCase().includes(value.toLowerCase())
@@ -36,10 +44,10 @@ export default function Reviews() {
 
   const [currentPage, setCurrentPage] = useState(1); //Pagina Actual seteada en 1
   const [numberOfPage, setNumberOfPage] = useState(0); //Numero de Paginas seteado en 0
-  const [totalreviews, setTotalReviews] = useState(reviews); //Recetas Totales Seteada en Array Vacio
+  const [totalReviews, setTotalReviews] = useState(filterReviews); //Recetas Totales Seteada en Array Vacio
 
-  const indexFirstPageRecipe = () => (currentPage - 1) * 8; // Indice del primer Elemento
-  const indexLastPageRecipe = () => indexFirstPageRecipe() + 8; //Indice del segundo elemento
+  const indexFirstPageRecipe = () => (currentPage - 1) * 9; // Indice del primer Elemento
+  const indexLastPageRecipe = () => indexFirstPageRecipe() + 9; //Indice del segundo elemento
 
   const handlePageNumber = (number) => {
     //Manejo del numero de pagina
@@ -48,18 +56,29 @@ export default function Reviews() {
 
   useEffect(() => {
     //Cambio de estado local de Total Recipes indicando los indices que tiene que renderizar en cada pagina
-    setTotalReviews(
-      filterReviews.slice(indexFirstPageRecipe(), indexLastPageRecipe())
-    );
-    setNumberOfPage(Math.ceil(filterReviews.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
-  }, [filterReviews, currentPage]);
 
-  //console.log(totalreviews);
+    setTotalReviews(
+      filterReviews?.slice(indexFirstPageRecipe(), indexLastPageRecipe())
+    );
+    setNumberOfPage(Math.ceil(filterReviews?.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
+  }, [filterReviews, currentPage]);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [filterReviews]);
 
+  const handleHideReview = (userId, recipeId) => {
+    dispatch(putReview(userId, recipeId)).then(() => {
+      let user = {
+        id: currentUser.id,
+        email: currentUser.email,
+      };
+      axios
+        .get(`/reviews`, { params: user })
+        .then((response) => response.data)
+        .then((data) => setFilterReviews(data));
+    });
+  };
   return (
     <div className="divContainerCards">
       <div className="divContainerHead">
@@ -72,7 +91,7 @@ export default function Reviews() {
         />
         <h1 className="titleReviews">Reviews</h1>
       </div>
-      {totalreviews?.map((review) => {
+      {totalReviews?.map((review) => {
         return (
           <ReviewsCard
             key={`${review.userId}${review.recipeId}`}
@@ -83,6 +102,7 @@ export default function Reviews() {
             userId={review.userId}
             createdAt={review.createdAt}
             visible={review.visible}
+            handleHideReview={handleHideReview}
           />
         );
       })}

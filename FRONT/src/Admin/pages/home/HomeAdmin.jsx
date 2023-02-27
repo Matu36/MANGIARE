@@ -30,8 +30,8 @@ export default function HomeAdmin() {
     <div className="home">
       {homeShow === "Reviews" && <Reviews />}
       {homeShow === "Users" && <UserList />}
-      {homeShow === "Products" && <Products />}
-      {homeShow === "Orders" && <Orders all={true}/>}
+      {homeShow === "Ingredients" && <Products />}
+      {homeShow === "Orders" && <Orders all={true} />}
       {homeShow === "eMail" && <Email />}
       {homeShow === "Feedback" && <Feedback />}
       {homeShow === "Home" && (
@@ -44,8 +44,8 @@ export default function HomeAdmin() {
             dataKey="Active User"
           />
           <div className="homeWidgets">
-          <WidgetSm />
-          <WidgetLg all={true}/>
+            <WidgetSm />
+            <WidgetLg all={true} />
           </div>
         </div>
       )}

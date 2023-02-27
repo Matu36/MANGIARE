@@ -150,11 +150,7 @@ export default function Products() {
           {totalIngredients.map((row) => (
             <Tr key={row.id}>
               {columns.map((column) => (
-                <Td
-                  
-                  width="20%"
-                  key={`${row.id}-${column.field}`}
-                >
+                <Td width="20%" key={`${row.id}-${column.field}`}>
                   {column.field === "price" && editIndex === row.id ? (
                     <div
                       style={{
@@ -169,9 +165,9 @@ export default function Products() {
                         onChange={(e) => handlePriceChange(e.target.value)}
                       />
 
-                      <button onClick={() => handleSave(row.id)}><BiSave /></button>
+                      <button style={{fontSize: '24px'}}  onClick={() => handleSave(row.id)}title="Save"><BiSave /></button>
 
-                      <button onClick={handleCancel}><MdCancel /></button>
+                      <button style={{fontSize: '24px'}}  onClick={handleCancel}title="Cancel"><MdCancel /></button>
                       </div>
                     
                   ) : (
@@ -184,7 +180,7 @@ export default function Products() {
                       <div>{row[column.field]}</div>
                       {column.field === "price" && (
                         <Box ml="auto">
-                          <button onClick={() => handleEdit(row.id, row.price)}>
+                          <button style={{fontSize: '24px'}}  onClick={() => handleEdit(row.id, row.price)}>
                             <BiEditAlt />
                           </button>
                         </Box>

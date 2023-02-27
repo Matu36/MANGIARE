@@ -15,11 +15,15 @@ import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import UserPage from "./pages/userPage/UserPage";
 import Appmodel from "../src/Admin/Appmodel";
 import Orders from "./pages/Orders/Orders";
+import { useAuth0 } from "@auth0/auth0-react";
 const { REACT_APP_BACK_URL } = process.env;
 
 axios.defaults.baseURL = `${REACT_APP_BACK_URL}`;
 
 export default function App() {
+  const { isAuthenticated } = useAuth0();
+  const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
+
   return (
     <>
       <Routes>
@@ -34,9 +38,12 @@ export default function App() {
         <Route exact path="/aboutUs" element={<AboutUs />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/myRecipes" element={<MyRecipes />} />
+        <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/shoppingCart" element={<ShoppingCart />} />
         <Route exact path="/user" element={<UserPage />} />
-        <Route exact path="/admin" element={<Appmodel />} />
+        {isAuthenticated && currentUser?.role !== null && (
+          <Route exact path="/admin" element={<Appmodel />} />
+        )}
       </Routes>
     </>
   );

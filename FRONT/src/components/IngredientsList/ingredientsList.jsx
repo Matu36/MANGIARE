@@ -19,7 +19,6 @@ import {
 } from "@chakra-ui/react";
 
 export default function IngredientsList(props) {
-
   return (
     <Table variant="striped" width="100%">
       <Thead>

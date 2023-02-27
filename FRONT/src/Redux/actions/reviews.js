@@ -28,13 +28,12 @@ export const deleteReview = (payload) => async (dispatch) => {
   return await axios.delete(`/reviews`, { data: payload });
 };
 
-export const putReview = (userId, recipeId, visible) => {
+export const putReview = (userId, recipeId) => {
   let user = {
     userId: userId,
     recipeId: recipeId,
-    visible: visible,
   };
-  return async () => {
+  return async () =>
     await axios
       .put("/reviews", user)
       .then((response) => {
@@ -44,5 +43,4 @@ export const putReview = (userId, recipeId, visible) => {
       .catch((err) => {
         console.log(err), err;
       });
-  };
 };

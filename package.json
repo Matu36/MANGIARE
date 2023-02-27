@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.5.2",
     "bootstrap4": "^0.0.1-security",
     "reactstrap": "^9.1.5"
   }

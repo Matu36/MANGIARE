@@ -34,6 +34,7 @@ import {
 } from "@chakra-ui/react";
 import background from "../../img/RDetailBG.jpg";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+const { REACT_APP_BACK_URL } = process.env;
 
 const RecipeDetail = () => {
   let { id } = useParams();
@@ -46,7 +47,12 @@ const RecipeDetail = () => {
   const cart = useSelector((state) => state.cart.cart);
   const [loading, setLoading] = useState(false);
   const LS_user = JSON.parse(localStorage.getItem("MANGIARE_user"));
+
   let png = "https://cdn-icons-png.flaticon.com/512/7780/7780562.png";
+
+  const [state, setState] = React.useState({ address: null });
+  const { email } = useAuth0().user || { email: null };
+
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
@@ -104,6 +110,14 @@ const RecipeDetail = () => {
     }
   }, [recipe, ingredients, cart]);
 
+  useEffect(() => {
+    setState({
+      ...state,
+      address:
+        JSON.parse(localStorage.getItem("MANGIARE_user"))?.address || null,
+    });
+  }, []);
+
   const handleOnAdd = (id, unit) => {
     handleLocalStorage([list.find((el) => el.id == id)]);
     setList(
@@ -150,6 +164,26 @@ const RecipeDetail = () => {
       await dispatch(postReview(LS_user.id, id));
       dispatch(getFavorites());
     }
+  };
+
+  const handleConfirm = () => {
+    fetch(`${REACT_APP_BACK_URL}/orders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        address: state.address,
+        cart: list.map((el) => ({ ...el, units: [el.unit] })),
+        userId: user.id,
+      }),
+    })
+      .then((data) => data.json())
+      .then((order) => {
+        window.open(
+          `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${order.preferenceId}`,
+          "_self"
+        );
+      });
   };
 
   return (
@@ -236,7 +270,6 @@ const RecipeDetail = () => {
               </div>
             ) : null}
           </Box>
-
           <Stack>
             <Tabs
               font-size="sm"
@@ -271,10 +304,9 @@ const RecipeDetail = () => {
                       onChange={handleOnChange}
                       onUnitChange={handleOnUnitChange}
                       itemButton={{
-                        caption: "Add Item",
+                        caption: "Add to Cart",
                         action: handleOnAdd,
                       }}
-                      //cart={cart}
                     />
                   )}
                 </TabPanel>
@@ -314,6 +346,15 @@ const RecipeDetail = () => {
                   Go to Cart
                 </Button>
               </NavLink>
+              <Button
+                style={{ marginLeft: "15px" }}
+                colorScheme="teal"
+                variant="solid"
+                size="lg"
+                onClick={handleConfirm}
+              >
+                Fast Buy Recipe
+              </Button>
             </Box>
             <Box
               w={["90%", "90%", "65%", "65%"]}

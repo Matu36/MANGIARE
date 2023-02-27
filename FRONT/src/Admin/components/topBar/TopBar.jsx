@@ -33,9 +33,7 @@ export default function TopBar() {
     justifyContent='space-evenly'
     w='5%'>
           
-            <MdOutlineNotificationsNone />
-            <GrLanguage />
-            <TbSettings />
+            
           
             
           {/* <img src={LOGO} alt="LOGO" className="topAvatar" /> */}

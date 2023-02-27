@@ -10,7 +10,7 @@ export const getUsers = (currentUser) => {
       id: currentUser.id,
       email: currentUser.email,
     };
-  };
+  }
   return async (dispatch) => {
     await axios
       .get(`/users`, { params: user })
@@ -48,6 +48,20 @@ export const putNewRole = (id, newRole) => {
   let user = {
     id: id,
     role: newRole,
+  };
+  return async () =>
+    await axios
+      .put("/users", user)
+      .then((response) => response.data)
+      .catch((err) => {
+        console.log(err), err;
+      });
+};
+
+export const putBanned = (id, banned) => {
+  let user = {
+    id: id,
+    banned: !banned,
   };
   return async () => {
     await axios
