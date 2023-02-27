@@ -14,12 +14,16 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import UserRow from "../../components/UserRow/UserRow";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { putBanned } from "../../../Redux/actions/users.js";
+import axios from "axios";
 
 export default function UserList() {
+  const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
   const [search, setSearch] = useState("");
   const [filterUsers, setFilterUsers] = useState(users);
+  const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -67,6 +71,33 @@ export default function UserList() {
     setCurrentPage(1);
   }, [filterUsers, users]);
 
+  const handleRole = (id, newRole) => {
+    dispatch(putNewRole(id, newRole)).then(() => {
+      let user = {
+        id: currentUser.id,
+        email: currentUser.email,
+      };
+      axios
+        .get(`/users`, { params: user })
+        .then((response) => response.data)
+        .then((data) => setFilterUsers(data));
+    });
+  };
+
+  const handleRestrict = (id, banned) => {
+    dispatch(putBanned(id, banned)).then(() => {
+      let user = {
+        id: currentUser.id,
+        email: currentUser.email,
+      };
+      axios
+        .get(`/users`, { params: user })
+        .then((response) => response.data)
+        .then((data) => setFilterUsers(data));
+    });
+  };
+  //.then(() => dispatch(getUsers(currentUser)).then(()=> setFilterUsers())
+
   return (
     <div>
       <div className="divContainerHead">
@@ -100,6 +131,7 @@ export default function UserList() {
             {totalUsers?.map((user) => {
               return (
                 <UserRow
+                  key={user.id}
                   id={user.id}
                   email={user.email}
                   address={user.address}
@@ -107,7 +139,8 @@ export default function UserList() {
                   active={user.active}
                   banned={user.banned}
                   createdAt={user.createdAt}
-                  setFilterUsers={setFilterUsers}
+                  handleRole={handleRole}
+                  handleRestrict={handleRestrict}
                 />
               );
             })}

@@ -40,10 +40,8 @@ const ReviewsCard = ({
         break;
     }
   };
-  const [visibleButton, setVisibleButton] = useState();
 
   const handleHideClick = (userId, recipeId) => {
-    setVisibleButton(!visible);
     handleHideReview(userId, recipeId);
   };
 
@@ -99,15 +97,6 @@ const ReviewsCard = ({
               Show Review
             </Button>
           )}
-          <Button
-            colorScheme="red"
-            variant="outline"
-            size="sm"
-            className="button"
-            onClick={() => handleRestrictClick(userId)}
-          >
-            Restrict Reviews
-          </Button>
         </div>
       </Card>
     </div>

@@ -4,6 +4,8 @@ import {
   MdOutlineDeleteOutline,
   MdOutlineModeEdit,
   MdRestore,
+  MdNotInterested,
+  MdRateReview,
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import "./UserRow.css";
@@ -17,7 +19,8 @@ const UserRow = ({
   active,
   banned,
   createdAt,
-  setFilterUsers,
+  handleRole,
+  handleRestrict,
 }) => {
   const dispatch = useDispatch();
   const propToString = (value, type) => {
@@ -39,10 +42,10 @@ const UserRow = ({
   const [roleEdit, setRoleEdit] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
-  const handleEditUsersRole = (e, roleEdit, newRole, id) => {
+  const handleEditUsersRole = (id, newRole, roleEdit) => {
     setRoleEdit(!roleEdit);
     if (roleEdit) {
-      dispatch(putNewRole(id, newRole));
+      handleRole(id, !newRole);
     }
   };
   const handleChangeRole = (e) => {
@@ -56,10 +59,12 @@ const UserRow = ({
 
   const CreateAt = createdAt.split("T");
 
-  const handleResetPassword = (e, valueEmail) => {
+  const handleResetPassword = (valueEmail) => {
     dispatch(resetPassword(valueEmail));
   };
-
+  const handleRestrictClick = (id, banned) => {
+    handleRestrict(id, banned);
+  };
   return (
     <Tr key={id}>
       <Td>{id}</Td>
@@ -74,7 +79,6 @@ const UserRow = ({
             className="selectRole"
           >
             <option value="null">User</option>
-            <option value="true">Super Admin</option>
             <option value="false">Admin</option>
           </select>
         </Td>
@@ -88,17 +92,21 @@ const UserRow = ({
       </Td>
       <Td>
         {currentUser.role && (
-          <button>
+          <button title="Edit Role">
             <MdOutlineModeEdit
-              onClick={(e) => handleEditUsersRole(e, roleEdit, newRole, id)}
+              onClick={(e) => handleEditUsersRole(id, role, roleEdit)}
             />
           </button>
         )}
-        <button>
-          <MdOutlineDeleteOutline />
+        <button title="Reset Password Email">
+          <MdRestore onClick={(e) => handleResetPassword(email)} />
         </button>
-        <button onClick={(e) => handleResetPassword(e, email)}>
-          <MdRestore />
+        <button onClick={() => handleRestrictClick(id, banned)}>
+          {banned ? (
+            <MdRateReview title="Allow Comments Recipes" />
+          ) : (
+            <MdNotInterested title="Restrict Comments recipes" />
+          )}
         </button>
       </Td>
     </Tr>

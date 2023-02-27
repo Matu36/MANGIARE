@@ -23,7 +23,8 @@ async function locMock() {
     { email: "email1@email.com", address: "Dirección usuario 1" },
     { email: "email2@email.com", address: "Dirección usuario 2", banned: true },
     { email: "email3@email.com", address: "Dirección usuario 3" },
-    { email: "yamil.leotta@gmail.com", address: "Av. Siempreviva 742" }, // role: null -> basic user
+    { email: "yamil.leotta@gmail.com", address: "Av. Siempreviva 742" },
+    { email: "germannavarrete.info@gmail.com", address: "12 de Octubre 1160" }, // role: null -> basic user
     {
       email: "mangiare.email@gmail.com",
       address: "Dirección del admin mangiare.email",
