@@ -3,7 +3,7 @@
     height: calc(100vh - 50px);
     background-image: linear-gradient(to bottom, #0be90b, #517551);
     position: sticky;
-    top: 50px;
+    top: 20px;
 }
 
 .sidebarWrapper {
@@ -43,3 +43,4 @@
     margin-right: 5px;
     font-size: 20px;
 }
+
