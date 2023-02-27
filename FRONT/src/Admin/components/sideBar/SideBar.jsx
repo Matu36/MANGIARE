@@ -1,4 +1,5 @@
 import "./sideBar.css";
+import { Player } from '@lottiefiles/react-lottie-player';
 import {
   MdOutlineLineStyle,
   MdTimeline,
@@ -59,20 +60,15 @@ export default function SideBar() {
             </li>
           </ul>
         </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle"> Notifications </h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem active">
-              <VscMail className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>eMail</button>
-            </li>
-            <li className="sidebarListItem">
-              <VscFeedback className="sidebarIcon" />
-              <button onClick={(e) => handleHomeAdmin(e)}>Feedback</button>
-            </li>
-          </ul>
+       <Player
+        src= 'https://assets4.lottiefiles.com/packages/lf20_jBvjF3.json'
+        className="player"
+        loop
+        autoplay
+      />
+       
         </div>
       </div>
-    </div>
+    
   );
 }
