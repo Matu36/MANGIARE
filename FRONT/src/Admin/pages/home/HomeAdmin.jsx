@@ -15,7 +15,6 @@ import { getIngredients } from "../../../Redux/actions/ingredients";
 import { getReviews } from "../../../Redux/actions/reviews";
 import { getUsers } from "../../../Redux/actions/users";
 import Orders from "../../../pages/Orders/Orders";
-
 export default function HomeAdmin() {
   const dispatch = useDispatch();
   const homeShow = useSelector((state) => state.homeadmin.homeShow);
@@ -31,7 +30,7 @@ export default function HomeAdmin() {
     <div className="home">
       {homeShow === "Reviews" && <Reviews />}
       {homeShow === "Users" && <UserList />}
-      {homeShow === "Products" && <Products />}
+      {homeShow === "Ingredients" && <Products />}
       {homeShow === "Orders" && <Orders all={true} />}
       {homeShow === "eMail" && <Email />}
       {homeShow === "Feedback" && <Feedback />}
@@ -46,7 +45,7 @@ export default function HomeAdmin() {
           />
           <div className="homeWidgets">
             <WidgetSm />
-            <WidgetLg />
+            <WidgetLg all={true} />
           </div>
         </div>
       )}

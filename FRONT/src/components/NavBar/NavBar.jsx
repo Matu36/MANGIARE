@@ -13,6 +13,15 @@ import onExecutePostEmail from "../Auth0/onLogin.js";
 
 function NavBar() {
   const { user, isAuthenticated } = useAuth0();
+  const [cartItems, setCartItems] = useState(0);
+
+  // const LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart")) || [];
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("MANGIARE_cart"));
+    setCartItems(items ? items.length : 0);
+  }, [userLocalstorage]);
+
   useEffect(() => {
     if (isAuthenticated) {
       onExecutePostEmail(user);
@@ -49,8 +58,9 @@ function NavBar() {
       </Link> */}
       <SearchBar />
 
-      <div className={s.btn1}>
+      <div className={s.shoppingCartButton}>
         <Link to={"/shoppingCart"}>
+          {cartItems > 0 && <div className={s.cartItemCount}>{cartItems}</div>}
           <BsCart4 size={30} />
         </Link>
       </div>

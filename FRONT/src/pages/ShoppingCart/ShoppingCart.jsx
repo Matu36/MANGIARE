@@ -21,12 +21,15 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  Input
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import logo from "../../img/LOGO 2.png";
+import NavBar from "../../components/NavBar/NavBar";
+const { REACT_APP_BACK_URL } = process.env;
 
 export default function ShoppingCart() {
-  const [state, setState] = React.useState({ address: null, checkout: false });
+  const [state, setState] = React.useState({ address: null });
   const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
   const { email } = useAuth0().user || { email: null };
@@ -76,7 +79,7 @@ export default function ShoppingCart() {
   useEffect(() => {
     setState({
       ...state,
-      address: JSON.parse(localStorage.getItem("MANGIARE_user"))?.address || "",
+      address: JSON.parse(localStorage.getItem("MANGIARE_user"))?.address || null,
     });
   }, []);
 
@@ -115,7 +118,7 @@ export default function ShoppingCart() {
   };
 
   const handleConfirm = () => {
-    fetch(`http://localhost:3001/orders`, {
+    fetch(`${REACT_APP_BACK_URL}/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -129,12 +132,8 @@ export default function ShoppingCart() {
       .then((order) => {
         dispatch(setCart([]));
         localStorage.removeItem("MANGIARE_cart");
-        window.location.href = `localhost:3000/orders/${order.id}`;
+        window.open(`https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${order.preferenceId}`, "_self")
       });
-  };
-
-  const handleCheckout = () => {
-    setState({ ...state, checkout: true });
   };
 
   return (
@@ -151,7 +150,8 @@ export default function ShoppingCart() {
         backgroundPosition: "center center",
       }}
     >
-      <Flex>
+      <NavBar />
+      <Flex marginTop="70px">
         <Box
           w="40%"
           h="100vh"
@@ -185,23 +185,22 @@ export default function ShoppingCart() {
                 />
                 <HStack justify="space-between" align="flex-end" mt={10}>
                   <Text
-                    fontSize="3xl"
+                    fontSize="2xl"
                     fontWeight="bold"
                     color="green.500"
                     style={{ textAlign: "left" }}
                   >
                     Total: $
-                    {cart
-                      .reduce((aux, el) => aux + el.amount * el.price, 0)
-                      .toFixed(2)}
+                      {cart
+                        .reduce((aux, el) => aux + el.amount * el.price, 0)
+                        .toFixed(2)}
                   </Text>
                   <center>
-                    {email ? (
-                      state.checkout ? (
+                    {email
+                      ? (
                         <>
-                          <label htmlFor="address">Shipping address:</label>
-                          <br />
-                          <input
+                          <label htmlFor="address">Shipping address: </label>
+                          <Input
                             type="text"
                             id="address"
                             name="address"
@@ -215,23 +214,14 @@ export default function ShoppingCart() {
                             colorScheme="teal"
                             variant="solid"
                             size="lg"
-                            isDisabled={!state.address.length}
+                            isDisabled={!state.address}
                             onClick={handleConfirm}
                           >
-                            Confirm
+                            Proceed to Pay
                           </Button>
                         </>
-                      ) : (
-                        <Button
-                          colorScheme="teal"
-                          variant="solid"
-                          size="lg"
-                          onClick={handleCheckout}
-                        >
-                          Checkout
-                        </Button>
-                      )
-                    ) : (
+                        )
+                      : (
                       <>
                         <Text fontSize="lg" mr={2}>
                           You must login before proceed to checkout

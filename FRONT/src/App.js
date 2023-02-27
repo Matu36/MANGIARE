@@ -16,9 +16,9 @@ import UserPage from "./pages/userPage/UserPage";
 import Appmodel from "../src/Admin/Appmodel";
 import Orders from "./pages/Orders/Orders";
 import { useAuth0 } from "@auth0/auth0-react";
+const { REACT_APP_BACK_URL } = process.env;
 
-axios.defaults.baseURL = "http://localhost:3001/";
-//axios.defaults.baseURL = "https://mangiare-production.up.railway.app/";
+axios.defaults.baseURL = `${REACT_APP_BACK_URL}`;
 
 export default function App() {
   const { isAuthenticated } = useAuth0();
