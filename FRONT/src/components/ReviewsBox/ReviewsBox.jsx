@@ -6,6 +6,29 @@ import { getReviews, postReview } from "../../Redux/actions/reviews";
 import uploadImageToCloudinary from "../../utils/Cloudinary/uploadImage";
 import ReviewsCard from "../ReviewsCard/ReviewsCard.jsx";
 import { LoginButton } from "../../components/Auth0/login_button";
+import {
+  Box,
+  Image,
+  Text,
+  IconButton,
+  Button,
+  Card,
+  Center,
+  Container,
+  Input,
+  Tabs,
+  TabList,
+  TabPanels,
+  Textarea,
+  SimpleGrid,
+  Spinner,
+  Tab,
+  TabPanel,
+  Spacer,
+  Stack,
+  HStack,
+  VStack,
+} from "@chakra-ui/react";
 
 const ReviewsBox = () => {
   let { id } = useParams();
@@ -76,81 +99,100 @@ const ReviewsBox = () => {
   };
 
   return (
-    <div className={s.container}>
+    <Box p={4}>
       {!user ? (
-        <div className={s.reviewCreated}>
+        <Box className={s.reviewCreated}>
           <p>Login to write a review</p>
-          <div className={s.logginButton}>
+          <Button colorScheme="teal" variant="solid" size="lg">
             <LoginButton />
-          </div>
-        </div>
+          </Button>
+        </Box>
       ) : userReview.length > 0 ? (
-        <div className={s.reviewCreated}>
-          <p>You already created your review</p>{" "}
-        </div>
+        <Box
+          width="95%"
+          min-height="5rem"
+          display="flex"
+          justify="center"
+          alignItems="center"
+          flexDirection="column"
+          gap="0.5rem"
+        >
+          <Text>You already created your review</Text>{" "}
+        </Box>
       ) : (
-        <div className={s.createReviewDiv}>
-          <div className={s.titleDiv}>
-            <h2>POST YOUR REVIEW!</h2>
-          </div>
-          <div className={s.inputsDiv}>
-            <div className={s.starsAndUploadImageDiv}>
-              <div className={s.starsInputDiv}>
-                <span>⭐</span>
-                <input
-                  type="range"
-                  max="5"
-                  min="1"
-                  name="rate"
-                  value={input.rate}
-                  onChange={handleOnChange}
-                />
-                <span>⭐⭐⭐⭐⭐</span>
-              </div>
-              <div className={s.uploadImageDiv}>
-                <input type="file" name="image" onChange={handleOnChange} />
-              </div>
-            </div>
-            <div className={s.commentDiv}>
-              <textarea
-                className={s.commentInput}
-                placeholder="Write your comment"
-                name="comment"
-                value={input.comment}
-                onChange={handleOnChange}
-              />
-              <button className={s.postButton} onClick={handleSubmit}>
-                POST
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+        <Box w="100%" p={4}>
+          <Text
+            fontWeight="bold"
+            fontSize={{ base: "24px", md: "30px", lg: "35px" }}
+            textAlign="center"
+          >
+            POST YOUR REVIEW!
+          </Text>
+          <Box width="100%" spacing="100px">
+            <span>⭐</span>
+            <input
+              type="range"
+              max="5"
+              min="1"
+              name="rate"
+              value={input.rate}
+              onChange={handleOnChange}
+            />
+            <span>⭐⭐⭐⭐⭐</span>
 
-      <div className={s.cardContainer}>
-        {reviews.length > 0 ? (
-          reviews
-            .filter((r) => r.recipeId === parseInt(id))
-            .map(({ comment, image, rate, userId, createdAt, recipeId }, i) => {
-              return (
-                <ReviewsCard
-                  key={i}
-                  comment={comment}
-                  image={image}
-                  rate={rate}
-                  userId={userId}
-                  createdAt={createdAt}
-                  recipeId={recipeId}
-                />
-              );
-            })
-        ) : (
-          <div className={s.noRecipesDiv}>
-            <p>No reviews yet. Write yours!</p>
-          </div>
-        )}
-      </div>
-    </div>
+            <input type="file" name="image" onChange={handleOnChange} />
+          </Box>
+
+          <Center>
+            <Textarea
+              size={{ base: "150px", md: "250px", lg: "400px" }}
+              placeholder="Leave your comment"
+              name="comment"
+              value={input.comment}
+              onChange={handleOnChange}
+            />
+            <Spacer />
+            <Button
+              colorScheme="teal"
+              paddingRight={10}
+              variant="solid"
+              size="lg"
+              onClick={handleSubmit}
+            >
+              POST
+            </Button>
+          </Center>
+        </Box>
+      )}
+      <Spacer />
+      <HStack spacing="24px">
+        <Box display="flex" flexDirection="row" gap="2" flexWrap="wrap">
+          {reviews.length > 0 ? (
+            reviews
+              .filter((r) => r.recipeId === parseInt(id))
+              .map(
+                ({ comment, image, rate, userId, createdAt, recipeId }, i) => {
+                  return (
+                    <ReviewsCard
+                      key={i}
+                      comment={comment}
+                      image={image}
+                      rate={rate}
+                      userId={userId}
+                      createdAt={createdAt}
+                      recipeId={recipeId}
+                    />
+                  );
+                }
+              )
+          ) : (
+            <Box className={s.noRecipesDiv}>
+              <Text>No reviews yet. Write yours!</Text>
+            </Box>
+          )}
+        </Box>
+      </HStack>
+    </Box>
   );
 };
 

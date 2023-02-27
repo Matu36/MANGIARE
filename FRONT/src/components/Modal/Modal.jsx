@@ -1,6 +1,9 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { ModalContent, ModalHeader } from "@chakra-ui/react";
+import styled from 'styled-components';
+import IngredientsList from '../../components/IngredientsList/ingredientsList';
+import { Box, ModalContent, ModalHeader } from "@chakra-ui/react";
+import s from "../Modal/Modal.module.css";
+import {WrapItem, Button} from '@chakra-ui/react';
 
 
 
@@ -9,11 +12,61 @@ const Modal = ({
     changeState,
     title,
     h1,
-    body,
-    price}) => {
+    status,
+    el}) => {
+        
+    const items=el.Order_details.map(({IngredientId, amount, unit, price, Ingredient}) => ({id: IngredientId, amount, unit, price, name: Ingredient.name}))
+    let total = 0;
+    items.map((el) => {
+      total= total + (el.price * el.amount);
+    });
+
+    const handlePay = (preferenceId) => {
+        window.open(`https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preferenceId}`, "_self");
+    }
+
+    const handleStatus = async (status, orderId) => {
+        fetch(`http://localhost:3001/orders`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({status, orderId, userId: user.id}),
+            })
+                .then(resp => resp.json())
+                .then(order => {
+                    console.log(order);
+                    setState({...state, orders: state.orders.map(el => (el.id === order.id) ? {...el, status: order.status} : el)})
+                })
+    }
+
+    function CancelButton(){
+        return(
+            <WrapItem>
+                <Button colorScheme='red' onClick={() => handleStatus(4, el.id)}>Cancel</Button>
+            </WrapItem>
+        );
+    }
+
+    function PayButton(){
+        return(
+            <WrapItem>
+                <Button colorScheme='green'onClick={() => handlePay(el.preferenceId)}>Pagar</Button>
+            </WrapItem>
+        )
+    }
+
+    const SendButton = () => {
+        return (
+            <WrapItem>
+                <Button colorScheme='blue' onClick={() => handleStatus(3, el.id)}>Send</Button>
+            </WrapItem>
+        )
+    }
+
+
     return (
         <>
             {state &&
+            <div>
             <Overlay >
                 <ContenedorModal>
                     <EncabezadoModal>
@@ -26,12 +79,40 @@ const Modal = ({
                     </CloseButton>
                 <h1>Order {h1}</h1>
                 <hr />
+<<<<<<< HEAD
                 <p>{body}</p>
                 <hr />
                 <h2>Total = ${price}</h2>
                 </ContenedorModal>
 
             </Overlay>
+=======
+               
+                <hr />
+                <div className={s.ingredientList}>
+                <IngredientsList 
+                    items={items} 
+                    orderDetail={true}
+                    className={s.list}
+                    width="50px"
+                    
+                />
+                </div>
+                <hr />
+                <div>
+                <p className={s.total}>Total = ${total.toFixed(2)}</p>
+                </div>
+                <hr />
+                <div className={s.actionsModal}>
+                    {status<2 ? < CancelButton />: ""}
+                    {status==0 ? < PayButton />: ""}
+                    
+                </div>
+                </ContenedorModal>
+
+            </Overlay>
+            </div>
+>>>>>>> 0e8af740775d6f32bc25cf702e7b0648cec77e83
             }
         </>
     )
@@ -40,8 +121,13 @@ const Modal = ({
 export default Modal;
 
 const Overlay = styled.div`
+<<<<<<< HEAD
     width: 100vw;
     height: 100vh;
+=======
+    width: 100%;
+    height: 100%;
+>>>>>>> 0e8af740775d6f32bc25cf702e7b0648cec77e83
     position: fixed;
     top: 0;
     left: 0;
@@ -54,7 +140,11 @@ const Overlay = styled.div`
     `;
 
 const ContenedorModal = styled.div`
+<<<<<<< HEAD
     width: 500px;
+=======
+    width: 100%;
+>>>>>>> 0e8af740775d6f32bc25cf702e7b0648cec77e83
     min-height: 100px;
     background-color: #fff;
     position: relative;

@@ -33,12 +33,14 @@ const RecipesBox = ({ title, recipes }) => {
                   </div>
                   <div className={s.recipeTitleDiv}>{r.title}</div>
                 </Link>
-                <div
-                  className={s.heartButtonDiv}
-                  onClick={() => deleteFavorite(r.id)}
-                >
-                  <FaHeart />
-                </div>
+                {title === "Favorites" ? (
+                  <div
+                    className={s.heartButtonDiv}
+                    onClick={() => deleteFavorite(r.id)}
+                  >
+                    <FaHeart />
+                  </div>
+                ) : null}
               </div>
             );
           })

@@ -1,22 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
 
 .containerMain {
-
   background-color: #fbab7e;
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
-  
-  }
+}
 
 .containerinstructions {
-    background-color: white;
-    border-radius: 3px;
-    width: 70%;
-    padding: 2rem;
-    box-sizing: border-box;
+  background-color: white;
+  border-radius: 3px;
+  width: 70%;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 .containerImageInstrutions {
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +21,7 @@
 }
 
 .title {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .container {
@@ -46,7 +43,7 @@
   align-items: center;
   gap: 1rem;
 }
-.imageDetail{
+.imageDetail {
   width: 560px;
   height: 370px;
   margin: auto;
@@ -85,7 +82,6 @@
   background-color: aliceblue;
 }
 
-
 .favoriteButtonDiv {
   position: absolute;
   right: 10px;
@@ -109,4 +105,9 @@
   transition: 0s;
   background-color: rgb(255, 11, 44);
   cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+  .chakra-tabs__list {
+    flex-direction: row;
+  }
 }

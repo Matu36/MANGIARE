@@ -33,7 +33,15 @@ margin-right: 20px;
 }
 
 .widgetSmUserName {
-    font-weight: 600;
+    font-weight: 800;
+    list-style: none;
+    margin-right: 10px;
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
 }
 
 .widgetSmButton {
@@ -50,5 +58,9 @@ margin-right: 20px;
 .widgetSmIcon {
     font-size: 16px;
     margin-right: 5px;
+}
+
+.ulnone {
+    list-style: none;
 }
 

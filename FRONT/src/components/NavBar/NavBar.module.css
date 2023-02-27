@@ -7,11 +7,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
+    position: fixed !important;
     top: 0;
     left: 0;
     right: 0;
     z-index: 2;
+    
 }
 .logo{
     width: 10%;
@@ -31,7 +32,7 @@
     padding: 15px 30px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    /* display: inline-block; */
     font-size: 14px;
     cursor: pointer;
 }
@@ -52,4 +53,32 @@
 
 .btn2:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.shoppingCartButton{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 10px;
+    color: #555;
+
+}
+
+.cartItemCount{
+    /* position: absolute; */
+    
+    top: 0;
+    right: 0;
+    background-color: #3ed12b;
+    color: #ffffff;
+    padding: 0 5px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }

@@ -24,6 +24,8 @@ import {
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import logo from "../../img/LOGO 2.png";
+import NavBar from "../../components/NavBar/NavBar";
+const { REACT_APP_FRONT_URL, REACT_APP_BACK_URL } = process.env;
 
 export default function ShoppingCart() {
   const [state, setState] = React.useState({ address: null, checkout: false });
@@ -115,8 +117,7 @@ export default function ShoppingCart() {
   };
 
   const handleConfirm = () => {
-    //fetch(`http://localhost:3001/orders`, {
-    fetch(`https://mangiare-production.up.railway.app/orders`, {
+    fetch(`${REACT_APP_BACK_URL}/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -130,10 +131,7 @@ export default function ShoppingCart() {
       .then((order) => {
         dispatch(setCart([]));
         localStorage.removeItem("MANGIARE_cart");
-
-        //window.location.href = `localhost:3000/orders/${order.id}`;
-        window.location.href = `https://mangiare-production.up.railway.app/orders/${order.id}`;
-
+        window.location.href = `${REACT_APP_FRONT_URL}/user?id=${order.id}`;
       });
   };
 
@@ -155,7 +153,8 @@ export default function ShoppingCart() {
         backgroundPosition: "center center",
       }}
     >
-      <Flex>
+      <NavBar />
+      <Flex marginTop="70px">
         <Box
           w="40%"
           h="100vh"

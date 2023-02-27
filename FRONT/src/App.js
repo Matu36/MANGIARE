@@ -15,11 +15,9 @@ import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import UserPage from "./pages/userPage/UserPage";
 import Appmodel from "../src/Admin/Appmodel";
 import Orders from "./pages/Orders/Orders";
+const { REACT_APP_BACK_URL } = process.env;
 
-
-
-//axios.defaults.baseURL = "http://localhost:3001/";
-axios.defaults.baseURL = "https://mangiare-production.up.railway.app/";
+axios.defaults.baseURL = `${REACT_APP_BACK_URL}`;
 
 export default function App() {
   return (
