@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import s from "./NavBar.module.css";
 import { Link } from "react-router-dom";
 import { BsCartCheck, BsCart4 } from "react-icons/bs";
@@ -11,7 +11,7 @@ import mangiare from "../../img/LOGO.png";
 import UserMenu from "../UserMenu/UserMenu";
 import onExecutePostEmail from "../Auth0/onLogin.js";
 
-function NavBar() {
+function NavBar(userLocalstorage) {
   const { user, isAuthenticated } = useAuth0();
   const [cartItems, setCartItems] = useState(0);
 
@@ -25,13 +25,8 @@ function NavBar() {
   useEffect(() => {
     if (isAuthenticated) {
       onExecutePostEmail(user);
-      //console.log("Carga Localstorage");
     }
   }, [user, isAuthenticated]);
-
-  const userLocal = JSON.parse(localStorage.getItem("MANGIARE_user"));
-
-  //console.log("nabvbar", "muestra local", userLocal);
 
   return (
     <div className={s.container}>

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import "./homeAdmin.css";
@@ -18,7 +18,7 @@ import Orders from "../../../pages/Orders/Orders";
 export default function HomeAdmin() {
   const dispatch = useDispatch();
   const homeShow = useSelector((state) => state.homeadmin.homeShow);
-  const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
+  let currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   useEffect(() => {
     dispatch(getIngredients());
