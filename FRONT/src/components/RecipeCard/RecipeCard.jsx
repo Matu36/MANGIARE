@@ -2,13 +2,12 @@ import React from "react";
 import s from "./RecipeCard.module.scss";
 import { Link } from "react-router-dom";
 
-
 function RecipeCard({ id, image, title, diets }) {
+  let png = "https://cdn-icons-png.flaticon.com/512/7780/7780562.png";
   return (
-  <Link to={`/recipes/${id}`}>
-
+    <Link to={`/recipes/${id}`}>
       <div className={s.card} id={id}>
-        <img className={s.img} src={image} alt={title} />
+        <img className={image ? s.img : s.noImage} src={image ? image : png} alt={title} />
 
         <div className={s.titleDiv}>
           <h2>{title}</h2>
@@ -27,10 +26,8 @@ function RecipeCard({ id, image, title, diets }) {
           </div>
         </div>
       </div>
-
-      </Link>
-
-      );
-    }
+    </Link>
+  );
+}
 
 export default RecipeCard;

@@ -51,6 +51,11 @@
   border-radius: 50px;
 }
 
+.noImg{
+  width: 30%;
+  height: auto;
+}
+
 .divSpinner {
   display: flex;
   margin-top: 20rem;

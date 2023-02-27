@@ -46,6 +46,7 @@ const RecipeDetail = () => {
   const cart = useSelector((state) => state.cart.cart);
   const [loading, setLoading] = useState(false);
   const LS_user = JSON.parse(localStorage.getItem("MANGIARE_user"));
+  let png = "https://cdn-icons-png.flaticon.com/512/7780/7780562.png";
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
@@ -225,8 +226,9 @@ const RecipeDetail = () => {
               height="370px"
               margin="auto"
               padding="20px"
-              src={image}
+              src={image ? image : png}
               alt={title}
+              className={!image ? s.noImg : null}
             />
             {filteredFavorites ? (
               <div className={s.favoriteButtonDiv} onClick={handleFavorite}>
