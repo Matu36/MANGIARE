@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 
 export default function IngredientsList(props) {
+
   return (
     <Table variant="striped" width="100%">
       <Thead>
@@ -96,7 +97,7 @@ export default function IngredientsList(props) {
             </td>
           </tr>
         ))}
-      </tbody>
+      </Tbody>
     </Table>
   );
 }

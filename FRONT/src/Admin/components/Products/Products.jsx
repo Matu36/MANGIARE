@@ -3,7 +3,8 @@ import "./products.css";
 import { useDispatch, useSelector } from "react-redux";
 import Paginations from "../../../components/Paginations/Paginations";
 import IngredientForm from "./CreateIngredient/CreateIngredient";
-import { BiEditAlt, BsSave2 } from "react-icons/bi";
+import { BiEditAlt, BsSave2, BiSave } from "react-icons/bi";
+import {MdCancel} from "react-icons/md";
 import { updateIngredient } from "../../../Redux/actions/ingredients";
 import { Input, InputGroup } from "@chakra-ui/react";
 import "./products.css";
@@ -161,16 +162,18 @@ export default function Products() {
                         justifyContent: "space-between",
                       }}
                     >
+                      
                       <Input
                         type="number"
                         value={editPrice}
                         onChange={(e) => handlePriceChange(e.target.value)}
                       />
 
-                      <button onClick={() => handleSave(row.id)}>Save</button>
+                      <button onClick={() => handleSave(row.id)}><BiSave /></button>
 
-                      <button onClick={handleCancel}>Cancel</button>
-                    </div>
+                      <button onClick={handleCancel}><MdCancel /></button>
+                      </div>
+                    
                   ) : (
                     <div
                       style={{
@@ -193,7 +196,7 @@ export default function Products() {
             </Tr>
           ))}
 
-          <div>
+          <Box width= "100%">
             <br />
             {products && (
               <Paginations
@@ -202,13 +205,14 @@ export default function Products() {
                 handlePageNumber={handlePageNumber}
               />
             )}
-          </div>
+          </Box>
           <br />
-          <div>
-            <IngredientForm />
-          </div>
+          
         </Tbody>
       </Table>
+      <Box display= "flex" width="800px">
+            <IngredientForm />
+          </Box>
     </div>
   );
 }
