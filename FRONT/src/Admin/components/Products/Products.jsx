@@ -196,7 +196,7 @@ export default function Products() {
             </Tr>
           ))}
 
-          <div>
+          <Box width= "100%">
             <br />
             {products && (
               <Paginations
@@ -205,13 +205,14 @@ export default function Products() {
                 handlePageNumber={handlePageNumber}
               />
             )}
-          </div>
+          </Box>
           <br />
-          <div>
-            <IngredientForm />
-          </div>
+          
         </Tbody>
       </Table>
+      <Box display= "flex" width="800px">
+            <IngredientForm />
+          </Box>
     </div>
   );
 }

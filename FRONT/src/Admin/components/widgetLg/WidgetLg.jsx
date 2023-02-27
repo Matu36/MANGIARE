@@ -71,7 +71,7 @@ export default function WidgetLg(props) {
         </tr>
       </thead>
       <tbody>
-        {state.orders?.slice(-7).map((el, idx) => (
+        {state.orders?.slice(-6).map((el, idx) => (
           <React.Fragment key={idx}>
             <tr
               className={
