@@ -337,10 +337,10 @@ const RecipeDetail = () => {
                 <Button colorScheme="teal" variant="solid" size="lg">
                   Go to Cart
                 </Button>
-                <Button style={{marginLeft: '15px'}} colorScheme="teal" variant="solid" size="lg" onClick={handleConfirm}>
-                  Fast Buy Recipe
-                </Button>
               </NavLink>
+              <Button style={{marginLeft: '15px'}} colorScheme="teal" variant="solid" size="lg" onClick={handleConfirm}>
+                  Fast Buy Recipe
+              </Button>
             </Box>
             <Box
               w={["90%", "90%", "65%", "65%"]}
