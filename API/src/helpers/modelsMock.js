@@ -15,6 +15,8 @@ const {
 const { API_KEY } = process.env;
 
 async function locMock() {
+  console.log("Generando registros harcodeados...");
+
   ////////////////// Users //////////////////////
 
   await Users.bulkCreate([
@@ -455,7 +457,7 @@ async function apiMock(apiRegs = 10) {
 }
 
 module.exports = async (api) => {
-  locMock();
-  apiMock(api);
+  await locMock();
+  await apiMock(api);
   console.log("Mock agregados a DB!");
 };
