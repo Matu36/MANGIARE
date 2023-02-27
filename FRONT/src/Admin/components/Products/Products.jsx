@@ -150,11 +150,7 @@ export default function Products() {
           {totalIngredients.map((row) => (
             <Tr key={row.id}>
               {columns.map((column) => (
-                <Td
-                  
-                  width="20%"
-                  key={`${row.id}-${column.field}`}
-                >
+                <Td width="20%" key={`${row.id}-${column.field}`}>
                   {column.field === "price" && editIndex === row.id ? (
                     <div
                       style={{

@@ -109,7 +109,8 @@ const RecipeDetail = () => {
   useEffect(() => {
     setState({
       ...state,
-      address: JSON.parse(localStorage.getItem("MANGIARE_user"))?.address || null,
+      address:
+        JSON.parse(localStorage.getItem("MANGIARE_user"))?.address || null,
     });
   }, []);
 
@@ -161,7 +162,6 @@ const RecipeDetail = () => {
     }
   };
 
-  
   const handleConfirm = () => {
     fetch(`${REACT_APP_BACK_URL}/orders`, {
       method: "POST",
@@ -175,7 +175,10 @@ const RecipeDetail = () => {
     })
       .then((data) => data.json())
       .then((order) => {
-        window.open(`https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${order.preferenceId}`, "_self")
+        window.open(
+          `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${order.preferenceId}`,
+          "_self"
+        );
       });
   };
 
@@ -338,8 +341,14 @@ const RecipeDetail = () => {
                   Go to Cart
                 </Button>
               </NavLink>
-              <Button style={{marginLeft: '15px'}} colorScheme="teal" variant="solid" size="lg" onClick={handleConfirm}>
-                  Fast Buy Recipe
+              <Button
+                style={{ marginLeft: "15px" }}
+                colorScheme="teal"
+                variant="solid"
+                size="lg"
+                onClick={handleConfirm}
+              >
+                Fast Buy Recipe
               </Button>
             </Box>
             <Box

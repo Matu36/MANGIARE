@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import s from "./Home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -47,14 +47,14 @@ export default function Home() {
     (state) => state.autocomplete.recipeIdAutocomplete
   );
   const [userLocalstorage, setUserLocalstorage] = useState();
-  
+
   const params = new URLSearchParams(window.location.search);
   const LS_user = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   useEffect(() => {
     dispatch(getRecipes());
     dispatch(getIngredients());
-    
+
     if (params.get("status") === "approved" && params.get("preference_id")) {
       fetch(`${REACT_APP_BACK_URL}/payment`, {
         method: "POST",
@@ -67,10 +67,6 @@ export default function Home() {
       });
     }
   }, []);
-
-  useEffect(() => {
-    setUserLocalstorage(JSON.parse(localStorage.getItem("MANGIARE_user")));
-  }, [isAuthenticated]);
 
   useEffect(() => {
     dispatch(resetRecipesToShow());
@@ -153,7 +149,7 @@ export default function Home() {
 
   return (
     <div className={s.containerMain}>
-      <NavBar userLocalstorage={userLocalstorage} />
+      <NavBar />
       <Box
         width="100%"
         height="700px"
