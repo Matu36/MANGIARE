@@ -7,7 +7,7 @@
 .ordersTable tr, .ordersTable th{
     height: 50px;
 }
-.par{
+.ordersTable .par{
     background-color:blanchedalmond;
 }
 .ordersTable .orderItem, .ordersTable thead, .ordersTable tbody tr:hover{

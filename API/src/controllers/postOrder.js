@@ -1,6 +1,5 @@
 const { Users, Order_details, Orders } = require("../db.js");
 const mercadopago = require("mercadopago");
-const { merchant_orders } = require("mercadopago");
 const { MERCADOPAGO_KEY, FRONT_URL } = process.env;
 const sendEmailWithTemplate = require("../mailer/sendEmailWithTemplate");
 
