@@ -4,7 +4,7 @@ import { createIngredients } from "../../../../Redux/actions/ingredients";
 import { Input, FormLabel, Button } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 import "./createingredient.css";
-
+import { Box, Text, Flex, VStack, HStack, Spacer } from "@chakra-ui/react";
 export default function IngredientForm() {
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredients.ingredients);
@@ -91,10 +91,25 @@ export default function IngredientForm() {
 
   return (
     <form onSubmit={handleOnSubmit}>
-      <div className="allcontain">
-        <div className="title"> Create Ingredient</div>
-      </div>
-      <div>
+    <Box border="6px solid"
+  borderColor="gray.400"
+  borderRadius="lg"
+  boxShadow="md"
+  p={4} width='100%' padding='5px' backgroundColor="grey.100"
+                opacity="0.9" paddingBottom='100px' borderBlockEndColor='ActiveBorder'>
+        <Text fontSize={{ base: "20px", md: "30px", lg: "46px" }}
+                textAlign="center"
+                fontWeight="bold"
+                color="teal.600"
+                backgroundColor="white"
+                opacity="0.5"
+                marginTop='35px'
+                marginBottom='35px'> Create Ingredient </Text>
+    
+      <HStack spacing='24px'>
+
+        <Box>
+        
         <FormLabel>
           <p>Name</p>
           <Input
@@ -104,10 +119,11 @@ export default function IngredientForm() {
             autoComplete="off"
             placeholder="Ingredient"
             onChange={handleOnChange}
+          
           />
         </FormLabel>
-      </div>
-      <div>
+      
+      
         <FormLabel>
           <p>Price</p>
           <Input
@@ -119,11 +135,18 @@ export default function IngredientForm() {
             onChange={handleOnChange}
           />
         </FormLabel>
-        <br />
 
-        <div className="unitsingredient">
-          <div className="units">Units</div>
-          <div className="select">
+        </Box>
+
+        <div className="units">Units</div>
+          <Box border="3px solid"
+  borderColor="gray.400"
+  borderRadius="lg"
+  boxShadow="md"
+  p={4}>
+          <HStack>
+          
+            <Box border='black'>
             <select multiple onChange={handleSelectChange} className="selec">
               {rowsFilter.map((unit, index) => (
                 <option key={index} value={unit.units}>
@@ -131,22 +154,29 @@ export default function IngredientForm() {
                 </option>
               ))}
             </select>
-
+            </Box>
+          
+            <Box>
             {selectedItems.map((item, index) => (
               <span key={index} className="itemsselected">
                 {item}
-                <button onClick={() => deleteItem(item)}>
+                <button type = "button" onClick={() => deleteItem(item)}>
                   <BsTrash />{" "}
                 </button>
               </span>
             ))}
-          </div>
-        </div>
+            </Box>
+          </HStack>
+          
+        </Box>
+
         <br />
         <div className="btn">
           <Button type="submit">Create Ingredient</Button>
         </div>
-      </div>
+      
+      </HStack>
+    </Box>
     </form>
   );
 }

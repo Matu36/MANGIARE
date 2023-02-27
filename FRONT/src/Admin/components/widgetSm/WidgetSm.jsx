@@ -15,7 +15,7 @@ const usersSlice = users.slice (-5);  //constante que tiene los ultimos 5 users
       <br />
       <ul className="ulnone">
         {usersSlice.map(user => (
-          <li classname= "widgetSmUserName"key={user.id}>
+          <li className= "widgetSmUserName"key={user.id}>
              <img src={PerfilVacio} className="widgetSmImg" alt={`Foto de ${user.email}`} />
             <span className="widgetSmUserName">{user.email}</span>
          

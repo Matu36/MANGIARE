@@ -1,11 +1,9 @@
-import React from "react";
-import "./widgetLg.css";
-import s from "../../../pages/Orders/Orders.module.css"
-import { Table } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import s from "./Orders.module.css";
+import IngredientsList from "../../components/IngredientsList/ingredientsList";
 const { REACT_APP_BACK_URL } = process.env;
 
-export default function WidgetLg(props) {
+export default function Orders(props) {
   const [state, setState] = useState({ orders: null, orderActive: null });
   const user = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
@@ -52,11 +50,9 @@ export default function WidgetLg(props) {
       });
   };
 
-return (
-  <div>
-  <div className="widgetLgTitle" > The Latest Transactions </div>
-      <table width="100%" className={s.ordersTable}>
-        
+
+  return (
+    <table width="100%" className={s.ordersTable}>
       <thead>
         <tr>
           {props.all ? <th>User Email</th> : ""}
@@ -67,10 +63,8 @@ return (
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody></tbody>
-      
       <tbody>
-        {state.orders?.slice(-6).map((el, idx) => (
+        {state.orders?.map((el, idx) => (
           <React.Fragment key={idx}>
             <tr
               className={
@@ -81,7 +75,7 @@ return (
                   ? ""
                   : s.par
               }
-              
+              onClick={() => setState({ ...state, orderActive: el.id })}
             >
               {props.all ? <td>{el.User.email}</td> : ""}
               <td>{el.id}</td>
@@ -146,6 +140,5 @@ return (
         ))}
       </tbody>
     </table>
-    </div>
-)}
-
+  );
+}
