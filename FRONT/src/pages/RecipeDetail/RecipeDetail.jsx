@@ -269,7 +269,7 @@ const RecipeDetail = () => {
                       onChange={handleOnChange}
                       onUnitChange={handleOnUnitChange}
                       itemButton={{
-                        caption: "Add Item",
+                        caption: "Add to Cart",
                         action: handleOnAdd,
                       }}
                       //cart={cart}
