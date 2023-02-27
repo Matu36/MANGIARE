@@ -38,6 +38,7 @@ export default function App() {
         <Route exact path="/aboutUs" element={<AboutUs />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/myRecipes" element={<MyRecipes />} />
+        <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/shoppingCart" element={<ShoppingCart />} />
         <Route exact path="/user" element={<UserPage />} />
         {isAuthenticated && currentUser?.role !== null && (

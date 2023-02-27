@@ -79,6 +79,14 @@ const Modal = ({
                     </CloseButton>
                 <h1>Order {h1}</h1>
                 <hr />
+<<<<<<< HEAD
+                <p>{body}</p>
+                <hr />
+                <h2>Total = ${price}</h2>
+                </ContenedorModal>
+
+            </Overlay>
+=======
                
                 <hr />
                 <div className={s.ingredientList}>
@@ -104,6 +112,7 @@ const Modal = ({
 
             </Overlay>
             </div>
+>>>>>>> 0e8af740775d6f32bc25cf702e7b0648cec77e83
             }
         </>
     )
@@ -112,8 +121,13 @@ const Modal = ({
 export default Modal;
 
 const Overlay = styled.div`
+<<<<<<< HEAD
+    width: 100vw;
+    height: 100vh;
+=======
     width: 100%;
     height: 100%;
+>>>>>>> 0e8af740775d6f32bc25cf702e7b0648cec77e83
     position: fixed;
     top: 0;
     left: 0;
@@ -126,7 +140,11 @@ const Overlay = styled.div`
     `;
 
 const ContenedorModal = styled.div`
+<<<<<<< HEAD
+    width: 500px;
+=======
     width: 100%;
+>>>>>>> 0e8af740775d6f32bc25cf702e7b0648cec77e83
     min-height: 100px;
     background-color: #fff;
     position: relative;
