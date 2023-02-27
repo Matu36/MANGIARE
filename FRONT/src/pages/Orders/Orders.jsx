@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from "react";
 import s from './Orders.module.css';
-const {REACT_APP_BACK_URL} = process.env;
 import IngredientsList from '../../components/IngredientsList/ingredientsList';
-import {Table,Thead,Tfoot,Tbody,Tr,Th,Td,TableCaption,TableContainer, WrapItem, Button, Box} from '@chakra-ui/react';
-import Order from "./Order";
-import NavBar from "../../components/NavBar/NavBar";
-import banner from "../../img/BannerHome.jpg";
-
+const { REACT_APP_BACK_URL } = process.env;
+import { Input } from "@chakra-ui/react";
 
 export default function Orders(props) {
-    const [state, setState] = useState({orders: null, orderActive: null});
-    const params = new URLSearchParams(window.location.search);
+    const [state, setState] = useState({
+        orders: null,
+        orderActive: null,
+        filters: {status: '-1'}, // filters: {email: 'yamil.leotta@gmail.com, status: '2'} // '-1': All Statuses
+        orderBy: {none: 'ASC'} // orderBy: {status: 'ASC' || 'DES'}
+    });
     const user = JSON.parse(localStorage.getItem("MANGIARE_user"));
-    const arrStatus = ['Payment pending', 'Stock pending', 'In preparation', 'Sent', 'Canceled'];
-    
-/*
-    useEffect(() => {
-        console.log(state.orders);
-    }, [state.orders]);
-*/
 
     useEffect(() => {
         fetch(`${REACT_APP_BACK_URL}/orders?id=${user.id}&email=${user.email}${props.all ? '&all=true' : ''}`)
             .then(resp => resp.json())
-            .then(data => {setState({...state, orders: data})});
+            .then(orders => {setState({...state, orders})});
         }, []);
 
     const handlePay = (preferenceId) => {
@@ -38,126 +31,128 @@ export default function Orders(props) {
             })
                 .then(resp => resp.json())
                 .then(order => {
-                    console.log(order);
                     setState({...state, orders: state.orders.map(el => (el.id === order.id) ? {...el, status: order.status} : el)})
                 })
     }
 
-    console.log(REACT_APP_BACK_URL);
+    console.log(state.orderBy);
 
-    const CancelButton = () => {
-        return(
-            <WrapItem>
-                <Button colorScheme='red' onClick={() => handleStatus(4, el.id)}>Cancel</Button>
-            </WrapItem>
-        );
-    }
+    return(
+        <div>
+            <table width = "100%">
+                <thead>
+                    <tr>
+                        {props.all ? <th>Email filter</th> : null }
+                        <th>Status filter</th>
+                        <th colSpan="2">Order by</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {props.all ? <td style = {{textAlign: 'center'}}>
+                            <Input
+                                type="text"
+                                placeholder="Search Email"
+                                onChange={({target}) => setState({...state, filters: {...state.filters, email: target.value}})}
+                                value={state.filters.email}
+                                autoComplete="off"
+                                width="30rem"
+                                background="white"
+                                margin="10px"
+                            />
+                        </td> : null}
+                        <td style = {{textAlign: 'center'}}>
+                            <select name="status" value={state.filters.status} onChange={({target}) => {setState({...state, filters: {...state.filters, [target.name]: target.value}})}}>
+                                <option value={-1}>All Statuses</option>
+                                <option value={0}>Payment pending</option>
+                                <option value={1}>Stock pending</option>
+                                <option value={2}>In preparation</option>
+                                <option value={3}>Sent</option>
+                                <option value={4}>Canceled</option>
+                            </select>
+                        </td>
+                        <td style = {{textAlign: 'center'}}>
+                            <select name="orderBy" value={Object.entries(state.orderBy)[0][0]} onChange={({target}) => {setState({...state, orderBy: {[target.value]: Object.entries(state.orderBy)[0][1]}})}}>
+                                <option value="none">None</option>
+                                <option value="status">Status</option>
+                                <option value="email">User's email</option>
+                                <option value="createdAt">Created At</option>
+                                <option value="id">Order#</option>
+                            </select>
+                        </td>
+                        <td style = {{textAlign: 'center'}}>
+                            <select name="orderMethod" value={Object.entries(state.orderBy)[0][1]} onChange={({target}) => {setState({...state, orderBy: {[Object.entries(state.orderBy)[0][0]]: target.value}})}} disabled={Object.entries(state.orderBy)[0][0] === 'none'}>
+                                <option value="ASC">Ascending</option>
+                                <option value="DESC">Descending</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table width='100%' className={s.ordersTable}>
+                <thead>
+                    <tr>
+                        {props.all ? <th>User Email</th> : ''}
+                        <th>Order#</th>
+                        <th>createdAt</th>
+                        <th>Ingredients#</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {
+                    state.orders?.filter(order => !Object.keys(state.filters).some(key => 
+                        (key !== 'email')
+                                ? ((order[key] != state.filters[key]) && (key === 'status' && state.filters[key] !== '-1'))
+                                : (!order.User[key].includes(state.filters[key]))
+                        ))
+                        .sort((a, b) => {
+                            let orderMethod = (Object.entries(state.orderBy)[0][1] === 'ASC') ? 1 : -1
+                            if (Object.entries(state.orderBy)[0][0] === 'email') {
+                                a = a.User;
+                                b = b.User;
+                            }
+                            return (a[Object.entries(state.orderBy)[0][0]] < b[Object.entries(state.orderBy)[0][0]]) ? -orderMethod : orderMethod
+                        })
+                        .map((el, idx) => (
+                        <React.Fragment key={idx}>
+                            <tr className={((el.id === state.orderActive) || (!state.orderActive && el.id == props.order_id)) ? s.orderItem : ((idx % 2) ? '' : s.par)} onClick={() => setState({...state, orderActive: el.id})}>
+                                {props.all ? <td>{el.User.email}</td> : ''}
+                                <td>{el.id}</td>
+                                <td>{el.createdAt}</td>
+                                <td>{el.Order_details.length}</td>
+                                <td>{
+                                    (el.status === 0)
+                                        ? 'Payment pending'
+                                        : (el.status === 1)
+                                            ? 'Stock pending'
+                                            : (el.status === 2)
+                                                ? 'In preparation'
+                                                : (el.status === 3)
+                                                    ? 'Sent'
+                                                    : 'Canceled'
+                                    }</td>
+                                <td>
+                                    {(((!el.status) || (el.status === 1) && (user.role !== null) && props.all)) ? <button onClick={() => handleStatus(4, el.id)}>Cancel</button> : ''}
 
-    const PayButton = () => {
-        return(
-            <WrapItem>
-                <Button colorScheme='green' onClick={() => handlePay(el.preferenceId)}>Pagar</Button>
-            </WrapItem>
-        )
-    }
+                                    {((!el.status) && (user.id == el.userId)) ? <button onClick={() => handlePay(el.preferenceId)}>Pay</button> : ''}
 
-    const SendButton = () => {
-        return (
-            <WrapItem>
-                <Button colorScheme='blue' onClick={() => handleStatus(3, el.id)}>Send</Button>
-            </WrapItem>
-        )
-    }
-
-    const Main = () => {
-        return (
-            <TableContainer width="90%" backgroundColor="white">
-                        <Table variant='simple'> 
-                            <Thead>
-                                <Tr>
-                                    {props.all ? <Th fontSize="2xl">User Email</Th> : ''}
-                                    <Th fontSize="2xl">Order Number</Th>
-                                    <Th fontSize="2xl">Creation date</Th>
-                                    <Th fontSize="2xl" >Total</Th>
-                                    <Th fontSize="2xl" >State</Th>
-                                    <Th fontSize="2xl" style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        }} >Actions</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                {
-                                    state.orders?.map((el, idx) => (
-                                        <React.Fragment key={idx}>
-                                            <Order props={props} el={el} idx={idx} />
-                                        </React.Fragment>
-                                    ))
-                                }
-                            </Tbody>
-                        </Table>
-                    </TableContainer>
-        )
-    }
-
-    return( 
-        <>
-            <NavBar />
-                    <Main />
-        </>
-    )}
-
-
-    
-        {/* <table width='100%' className={s.ordersTable}>
-            <thead>
-                <tr>
-                    {props.all ? <th>User Email</th> : ''}
-                    <th>Order#</th>
-                    <th>createdAt</th>
-                    <th>Ingredients#</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {
-                state.orders?.map((el, idx) => (
-                    <React.Fragment key={idx}>
-                         <tr className={((el.id === state.orderActive) || (!state.orderActive && el.id == props.order_id)) ? s.orderItem : ((idx % 2) ? '' : s.par)} onClick={() => setState({...state, orderActive: el.id})}>
-                            {props.all ? <td>{el.User.email}</td> : ''}
-                            <td>{el.id}</td>
-                            <td>{el.createdAt}</td>
-                            <td>{el.Order_details.length}</td>
-                            <td>{
-                                (el.status === 0)
-                                    ? 'Payment pending'
-                                    : (el.status === 1)
-                                        ? 'Stock pending'
-                                        : (el.status === 2)
-                                            ? 'In preparation'
-                                            : (el.status === 3)
-                                                ? 'Sent'
-                                                : 'Canceled'
-                                }</td>
-                               
-                            <td>
-                                {(((!el.status) || (el.status === 1) && (user.role !== null) && props.all)) ? <button onClick={() => handleStatus(4, el.id)}>Cancel</button> : ''}
-
-                                {((!el.status) && (user.id == el.userId)) ? <button onClick={() => handlePay(el.preferenceId)}>Pay</button> : ''}
-
-                                {((el.status === 2) && (user.role !== null) && (props.all)) ? <button onClick={() => handleStatus(3, el.id)}>Send</button> : ''}
-                            </td>
-                        </tr>
-                        {((state.orderActive === el.id) || (!state.orderActive && el.id == props.order_id)) ? <tr className={s.orderItem}>
-                            <td colSpan={props.all ? 6 : 5} style={{padding: '30px 0'}}>
-                                <IngredientsList items={el.Order_details.map(({IngredientId, amount, unit, price, Ingredient}) => ({id: IngredientId, amount, unit, price, name: Ingredient.name}))} orderDetail={true}/>
-                            </td>
-                        </tr> : ''}
-                    </React.Fragment>
-                ))
-            }
-            </tbody>
-        </table> */}
-
+                                    {((el.status === 2) && (user.role !== null) && (props.all)) ? <button onClick={() => handleStatus(3, el.id)}>Send</button> : ''}
+                                </td>
+                            </tr>
+                            {((state.orderActive === el.id) || (!state.orderActive && el.id == props.order_id)) ? <tr className={s.orderItem}>
+                                <td colSpan={props.all ? 6 : 5} style={{padding: '30px 0'}}>
+                                    <div style={{width: '70%', margin: 'auto'}}>
+                                        <IngredientsList items={el.Order_details.map(({IngredientId, amount, unit, price, Ingredient}) => ({id: IngredientId, amount, unit, price, name: Ingredient.name}))} orderDetail={true}/>
+                                    </div>
+                                </td>
+                            </tr> : ''}
+                        </React.Fragment>
+                    ))
+                }
+                </tbody>
+            </table>
+        </div>
+    )
+}
