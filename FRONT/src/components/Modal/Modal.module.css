@@ -1,0 +1,29 @@
+.conteiner{
+}
+
+
+.actionsModal{
+    margin-top: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .total{
+    display: flex;
+    justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  }
+
+.ingredientList{
+  margin-top: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  }
