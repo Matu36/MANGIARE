@@ -21,12 +21,16 @@ import {
   IconButton,
   Button,
   Container,
+  ListItem,
   Tabs,
   TabList,
   TabPanels,
   Spinner,
   Tab,
   TabPanel,
+  UnorderedList,
+  Stack,
+  VStack,
 } from "@chakra-ui/react";
 import background from "../../img/RDetailBG.jpg";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -161,57 +165,52 @@ const RecipeDetail = () => {
           />
         </div>
       ) : (
-        <Box
+        <Stack
+          //width={{ base: "lg", md: "3xl", lg: "6xl" }}
           width="100%"
           height="auto"
           marginTop="1px"
           paddingTop="70px"
-          
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            backgroundSize: "cover",
-            
-            backgroundPosition: "center center",
-            
+            backgroundSize: "auto",
+            backgroundPosition: "center",
           }}
         >
-          <Box width="90%" height="10%" marginBottom="none"  
-          
+          <Box
+            width={{ base: "sm", md: "2xl", lg: "4xl", xl: "6xl" }}
+            height="10%"
+            marginBottom="none"
           >
             <NavBar />
           </Box>
-          <Box width="100%" height="20rem" marginBottom="none"
-          backgroundImage={background} 
-          style={{
-           
-            justifyContent: "center",
-            backgroundSize: "cover",
-            
-            filter: "contrast(100%)",
-            backgroundPosition: "center bottom 45%",           
-          }}
-          
-          >
-            
-          </Box>
-
           <Box
             width="100%"
-            height="auto"
-            marginTop="100px"
+            height={["10rem", "10rem", "20rem", "20rem"]}
+            marginBottom="none"
+            backgroundImage={background}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              filter: "contrast(90%)",
+              backgroundSize: "cover",
+              filter: "contrast(100%)",
+              backgroundPosition: "center bottom 45%",
+            }}
+          ></Box>
+
+          <Box
+            width={{ base: "xsm", md: "2xl", lg: "6xl" }}
+            maxWidth="80%"
+            height="50%"
+            objectFit={"cover"}
+            borderRadius="10px"
+            style={{
+              position: "relative",
             }}
           >
             <Text
-              fontSize="4xl"
+              fontSize={{ base: "36px", md: "40px", lg: "56px" }}
               textAlign="center"
               fontWeight="bold"
               color="yellow.800"
@@ -220,25 +219,31 @@ const RecipeDetail = () => {
             >
               {title}
             </Text>
+            <Image
+              borderRadius="50px"
+              width="560px"
+              height="370px"
+              margin="auto"
+              padding="20px"
+              src={image}
+              alt={title}
+            />
+            {filteredFavorites ? (
+              <div className={s.favoriteButtonDiv} onClick={handleFavorite}>
+                {filteredFavorites.length > 0 ? <FaHeart /> : <FaRegHeart />}
+              </div>
+            ) : null}
+          </Box>
 
-            <Box
-              width="40%"
-              height="50%"
-              objectFit={"cover"}
-              borderRadius="10px"
-              style={{
-                position: "relative",
-              }}
+          <Stack>
+            <Tabs
+              font-size="sm"
+              width="50%"
+              size="md"
+              align="left"
+              variant="enclosed"
+              marginTop="90px"
             >
-              <img className={s.imageDetail} src={image} alt={title} />
-              {filteredFavorites ? (
-                <div className={s.favoriteButtonDiv} onClick={handleFavorite}>
-                  {filteredFavorites.length > 0 ? <FaHeart /> : <FaRegHeart />}
-                </div>
-              ) : null}
-            </Box>
-
-            <Tabs align="center" variant="enclosed" marginTop='100px'>
               <TabList>
                 <Tab _selected={{ color: "white", bg: "blue.500" }}>
                   Ingredients
@@ -252,11 +257,12 @@ const RecipeDetail = () => {
               <TabPanels>
                 <TabPanel
                   backgroundColor="rgba(255, 255, 255, 0.7)"
-                  height={["200px", "300px", "400px"]}
+                  width={{ base: "sm", md: "lg", lg: "2xl" }}
+                  //height={["200px", "300px", "400px"]}
                   overflowY="scroll"
                 >
                   {!list ? (
-                    <h3>Loading...</h3>
+                    <Text>Loading...</Text>
                   ) : (
                     <IngredientsList
                       items={list.map((el) => ({ ...el, units: [el.unit] }))}
@@ -270,28 +276,25 @@ const RecipeDetail = () => {
                     />
                   )}
                 </TabPanel>
-                <TabPanel
-                  backgroundColor="rgba(255, 255, 255, 0.5)"
-                  width="50%"
-                >
+                <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)">
                   <Box width="100%" color="black">
-                    <p>{instructions}</p>
+                    <Text>{instructions}</Text>
                   </Box>
                 </TabPanel>
                 <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)">
-                  <ul className="recipeDetail">
+                  <UnorderedList className="recipeDetail">
                     {diets &&
                       diets.map((diet, index) => {
-                        return <li key={index}>{diet}</li>;
+                        return <ListItem key={index}>{diet}</ListItem>;
                       })}
-                  </ul>
+                  </UnorderedList>
                 </TabPanel>
-                <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)" l>
+                <TabPanel backgroundColor="rgba(255, 255, 255, 0.5)">
                   <Box
-                    width="25%"
-                    height="40%"
+                    width="35%"
+                    height="45%"
                     display="flex"
-                    alignContent="left"
+                    alignContent="center"
                     marginTop="1px"
                     fontSize="20px"
                   >
@@ -300,14 +303,34 @@ const RecipeDetail = () => {
                 </TabPanel>
               </TabPanels>
             </Tabs>
-          </Box>
-          <NavLink className={s.navlinkGoBackButton} to={"/home"}>
-            <Button colorScheme="teal" variant="solid" size="lg">
-              Go Home
-            </Button>
-          </NavLink>
-          <ReviewsBox />
-        </Box>
+          </Stack>
+
+          <VStack spacing="24px">
+            <Box padding="20px">
+              <NavLink to={"/shoppingCart"}>
+                <Button colorScheme="teal" variant="solid" size="lg">
+                  Go to Cart
+                </Button>
+              </NavLink>
+            </Box>
+            <Box
+              w={["90%", "90%", "65%", "65%"]}
+              borderWidth="1px"
+              padding="10px"
+              borderRadius="lg"
+            >
+              <ReviewsBox />
+            </Box>
+            <Box />
+            <Box padding="10px">
+              <NavLink className={s.navlinkGoBackButton} to={"/home"}>
+                <Button colorScheme="teal" variant="outline" size="lg">
+                  Go Home
+                </Button>
+              </NavLink>
+            </Box>
+          </VStack>
+        </Stack>
       )}
     </>
   );
