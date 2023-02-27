@@ -35,8 +35,6 @@ export default function Orders(props) {
                 })
     }
 
-    console.log(state.orderBy);
-
     return(
         <div>
             <table width = "100%">
