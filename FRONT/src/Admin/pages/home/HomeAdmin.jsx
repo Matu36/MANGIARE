@@ -46,7 +46,7 @@ export default function HomeAdmin() {
           />
           <div className="homeWidgets">
           <WidgetSm />
-          <WidgetLg />
+          <WidgetLg all={true}/>
           </div>
         </div>
       )}
