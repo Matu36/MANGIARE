@@ -97,7 +97,7 @@ export default function IngredientsList(props) {
             </td>
           </tr>
         ))}
-      </Tbody>
+      </tbody>
     </Table>
   );
 }
