@@ -58,14 +58,18 @@ export default function SideBar() {
               <TbCoin className="sidebarIcon" />
               <button onClick={(e) => handleHomeAdmin(e)}>Reviews</button>
             </li>
-          </ul>
-        </div>
-       <Player
+            <li className="sidebarListItem">
+            <Player
         src= 'https://assets4.lottiefiles.com/packages/lf20_jBvjF3.json'
         className="player"
         loop
         autoplay
       />
+      </li>
+          </ul>
+        </div>
+
+       
        
         </div>
       </div>
