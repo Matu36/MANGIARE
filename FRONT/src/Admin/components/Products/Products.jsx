@@ -72,8 +72,10 @@ export default function Products() {
   };
 
   const handlePriceChange = (price) => {
-    setEditPrice(price);
-  };
+    if (price === '' || parseFloat(price) >= 0) {
+      setEditPrice(price === '' ? null : parseFloat(price));
+    };
+  }
 
   const handleSave = (index) => {
     const updatedIngredient = {
@@ -103,9 +105,12 @@ export default function Products() {
   };
 
   const handleStockChange = (stock) => {
-    setEditStock(stock);
-  };
-
+      if (stock === '' || parseFloat(stock) >= 0) {
+        setEditStock(stock === '' ? null : parseFloat(stock));
+      };
+    }
+  
+  
   const handleSaveStock = (index) => {
     const updatedIngredient = {
       id: totalIngredients[index - 1].id,
@@ -180,50 +185,85 @@ export default function Products() {
           </Tr>
         </Thead>
         <Tbody>
-          {totalIngredients.map((row) => (
-            <Tr key={row.id}>
-              {columns.map((column) => (
-                <Td width="20%" key={`${row.id}-${column.field}`}>
-                {((column.field === "price" && editPrice) || (column.field === "stock" && editStock)) && editIndex === row.id ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    
-                    <Input
-                      type="number"
-                      value={(column.field === "price") ? editPrice : editStock}
-                      onChange={(e) => (column.field === "price") ? handlePriceChange(e.target.value) : handleStockChange(e.target.value)}
-                    />
-
-                    <button style={{fontSize: '24px'}}  onClick={() => (column.field === "price") ? handleSave(row.id) : handleSaveStock(row.id)}title="Save"><BiSave /></button>
-
-                    <button style={{fontSize: '24px'}}  onClick={(column.field === "price") ? handleCancel : handleCancelStock}title="Cancel"><MdCancel /></button>
-                    </div>
-                  
-                ) : (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div>{row[column.field]}</div>
-                    {((column.field === "price") || (column.field === "stock")) && (
-                      <Box ml="auto">
-                        <button style={{fontSize: '24px'}}  onClick={() => (column.field === "price") ? handleEdit(row.id, row.price) : handleEditStock(row.id, row.stock)}>
-                          <BiEditAlt />
-                        </button>
-                      </Box>
-                    )}
-                  </div>
-                )}
-              </Td>
-            ))}
-            </Tr>
-          ))}
+        {totalIngredients.map((row) => (
+  <Tr key={row.id}>
+    {columns.map((column) => (
+      <Td width="20%" key={`${row.id}-${column.field}`}>
+        {((column.field === "price" && editPrice) || (column.field === "stock" && editStock)) && editIndex === row.id ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Input
+              type="number"
+              value={column.field === "price" ? editPrice : editStock}
+              onChange={(e) =>
+                column.field === "price"
+                  ? handlePriceChange(e.target.value)
+                  : handleStockChange(e.target.value)
+              }
+            />
+            <button
+              style={{ fontSize: "24px" }}
+              onClick={() =>
+                column.field === "price"
+                  ? handleSave(row.id)
+                  : handleSaveStock(row.id)
+              }
+              title="Save"
+            >
+              <BiSave />
+            </button>
+            <button
+              style={{ fontSize: "24px" }}
+              onClick={column.field === "price" ? handleCancel : handleCancelStock}
+              title="Cancel"
+            >
+              <MdCancel />
+            </button>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            {editIndex === row.id && (column.field === "price" || column.field === "stock") ? (
+              <Input
+                type="number"
+                value=""
+                onChange={(e) =>
+                  column.field === "price"
+                    ? handlePriceChange(e.target.value)
+                    : handleStockChange(e.target.value)
+                }
+              />
+            ) : (
+              <div>{row[column.field]}</div>
+            )}
+            {((column.field === "price") || (column.field === "stock")) && (
+              <Box ml="auto">
+                <button
+                  style={{ fontSize: "24px" }}
+                  onClick={() =>
+                    column.field === "price"
+                      ? handleEdit(row.id, row.price)
+                      : handleEditStock(row.id, row.stock)
+                  }
+                >
+                  <BiEditAlt />
+                </button>
+              </Box>
+            )}
+          </div>
+        )}
+      </Td>
+    ))}
+  </Tr>
+))}
 
           <Box width= "100%">
             <br />
