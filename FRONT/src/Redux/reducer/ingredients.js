@@ -13,10 +13,9 @@ const ingredientsReducer = (state = initialState, action) => {
       return { ...state, ingredients: [...state.ingredients, action.payload] };
 
       case UPDATE_INGREDIENT:
-        const { id, price } = action.payload;
         const updatedIngredients = state.ingredients.map((ingredient) => {
-          if (ingredient.id === id) {
-            return { ...ingredient, price };
+          if (ingredient.id === action.payload.id) {
+            return { ...ingredient, ... action.payload };
           }
           return ingredient;
         });
