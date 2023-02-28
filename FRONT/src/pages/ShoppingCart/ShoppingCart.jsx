@@ -161,7 +161,7 @@ export default function ShoppingCart() {
           }}
         />
         <Spacer width="10px" />
-        <Box w="600px" marginLeft="180px">
+        <Box w="600px" marginLeft="50px">
           <Text 
             fontSize="6xl"
             fontWeight="bold"
