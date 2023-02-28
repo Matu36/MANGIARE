@@ -68,9 +68,7 @@ const RecipeDetail = () => {
     if (!LS_cart) {
       localStorage.setItem("MANGIARE_cart", JSON.stringify([...ingredient]));
     } else {
-      let index = LS_cart.indexOf(
-        LS_cart.find((i) => i.id === ingredient[0].id)
-      );
+      let index = LS_cart.indexOf(LS_cart.find((i) => ((i.id === ingredient[0].id) && (i.unit == ingredient[0].unit))));
       if (index === -1) {
         localStorage.setItem(
           "MANGIARE_cart",
@@ -80,7 +78,7 @@ const RecipeDetail = () => {
         LS_cart[index] = {
           ...LS_cart[index],
           amount:
-            parseInt(LS_cart[index].amount) + parseInt(ingredient[0].amount),
+            (parseFloat(LS_cart[index].amount) + parseFloat(ingredient[0].amount)).toFixed(2),
         };
         localStorage.setItem("MANGIARE_cart", JSON.stringify(LS_cart));
       }
@@ -119,14 +117,14 @@ const RecipeDetail = () => {
   }, []);
 
   const handleOnAdd = (id, unit) => {
-    handleLocalStorage([list.find((el) => el.id == id)]);
+    handleLocalStorage([list.find((el) => ((el.id == id) && (el.unit === unit)))]);
     setList(
       list.map((el) =>
-        el.id == id && el.unit == unit ? { ...el, inCart: true } : { ...el }
+        (el.id == id && el.unit === unit) ? { ...el, inCart: true } : { ...el }
       )
     );
     return dispatch(
-      addToCart(id ? [list.find((el) => el.id == id && el.unit == unit)] : list)
+      addToCart(id ? [list.find(el => ((el.id == id) && (el.unit === unit)))] : list)
     );
   };
 

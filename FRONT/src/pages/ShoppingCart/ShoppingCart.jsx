@@ -91,11 +91,10 @@ export default function ShoppingCart() {
     );
   };
 
-  const changeFromLocalStorage = (target) => {
+  const changeFromLocalStorage = (target, unit) => {
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
-    let element = LS_cart.find((i) => parseInt(i.id) === parseInt(target.id));
-    let index = LS_cart.indexOf(element);
-    LS_cart[index].amount = target.value;
+    let index = LS_cart.indexOf(LS_cart.find((i) => (i.id == target.id) && (i.unit == unit)));
+    LS_cart[index].amount = parseFloat(target.value).toFixed(2);
     localStorage.setItem("MANGIARE_cart", JSON.stringify(LS_cart));
   };
   //                 --------------- fin localStorage ---------------
@@ -105,7 +104,7 @@ export default function ShoppingCart() {
   };
 
   const handleOnChange = ({ target }, unit) => {
-    changeFromLocalStorage(target);
+    changeFromLocalStorage(target, unit);
     dispatch(
       setCart(
         cart.map((el) =>
