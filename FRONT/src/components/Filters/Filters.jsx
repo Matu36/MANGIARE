@@ -18,7 +18,17 @@ import {
   resetFilteredRecipes,
 } from "../../Redux/actions/recipes";
 
-import { Box, HStack, VStack, Button, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Flex,
+  Stack,
+  Spacer,
+  VStack,
+  Button,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 function Filters() {
   const dispatch = useDispatch();
@@ -168,105 +178,97 @@ function Filters() {
     clearFilters();
   };
 
- 
-
   return (
-    <Box
-      width="100%"
-      mt={38}
-      style={{
-        display: "flex",
-        alignItems: "",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-    >
-      <VStack spacing="20px">
-        <Box width="50%" minWidth="200px" borderRadius= "40%">
-        <Select borderRadius= "40%" height= "40px" colorScheme="dark"
-        options={optionsIngredients} bg={useColorModeValue("dark", "gray.800")}
+    <VStack>
+      <Box width="50%" minWidth="200px" borderRadius="40%">
+        <Select
+          borderRadius="40%"
+          height="40px"
+          colorScheme="dark"
+          options={optionsIngredients}
+          bg={useColorModeValue("dark", "gray.800")}
           onChange={(e) => handleIngredientesFilter(e.value)}
           placeholder="Select Ingredients"
-          
           placeholderTextColor="gray.400"
         />
-        <br />
-        </Box>
-        </VStack>
-        <VStack spacing="20px">
-        <Box background-color= "rgba(255, 255, 255, 0.7)"
-        color= "green"
-    width=  "100%"
-    min-width=  "80px"
-    min-height= "1 rem"
-    border= "3px" solid= "#b3b3b3"
-    border-Radius= "30%"
-    display= "flex"
-    flex-wrap= "rap"
-    gap= "15px"
-    padding= "1rem"
-    box-sizing= "border-box" 
-    >
-          {filteredIngredients.length > 0
-            ? filteredIngredients.map((i, index) => {
-                return (
-                  <Text  
-                  background-color= "brown"
-                  borderRadius= "5px"
-                  color= "#fff"
-                  fontSize= "20px"
-                  height= "1.5rem"
-                  padding= "0 5px"
-                  display= "flex"
-                  justify-content= "center"
-                  align-items= "center"
-                  cursor= "pointer"
-                    key={index}
-                    className={s.ingredient}
-                    onClick={() => handleIngredientesFilter(i)}
-                  >
-                    {`${i[0].toUpperCase()}${i.slice(1)}`} | X
-                  </Text>
-                );
-              })
-            : null}
-            
-        </Box>
-        </VStack>
-        <br />
-        <HStack spacing="80px">
-          <Box width="100%" minWidth= "200px" colorScheme= "dark"
-          bg={useColorModeValue("gray.100", "gray.700")}>
-          <Select 
+        <Spacer />
+      </Box>
+
+      <Box
+        background-color="rgba(255, 255, 255, 0.7)"
+        color="green"
+        width="100%"
+        min-width="80px"
+        min-height="1 rem"
+        border="3px"
+        solid="#b3b3b3"
+        border-Radius="30%"
+        display="flex"
+        flex-wrap="wrap"
+        gap="15px"
+        padding="1rem"
+        box-sizing="border-box"
+      >
+        {filteredIngredients.length > 0
+          ? filteredIngredients.map((i, index) => {
+              return (
+                <Text
+                  bgColor="brown"
+                  borderRadius="5px"
+                  color="#fff"
+                  fontSize="20px"
+                  height="1.5rem"
+                  padding="0 5px"
+                  display="flex"
+                  justify-content="center"
+                  align-items="center"
+                  cursor="pointer"
+                  key={index}
+                  className={s.ingredient}
+                  onClick={() => handleIngredientesFilter(i)}
+                >
+                  {`${i[0].toUpperCase()}${i.slice(1)}`} | X
+                </Text>
+              );
+            })
+          : null}
+      </Box>
+      <Spacer />
+      <Box
+        width="50%"
+        minWidth="200px"
+        colorScheme="dark"
+        bg={useColorModeValue("gray.100", "gray.700")}
+      >
+        <Select
           bg={useColorModeValue("gray.100", "gray.700")}
-            options={optionsDiets}
-            onChange={(e) => handleFilterbyDiet(e)}
-            placeholder="Order By Diets"
-          /></Box>
-           <Box width="100%" minWidth= "200px" colorScheme= "dark">
-          <Select
+          options={optionsDiets}
+          onChange={(e) => handleFilterbyDiet(e)}
+          placeholder="Order By Diets"
+        />
+
+        <Select
           bg={useColorModeValue("gray.100", "gray.700")}
-            options={optionsOrderBy}
-            onChange={(e) => handleOrder(e.value)}
-            placeholder="Order By A-Z"
-          /></Box>
-          <Box width="100%" minWidth= "200px" colorScheme= "dark">
-          <Select
-            bg={useColorModeValue("gray.100", "gray.700")}
-            options={optionOrderByPriceOrRating}
-            onChange={(e) => handleOrderPriceOrRating(e, { type: "price" })}
-            placeholder="Order By Price"
-          /></Box>
-          <Box width="100%" minWidth= "200px" colorScheme= "dark">
-          <Select
-             bg={useColorModeValue("gray.100", "gray.700")}
-            options={optionOrderByPriceOrRating}
-            onChange={(e) => handleOrderPriceOrRating(e, { type: "rating" })}
-            placeholder="Order By Rating"
-          /></Box>
-        </HStack>
-      
-    </Box>
+          options={optionsOrderBy}
+          onChange={(e) => handleOrder(e.value)}
+          placeholder="Order By A-Z"
+        />
+
+        <Select
+          bg={useColorModeValue("gray.100", "gray.700")}
+          options={optionOrderByPriceOrRating}
+          onChange={(e) => handleOrderPriceOrRating(e, { type: "price" })}
+          placeholder="Order By Price"
+        />
+
+        <Select
+          bg={useColorModeValue("gray.100", "gray.700")}
+          options={optionOrderByPriceOrRating}
+          onChange={(e) => handleOrderPriceOrRating(e, { type: "rating" })}
+          placeholder="Order By Rating"
+        />
+      </Box>
+    </VStack>
   );
 }
 
