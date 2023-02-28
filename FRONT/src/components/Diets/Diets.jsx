@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../Diets/Diets.module.css";
+import { Box, Text, List } from "@chakra-ui/react";
 
 export default class Diets extends React.Component {
   handleClick = event => {
@@ -19,10 +19,27 @@ export default class Diets extends React.Component {
     )
 
 return (
-      <fieldset className= {s.fieldset}>
-          <legend className= {s.legend}>Choose diet's recipe:</legend>
-          {diets}
-      </fieldset> 
-    );
-  }
+  <Box display="flex" flexDirection="row" justifyContent="left" alignItems="center">
+  <Text
+    fontSize={{ base: "15px", md: "20px", lg: "30px" }}
+    textAlign="left"
+    fontWeight="bold"
+    color="teal.600"
+    marginTop="20px"
+  >
+    Choose diet's recipe
+  </Text>
+  <Box width="50%" marginLeft="20px">
+  <List spacing={3}>
+  <Text fontFamily="heading" fontSize="large" color="green" fontWeight="bold">
+  {diets}
+  </Text>
+    </List>
+    
+  </Box>
+  
+</Box>
+);
 }
+    
+  }

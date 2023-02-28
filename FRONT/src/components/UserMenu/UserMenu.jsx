@@ -1,22 +1,26 @@
+
 import React, { useState, useEffect } from "react";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Menu,
   IconButton,
   MenuButton,
-  MenuItem,
   MenuList,
   MenuDivider,
 } from "@chakra-ui/react";
 import { LogoutButton } from "../Auth0/logout_button";
 import { Avatar } from "@chakra-ui/react";
+
 import { useForceUpdate } from "framer-motion";
 import axios from "axios";
 
-export default function UserMenu() {
-  const { user, isAuthenticated } = useAuth0();
+
+export default function UserMenu({userLocal}) {
+  const { user } = useAuth0();
   let location = useLocation();
+
 
   if (location.pathname == "/user") {
     return (

@@ -17,6 +17,7 @@ import Appmodel from "../src/Admin/Appmodel";
 import Orders from "./pages/Orders/Orders";
 import { useAuth0 } from "@auth0/auth0-react";
 const { REACT_APP_BACK_URL } = process.env;
+import ColorModeSwitcher from "./pages/DarkMode/ColorModeSwitcher";
 
 axios.defaults.baseURL = `${REACT_APP_BACK_URL}`;
 
@@ -26,6 +27,7 @@ export default function App() {
 
   return (
     <>
+    
       <Routes>
         <Route exact path={"/home"} element={<Home />} />
         <Route exact path={"/home"} element={<NavBar />} />
@@ -38,12 +40,17 @@ export default function App() {
         <Route exact path="/aboutUs" element={<AboutUs />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/myRecipes" element={<MyRecipes />} />
+        <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/shoppingCart" element={<ShoppingCart />} />
         <Route exact path="/user" element={<UserPage />} />
+        
         {isAuthenticated && currentUser?.role !== null && (
           <Route exact path="/admin" element={<Appmodel />} />
         )}
       </Routes>
+      <ColorModeSwitcher />
+      
+      
     </>
   );
 }

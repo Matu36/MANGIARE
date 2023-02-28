@@ -14,6 +14,7 @@ import onExecutePostEmail from "../Auth0/onLogin.js";
 function NavBar(userLocalstorage) {
   const { user, isAuthenticated } = useAuth0();
   const [cartItems, setCartItems] = useState(0);
+  const [userLocal, setUserLocal] = useState();
 
   // const LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart")) || [];
 
@@ -24,7 +25,7 @@ function NavBar(userLocalstorage) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      onExecutePostEmail(user);
+      onExecutePostEmail(user).then(() => setUserLocal(JSON.parse(localStorage.getItem("MANGIARE_user"))))
     }
   }, [user, isAuthenticated]);
 
@@ -42,7 +43,7 @@ function NavBar(userLocalstorage) {
       <Link to={"/createRecipe"}>
         <button className={s.btn1}>CREATE RECIPE</button>
       </Link>
-      {/* <Link to={"/myRecipes"}>
+     {/*  <Link to={"/myRecipes"}>
         <button className={s.btn1}>MY RECIPES</button>
       </Link> */}
       {/* <Link to={"/aboutUs"}>
@@ -61,7 +62,7 @@ function NavBar(userLocalstorage) {
       </div>
       {isAuthenticated ? (
         <div className={s.btn2}>
-          <UserMenu />{" "}
+          <UserMenu userLocal={userLocal}/>{" "}
         </div>
       ) : (
         <div className={s.btn1}>

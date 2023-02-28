@@ -2,9 +2,9 @@ const { Ingredients, Ingredient_units } = require("../db.js");
 
 module.exports = async (req, res) => {
   try {
-    if (!req.body?.name || !req.body?.price) throw "No body params";
+    if (!req.body?.name || !req.body?.price || !req.body?.stock) throw "No body params";
 
-    const { name, price, units } = req.body;
+    const { name, price, units, stock } = req.body;
 
     const generateNewId = async () => {
       const maxId = await Ingredients.max("id");
@@ -14,12 +14,12 @@ module.exports = async (req, res) => {
 
     let id = await generateNewId();
 
-    let createdIngredient = await Ingredients.create({ id, name, price });
+    let createdIngredient = await Ingredients.create({ id, ...req.body });
 
     await Ingredient_units.bulkCreate(
       units.map((u) => ({
         ingredientId: id,
-        unit: u,
+        unit: u
       }))
     );
 
