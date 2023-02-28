@@ -8,8 +8,6 @@ const transporter = require("./src/mailer/mailer");
 const modelsMock = require("./src/helpers/modelsMock.js");
 const { PORT } = process.env;
 
-const { PORT } = process.env;
-
 conn
   .sync({
     //force: true,
