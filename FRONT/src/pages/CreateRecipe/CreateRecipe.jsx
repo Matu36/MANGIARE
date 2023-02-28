@@ -243,6 +243,7 @@ class CreateRecipe extends React.Component {
                           value={this.state.title}
                           placeholder="Recipe title... "
                           onChange={this.handleOnChange}
+                          fontSize= "larger"
                         />
                       </td>
                     </tr>
@@ -303,7 +304,7 @@ class CreateRecipe extends React.Component {
                 actives={this.state.diets}
               />
               <Box width="40%" p={4}>
-                <div style={{ width: "80%", margin: "left" }}>
+                
                   <ReactSearchAutocomplete
                     showClear
                     showNoResultsText="No ingredients finded..."
@@ -312,11 +313,14 @@ class CreateRecipe extends React.Component {
                     autoFocus
                     formatResult={this.formatResult}
                     placeholder="Ingredients search"
+                    fontSize="larger"
+                    placeholderFontSize="larger"
                   />
-                </div>
+                
               </Box>
               <Box width={{ base: "xsm", md: "3xl", lg: "6xl" }} p={4}>
                 {this.state.ingredients.length ? (
+                  <Text fontSize="xl" fontWeight="bold">
                   <IngredientsList
                     items={this.state.ingredients}
                     onChange={this.handleOnChange}
@@ -324,8 +328,10 @@ class CreateRecipe extends React.Component {
                     itemButton={{
                       caption: "Remove",
                       action: this.handleOnDelete,
+                      
                     }}
                   />
+                  </Text>
                  
                 ) : (
                   <p
@@ -371,7 +377,9 @@ class CreateRecipe extends React.Component {
               </Text>
                
               </FormLabel>
-              <Input
+              <Box bgGradient="linear(to-r, #D1D1D1, #E8E8E8, #F0FFF4)" p={5} rounded="md">
+              <Text color="green.400" fontWeight="bold">
+              <Input 
                 id="instructions"
                 name="instructions"
                 value={this.state.instructions}
@@ -382,7 +390,8 @@ class CreateRecipe extends React.Component {
                 width={{ base: "xsm", md: "2xl", lg: "6xl" }}
                 mx={{ base: 4, md: 8 }}
                 mt={{ base: 4, md: 8 }}
-                fontSize="16px"
+                fontSize="larger"
+                
               />
 
               <Input
@@ -398,6 +407,8 @@ class CreateRecipe extends React.Component {
                 fontWeight="bold"
                 fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
               />
+              </Text>
+              </Box>
             </Box>
           </Flex>
         </Box>
