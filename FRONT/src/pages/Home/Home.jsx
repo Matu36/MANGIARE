@@ -71,7 +71,7 @@ export default function Home() {
         })
           .then(() => {
             Swal.fire({
-              position: 'top-end',
+              position: 'center',
               icon: 'success',
               title: 'Your order has been paid',
               showConfirmButton: false,
