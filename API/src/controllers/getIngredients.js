@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
     
     return (!ing)
       ? res.status(404).send('Ingredients Not Found')
-      : res.send(ing.map(({id, name, price, Ingredient_units}) => ({id, name, price, units: Ingredient_units.map(({unit}) => unit)})));
+      : res.send(ing.map(({id, name, price, Ingredient_units, stock}) => ({id, name, price, stock, units: Ingredient_units.map(({unit}) => unit)})));
 
   }
   catch(error) {

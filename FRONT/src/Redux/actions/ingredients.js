@@ -14,11 +14,13 @@ export const createIngredients = ({
   name,
   price,
   units,
+  stock
 }) => {
   let ingredient = {
     name,
     price,
     units,
+    stock
   };
   return (dispatch) =>
     axios
@@ -32,7 +34,7 @@ export const updateIngredient = (ingredient) => {
       .then(res => {
         dispatch({
           type: UPDATE_INGREDIENT,
-          payload: { id: ingredient.id, price: ingredient.price }
+          payload: { ...ingredient }
         });
       })
       .catch(error => {

@@ -36,6 +36,14 @@
   filter:'contrast(80%)';
 }
 
+.noImage {
+  z-index: 0;
+  position: absolute;
+  height: 80%;
+  width: 80%;
+  object-fit: cover;    
+}
+
 .titleDiv {
   font-family: "Ubuntu", sans-serif;
   // color: #fd9902;
