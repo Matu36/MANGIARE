@@ -160,9 +160,9 @@ export default function ShoppingCart() {
             backgroundSize: "cover",
           }}
         />
-        <Spacer width="400px" />
-        <Box w="600px">
-          <Text
+        <Spacer width="10px" />
+        <Box w="600px" marginLeft="180px">
+          <Text 
             fontSize="6xl"
             fontWeight="bold"
             color="yellow.500"
@@ -172,7 +172,7 @@ export default function ShoppingCart() {
           </Text>
           <VStack spacing={100} align="stretch" my={10}>
             {!cart?.length ? (
-              <Text fontSize="2xl">The Shopping Cart is empty...</Text>
+              <Text marginLeft= "180px" fontSize="2xl">The Shopping Cart is empty...</Text>
             ) : (
               <>
                 <IngredientsList
