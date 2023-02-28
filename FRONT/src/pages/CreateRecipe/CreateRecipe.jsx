@@ -361,7 +361,7 @@ class CreateRecipe extends React.Component {
               </Box>
               <FormLabel fontSize={{ base: "24px", md: "40px", lg: "56px" }}>
               <Text
-                fontSize={{ base: "24px", md: "40px", lg: "56px" }}
+                fontSize={{ base: "18px", md: "30px", lg: "46px" }}
                 textAlign="center"
                 fontWeight="bold"
                 color="teal.600"
