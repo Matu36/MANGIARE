@@ -32,6 +32,7 @@ import banner from "../../img/BannerHome.jpg";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import { ArrowDownIcon } from "@chakra-ui/icons";
 import { getUsers } from "../../Redux/actions/users";
+import Swal from 'sweetalert2';
 const { REACT_APP_BACK_URL } = process.env;
 
 export default function Home() {
@@ -57,16 +58,34 @@ export default function Home() {
     dispatch(getRecipes());
     dispatch(getIngredients());
 
-    if (params.get("status") === "approved" && params.get("preference_id")) {
-      fetch(`${REACT_APP_BACK_URL}/payment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: LS_user.email,
-          status: params.get("status"),
-          preference_id: params.get("preference_id"),
-        }),
-      });
+    if (params.get("status") && params.get("preference_id")) {
+      if (params.get("tatus") === 'approved')
+        fetch(`${REACT_APP_BACK_URL}/payment`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: LS_user.email,
+            status: params.get("status"),
+            preference_id: params.get("preference_id"),
+          }),
+        })
+          .then(() => {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Your order has been paid',
+              showConfirmButton: false,
+              timer: 2000
+            });
+          });
+      else
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Your order has not been paid',
+          html: 'You can retry the payment or cancel it from <a href="/user"><b>User page</b></a>',
+          showConfirmButton: true,
+        })
     }
   }, []);
 
