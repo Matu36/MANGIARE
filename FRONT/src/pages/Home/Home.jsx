@@ -13,6 +13,7 @@ import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCardHorizontal";
 import Filters from "../../components/Filters/Filters";
 import onExecutePostEmail from "../../components/Auth0/onLogin.js";
+import ColorModeSwitcher from "../DarkMode/ColorModeSwitcher";
 import {
   Box,
   Spacer,
@@ -21,6 +22,7 @@ import {
   IconButton,
   Button,
   HStack,
+  Flex
 } from "@chakra-ui/react";
 import meat from "../../img/iconMeat.jpg";
 import carrot from "../../img/carrotIcon.png";
@@ -148,8 +150,10 @@ export default function Home() {
   };
 
   return (
-    <div className={s.containerMain}>
+    <div>
+      
       <NavBar />
+      
       <Box
         width="100%"
         height="700px"
@@ -164,6 +168,7 @@ export default function Home() {
           backgroundPosition: "center center",
         }}
       >
+        <ColorModeSwitcher />
         <Box flex="1">
           <Text
             style={{ fontFamily: "Bistro Script, sans-serif" }}
