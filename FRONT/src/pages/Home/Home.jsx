@@ -14,7 +14,10 @@ import RecipeCardHorizontal from "../../components/RecipeCardHorizontal/RecipeCa
 import Filters from "../../components/Filters/Filters";
 import onExecutePostEmail from "../../components/Auth0/onLogin.js";
 import ColorModeSwitcher from "../DarkMode/ColorModeSwitcher";
+import { FaRegLightbulb } from "react-icons/fa";
 import {
+  useColorModeValue,
+  Center, 
   Box,
   Spacer,
   Image,
@@ -22,7 +25,8 @@ import {
   IconButton,
   Button,
   HStack,
-  Flex
+  Flex,
+  
 } from "@chakra-ui/react";
 import meat from "../../img/iconMeat.jpg";
 import carrot from "../../img/carrotIcon.png";
@@ -141,6 +145,12 @@ export default function Home() {
     var rValue = myArray[rand];
     return rValue;
   }*/
+  const bg = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.700", "white");
+  const textColore = useColorModeValue("yellow.900", "gray.200");
+  const bgColor = useColorModeValue("linear-gradient(to bottom, #4CAF50, #f2f2f2)",
+  "linear-gradient(to bottom, #2d3748, #1a202c)");
+  const opacity = useColorModeValue(0.7, 0.9);
 
   const randomTip = () => {
     var myArray = healthyTips;
@@ -168,7 +178,7 @@ export default function Home() {
           backgroundPosition: "center center",
         }}
       >
-        <ColorModeSwitcher />
+        
         <Box flex="1">
           <Text
             style={{ fontFamily: "Bistro Script, sans-serif" }}
@@ -177,7 +187,7 @@ export default function Home() {
             width="800px"
             height="26px"
             maxWidth="100%"
-            marginTop="350px"
+            marginTop="250px"
             textAlign={"center"}
           >
             Cooking, simplified
@@ -187,7 +197,7 @@ export default function Home() {
         <Box
           width="70%"
           height="100px"
-          marginTop="100px"
+          marginTop="80px"
           marginBottom="50px"
           style={{
             display: "flex",
@@ -212,10 +222,11 @@ export default function Home() {
           </Box>
           <Box flex="1"></Box>
         </Box>
+        
         <Box
-          width="50%"
+          width="100%"
           height="100px"
-          marginTop="20px"
+          marginTop="5px"
           style={{
             display: "flex",
             alignItems: "center",
@@ -223,42 +234,33 @@ export default function Home() {
             flexDirection: "row",
           }}
         >
+          <Box>
           <Filters />
+          </Box>
         </Box>
-        <Text
-          style={{ fontFamily: "Caviar Dreams, sans-serif" }}
-          fontWeight="bold"
-          align="center"
-          fontSize="20px"
-          color="yellow.900"
-          marginTop="100px"
-          marginRight="20px"
-          backgroundColor="white"
-          opacity="0.7"
-          borderRadius="10px"
-          padding="10px"
-          width="50%"
-        >
-          Don't have all the ingredients? No worries! You can purchase the
-          missing ones from a local producer by adding them to the shopping cart
-          in the Recipe Detail
-        </Text>
-
-        <Text
-          fontSize="5xl"
-          textAlign="center"
-          fontWeight="bold"
-          color="yellow.900"
-          marginTop="80px"
-        >
-          {" "}
+        <Text 
+      fontFamily="Caviar Dreams, sans-serif"
+      fontWeight="bold"
+      align="center"
+      fontSize="50px"
+      color={textColore}
+      marginTop="120px"
+      marginRight="20px"
+      background={bgColor}
+      opacity={opacity}
+      borderRadius="5%"
+  
+      width="50%"
+    >
+      {" "}
           Check our recipes!{" "}
-        </Text>
+    </Text>
+
       </Box>
-      <Spacer h={20} marginTop="20px" marginBottom="60px" />
+      <Spacer h={5}  />
       <div className={s.img} alt="randomImg" />
 
-      <div className={s.mainContainDiv}></div>
+      
       <div className={s.mainRecipesDiv}>
         {recipeByIdAutocomplete && (
           <RecipeCard
@@ -289,14 +291,20 @@ export default function Home() {
             ))}
         </div>
 
-        <div className={s.healtyTipDiv}>
-          <div className={s.healtyTipIconDiv}>💡</div>
-          <div className={s.verticalDiv}></div>
-          <div className={s.healtyTipMainContain}>
-            <p>Healthy Tip</p>
-            <p>{randomTip()}</p>
-          </div>
-        </div>
+        <Box bg={bg} w="70%" rounded="md">
+      <Flex align="center">
+        <Center bg="gray.400" borderRadius="50%" w="1px" h="70px" />
+        <Box w="10%" h="100%" display="flex" alignItems="center" justifyContent="center">
+          <FaRegLightbulb size={24} />
+        </Box>
+        <Box w="89%" p={4} boxSizing="border-box">
+          <Text fontSize="xl" fontWeight="bold" color={textColor}>¡Healthy Tip!</Text>
+          <Text mt={2} color={textColor}>{randomTip()}</Text>
+        </Box>
+      </Flex>
+    </Box>
+ 
+          
 
         {/* <div className={s.moreRecipesDiv}>
             {totalRecipes?.slice(3).map((recipe) => (
