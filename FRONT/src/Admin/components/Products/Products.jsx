@@ -197,10 +197,11 @@ export default function Products() {
                       value={(column.field === "price") ? editPrice : editStock}
                       onChange={(e) => (column.field === "price") ? handlePriceChange(e.target.value) : handleStockChange(e.target.value)}
                     />
+                    
 
-                    <button style={{fontSize: '24px'}}  onClick={() => (column.field === "price") ? handleSave(row.id) : handleSaveStock(row.id)}title="Save"><BiSave /></button>
+                    <button type= "button" style={{fontSize: '24px'}}  onClick={() => (column.field === "price") ? handleSave(row.id) : handleSaveStock(row.id)}title="Save"><BiSave /></button>
 
-                    <button style={{fontSize: '24px'}}  onClick={(column.field === "price") ? handleCancel : handleCancelStock}title="Cancel"><MdCancel /></button>
+                    <button type= "button"style={{fontSize: '24px'}}  onClick={(column.field === "price") ? handleCancel : handleCancelStock}title="Cancel"><MdCancel /></button>
                     </div>
                   
                 ) : (
