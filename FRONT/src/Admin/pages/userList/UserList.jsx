@@ -17,13 +17,27 @@ import UserRow from "../../components/UserRow/UserRow";
 import { useDispatch, useSelector } from "react-redux";
 import { putBanned } from "../../../Redux/actions/users.js";
 import axios from "axios";
+import { getUsers } from "../../../Redux/actions/users";
 
 export default function UserList() {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users.users);
-  const [search, setSearch] = useState("");
-  const [filterUsers, setFilterUsers] = useState(users);
+  //const users = useSelector((state) => state.users.users);
+  const [users, setUsers] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
+
+  useEffect(() => {
+    let user = {
+      id: currentUser.id,
+      email: currentUser.email,
+    };
+    axios
+      .get(`/users`, { params: user })
+      .then((response) => response.data)
+      .then((data) => setUsers(data));
+  }, []);
+
+  const [search, setSearch] = useState("");
+  const [filterUsers, setFilterUsers] = useState();
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -32,7 +46,7 @@ export default function UserList() {
 
   useEffect(() => {
     filterByUsers(search);
-  }, [search]);
+  }, [search, users]);
 
   const filterByUsers = (value) => {
     let arrayCache = [...users];
@@ -62,14 +76,14 @@ export default function UserList() {
   useEffect(() => {
     //Cambio de estado local de Total Recipes indicando los indices que tiene que renderizar en cada pagina
     setTotalUsers(
-      filterUsers.slice(indexFirstPageRecipe(), indexLastPageRecipe())
+      filterUsers?.slice(indexFirstPageRecipe(), indexLastPageRecipe())
     );
-    setNumberOfPage(Math.ceil(filterUsers.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
+    setNumberOfPage(Math.ceil(filterUsers?.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
   }, [filterUsers, currentPage, users]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterUsers, users]);
+  }, [filterUsers]);
 
   const handleRole = (id, newRole) => {
     dispatch(putNewRole(id, newRole)).then(() => {
@@ -80,7 +94,7 @@ export default function UserList() {
       axios
         .get(`/users`, { params: user })
         .then((response) => response.data)
-        .then((data) => setFilterUsers(data));
+        .then((data) => setUsers(data));
     });
   };
 
@@ -93,7 +107,7 @@ export default function UserList() {
       axios
         .get(`/users`, { params: user })
         .then((response) => response.data)
-        .then((data) => setFilterUsers(data));
+        .then((data) => setUsers(data));
     });
   };
   //.then(() => dispatch(getUsers(currentUser)).then(()=> setFilterUsers())
@@ -113,7 +127,7 @@ export default function UserList() {
       <TableContainer>
         <Table variant="striped" colorScheme="teal">
           <TableCaption>
-            Total registered users: {users.length} users
+            Total registered users: {users?.length} users
           </TableCaption>
           <Thead>
             <Tr>
