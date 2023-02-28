@@ -7,13 +7,14 @@ import App from "../src/App";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./Redux/store/index.js";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { Auth0ProviderModule } from "./auth0-provider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <StrictMode>
+    <ColorModeScript initialColorMode="light" />
     <ChakraProvider>
       <Provider store={store}>
         <BrowserRouter>
