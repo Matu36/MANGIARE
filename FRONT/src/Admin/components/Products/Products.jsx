@@ -184,7 +184,7 @@ export default function Products() {
             <Tr key={row.id}>
               {columns.map((column) => (
                 <Td width="20%" key={`${row.id}-${column.field}`}>
-                {((column.field === "price" && editPrice) || (column.field === "stock" && editStock)) && editIndex === row.id ? (
+                {((column.field === "price" && editPrice !== null) || (column.field === "stock" && editStock !== null)) && editIndex === row.id ? (
                   <div
                     style={{
                       display: "flex",
