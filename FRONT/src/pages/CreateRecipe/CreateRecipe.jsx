@@ -5,7 +5,7 @@ import { getIngredients } from "../../Redux/actions/ingredients";
 import { connect } from "react-redux";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import s from "./CreateRecipe.module.css";
-import logo from "../../img/creandoReceta.jpg";
+import logo from "../../img/CreateRecipe.png";
 import IngredientsList from "../../components/IngredientsList/ingredientsList";
 import {
   Box,
@@ -23,6 +23,7 @@ import {
   VStack,
   HStack,
   Center,
+  
 } from "@chakra-ui/react";
 import background from "../../img/BkGcreateRecipe1.png";
 import NavBar from "../../components/NavBar/NavBar";
@@ -179,17 +180,14 @@ class CreateRecipe extends React.Component {
     if (!this.props.ingredients) return <h2>Loading ingredients...</h2>;
 
     return (
-      <Box
-        width="100%"
-        marginTop="1px"
-        bgGradient={[
-          "linear(to-tr, teal.100, yellow.200)",
-          "linear(to-t, blue.200, teal.100)",
-          "linear(to-b, orange.100, green.100)",
-        ]}
-        //backgroundImage={background}
-        backgroundSize="auto"
-        backgroundPosition={"center"}
+      <Box backgroundImage= {logo}
+      bgRepeat="no-repeat"
+      bgSize="cover"
+      bgPosition="center"
+      opacity="0.8"
+      height="165vh"
+      width="100vw"
+       
       >
         <Box>
           <NavBar />
@@ -205,16 +203,7 @@ class CreateRecipe extends React.Component {
                 {" "}
                 Create your own Recipe!
               </Text>
-              <Text
-                fontSize={{ base: "20px", md: "30px", lg: "46px" }}
-                textAlign="center"
-                fontWeight="bold"
-                color="yellow.600"
-                backgroundColor="white"
-                opacity="0.5"
-              >
-                Write your cookbook online
-              </Text>
+              
             </Stack>
             <Box
               width="100%"
@@ -228,21 +217,31 @@ class CreateRecipe extends React.Component {
                 flexDirection: "column",
               }}
             >
-              <Box className={s.body} onSubmit={this.handleSubmit}>
+              <Box  onSubmit={this.handleSubmit}>
                 <table style={{ width: "100%", margin: "auto" }}>
                   <tbody>
                     <tr>
                       <td>
-                        <label htmlFor="title" className={s.label}>
-                          Title:
+                        <label htmlFor="title">
+                        <Text
+                fontSize={{ base: "15px", md: "20px", lg: "30px" }}
+                textAlign="left"
+                fontWeight="bold"
+                color="teal.600"
+                marginLeft="60px"
+              >
+                {" "}
+                Title
+              </Text>
+                          
                         </label>
-                        <input
-                          className={s.input}
+                        <Input width= "200px"
+                          
                           type="text"
                           id="title"
                           name="title"
                           value={this.state.title}
-                          placeholder="Recipe title..."
+                          placeholder="Recipe title... "
                           onChange={this.handleOnChange}
                         />
                       </td>
@@ -250,7 +249,7 @@ class CreateRecipe extends React.Component {
                     <tr>
                       <td
                         style={{
-                          fontSize: "smaller",
+                          fontSize: "larger",
                           paddingBottom: "20px",
                           color: this.state.error.title ? "red" : "green",
                         }}
@@ -260,8 +259,18 @@ class CreateRecipe extends React.Component {
                     </tr>
                     <tr>
                       <td>
-                        <label htmlFor="image" className={s.label}>
-                          Image file:
+                        <label htmlFor="image">
+                        <Text
+                fontSize={{ base: "15px", md: "20px", lg: "30px" }}
+                textAlign="left"
+                fontWeight="bold"
+                color="teal.600"
+                marginLeft="60px"
+              >
+                {" "}
+                Image file
+              </Text>
+                          
                         </label>
 
                         <input
@@ -276,7 +285,7 @@ class CreateRecipe extends React.Component {
                       <td
                         colSpan={1}
                         style={{
-                          fontSize: "smaller",
+                          fontSize: "larger",
                           paddingBottom: "20px",
                           color: this.state.error.image ? "red" : "green",
                         }}
@@ -293,8 +302,8 @@ class CreateRecipe extends React.Component {
                 diets={this.props.diets.filter((el) => el !== "All Diets")}
                 actives={this.state.diets}
               />
-              <Box width="80%" p={4}>
-                <div style={{ width: "80%", margin: "auto" }}>
+              <Box width="40%" p={4}>
+                <div style={{ width: "80%", margin: "left" }}>
                   <ReactSearchAutocomplete
                     showClear
                     showNoResultsText="No ingredients finded..."
@@ -317,12 +326,13 @@ class CreateRecipe extends React.Component {
                       action: this.handleOnDelete,
                     }}
                   />
+                 
                 ) : (
                   <p
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
-                      fontSize: "smaller",
+                      fontSize: "larger",
                       paddingBottom: "10px",
                       color: "red",
                     }}
@@ -333,15 +343,33 @@ class CreateRecipe extends React.Component {
               </Box>
 
               <Box display="grid" gridGap={3} gridAutoFlow="row dense">
-                <p className={s.cost}>
+              <Text
+                fontSize={{ base: "15px", md: "20px", lg: "30px" }}
+                textAlign="left"
+                fontWeight="bold"
+                color="teal.600"
+                marginLeft="60px"
+              >
+                {" "}
+                
+              
                   Estimated cost of recipe: <br />{" "}
                   {this.state.ingredients
                     .reduce((aux, el) => aux + el.price * el.amount, 0)
                     .toFixed(2)}
-                </p>
+                </Text>
               </Box>
               <FormLabel fontSize={{ base: "24px", md: "40px", lg: "56px" }}>
-                Instructions:
+              <Text
+                fontSize={{ base: "24px", md: "40px", lg: "56px" }}
+                textAlign="center"
+                fontWeight="bold"
+                color="teal.600"
+              >
+                {" "}
+                Instructions
+              </Text>
+               
               </FormLabel>
               <Input
                 id="instructions"
@@ -349,7 +377,6 @@ class CreateRecipe extends React.Component {
                 value={this.state.instructions}
                 placeholder="Recipe Instructions..."
                 onChange={this.handleOnChange}
-                className={s.input}
                 backgroundColor="rgba(255, 255, 255, 0.9)"
                 justifycontent="center"
                 width={{ base: "xsm", md: "2xl", lg: "6xl" }}
@@ -366,8 +393,10 @@ class CreateRecipe extends React.Component {
                 align="center"
                 variant="filled"
                 width={{ base: "xsm", md: "2xl", lg: "6xl" }}
-                mx={{ base: 4, md: 8 }}
-                mt={{ base: 4, md: 8 }}
+                mx={{ base: 6, md: 10 }}
+                mt={{ base: 6, md: 10 }}
+                fontWeight="bold"
+                fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
               />
             </Box>
           </Flex>
