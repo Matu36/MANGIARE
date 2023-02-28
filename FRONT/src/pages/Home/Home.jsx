@@ -63,7 +63,7 @@ export default function Home() {
     dispatch(getIngredients());
 
     if (params.get("status") && params.get("preference_id")) {
-      if (params.get("tatus") === 'approved')
+      if (params.get("status") === 'approved')
         fetch(`${REACT_APP_BACK_URL}/payment`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -75,7 +75,7 @@ export default function Home() {
         })
           .then(() => {
             Swal.fire({
-              position: 'top-end',
+              position: 'center',
               icon: 'success',
               title: 'Your order has been paid',
               showConfirmButton: false,
