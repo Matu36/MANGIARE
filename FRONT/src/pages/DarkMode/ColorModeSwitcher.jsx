@@ -6,16 +6,14 @@ export default function ColorModeSwitcher() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <IconButton
-      icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+      icon={colorMode === "light" ? <MoonIcon /> : <SunIcon color="black" />}
       onClick={toggleColorMode}
-      size="md"
+      size="lg"
       variant="ghost"
       color="current"
       marginLeft="2"
       aria-label={
-        colorMode === "light"
-          ? "Switch to dark mode"
-          : "Switch to light mode"
+        colorMode === "light" ? "Switch to dark mode" : "Switch to light mode"
       }
     />
   );

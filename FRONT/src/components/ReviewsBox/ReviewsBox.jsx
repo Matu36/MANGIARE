@@ -173,15 +173,17 @@ const ReviewsBox = () => {
               .map(
                 ({ comment, image, rate, userId, createdAt, recipeId }, i) => {
                   return (
-                    <ReviewsCard
-                      key={i}
-                      comment={comment}
-                      image={image}
-                      rate={rate}
-                      userId={userId}
-                      createdAt={createdAt}
-                      recipeId={recipeId}
-                    />
+                    <Center>
+                      <ReviewsCard
+                        key={i}
+                        comment={comment}
+                        image={image}
+                        rate={rate}
+                        userId={userId}
+                        createdAt={createdAt}
+                        recipeId={recipeId}
+                      />
+                    </Center>
                   );
                 }
               )

@@ -10,6 +10,7 @@ import logo from "../../img/LOGO 2.png";
 import mangiare from "../../img/LOGO.png";
 import UserMenu from "../UserMenu/UserMenu";
 import onExecutePostEmail from "../Auth0/onLogin.js";
+import ColorModeSwitcher from "../../pages/DarkMode/ColorModeSwitcher";
 
 function NavBar(userLocalstorage) {
   const { user, isAuthenticated } = useAuth0();
@@ -25,7 +26,9 @@ function NavBar(userLocalstorage) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      onExecutePostEmail(user).then(() => setUserLocal(JSON.parse(localStorage.getItem("MANGIARE_user"))))
+      onExecutePostEmail(user).then(() =>
+        setUserLocal(JSON.parse(localStorage.getItem("MANGIARE_user")))
+      );
     }
   }, [user, isAuthenticated]);
 
@@ -39,11 +42,11 @@ function NavBar(userLocalstorage) {
           className={s.logo}
         />
       </Link>
-
+      <ColorModeSwitcher />
       <Link to={"/createRecipe"}>
         <button className={s.btn1}>CREATE RECIPE</button>
       </Link>
-     {/*  <Link to={"/myRecipes"}>
+      {/*  <Link to={"/myRecipes"}>
         <button className={s.btn1}>MY RECIPES</button>
       </Link> */}
       {/* <Link to={"/aboutUs"}>
@@ -62,7 +65,7 @@ function NavBar(userLocalstorage) {
       </div>
       {isAuthenticated ? (
         <div className={s.btn2}>
-          <UserMenu userLocal={userLocal}/>{" "}
+          <UserMenu userLocal={userLocal} />{" "}
         </div>
       ) : (
         <div className={s.btn1}>
