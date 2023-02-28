@@ -17,6 +17,7 @@ import UserRow from "../../components/UserRow/UserRow";
 import { useDispatch, useSelector } from "react-redux";
 import { putBanned } from "../../../Redux/actions/users.js";
 import axios from "axios";
+import "./UserList.css";
 
 export default function UserList() {
   const dispatch = useDispatch();
@@ -99,7 +100,7 @@ export default function UserList() {
   //.then(() => dispatch(getUsers(currentUser)).then(()=> setFilterUsers())
 
   return (
-    <div>
+    <div className="containerUsers">
       <div className="divContainerHead">
         <Input
           onChange={handleOnChange}

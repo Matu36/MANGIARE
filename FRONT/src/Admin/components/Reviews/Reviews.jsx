@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ReviewsCard from "../ReviewsCard/ReviewsCard.jsx";
 //import ReviewsCard from "../../../components/ReviewsCard/ReviewsCard.jsx";
 import Paginations from "../../../components/Paginations/Paginations.jsx";
-import { Card, Button, Input } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 import "../Reviews/reviews.css";
 import { getReviews, putReview } from "../../../Redux/actions/reviews";
 import axios from "axios";

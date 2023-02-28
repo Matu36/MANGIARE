@@ -3,13 +3,14 @@ import NavBar from "../../components/NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import s from "./UserPage.module.css";
-import { Text } from "@chakra-ui/react";
+import { Text, Button } from "@chakra-ui/react";
 import { getFavorites } from "../../Redux/actions/favorites";
 import { Avatar } from "@chakra-ui/react";
 import RecipesBox from "../../components/RecipesBox/RecipesBox";
 import UserReviewsBox from "../../components/UserReviewsBox/UserReviewsBox";
 import { getRecipes } from "../../Redux/actions/recipes";
 import Orders from "../Orders/Orders";
+import { Link } from "react-router-dom";
 
 export default function UserPage() {
   let dispatch = useDispatch();
@@ -45,10 +46,17 @@ export default function UserPage() {
         <div className={s.userInfoDiv}>
           <Avatar className={s.profileImg} src={user ? user.picture : null} />
           <Text className={s.userName}>{name}</Text>
+          <hr />
+          {LS_user?.role !== null && (
+            <Button>
+              <Link to={"/admin"}>DashBoard Admin</Link>
+            </Button>
+          )}
         </div>
         <div className={s.boxesContainer}>
           <RecipesBox title="Favorites" recipes={userFavorites} />
           <RecipesBox title="Created recipes" recipes={filteredRecipes} />
+
           <UserReviewsBox />
           {/* <UserOrdersBox /> */}
           <div className={s.ordersContainer}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -11,18 +11,12 @@ import {
 } from "@chakra-ui/react";
 import { LogoutButton } from "../Auth0/logout_button";
 import { Avatar } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useForceUpdate } from "framer-motion";
+import axios from "axios";
 
 export default function UserMenu() {
   const { user, isAuthenticated } = useAuth0();
   let location = useLocation();
-  const [userLocal, setUserLocal] = useState(null);
-
-  useEffect(() => {
-    setUserLocal(JSON.parse(localStorage.getItem("MANGIARE_user")));
-  }, []);
-
-  //console.log("usermenu", userLocal);
 
   if (location.pathname == "/user") {
     return (
@@ -36,11 +30,6 @@ export default function UserMenu() {
         <MenuList>
           <Link to={"/home"}>Home</Link>
           <MenuDivider />
-          {userLocal && userLocal?.role !== null && (
-            <div>
-              <Link to={"/admin"}>Admin</Link> <MenuDivider />
-            </div>
-          )}
           <LogoutButton />
         </MenuList>
       </Menu>
@@ -64,12 +53,6 @@ export default function UserMenu() {
         <MenuList>
           <Link to={"/user"}>My user</Link>
           <MenuDivider />
-          {userLocal && userLocal?.role !== null && (
-            <div>
-              <Link to={"/admin"}>Admin</Link> <MenuDivider />
-            </div>
-          )}
-
           <LogoutButton />
         </MenuList>
       </Menu>

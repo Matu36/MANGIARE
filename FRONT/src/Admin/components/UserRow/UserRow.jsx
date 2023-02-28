@@ -91,23 +91,27 @@ const UserRow = ({
         {CreateAt[0]} - {CreateAt[1].split(".")[0]}
       </Td>
       <Td>
-        {currentUser.role && (
-          <button title="Edit Role">
-            <MdOutlineModeEdit
-              onClick={(e) => handleEditUsersRole(id, role, roleEdit)}
-            />
-          </button>
+        {currentUser.role !== null && (
+          <div>
+            {currentUser.role && (
+              <button title="Edit Role">
+                <MdOutlineModeEdit
+                  onClick={(e) => handleEditUsersRole(id, role, roleEdit)}
+                />
+              </button>
+            )}
+            <button title="Reset Password Email">
+              <MdRestore onClick={(e) => handleResetPassword(email)} />
+            </button>
+            <button onClick={() => handleRestrictClick(id, banned)}>
+              {banned ? (
+                <MdRateReview title="Allow Comments Recipes" />
+              ) : (
+                <MdNotInterested title="Restrict Comments recipes" />
+              )}
+            </button>
+          </div>
         )}
-        <button title="Reset Password Email">
-          <MdRestore onClick={(e) => handleResetPassword(email)} />
-        </button>
-        <button onClick={() => handleRestrictClick(id, banned)}>
-          {banned ? (
-            <MdRateReview title="Allow Comments Recipes" />
-          ) : (
-            <MdNotInterested title="Restrict Comments recipes" />
-          )}
-        </button>
       </Td>
     </Tr>
   );
