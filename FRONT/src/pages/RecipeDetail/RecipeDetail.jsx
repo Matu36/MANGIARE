@@ -57,7 +57,6 @@ const RecipeDetail = () => {
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
-    console.log('mete en cart');
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     if (!LS_cart) return;
     else {
