@@ -76,6 +76,7 @@ class CreateRecipe extends React.Component {
   };
 
   handleSubmit = async (event) => {
+    console.log('llama a submit')
     event.preventDefault();
 
     let imageUrl = null;
@@ -217,7 +218,7 @@ class CreateRecipe extends React.Component {
                 flexDirection: "column",
               }}
             >
-              <Box  onSubmit={this.handleSubmit}>
+              <Box >
                 <table style={{ width: "100%", margin: "auto" }}>
                   <tbody>
                     <tr>
@@ -394,9 +395,7 @@ class CreateRecipe extends React.Component {
                 
               />
 
-              <Input
-                type="submit"
-                value="Submit"
+              <Button
                 isDisabled={Object.values(this.state.error).includes(true)}
                 variantColor="teal"
                 align="center"
@@ -406,7 +405,11 @@ class CreateRecipe extends React.Component {
                 mt={{ base: 6, md: 10 }}
                 fontWeight="bold"
                 fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
-              />
+                onClick={this.handleSubmit}
+              >
+                Create Recipe!
+              </Button>
+
               </Text>
               </Box>
             </Box>
