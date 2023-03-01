@@ -91,11 +91,10 @@ export default function ShoppingCart() {
     );
   };
 
-  const changeFromLocalStorage = (target) => {
+  const changeFromLocalStorage = (target, unit) => {
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
-    let element = LS_cart.find((i) => parseInt(i.id) === parseInt(target.id));
-    let index = LS_cart.indexOf(element);
-    LS_cart[index].amount = target.value;
+    let index = LS_cart.indexOf(LS_cart.find((i) => (i.id == target.id) && (i.unit == unit)));
+    LS_cart[index].amount = parseFloat(target.value).toFixed(2);
     localStorage.setItem("MANGIARE_cart", JSON.stringify(LS_cart));
   };
   //                 --------------- fin localStorage ---------------
@@ -105,7 +104,7 @@ export default function ShoppingCart() {
   };
 
   const handleOnChange = ({ target }, unit) => {
-    changeFromLocalStorage(target);
+    changeFromLocalStorage(target, unit);
     dispatch(
       setCart(
         cart.map((el) =>
@@ -183,7 +182,7 @@ export default function ShoppingCart() {
                     action: handleOnDelete,
                   }}
                 />
-                <HStack justify="space-between" align="flex-end" mt={10}>
+                <HStack justify="space-between" align="flex-end" mt={10} padding="0px 20px" >
                   <Text
                     fontSize="2xl"
                     fontWeight="bold"
@@ -195,42 +194,46 @@ export default function ShoppingCart() {
                         .reduce((aux, el) => aux + el.amount * el.price, 0)
                         .toFixed(2)}
                   </Text>
-                  <center>
-                    {email
-                      ? (
-                        <>
-                          <label htmlFor="address">Shipping address: </label>
-                          <Input
-                            type="text"
-                            id="address"
-                            name="address"
-                            value={state.address}
-                            placeholder="Confirm shipping address..."
-                            onChange={handleOnAddressChange}
-                          />
-                          <br />
-                          <br />
-                          <Button
-                            colorScheme="teal"
-                            variant="solid"
-                            size="lg"
-                            isDisabled={!state.address}
-                            onClick={handleConfirm}
-                          >
-                            Proceed to Pay
-                          </Button>
-                        </>
-                        )
-                      : (
-                      <>
-                        <Text fontSize="lg" mr={2}>
-                          You must login before proceed to checkout
-                        </Text>{" "}
-                        <LoginButton />
-                      </>
-                    )}
-                  </center>
                 </HStack>
+                {email
+                  ? (
+                    <HStack padding="0px 20px" >
+                      <Box>
+                        <Text>Shipping address: </Text>
+                        <Input
+                          type="text"
+                          id="address"
+                          name="address"
+                          value={state.address || ''}
+                          placeholder="Confirm shipping address..."
+                          onChange={handleOnAddressChange}
+                        />
+                      </Box>
+                      <Box>
+                        <Text visibility={state.address && "hidden"}>* Complete shipping address</Text>
+                        <Button
+                          style={{ marginLeft: "15px" }}
+                          colorScheme="teal"
+                          variant="solid"
+                          size="lg"
+                          onClick={handleConfirm}
+                          isDisabled={!state.address}
+                        >
+                          Pay
+                        </Button>
+                      </Box>
+                    </HStack>
+                    )
+                  : (
+                      <VStack>
+                        <Text>
+                          You must login before proceed to checkout
+                        </Text>
+                        <Button colorScheme="teal" variant="solid" size="lg">
+                          <LoginButton />
+                        </Button>
+                      </VStack>
+                    )}
               </>
             )}
             <NavLink to={"/home"} align="center">
