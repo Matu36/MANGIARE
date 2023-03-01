@@ -31,6 +31,8 @@ import {
   UnorderedList,
   Stack,
   VStack,
+  Input,
+  HStack
 } from "@chakra-ui/react";
 import background from "../../img/RDetailBG.jpg";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -42,20 +44,20 @@ const RecipeDetail = () => {
   let dispatch = useDispatch();
   let recipe = useSelector((state) => state.recipes.recipeDetail);
   const ingredients = useSelector((state) => state.ingredients.ingredients);
-  const [list, setList] = useState(); // Traigo datos faltantes de ingredients
-  //formato list: [{id, name, price}, {id, name, price}...]
+  const [list, setList] = useState();
   const cart = useSelector((state) => state.cart.cart);
   const [loading, setLoading] = useState(false);
   const LS_user = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
   let png = "https://cdn-icons-png.flaticon.com/512/7780/7780562.png";
 
-  const [state, setState] = React.useState({ address: null });
+  const [state, setState] = useState({ address: null });
   const { email } = useAuth0().user || { email: null };
 
 
   //                   --------------- localStorage ---------------
   useEffect(() => {
+    console.log('mete en cart');
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
     if (!LS_cart) return;
     else {
@@ -78,7 +80,7 @@ const RecipeDetail = () => {
         LS_cart[index] = {
           ...LS_cart[index],
           amount:
-            (parseFloat(LS_cart[index].amount) + parseFloat(ingredient[0].amount)).toFixed(2),
+            Math.round((parseFloat(LS_cart[index].amount) + parseFloat(ingredient[0].amount)) * 100) / 100,
         };
         localStorage.setItem("MANGIARE_cart", JSON.stringify(LS_cart));
       }
@@ -103,10 +105,11 @@ const RecipeDetail = () => {
         recipe.ingredients.map((el) => ({
           ...el,
           ...ingredients.find((aux) => aux.id === el.id),
+          inCart: cart.some((aux => aux.id === el.id && aux.unit === el.unit))
         }))
       );
     }
-  }, [recipe, ingredients, cart]);
+  }, [recipe, ingredients]);
 
   useEffect(() => {
     setState({
@@ -118,14 +121,8 @@ const RecipeDetail = () => {
 
   const handleOnAdd = (id, unit) => {
     handleLocalStorage([list.find((el) => ((el.id == id) && (el.unit === unit)))]);
-    setList(
-      list.map((el) =>
-        (el.id == id && el.unit === unit) ? { ...el, inCart: true } : { ...el }
-      )
-    );
-    return dispatch(
-      addToCart(id ? [list.find(el => ((el.id == id) && (el.unit === unit)))] : list)
-    );
+    setList(list.map(el => (el.id == id && el.unit === unit) ? { ...el, inCart: true} : {...el}));
+    dispatch(addToCart(id ? [list.find(el => ((el.id == id) && (el.unit === unit)))] : list));
   };
 
   const handleOnChange = ({ target }, unit) => {
@@ -182,6 +179,10 @@ const RecipeDetail = () => {
           "_self"
         );
       });
+  };
+
+  const handleOnAddressChange = ({ target }) => {
+    setState({ ...state, [target.name]: target.value });
   };
 
   return (
@@ -298,7 +299,7 @@ const RecipeDetail = () => {
                     <Text>Loading...</Text>
                   ) : (
                     <IngredientsList
-                      items={list.map((el) => ({ ...el, units: [el.unit] }))}
+                      items={list.map((el) => ({ ...el, units: [el.unit]}))}
                       onChange={handleOnChange}
                       onUnitChange={handleOnUnitChange}
                       itemButton={{
@@ -337,23 +338,54 @@ const RecipeDetail = () => {
             </Tabs>
           </Stack>
 
-          <VStack spacing="24px">
+          <HStack>
             <Box padding="20px">
               <NavLink to={"/shoppingCart"}>
                 <Button colorScheme="teal" variant="solid" size="lg">
                   Go to Cart
                 </Button>
               </NavLink>
-              <Button
-                style={{ marginLeft: "15px" }}
-                colorScheme="teal"
-                variant="solid"
-                size="lg"
-                onClick={handleConfirm}
-              >
-                Fast Buy Recipe
-              </Button>
             </Box>
+          </HStack>
+
+          {
+            (!user)
+              ? <HStack padding="20px">
+                  <Box>
+                    <p>Login to buy this recipe!</p>
+                  </Box>
+                </HStack>
+              : (
+                <HStack padding="20px">
+                  <Box>
+                    <Text>Shipping address: </Text>
+                    <Input
+                      type="text"
+                      id="address"
+                      name="address"
+                      value={state.address || ''}
+                      placeholder="Confirm shipping address..."
+                      onChange={handleOnAddressChange}
+                    />
+                  </Box>
+                  <Box>
+                    <Text visibility={state.address && "hidden"}>* Complete shipping address to proceed</Text>
+                    <Button
+                      style={{ marginLeft: "15px" }}
+                      colorScheme="teal"
+                      variant="solid"
+                      size="lg"
+                      onClick={handleConfirm}
+                      isDisabled={!state.address}
+                    >
+                      Fast Buy Recipe
+                    </Button>
+                  </Box>
+                </HStack>
+              )
+          }
+
+          <VStack>
             <Box
               w={["90%", "90%", "65%", "65%"]}
               borderWidth="1px"
