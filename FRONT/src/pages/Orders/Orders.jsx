@@ -146,7 +146,7 @@ export default function Orders(props) {
                                     </tr>
                                     {((state.orderActive === el.id) || (!state.orderActive && el.id == props.order_id)) ? <tr className={s.orderItem}>
                                         <td colSpan={props.all ? 6 : 5} style={{padding: '30px 0'}}>
-                                            <div style={{width: '70%', margin: 'auto'}}>
+                                            <div style={{width: '70%', margin: 'auto', backgroundColor: 'white'}}>
                                                 <IngredientsList items={el.Order_details.map(({IngredientId, amount, unit, price, Ingredient}) => ({id: IngredientId, amount, unit, price, name: Ingredient.name}))} orderDetail={true}/>
                                             </div>
                                         </td>
