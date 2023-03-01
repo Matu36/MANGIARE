@@ -25,9 +25,7 @@ export default function IngredientsList(props) {
         <Tr>
           <Th textAlign="center">Ingredient</Th>
           <Th textAlign="center">Amount</Th>
-          <Th display={["none", "none", "flex", "flex"]} textAlign="center">
-            Measure Unit
-          </Th>
+          <Th display={["none", "none", "table-cell", "table-cell"]} textAlign="center">Measure Unit</Th>
           <Th textAlign="center">
             {props.orderDetail ? "Unit Price" : "Action"}
           </Th>
@@ -40,12 +38,12 @@ export default function IngredientsList(props) {
             <td>{el.name}</td>
             <td>
               {props.orderDetail ? (
-                el.amount
+                Math.round(parseFloat(el.amount) * 100) / 100
               ) : (
                 <Input
                   type="number"
                   id={el.id}
-                  value={el.amount}
+                  value={Math.round(parseFloat(el.amount) * 100) / 100}
                   name="ingredient"
                   onChange={(event) => props.onChange(event, el.unit)}
                 />
