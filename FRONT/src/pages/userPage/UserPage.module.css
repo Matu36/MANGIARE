@@ -1,7 +1,3 @@
-.containerMain {
-  background-color: #ffffff;
-}
-
 .container {
   margin-top: 6rem;
   display: flex;
@@ -11,7 +7,8 @@
 .userInfoDiv {
   width: 20%;
   height: 30rem;
-  background-color: #0c1d2c;
+  /* background-color: #0c1d2c; */
+  background-image: url("https://img.freepik.com/premium-vector/food-doodle-set_160308-239.jpg?w=740");
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,6 +16,17 @@
   box-sizing: border-box;
   gap: 2rem;
   position: fixed;
+  color: #276749;
+  font-family: Caviar Dreams, sans-serif;
+  font-weight: bold;
+}
+
+.userInfoDiv img {
+  width: 80%;
+}
+
+.userInfoCountDiv {
+  background-color: #fff;
 }
 
 .profileImg {
@@ -27,7 +35,8 @@
 }
 
 .userName {
-  color: #fff;
+  background-color: #fff;
+  font-size: 16px;
 }
 
 .boxesContainer {
