@@ -36,7 +36,7 @@ const LandingPage = ({ title }) => {
   return (
     <Box
       width="100%"
-      height="100vh"
+      height="110vh"
       backgroundImage={background}
       align={"center"}
       style={{
@@ -56,7 +56,7 @@ const LandingPage = ({ title }) => {
         <Box
           // flex='1'
           as="header"
-          mt={{ base: "40", md: "40" }}
+          mt={{ base: "40", md: "40", lg: "30" }}
           alignContent={"center"}
           transition="all 4s"
           style={{
