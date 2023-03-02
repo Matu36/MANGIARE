@@ -27,17 +27,15 @@ function NavBar(userLocalstorage) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      onExecutePostEmail(user);
+      onExecutePostEmail(user).then(() =>
+        setUserLocal(JSON.parse(localStorage.getItem("MANGIARE_user")))
+      );
     }
   }, [user, isAuthenticated]);
 
-
   const [display, changeDisplay] = useState('none')
 
-
-  
-  
-    return (
+  return (
       <Flex
         
       >
@@ -144,14 +142,9 @@ function NavBar(userLocalstorage) {
          </Button>
   
         )}
-            
-
-            
           </Flex>
-  
-          {/* Mobile */}
 
-         
+{/* Mobile */}
 
          <Flex  display={['flex', 'flex', 'none','none']}
          justify='space-between'
