@@ -185,7 +185,7 @@ function NavBar(userLocalstorage) {
 
 {isAuthenticated ? (
          <div className={s.btn2}>
-           <UserMenu />{" "}
+           <UserMenu userLocal={userLocal} />{" "}
          </div>
        ) : (
         <Button
