@@ -136,43 +136,23 @@ export default function ShoppingCart() {
   };
 
   return (
-    <Box
-      width="100%"
-      height="100vh"
-      marginTop="1px"
-      style={{
-        display: "flex",
-        alignItems: "left",
-        justifyContent: "left",
-        flexDirection: "row",
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-      }}
-    >
+    <>
       <NavBar />
-      <Flex marginTop="70px">
+      <HStack alignItems="flex-start" justify={["center", "center", "flex-start", "flex-start"]}>
         <Box
           w="40%"
           h="100vh"
           bgImage={background}
-          display={["none", "none", "flex", "flex"]}
+          display={["none", "none", "inline-block", "inline-block"]}
           style={{
             backgroundSize: "cover",
-          }}          
+          }}
         />
-        <Spacer width="10px" />
-        <Box w="80%" marginLeft="50px">
-          <Text 
-            fontSize="6xl"
-            fontWeight="bold"
-            color="yellow.500"
-            style={{ textAlign: "center" }}
-          >
-            Shopping Cart
-          </Text>
-          <VStack spacing={30} align="stretch">
+        <VStack paddingTop="70px">
+          <Text fontSize="5xl" fontWeight="bold" color="yellow.500" textAlign="center">Shopping Cart</Text>
+          <VStack spacing={30} align="stretch" justify="center">
             {!cart?.length ? (
-              <Text marginLeft= "180px" fontSize="2xl">The Shopping Cart is empty...</Text>
+              <Text fontSize="2xl">The Shopping Cart is empty...</Text>
             ) : (
               <>
                 <IngredientsList
@@ -227,65 +207,48 @@ export default function ShoppingCart() {
                     )
                   : (
                       <VStack>
-                        <Text>
-                          You must login before proceed to checkout
-                        </Text>
-                        <Button colorScheme="teal" variant="solid" size="lg">
-                          <LoginButton />
-                        </Button>
+                        <Text>You must login before proceed to checkout</Text>
+                        <Button colorScheme="teal" variant="solid" size="lg"><LoginButton /></Button>
                       </VStack>
                     )}
               </>
             )}
-            <NavLink to={"/home"} align="center">
-              <Button colorScheme="teal" variant="solid" size="lg">
-                Go Home
-              </Button>
-            </NavLink>
+
+            <NavLink to={"/home"} align="center"><Button colorScheme="teal" variant="solid" size="lg">Go Home</Button></NavLink>
           </VStack>
-        </Box>
-        <AlertDialog
-          isOpen={isAlertOpen}
-          leastDestructiveRef={cancelRef}
-          onClose={handleDeleteCancel}
-        >
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                Remove Item
-              </AlertDialogHeader>
 
-              <AlertDialogBody>
-                Are you sure you want to remove this item from your cart?
-              </AlertDialogBody>
+          <AlertDialog
+            isOpen={isAlertOpen}
+            leastDestructiveRef={cancelRef}
+            onClose={handleDeleteCancel}
+          >
+            <AlertDialogOverlay>
+              <AlertDialogContent>
+                <AlertDialogHeader fontSize="lg" fontWeight="bold">Remove Item</AlertDialogHeader>
 
-              <AlertDialogFooter>
-                <Flex align="center">
-                  <Image
-                    src={logo}
-                    alt="logo"
-                    width="50px"
-                    height="50px"
-                    mr={4}
-                  />
-                </Flex>
-                <Spacer />
-                <Button ref={cancelRef} onClick={handleDeleteCancel}>
-                  Cancel
-                </Button>
-                <Button
-                  colorScheme="red"
-                  ml={3}
-                  onClick={handleDeleteConfirmation}
-                >
-                  Remove
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
-        <Box w="600px" />
-      </Flex>
-    </Box>
+                <AlertDialogBody>Are you sure you want to remove this item from your cart?</AlertDialogBody>
+
+                <AlertDialogFooter>
+                  <Flex align="center">
+                    <Image
+                      src={logo}
+                      alt="logo"
+                      width="50px"
+                      height="50px"
+                      mr={4}
+                    />
+                  </Flex>
+                  <Spacer />
+                  <Button ref={cancelRef} onClick={handleDeleteCancel}>Cancel</Button>
+
+                  <Button colorScheme="red" ml={3} onClick={handleDeleteConfirmation}>Remove</Button>
+
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialogOverlay>
+          </AlertDialog>
+        </VStack>
+      </HStack>
+    </>
   );
 }
