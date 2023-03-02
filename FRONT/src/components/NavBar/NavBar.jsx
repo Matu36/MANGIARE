@@ -17,6 +17,7 @@ import ColorModeSwitcher from "../../pages/DarkMode/ColorModeSwitcher.jsx"
 function NavBar(userLocalstorage) {
   const { user, isAuthenticated } = useAuth0();
   const [cartItems, setCartItems] = useState(0);
+  const [userLocal, setUserLocal] = useState();
 
   // const LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart")) || [];
 
@@ -97,9 +98,6 @@ function NavBar(userLocalstorage) {
                       </Button>
        </Link>
 
-            
-            
-  
             <SearchBar />
 
             <Button
@@ -128,7 +126,7 @@ function NavBar(userLocalstorage) {
          w="5%"
          height={'100%'}
        >
-           <UserMenu />{" "}
+           <UserMenu userLocal={userLocal} />{" "}
          </Button>
        ) : (
         <Button
@@ -187,7 +185,7 @@ function NavBar(userLocalstorage) {
 
 {isAuthenticated ? (
          <div className={s.btn2}>
-           <UserMenu />{" "}
+           <UserMenu userLocal={userLocal} />{" "}
          </div>
        ) : (
         <Button
