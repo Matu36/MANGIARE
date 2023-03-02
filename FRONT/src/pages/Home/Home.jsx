@@ -185,7 +185,7 @@ export default function Home() {
 
       <Box
         w="100%"
-        h={["420px", "420px", "560px", "560px"]}
+        h={["420px", "420px", "500px", "500px"]}
         marginTop="1px"
         backgroundImage={banner}
         style={{
@@ -194,7 +194,7 @@ export default function Home() {
           justifyContent: "center",
           flexDirection: "column",
           backgroundSize: "cover",
-          // backgroundPosition: "center center",
+          backgroundPosition: "center bottom 60%",
         }}
       >
         <Text
@@ -202,9 +202,9 @@ export default function Home() {
           fontSize={{ base: "56px", md: "70px", lg: "80px" }}
           fontWeight="bold"
           width="100%"
-          height="5%"
+          height={["5%", "5%", "60px", "60px"]}
           maxWidth="100%"
-          marginTop="25%"
+          marginTop={["25%", "25%", "15%", "1%"]}
           textAlign="center"
         >
           Cooking, simplified
@@ -213,27 +213,40 @@ export default function Home() {
           style={{ fontFamily: "Caviar Dreams, sans-serif" }}
           fontWeight="bold"
           align="center"
-          marginTop="130px"
-          fontSize="25px"
+          marginTop={["200px", "200px", "100px", "100px"]}
+          fontSize={["15px", "15px", "40px", "40px"]}
           color="green.700"
         >
-          Tell us which ingredients you have and we'll show the best recipes
+          Tell us which ingredients you have 
+          <br/>and we'll show the best recipes
           that match with them.{" "}
         </Text>
       </Box>
       <Filters />
-      <Spacer h="30px" />
+      <Spacer h="60px" />
       <Center>
         <Box
+          marginTop="50px"
           p={4}
           fontFamily="Caviar Dreams, sans-serif"
           fontWeight="bold"
-          fontSize={{ base: "40px", md: "45px", lg: "56px" }}
-          color={textColore}
-          background={bgColor}
-          opacity={opacity}
+          textAlign={{ base: "center", md: "center", lg: "center" }}
+          fontSize={{ base: "40px", md: "45px", lg: "45px" }}
+          color='teal.700'
+          background='white'
+          opacity='0.8'
           borderRadius="5px"
-          w="50%"
+          w={["80%", '80%', '40%', '40%']}
+          h="20%"
+          backgroundImage={banner}
+          backgroundPosition="center bottom 60%"
+          backgroundSize="cover"
+      //     style={{
+      //       background: "linear-gradient(to bottom right, #f2e2d2, #8da9c4), linear-gradient(to top left, #f2e2d2, #8da9c4)",
+      // backgroundSize: "20px 20px",
+      // backgroundPosition: "0 0, 10px 10px",
+      // filter: "brightness(90%) saturate(80%) hue-rotate(-20deg) contrast(120%)"
+      //     }}
         >
           Check our recipes!
         </Box>
