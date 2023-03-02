@@ -77,6 +77,7 @@ class CreateRecipe extends React.Component {
   };
 
   handleSubmit = async (event) => {
+    console.log('llama a submit')
     event.preventDefault();
 
     let imageUrl = null;
@@ -447,7 +448,6 @@ class CreateRecipe extends React.Component {
               >
                 Create Recipe!
               </Button>
-              
               </Box>
               </VStack>
               <VStack>
