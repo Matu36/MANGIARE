@@ -2,10 +2,10 @@ $box-shadow: 5px 5px 10px gray;
 $border: 1px solid rgb(199, 199, 199);
 
 .container {
-  background-color: #fff;
+  // background-color: #fff;
   border: $border;
-  max-width: 20rem;
-  min-height: 7.5rem;
+  //max-width: 15rem;
+  min-height: 8rem;
   border-radius: 10px;
   box-shadow: $box-shadow;
   padding: 1rem;
@@ -19,11 +19,18 @@ $border: 1px solid rgb(199, 199, 199);
     font-size: 24px;
     color: brown;
     right: -7.5px;
-    top: -7.5px;
+    top: 0px;
     cursor: pointer;
-    background-color: #fff;
+    background: none;
     border-radius: 50%;
-    box-shadow: 3px 3px 5px gray;
+    transition: 0.2s;
+
+    &:hover {
+      transition: 0s;
+      background: none;
+      transform: scale(1.2);
+      color: rgb(202, 29, 29);
+    }
   }
 
   .imgDiv {
@@ -40,7 +47,7 @@ $border: 1px solid rgb(199, 199, 199);
     justify-content: space-between;
 
     .stars {
-        font-size: 12px;
+      font-size: 12px;
     }
 
     .longComment {
@@ -48,10 +55,10 @@ $border: 1px solid rgb(199, 199, 199);
     }
 
     .userDiv {
-        border-top: $border;
-        display: flex;
-        justify-content: space-between;
-        font-size: 12px;
+      border-top: $border;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
     }
   }
 }

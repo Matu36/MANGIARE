@@ -91,11 +91,10 @@ export default function ShoppingCart() {
     );
   };
 
-  const changeFromLocalStorage = (target) => {
+  const changeFromLocalStorage = (target, unit) => {
     let LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart"));
-    let element = LS_cart.find((i) => parseInt(i.id) === parseInt(target.id));
-    let index = LS_cart.indexOf(element);
-    LS_cart[index].amount = target.value;
+    let index = LS_cart.indexOf(LS_cart.find((i) => (i.id == target.id) && (i.unit == unit)));
+    LS_cart[index].amount = parseFloat(target.value).toFixed(2);
     localStorage.setItem("MANGIARE_cart", JSON.stringify(LS_cart));
   };
   //                 --------------- fin localStorage ---------------
@@ -105,7 +104,7 @@ export default function ShoppingCart() {
   };
 
   const handleOnChange = ({ target }, unit) => {
-    changeFromLocalStorage(target);
+    changeFromLocalStorage(target, unit);
     dispatch(
       setCart(
         cart.map((el) =>
@@ -137,40 +136,21 @@ export default function ShoppingCart() {
   };
 
   return (
-    <Box
-      width="100%"
-      height="100vh"
-      marginTop="1px"
-      style={{
-        display: "flex",
-        alignItems: "left",
-        justifyContent: "left",
-        flexDirection: "row",
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-      }}
-    >
+    <>
       <NavBar />
-      <Flex marginTop="70px">
+      <HStack alignItems="flex-start" justify={["center", "center", "flex-start", "flex-start"]}>
         <Box
           w="40%"
           h="100vh"
           bgImage={background}
+          display={["none", "none", "inline-block", "inline-block"]}
           style={{
             backgroundSize: "cover",
           }}
         />
-        <Spacer width="400px" />
-        <Box w="600px">
-          <Text
-            fontSize="6xl"
-            fontWeight="bold"
-            color="yellow.500"
-            style={{ textAlign: "center" }}
-          >
-            Shopping Cart
-          </Text>
-          <VStack spacing={100} align="stretch" my={10}>
+        <VStack paddingTop="70px">
+          <Text fontSize="5xl" fontWeight="bold" color="yellow.500" textAlign="center">Shopping Cart</Text>
+          <VStack spacing={30} align="stretch" justify="center">
             {!cart?.length ? (
               <Text fontSize="2xl">The Shopping Cart is empty...</Text>
             ) : (
@@ -183,7 +163,7 @@ export default function ShoppingCart() {
                     action: handleOnDelete,
                   }}
                 />
-                <HStack justify="space-between" align="flex-end" mt={10}>
+                <HStack justify="space-between" align="flex-end" mt={10} padding="0px 20px" >
                   <Text
                     fontSize="2xl"
                     fontWeight="bold"
@@ -195,93 +175,80 @@ export default function ShoppingCart() {
                         .reduce((aux, el) => aux + el.amount * el.price, 0)
                         .toFixed(2)}
                   </Text>
-                  <center>
-                    {email
-                      ? (
-                        <>
-                          <label htmlFor="address">Shipping address: </label>
-                          <Input
-                            type="text"
-                            id="address"
-                            name="address"
-                            value={state.address}
-                            placeholder="Confirm shipping address..."
-                            onChange={handleOnAddressChange}
-                          />
-                          <br />
-                          <br />
-                          <Button
-                            colorScheme="teal"
-                            variant="solid"
-                            size="lg"
-                            isDisabled={!state.address}
-                            onClick={handleConfirm}
-                          >
-                            Proceed to Pay
-                          </Button>
-                        </>
-                        )
-                      : (
-                      <>
-                        <Text fontSize="lg" mr={2}>
-                          You must login before proceed to checkout
-                        </Text>{" "}
-                        <LoginButton />
-                      </>
-                    )}
-                  </center>
                 </HStack>
+                {email
+                  ? (
+                    <HStack padding="0px 20px" >
+                      <Box>
+                        <Text>Shipping address: </Text>
+                        <Input
+                          type="text"
+                          id="address"
+                          name="address"
+                          value={state.address || ''}
+                          placeholder="Confirm shipping address..."
+                          onChange={handleOnAddressChange}
+                        />
+                      </Box>
+                      <Box>
+                        <Text visibility={state.address && "hidden"}>* Complete shipping address</Text>
+                        <Button
+                          style={{ marginLeft: "15px" }}
+                          colorScheme="teal"
+                          variant="solid"
+                          size="lg"
+                          onClick={handleConfirm}
+                          isDisabled={!state.address}
+                        >
+                          Pay
+                        </Button>
+                      </Box>
+                    </HStack>
+                    )
+                  : (
+                      <VStack>
+                        <Text>You must login before proceed to checkout</Text>
+                        <Button colorScheme="teal" variant="solid" size="lg"><LoginButton /></Button>
+                      </VStack>
+                    )}
               </>
             )}
-            <NavLink to={"/home"} align="center">
-              <Button colorScheme="teal" variant="solid" size="lg">
-                Go Home
-              </Button>
-            </NavLink>
+
+            <NavLink to={"/home"} align="center"><Button colorScheme="teal" variant="solid" size="lg">Go Home</Button></NavLink>
           </VStack>
-        </Box>
-        <AlertDialog
-          isOpen={isAlertOpen}
-          leastDestructiveRef={cancelRef}
-          onClose={handleDeleteCancel}
-        >
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                Remove Item
-              </AlertDialogHeader>
 
-              <AlertDialogBody>
-                Are you sure you want to remove this item from your cart?
-              </AlertDialogBody>
+          <AlertDialog
+            isOpen={isAlertOpen}
+            leastDestructiveRef={cancelRef}
+            onClose={handleDeleteCancel}
+          >
+            <AlertDialogOverlay>
+              <AlertDialogContent>
+                <AlertDialogHeader fontSize="lg" fontWeight="bold">Remove Item</AlertDialogHeader>
 
-              <AlertDialogFooter>
-                <Flex align="center">
-                  <Image
-                    src={logo}
-                    alt="logo"
-                    width="50px"
-                    height="50px"
-                    mr={4}
-                  />
-                </Flex>
-                <Spacer />
-                <Button ref={cancelRef} onClick={handleDeleteCancel}>
-                  Cancel
-                </Button>
-                <Button
-                  colorScheme="red"
-                  ml={3}
-                  onClick={handleDeleteConfirmation}
-                >
-                  Remove
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
-        <Box w="600px" />
-      </Flex>
-    </Box>
+                <AlertDialogBody>Are you sure you want to remove this item from your cart?</AlertDialogBody>
+
+                <AlertDialogFooter>
+                  <Flex align="center">
+                    <Image
+                      src={logo}
+                      alt="logo"
+                      width="50px"
+                      height="50px"
+                      mr={4}
+                    />
+                  </Flex>
+                  <Spacer />
+                  <Button ref={cancelRef} onClick={handleDeleteCancel}>Cancel</Button>
+
+                  <Button colorScheme="red" ml={3} onClick={handleDeleteConfirmation}>Remove</Button>
+
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialogOverlay>
+          </AlertDialog>
+        </VStack>
+      </HStack>
+    </>
   );
 }

@@ -11,14 +11,22 @@ import axios from "axios";
 export default function Reviews() {
   const dispatch = useDispatch();
   const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
-  const reviewsGlobal = useSelector((state) => state.reviews.reviews);
+  // reviewsGlobal = useSelector((state) => state.reviews.reviews);
+  const [reviewsGlobal, setReviewsGlobal] = useState([]);
 
   useEffect(() => {
-    dispatch(getReviews(currentUser));
+    let user = {
+      id: currentUser.id,
+      email: currentUser.email,
+    };
+    axios
+      .get(`/reviews`, { params: user })
+      .then((response) => response.data)
+      .then((data) => setReviewsGlobal(data));
   }, []);
 
   const [search, setSearch] = useState("");
-  const [filterReviews, setFilterReviews] = useState(reviewsGlobal);
+  const [filterReviews, setFilterReviews] = useState();
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -27,7 +35,7 @@ export default function Reviews() {
 
   useEffect(() => {
     filterByReviews(search);
-  }, [search]);
+  }, [search, reviewsGlobal]);
 
   const filterByReviews = (value) => {
     let arrayCache = [...reviewsGlobal];
@@ -61,7 +69,7 @@ export default function Reviews() {
       filterReviews?.slice(indexFirstPageRecipe(), indexLastPageRecipe())
     );
     setNumberOfPage(Math.ceil(filterReviews?.length / 9)); // cambiando el estado local de numeros de paginas a renderiza
-  }, [filterReviews, currentPage]);
+  }, [filterReviews, currentPage, reviewsGlobal]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -76,7 +84,7 @@ export default function Reviews() {
       axios
         .get(`/reviews`, { params: user })
         .then((response) => response.data)
-        .then((data) => setFilterReviews(data));
+        .then((data) => setReviewsGlobal(data));
     });
   };
   return (

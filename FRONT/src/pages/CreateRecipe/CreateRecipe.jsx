@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import Diets from "../../components/Diets/Diets";
 import { createRecipe } from "../../Redux/actions/recipes";
@@ -12,6 +14,7 @@ import {
   Image,
   Text,
   IconButton,
+  useColorModeValue,
   Button,
   extendTheme,
   Flex,
@@ -25,10 +28,10 @@ import {
   Center,
   
 } from "@chakra-ui/react";
-import background from "../../img/BkGcreateRecipe1.png";
+import background from "../../img/BKCreateRecipe6.png";
 import NavBar from "../../components/NavBar/NavBar";
 import uploadImageToCloudinary from "../../utils/Cloudinary/uploadImage";
-//import {Redirect} from 'react-router-dom';
+import Swal from "sweetalert2";
 
 class CreateRecipe extends React.Component {
   constructor(props) {
@@ -76,6 +79,7 @@ class CreateRecipe extends React.Component {
   };
 
   handleSubmit = async (event) => {
+    console.log('llama a submit')
     event.preventDefault();
 
     let imageUrl = null;
@@ -97,10 +101,21 @@ class CreateRecipe extends React.Component {
         })),
       })
       .then(() => {
-        alert(`The Recipe '${this.state.title}' has been created!`);
-        window.location.href = "/home";
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `Your recipe ${this.state.title} has been created`,
+          text: 'Thank you for your contribution!',
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => window.location.href = "/home");
       })
-      .catch(() => alert(`Error ocurred.`))
+      .catch(() => Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Your recipe has not been created",
+        showConfirmButton: true,
+      }))
       .then(() => this.setState({ completed: true }));
   };
 
@@ -180,19 +195,19 @@ class CreateRecipe extends React.Component {
     if (!this.props.ingredients) return <h2>Loading ingredients...</h2>;
 
     return (
-      <Box backgroundImage= {logo}
-      bgRepeat="no-repeat"
-      bgSize="cover"
-      bgPosition="center"
-      opacity="0.8"
-      height="165vh"
-      width="100vw"
-       
-      >
+     <Box
+      width="100%"
+      marginTop="1px"
+      backgroundImage={["none", "none", 'none', background]}
+      backgroundSize="cover"
+      backgroundPosition={"center right 10%"}
+    >
+      
         <Box>
           <NavBar />
 
-          <Flex justifyContent="center" flexDirection="column" marginTop="70px">
+          <Flex 
+          flexDirection="column" marginTop="70px">
             <Stack maxH={"110px"}>
               <Text
                 fontSize={{ base: "24px", md: "40px", lg: "56px" }}
@@ -202,6 +217,14 @@ class CreateRecipe extends React.Component {
               >
                 {" "}
                 Create your own Recipe!
+              </Text>
+              <Text
+                fontSize={{ base: "20px", md: "30px", lg: "46px" }}
+                textAlign="center"
+                fontWeight="bold"
+                color="yellow.600"
+              >
+                Write your cookbook online
               </Text>
               
             </Stack>
@@ -217,8 +240,12 @@ class CreateRecipe extends React.Component {
                 flexDirection: "column",
               }}
             >
-              <Box  onSubmit={this.handleSubmit}>
-                <table style={{ width: "100%", margin: "auto" }}>
+              <Stack
+                direction={["column", "column", "column", "row"]}
+                justifyContent="space-between"
+              >
+              <Box >
+                <table style={{ width: "80%", margin: "auto" }}>
                   <tbody>
                     <tr>
                       <td>
@@ -235,7 +262,7 @@ class CreateRecipe extends React.Component {
               </Text>
                           
                         </label>
-                        <Input width= "200px"
+                        <Input width= "100%"
                           
                           type="text"
                           id="title"
@@ -297,13 +324,29 @@ class CreateRecipe extends React.Component {
                   </tbody>
                 </table>
               </Box>
+              <Box width="60%" >
               <Diets
                 display="flex"
                 onChange={this.handleDiets}
                 diets={this.props.diets.filter((el) => el !== "All Diets")}
                 actives={this.state.diets}
               />
-              <Box width="40%" p={4}>
+              </Box>
+
+              <Box>
+
+              </Box>
+              <Box>
+
+              </Box>
+
+</Stack>
+          <Stack
+                direction={["column", "column", "row", "row"]}
+                justifyContent="space-evenly"
+              >
+                <VStack width={['90%', '90','30%','30%']}>
+              <Box width="100%"  marginTop='100px'>
                 
                   <ReactSearchAutocomplete
                     showClear
@@ -318,7 +361,7 @@ class CreateRecipe extends React.Component {
                   />
                 
               </Box>
-              <Box width={{ base: "xsm", md: "3xl", lg: "6xl" }} p={4}>
+              <Box width={{ base: "90%", md: "90%", lg: "100%" }} >
                 {this.state.ingredients.length ? (
                   <Text fontSize="xl" fontWeight="bold">
                   <IngredientsList
@@ -334,7 +377,8 @@ class CreateRecipe extends React.Component {
                   </Text>
                  
                 ) : (
-                  <p
+                  <Text
+                  width={{ base: "90%", md: "90%", lg: "100%" }}
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
@@ -344,7 +388,7 @@ class CreateRecipe extends React.Component {
                     }}
                   >
                     Recipe must have at least one ingredient
-                  </p>
+                  </Text>
                 )}
               </Box>
 
@@ -353,32 +397,39 @@ class CreateRecipe extends React.Component {
                 fontSize={{ base: "15px", md: "20px", lg: "30px" }}
                 textAlign="left"
                 fontWeight="bold"
-                color="teal.600"
-                marginLeft="60px"
+                color="yellow.600"
+                marginLeft="20px"
               >
                 {" "}
                 
               
-                  Estimated cost of recipe: <br />{" "}
+                  Estimated cost of recipe:{" "}
                   {this.state.ingredients
                     .reduce((aux, el) => aux + el.price * el.amount, 0)
                     .toFixed(2)}
                 </Text>
               </Box>
+              </VStack>
+              
+              <VStack width={['100%', '100%', '60%']} alignContent={'center'}>
+                <Box>
               <FormLabel fontSize={{ base: "24px", md: "40px", lg: "56px" }}>
               <Text
-                fontSize={{ base: "18px", md: "30px", lg: "46px" }}
-                textAlign="center"
+                fontSize={{ base: "30px", md: "30px", lg: "36px" }}
+                textAlign="left"
                 fontWeight="bold"
                 color="teal.600"
+                // marginLeft="20px"
               >
                 {" "}
                 Instructions
               </Text>
                
               </FormLabel>
-              <Box bgGradient="linear(to-r, #D1D1D1, #E8E8E8, #F0FFF4)" p={5} rounded="md">
-              <Text color="green.400" fontWeight="bold">
+              </Box>
+                
+              <Box width={['100%', '100%', '50%']} p={5} rounded="md">
+              
               <Input 
                 id="instructions"
                 name="instructions"
@@ -386,17 +437,17 @@ class CreateRecipe extends React.Component {
                 placeholder="Recipe Instructions..."
                 onChange={this.handleOnChange}
                 backgroundColor="rgba(255, 255, 255, 0.9)"
-                justifycontent="center"
-                width={{ base: "xsm", md: "2xl", lg: "6xl" }}
+                justifycontent="top"
+                width={{ base: "90%", md: "90%", lg: "100%" }}
+                height={{ base: "100px", md: "200px", lg: "300px" }}
                 mx={{ base: 4, md: 8 }}
                 mt={{ base: 4, md: 8 }}
                 fontSize="larger"
                 
               />
-
-              <Input
-                type="submit"
-                value="Submit"
+              </Box>
+              <Box>
+              <Button
                 isDisabled={Object.values(this.state.error).includes(true)}
                 variantColor="teal"
                 align="center"
@@ -406,9 +457,20 @@ class CreateRecipe extends React.Component {
                 mt={{ base: 6, md: 10 }}
                 fontWeight="bold"
                 fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
-              />
-              </Text>
+                onClick={this.handleSubmit}
+              >
+                Create Recipe!
+              </Button>
               </Box>
+              </VStack>
+              <VStack>
+
+              </VStack>
+              <VStack>
+
+              </VStack>
+              
+            </Stack>
             </Box>
           </Flex>
         </Box>

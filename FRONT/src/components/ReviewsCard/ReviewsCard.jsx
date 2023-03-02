@@ -3,6 +3,29 @@ import s from "./ReviewsCard.module.scss";
 import { useDispatch } from "react-redux";
 import { FaTimesCircle } from "react-icons/fa";
 import { getReviews, deleteReview } from "../../Redux/actions/reviews";
+import {
+  Box,
+  Image,
+  Text,
+  IconButton,
+  Button,
+  Card,
+  Center,
+  Container,
+  Input,
+  Tabs,
+  TabList,
+  TabPanels,
+  Textarea,
+  SimpleGrid,
+  Spinner,
+  Tab,
+  TabPanel,
+  Spacer,
+  Stack,
+  HStack,
+  VStack,
+} from "@chakra-ui/react";
 
 const ReviewsCard = (props) => {
   let dispatch = useDispatch();
@@ -45,26 +68,31 @@ const ReviewsCard = (props) => {
   };
 
   return (
-    <div className={s.container}>
-      {user && user.id === userId ? (
-        <div className={s.deleteButtonDiv} onClick={handleDeleteReview}>
-          <FaTimesCircle />
+    <Center>
+      <Box className={s.container}>
+        {user && user.id === userId ? (
+          <Button className={s.deleteButtonDiv} onClick={handleDeleteReview}>
+            <FaTimesCircle />
+          </Button>
+        ) : null}
+        <Image
+          borderRadius="5px"
+          w="30%"
+          src={image ? image : png}
+          alt={userId}
+        />
+        <div className={s.infoDiv}>
+          <span className={s.stars}>{rateToStars(rate)}</span>
+          <span className={comment.length > 30 ? s.longComment : null}>
+            {comment}
+          </span>
+          <div className={s.userDiv}>
+            <span>{userId}</span>
+            <Text>{trimDate(createdAt)}</Text>
+          </div>
         </div>
-      ) : null}
-      <div className={s.imgDiv}>
-        <img src={image ? image : png} alt={userId} />
-      </div>
-      <div className={s.infoDiv}>
-        <span className={s.stars}>{rateToStars(rate)}</span>
-        <span className={comment.length > 30 ? s.longComment : null}>
-          {comment}
-        </span>
-        <div className={s.userDiv}>
-          <span>{userId}</span>
-          <span>{trimDate(createdAt)}</span>
-        </div>
-      </div>
-    </div>
+      </Box>
+    </Center>
   );
 };
 
