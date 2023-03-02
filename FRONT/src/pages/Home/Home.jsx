@@ -180,8 +180,8 @@ export default function Home() {
 
   return (
     <Stack>
+      {/* <IconButton width='10%' onClick={ColorModeSwitcher} /> */}
       <NavBar />
-      <IconButton onClick={ColorModeSwitcher} />
 
       <Box
         w="100%"
@@ -241,12 +241,7 @@ export default function Home() {
           backgroundImage={banner}
           backgroundPosition="center bottom 60%"
           backgroundSize="cover"
-      //     style={{
-      //       background: "linear-gradient(to bottom right, #f2e2d2, #8da9c4), linear-gradient(to top left, #f2e2d2, #8da9c4)",
-      // backgroundSize: "20px 20px",
-      // backgroundPosition: "0 0, 10px 10px",
-      // filter: "brightness(90%) saturate(80%) hue-rotate(-20deg) contrast(120%)"
-      //     }}
+     
         >
           Check our recipes!
         </Box>
