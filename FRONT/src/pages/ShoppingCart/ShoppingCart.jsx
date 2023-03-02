@@ -155,9 +155,10 @@ export default function ShoppingCart() {
           w="40%"
           h="100vh"
           bgImage={background}
+          display={["none", "none", "flex", "flex"]}
           style={{
             backgroundSize: "cover",
-          }}
+          }}          
         />
         <Spacer width="10px" />
         <Box w="80%" marginLeft="50px">
