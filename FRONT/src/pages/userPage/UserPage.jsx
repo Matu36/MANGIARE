@@ -38,6 +38,8 @@ export default function UserPage() {
 
   let order_id = params.get("id");
 
+  const pizza = "https://cdn-icons-png.flaticon.com/512/3511/3511307.png";
+
   return (
     <div className={s.containerMain}>
       <NavBar />
@@ -45,12 +47,16 @@ export default function UserPage() {
         <div className={s.userInfoDiv}>
           <Avatar className={s.profileImg} src={user ? user.picture : null} />
           <Text className={s.userName}>{name}</Text>
+          <div className={s.userInfoCountDiv}>
+            <p>Created recipes: {filteredRecipes.length}</p>
+            <p>Favorites: {userFavorites.length}</p>
+          </div>
+          <img src={pizza} alt="pizza" />
         </div>
         <div className={s.boxesContainer}>
           <RecipesBox title="Favorites" recipes={userFavorites} />
           <RecipesBox title="Created recipes" recipes={filteredRecipes} />
           <UserReviewsBox />
-          {/* <UserOrdersBox /> */}
           <div className={s.ordersContainer}>
             <Orders order_id={order_id} />
           </div>
