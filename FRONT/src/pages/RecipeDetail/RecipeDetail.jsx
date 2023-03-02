@@ -199,7 +199,7 @@ const RecipeDetail = () => {
         </div>
       ) : (
         <Stack
-          //width={{ base: "lg", md: "3xl", lg: "6xl" }}
+          // width={{ base: "lg", md: "3xl", lg: "6xl" }}
           width="100%"
           height="auto"
           marginTop="1px"
@@ -214,8 +214,8 @@ const RecipeDetail = () => {
           }}
         >
           <Box
-            width={{ base: "sm", md: "2xl", lg: "4xl", xl: "6xl" }}
-            height="10%"
+            width={{ base: "100%", md: "100%", lg: "100%", xl: "100%" }}
+            // height="10%"
             marginBottom="none"
           >
             <NavBar />

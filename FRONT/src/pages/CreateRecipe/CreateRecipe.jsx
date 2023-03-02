@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import Diets from "../../components/Diets/Diets";
 import { createRecipe } from "../../Redux/actions/recipes";
@@ -196,7 +198,7 @@ class CreateRecipe extends React.Component {
      <Box
       width="100%"
       marginTop="1px"
-      backgroundImage={["none", "none", background, background]}
+      backgroundImage={["none", "none", 'none', background]}
       backgroundSize="cover"
       backgroundPosition={"center right 10%"}
     >
@@ -239,7 +241,7 @@ class CreateRecipe extends React.Component {
               }}
             >
               <Stack
-                direction={["column", "column", "row", "row"]}
+                direction={["column", "column", "column", "row"]}
                 justifyContent="space-between"
               >
               <Box >
