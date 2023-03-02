@@ -180,7 +180,7 @@ function Filters() {
 
   return (
     <VStack>
-      <Box width="50%" minWidth="200px" borderRadius="40%">
+      <Box width="30%" minWidth="200px" borderRadius="40%">
         <Select
           borderRadius="40%"
           height="40px"
@@ -192,12 +192,14 @@ function Filters() {
           placeholderTextColor="gray.400"
         />
         <Spacer />
+
+      
       </Box>
 
       <Box
         background-color="rgba(255, 255, 255, 0.7)"
         color="green"
-        width="100%"
+        width="50%"
         min-width="80px"
         min-height="1 rem"
         border="3px"
@@ -234,12 +236,18 @@ function Filters() {
           : null}
       </Box>
       <Spacer />
+
+
       <Box
         width="50%"
+        align="center"
+        justifyContent="center"
         minWidth="200px"
         colorScheme="dark"
         bg={useColorModeValue("gray.100", "gray.700")}
       >
+        <Stack direction= {['column', 'column', 'row', 'row']} spacing='24px'
+        justify={[ 'center', 'center', 'space-between']}>
         <Select
           bg={useColorModeValue("gray.100", "gray.700")}
           options={optionsDiets}
@@ -267,6 +275,7 @@ function Filters() {
           onChange={(e) => handleOrderPriceOrRating(e, { type: "rating" })}
           placeholder="Order By Rating"
         />
+        </Stack>
       </Box>
     </VStack>
   );
