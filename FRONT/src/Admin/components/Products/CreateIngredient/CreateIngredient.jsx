@@ -47,6 +47,9 @@ export default function IngredientForm() {
         showConfirmButton: false,
         timer: 2000,
       });
+
+      setSelectedItems([]);
+
       window.location.reload();
       setIngredient({
         name: "",
@@ -54,7 +57,6 @@ export default function IngredientForm() {
         stock: "",
         units: [],
       });
-      setSelectedItems([]);
     } else {
       Swal.fire({
           position: "center",
