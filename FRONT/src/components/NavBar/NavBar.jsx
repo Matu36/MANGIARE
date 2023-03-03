@@ -54,6 +54,7 @@ function NavBar(userLocalstorage) {
   const imgFunction = useColorModeValue("invert(0)", "invert(1)");
 
   const colorShop = useColorModeValue("black", "white");
+  const colorSideBar = useColorModeValue("gray.50", "gray.600");
   
     return (
       <Flex
@@ -207,9 +208,9 @@ function NavBar(userLocalstorage) {
 
       {/* Mobile Content */}
       <Flex
-        w="70vw"
+        w="50vw"
         display={display}
-        bgColor="gray.50"
+        bgColor={colorSideBar}
         zIndex={20}
         h="100vh"
         pos="fixed"
@@ -232,7 +233,7 @@ function NavBar(userLocalstorage) {
         </Flex>
 
         <Flex flexDir="column" align="center">
-          <Link to="/">
+          <Link to="/home">
             <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
               Home
             </Button>

@@ -15,18 +15,14 @@ export const createIngredients = ({
   price,
   units,
   stock
-}) => {
-  let ingredient = {
-    name,
-    price,
-    units,
-    stock
-  };
-  return (dispatch) =>
-    axios
-      .post(`/ingredients`, ingredient)
+}) => dispatch => axios
+      .post(`/ingredients`, {
+        name,
+        price,
+        units,
+        stock
+      })
       .then((payload) => dispatch({ type: CREATE_INGREDIENTS, payload }));
-};
 
 export const updateIngredient = (ingredient) => {
   return dispatch => {
