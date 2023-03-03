@@ -30,7 +30,7 @@ export default function IngredientForm() {
       });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (ingredient.name && ingredient.price && selectedItems.length && ingredient.stock) {
       const newIngredient = {
@@ -38,20 +38,20 @@ export default function IngredientForm() {
         units: selectedItems,
       };
       dispatch(createIngredients(newIngredient));
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "success",
         title: "Ingredient has been created",
         showConfirmButton: false,
-        timer: 2000,
-      });
+        timer: 4000,
+      })
       window.location.reload();
       setIngredient({
         name: "",
         price: "",
+        stock: "",
         units: [],
       });
-      setSelectedItems([]);
     } else {
       Swal.fire({
           position: "center",
