@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import s from "./Filters.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "react-select";
 import {
   setOrderBy,
   filterByDiet,
@@ -28,6 +27,7 @@ import {
   Button,
   Text,
   useColorModeValue,
+  Select
 } from "@chakra-ui/react";
 
 function Filters() {
@@ -181,16 +181,17 @@ function Filters() {
   return (
     <VStack>
       <Box width="30%" minWidth="200px" borderRadius="40%">
-        <Select
+      <Select
           borderRadius="40%"
           height="40px"
           colorScheme="dark"
-          options={optionsIngredients}
           bg={useColorModeValue("dark", "gray.800")}
-          onChange={(e) => handleIngredientesFilter(e.value)}
+          onChange={({target}) => handleIngredientesFilter(target.value)}
           placeholder="Select Ingredients"
           placeholderTextColor="gray.400"
-        />
+        >
+          {optionsIngredients?.map(({label, value}) => (<option value={value}>{label}</option>))}
+        </Select>
         <Spacer />
 
       
@@ -250,31 +251,36 @@ function Filters() {
         justify={[ 'center', 'center', 'space-between']}>
         <Select
           bg={useColorModeValue("gray.100", "gray.700")}
-          options={optionsDiets}
-          onChange={(e) => handleFilterbyDiet(e)}
-          placeholder="Order By Diets"
-        />
+          onChange={({target}) => handleFilterbyDiet(target)}
+          placeholder="Filter By Diets"
+        >
+          {optionsDiets?.map(({label, value}) => (<option value={value}>{label}</option>))}
+        </Select>
 
         <Select
           bg={useColorModeValue("gray.100", "gray.700")}
-          options={optionsOrderBy}
-          onChange={(e) => handleOrder(e.value)}
+          onChange={({target}) => handleOrder(target.value)}
           placeholder="Order By A-Z"
-        />
+          >
+          {optionsOrderBy?.map(({label, value}) => (<option value={value}>{label}</option>))}
+        </Select>
 
         <Select
           bg={useColorModeValue("gray.100", "gray.700")}
           options={optionOrderByPriceOrRating}
-          onChange={(e) => handleOrderPriceOrRating(e, { type: "price" })}
+          onChange={({target}) => handleOrderPriceOrRating(target, { type: "price" })}
           placeholder="Order By Price"
-        />
+          >
+          {optionOrderByPriceOrRating?.map(({label, value}) => (<option value={value}>{label}</option>))}
+        </Select>
 
         <Select
           bg={useColorModeValue("gray.100", "gray.700")}
-          options={optionOrderByPriceOrRating}
-          onChange={(e) => handleOrderPriceOrRating(e, { type: "rating" })}
+          onChange={({target}) => handleOrderPriceOrRating(target, { type: "rating" })}
           placeholder="Order By Rating"
-        />
+          >
+          {optionOrderByPriceOrRating?.map(({label, value}) => (<option value={value}>{label}</option>))}
+        </Select>
         </Stack>
       </Box>
     </VStack>

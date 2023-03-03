@@ -10,14 +10,24 @@ import logo from "../../img/LOGO 2.png";
 import mangiare from "../../img/transparentLogo.png";
 import UserMenu from "../UserMenu/UserMenu";
 import onExecutePostEmail from "../Auth0/onLogin.js";
-import { Image, Flex, Box, Text, Button, useColorMode, IconButton, Switch } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
-import ColorModeSwitcher from "../../pages/DarkMode/ColorModeSwitcher.jsx"
+import {
+  Image,
+  Flex,
+  Box,
+  Text,
+  Button,
+  useColorMode,
+  IconButton,
+  Switch,
+} from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import ColorModeSwitcher from "../../pages/DarkMode/ColorModeSwitcher.jsx";
 import { useColorModeValue } from "@chakra-ui/react"
 
 function NavBar(userLocalstorage) {
   const { user, isAuthenticated } = useAuth0();
   const [cartItems, setCartItems] = useState(0);
+  const [userLocal, setUserLocal] = useState();
 
   // const LS_cart = JSON.parse(localStorage.getItem("MANGIARE_cart")) || [];
 
@@ -28,7 +38,9 @@ function NavBar(userLocalstorage) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      onExecutePostEmail(user);
+      onExecutePostEmail(user).then(() =>
+        setUserLocal(JSON.parse(localStorage.getItem("MANGIARE_user")))
+      );
     }
   }, [user, isAuthenticated]);
 
@@ -95,22 +107,13 @@ function NavBar(userLocalstorage) {
 
       <ColorModeSwitcher color= {colorShop} />
 
-      <Link to={"/createRecipe"}>
-      <Button
-                as="a"
-                variant="ghost"
-                aria-label="Contact"
-                my={5}
-                w="100%"
-              >
-                Create Recipe
-                      </Button>
-       </Link>
+          <Link to={"/createRecipe"}>
+            <Button as="a" variant="ghost" aria-label="Contact" my={5} w="100%">
+              Create Recipe
+            </Button>
+          </Link>
 
-            
-            
-  
-            <SearchBar />
+          <SearchBar />
 
             <div className={s.shoppingCartButton} style={{color: colorShop }}>
      <Link to={"/shoppingCart"}>
@@ -130,7 +133,7 @@ function NavBar(userLocalstorage) {
         my={5}
          w="5%"
        >
-           <UserMenu />{" "}
+           <UserMenu userLocal={userLocal} />{" "}
          </Button>
        ) : (
         <Button
@@ -151,13 +154,12 @@ function NavBar(userLocalstorage) {
   
           {/* Mobile */}
 
-         
-
-         <Flex  display={['flex', 'flex', 'none','none']}
-         justify='space-between'
-         width={'100%'}
-         align='center'>
-
+        <Flex
+          display={["flex", "flex", "none", "none"]}
+          justify="space-between"
+          width={"100%"}
+          align="center"
+        >
           {/* <Link to={"/home"}>
         <Image
           style={{ width: "50px", height: "45px" }}
@@ -168,154 +170,97 @@ function NavBar(userLocalstorage) {
         />
       </Link> */}
 
-      
-
           <IconButton
             aria-label="Open Menu"
             size="lg"
             // mr={2}
-            icon={
-              <HamburgerIcon />
-            }
-         
-            onClick={() => changeDisplay('flex')}
-          display={['flex', 'flex', 'none', 'none']}
-            
+            icon={<HamburgerIcon />}
+            onClick={() => changeDisplay("flex")}
+            display={["flex", "flex", "none", "none"]}
           />
 
-<SearchBar />
+          <SearchBar />
 
-{/* <div className={s.shoppingCartButton}>
+          {/* <div className={s.shoppingCartButton}>
      <Link to={"/shoppingCart"}>
            {cartItems > 0 && <div className={s.cartItemCount}>{cartItems}</div>}
            <BsCart4 size={30} />
          </Link>
        </div> */}
 
-{isAuthenticated ? (
-         <div className={s.btn2}>
-           <UserMenu />{" "}
-         </div>
-       ) : (
-        <Button
-        as="a"
-        variant="ghost"
-        aria-label="Contact"
-        my={5}
-        w="10%"
-      >
-           <LoginButton />
-         </Button>
-  
-        )}
-
-</Flex>
-          
+          {isAuthenticated ? (
+            <div className={s.btn2}>
+              <UserMenu userLocal={userLocal} />{" "}
+            </div>
+          ) : (
+            <Button as="a" variant="ghost" aria-label="Contact" my={5} w="10%">
+              <LoginButton />
+            </Button>
+          )}
         </Flex>
-          {/* <Switch
+      </Flex>
+      {/* <Switch
             color="green"
             isChecked={isDark}
             onChange={toggleColorMode}
           /> */}
-        
-  
-        {/* Mobile Content */}
-        <Flex
-          w='70vw'
-          display={display}
-          bgColor="gray.50"
-          zIndex={20}
-          h="100vh"
-          
-          pos="fixed"
-          top="0"
-          left="0"
-          // justifyContent={'space-evenly'}
-          
-          overflowY="auto"
-          flexDir="column"
-        >
-          <Flex justify="flex-center">
-            <IconButton
-              mt={2}
-              mr={2}
-              aria-label="Open Menu"
-              size="lg"
-              icon={
-                <CloseIcon />
-              }
-              onClick={() => changeDisplay('none')}
-            />
-          </Flex>
-  
-          <Flex
-            flexDir="column"
-            align="center"
-          >
-            <Link to="/">
-              <Button
-                as="a"
-                variant="ghost"
-                aria-label="Home"
-                my={5}
-                w="100%"
-              >
-                Home
-                      </Button>
+
+      {/* Mobile Content */}
+      <Flex
+        w="70vw"
+        display={display}
+        bgColor="gray.50"
+        zIndex={20}
+        h="100vh"
+        pos="fixed"
+        top="0"
+        left="0"
+        // justifyContent={'space-evenly'}
+
+        overflowY="auto"
+        flexDir="column"
+      >
+        <Flex justify="flex-center">
+          <IconButton
+            mt={2}
+            mr={2}
+            aria-label="Open Menu"
+            size="lg"
+            icon={<CloseIcon />}
+            onClick={() => changeDisplay("none")}
+          />
+        </Flex>
+
+        <Flex flexDir="column" align="center">
+          <Link to="/">
+            <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
+              Home
+            </Button>
+          </Link>
+
+          <Link to={"/createRecipe"}>
+            <Button as="a" variant="ghost" aria-label="Contact" my={5} w="100%">
+              Create Recipe
+            </Button>
+          </Link>
+
+          <ColorModeSwitcher />
+
+          <div className={s.shoppingCartButton}>
+            <Link to={"/shoppingCart"}>
+              {cartItems > 0 && (
+                <div className={s.cartItemCount}>{cartItems}</div>
+              )}
+              <BsCart4 size={30} />
             </Link>
-  
-            <Link to={"/createRecipe"}>
-      <Button
-                as="a"
-                variant="ghost"
-                aria-label="Contact"
-                my={5}
-                w="100%"
-              >
-                Create Recipe
-                      </Button>
-       </Link>
-
-       <ColorModeSwitcher />
-
-  
-       <div className={s.shoppingCartButton}>
-     <Link to={"/shoppingCart"}>
-           {cartItems > 0 && <div className={s.cartItemCount}>{cartItems}</div>}
-           <BsCart4 size={30} />
-         </Link>
-       </div>
-          </Flex>
+          </div>
         </Flex>
       </Flex>
-    )
-  }
-  
+    </Flex>
+  );
+}
 
-
-
-  
-  export default NavBar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default NavBar;
 
 // import React, { useState, useEffect } from "react";
 // import s from "./NavBar.module.css";

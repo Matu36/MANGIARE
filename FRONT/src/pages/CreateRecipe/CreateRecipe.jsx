@@ -31,7 +31,7 @@ import {
 import background from "../../img/BKCreateRecipe6.png";
 import NavBar from "../../components/NavBar/NavBar";
 import uploadImageToCloudinary from "../../utils/Cloudinary/uploadImage";
-//import {Redirect} from 'react-router-dom';
+import Swal from "sweetalert2";
 
 class CreateRecipe extends React.Component {
   constructor(props) {
@@ -101,10 +101,21 @@ class CreateRecipe extends React.Component {
         })),
       })
       .then(() => {
-        alert(`The Recipe '${this.state.title}' has been created!`);
-        window.location.href = "/home";
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `Your recipe ${this.state.title} has been created`,
+          text: 'Thank you for your contribution!',
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => window.location.href = "/home");
       })
-      .catch(() => alert(`Error ocurred.`))
+      .catch(() => Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Your recipe has not been created",
+        showConfirmButton: true,
+      }))
       .then(() => this.setState({ completed: true }));
   };
 
