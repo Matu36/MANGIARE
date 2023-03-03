@@ -32,7 +32,10 @@ export default function IngredientForm() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (ingredient.name && ingredient.price && selectedItems.length && ingredient.stock) {
+
+    if (ingredient.name && ingredient.price && ingredient.stock && selectedItems.length) {
+
+   
       const newIngredient = {
         ...ingredient,
         units: selectedItems,
@@ -49,6 +52,7 @@ export default function IngredientForm() {
       setIngredient({
         name: "",
         price: "",
+        stock: "",
         units: [],
       });
       setSelectedItems([]);
@@ -131,6 +135,19 @@ export default function IngredientForm() {
             value={ingredient.name}
             autoComplete="off"
             placeholder="Ingredient"
+            onChange={handleOnChange}
+          
+          />
+        </FormLabel>
+
+        <FormLabel>
+          <p>Stock</p>
+          <Input
+            type="text"
+            name="stock"
+            value={ingredient.stock}
+            autoComplete="off"
+            placeholder="Stock"
             onChange={handleOnChange}
           
           />
