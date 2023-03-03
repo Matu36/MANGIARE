@@ -47,7 +47,7 @@ export const resetPassword = (email) => {
 export const putNewRole = (id, newRole) => {
   let user = {
     id: id,
-    role: newRole,
+    role: newRole ? false : null,
   };
   return async () =>
     await axios

@@ -17,7 +17,7 @@ import UserRow from "../../components/UserRow/UserRow";
 import { useDispatch, useSelector } from "react-redux";
 import { putBanned } from "../../../Redux/actions/users.js";
 import axios from "axios";
-import { getUsers } from "../../../Redux/actions/users";
+import { putNewRole } from "../../../Redux/actions/users";
 
 export default function UserList() {
   const dispatch = useDispatch();
