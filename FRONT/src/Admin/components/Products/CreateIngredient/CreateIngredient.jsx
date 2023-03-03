@@ -30,7 +30,7 @@ export default function IngredientForm() {
       });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
 
     if (ingredient.name && ingredient.price && ingredient.stock && selectedItems.length) {
@@ -41,16 +41,13 @@ export default function IngredientForm() {
         units: selectedItems,
       };
       dispatch(createIngredients(newIngredient));
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "success",
         title: "Ingredient has been created",
         showConfirmButton: false,
-        timer: 2000,
+        timer: 4000
       });
-
-      setSelectedItems([]);
-
       window.location.reload();
       setIngredient({
         name: "",
