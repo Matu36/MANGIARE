@@ -40,20 +40,20 @@ export default function UserPage() {
 
   const pizza = "https://cdn-icons-png.flaticon.com/512/3511/3511307.png";
 
-  const userPanelbg = useColorModeValue("invert(0)", "invert(1)");
+  const handleDark = useColorModeValue("invert(0)", "invert(1)");
 
   return (
     <div className={s.containerMain}>
       <NavBar />
       <div className={s.container}>
-        <div className={s.userInfoDiv} style={{ filter: userPanelbg }}>
+        <div className={s.userInfoDiv} style={{ filter: handleDark }}>
           <Avatar className={s.profileImg} src={user ? user.picture : null} />
           <Text className={s.userName}>{name}</Text>
           <div className={s.userInfoCountDiv}>
             <p>Created recipes: {filteredRecipes.length}</p>
             <p>Favorites: {userFavorites.length}</p>
           </div>
-          <img src={pizza} alt="pizza" style={{filter: "invert(1)"}}/>
+          <img src={pizza} alt="pizza" style={{ filter: handleDark }} />
         </div>
         <div className={s.boxesContainer}>
           <RecipesBox title="Favorites" recipes={userFavorites} />
