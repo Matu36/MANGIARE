@@ -43,7 +43,8 @@ export default function IngredientForm() {
         icon: "success",
         title: "Ingredient has been created",
         showConfirmButton: false,
-        timer: 4000,
+        timer: 4000
+      });
       window.location.reload();
       setIngredient({
         name: "",
