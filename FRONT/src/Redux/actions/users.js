@@ -36,12 +36,8 @@ export const resetPassword = (email) => {
 
   axios
     .post(url, data, { headers })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    .then((response) => alert(`${email}. ${response.data}`))
+    .catch((error) => alert(`${email}. ${error}`));
 };
 
 export const putNewRole = (id, newRole) => {
