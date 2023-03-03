@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import ColorModeSwitcher from "../../pages/DarkMode/ColorModeSwitcher.jsx";
+import { useColorModeValue } from "@chakra-ui/react"
 
 function NavBar(userLocalstorage) {
   const { user, isAuthenticated } = useAuth0();
@@ -43,54 +44,68 @@ function NavBar(userLocalstorage) {
     }
   }, [user, isAuthenticated]);
 
-  const [display, changeDisplay] = useState("none");
 
-  return (
-    <Flex>
+  const [display, changeDisplay] = useState('none')
+
+
+  const bg = useColorModeValue("white",
+  "linear-gradient(to bottom, #2d3748, #1a202c)");
+
+  const imgFunction = useColorModeValue("invert(0)", "invert(1)");
+
+  const colorShop = useColorModeValue("black", "white");
+  
+    return (
       <Flex
-        position="fixed"
-        top="0"
-        height="4rem"
-        // right="1rem"
-        align="center"
-        justify="space-between"
-        backgroundColor="white"
-        w="100%"
-        zIndex="1"
-        boxSizing="border-box"
+        
       >
-        {/* Desktop */}
         <Flex
-          display={["none", "none", "flex", "flex"]}
-          // flexDir="row"
-          height="100%"
-          justifyContent="space-between"
-          w="100%"
+          position="fixed"
+          top='0'
+          height='4rem'
+          // right="1rem"
           align="center"
+          justify="space-between"
+          background = {bg}
+          w="100%"
+          zIndex="10"
+          boxSizing="border-box"
         >
-          <Button
-            as="a"
-            variant="ghost"
-            aria-label="Contact"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            padding="0"
-            margin="0"
-            width="60px"
-            height="55px"
+          {/* Desktop */}
+          <Flex
+            display={['none', 'none', 'flex','flex']}
+            // flexDir="row"
+            height="100%"
+            justifyContent="space-between"
+             w="100%"
+            align="center"
           >
+            <Button
+                as="a"
+                variant="ghost"
+                aria-label="Contact"
+                display="flex"
+  alignItems="center"
+  justifyContent="center"
+  padding="0"
+  margin="0"
+  width="60px"
+  height="55px"
+              >
             <Link to={"/home"}>
-              <Image
-                style={{ width: "60px", height: "55px" }}
-                align="center"
-                src={mangiare}
-                alt="logo"
-              />
-            </Link>
-          </Button>
+        <Image
+          style={{ width: "60px", height: "55px", filter: imgFunction }}
+          align="center"
+          
+          src={mangiare}
 
-          <ColorModeSwitcher />
+          alt="logo"
+
+        />
+      </Link>
+      </Button>
+
+      <ColorModeSwitcher color= {colorShop} />
 
           <Link to={"/createRecipe"}>
             <Button as="a" variant="ghost" aria-label="Contact" my={5} w="100%">
@@ -100,48 +115,44 @@ function NavBar(userLocalstorage) {
 
           <SearchBar />
 
-          <Button
-            as="a"
-            height="100%"
-            variant="ghost"
-            aria-label="Contact"
-            // my={5}
-            w="5%"
-          >
-            <Link to={"/shoppingCart"}>
-              {cartItems > 0 && (
-                <div className={s.cartItemCount}>{cartItems}</div>
-              )}
+            <div className={s.shoppingCartButton} style={{color: colorShop }}>
+     <Link to={"/shoppingCart"}>
+           {cartItems > 0 && <div className={s.cartItemCount}>{cartItems}</div>}
+           
+           <BsCart4 size={30} />
+         </Link>
+       </div>
 
-              <BsCart4 size={30} />
-            </Link>
-          </Button>
+                       
 
-          {isAuthenticated ? (
-            <Button
-              as="a"
-              variant="ghost"
-              aria-label="Contact"
-              my={5}
-              w="5%"
-              height={"100%"}
-            >
-              <UserMenu userLocal={userLocal} />{" "}
-            </Button>
-          ) : (
-            <Button
-              as="a"
-              variant="ghost"
-              aria-label="Contact"
-              // my={5}
-              w="5%"
-            >
-              <LoginButton />
-            </Button>
-          )}
-        </Flex>
+       {isAuthenticated ? (
+         <Button
+         as="a"
+         variant="ghost"
+         aria-label="Contact"
+        my={5}
+         w="5%"
+       >
+           <UserMenu userLocal={userLocal} />{" "}
+         </Button>
+       ) : (
+        <Button
+        as="a"
+        variant="ghost"
+        aria-label="Contact"
+        // my={5}
+        w="5%"
+      >
+           <LoginButton />
+         </Button>
+  
+        )}
+            
 
-        {/* Mobile */}
+            
+          </Flex>
+  
+          {/* Mobile */}
 
         <Flex
           display={["flex", "flex", "none", "none"]}
