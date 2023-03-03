@@ -32,11 +32,9 @@ export default function IngredientForm() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-<<<<<<< HEAD
+
     if (ingredient.name && ingredient.price && ingredient.stock && selectedItems.length) {
-=======
-    if (ingredient.name && ingredient.price && selectedItems.length && ingredient.stock) {
->>>>>>> 3e4ea85c5e1529c6dd431d1e14a66cb76a5d170c
+
       const newIngredient = {
         ...ingredient,
         units: selectedItems,
