@@ -5,6 +5,7 @@ import { Input, FormLabel, Button } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 import "./createingredient.css";
 import { Box, Text, Flex, VStack, HStack, Spacer } from "@chakra-ui/react";
+import Swal from "sweetalert2";
 export default function IngredientForm() {
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredients.ingredients);
@@ -31,14 +32,24 @@ export default function IngredientForm() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     if (ingredient.name && ingredient.price && ingredient.stock && selectedItems.length) {
+=======
+    if (ingredient.name && ingredient.price && selectedItems.length && ingredient.stock) {
+>>>>>>> 3e4ea85c5e1529c6dd431d1e14a66cb76a5d170c
       const newIngredient = {
         ...ingredient,
         units: selectedItems,
       };
       dispatch(createIngredients(newIngredient));
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Ingredient has been created",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       window.location.reload();
-      alert("Ingredient has been created");
       setIngredient({
         name: "",
         price: "",
@@ -47,7 +58,12 @@ export default function IngredientForm() {
       });
       setSelectedItems([]);
     } else {
-      alert("Please, check the information");
+      Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Please, complete all fields",
+          showConfirmButton: true,
+        });
     }
   };
 
@@ -147,6 +163,18 @@ export default function IngredientForm() {
             value={ingredient.price}
             autoComplete="off"
             placeholder="Price "
+            onChange={handleOnChange}
+          />
+        </FormLabel>
+
+        <FormLabel>
+          <p>Stock</p>
+          <Input
+            type="number"
+            name="stock"
+            value={ingredient.stock}
+            autoComplete="off"
+            placeholder="Stock "
             onChange={handleOnChange}
           />
         </FormLabel>

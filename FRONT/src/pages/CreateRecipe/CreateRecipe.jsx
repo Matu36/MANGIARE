@@ -53,7 +53,7 @@ class CreateRecipe extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.ingredients) this.props.getIngredients();
+    if (!this.props.ingredients?.length) this.props.getIngredients();
   }
 
   handleOnSelect = (autocomplete) => {
