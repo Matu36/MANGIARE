@@ -140,7 +140,7 @@ export default function ShoppingCart() {
       <NavBar />
       <HStack alignItems="flex-start" justify={["center", "center", "flex-start", "flex-start"]}>
         <Box
-          w="40%"
+          w="25%"
           h="100vh"
           bgImage={background}
           display={["none", "none", "inline-block", "inline-block"]}
