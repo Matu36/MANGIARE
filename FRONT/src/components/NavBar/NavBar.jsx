@@ -126,7 +126,7 @@ function NavBar(userLocalstorage) {
                        
 
        {isAuthenticated ? (
-         <Button colorScheme="green"
+         <Button
          as="a"
          variant="ghost"
          aria-label="Contact"
@@ -136,7 +136,7 @@ function NavBar(userLocalstorage) {
            <UserMenu userLocal={userLocal} />{" "}
          </Button>
        ) : (
-        <Button colorScheme="green" 
+        <Button
         as="a"
         variant="ghost"
         aria-label="Contact"
@@ -170,13 +170,7 @@ function NavBar(userLocalstorage) {
         />
       </Link> */}
 
-<<<<<<< HEAD
-      
-
-          <IconButton 
-=======
           <IconButton
->>>>>>> 3e4ea85c5e1529c6dd431d1e14a66cb76a5d170c
             aria-label="Open Menu"
             size="lg"
             // mr={2}
@@ -194,27 +188,6 @@ function NavBar(userLocalstorage) {
          </Link>
        </div> */}
 
-<<<<<<< HEAD
-{isAuthenticated ? (
-         <div className={s.btn2}>
-           <UserMenu userLocal={userLocal} />{" "}
-         </div>
-       ) : (
-        <Button
-        as="a"
-        variant="ghost"
-        aria-label="Contact"
-        my={5}
-        w="10%"
-      >
-           <LoginButton/>
-         </Button>
-  
-        )}
-
-</Flex>
-          
-=======
           {isAuthenticated ? (
             <div className={s.btn2}>
               <UserMenu userLocal={userLocal} />{" "}
@@ -224,7 +197,6 @@ function NavBar(userLocalstorage) {
               <LoginButton />
             </Button>
           )}
->>>>>>> 3e4ea85c5e1529c6dd431d1e14a66cb76a5d170c
         </Flex>
       </Flex>
       {/* <Switch
