@@ -43,12 +43,12 @@ export const resetPassword = (email) => {
 export const putNewRole = (id, newRole) => {
   let user = {
     id: id,
-    role: newRole ? false : null,
+    role: newRole,
   };
   return async () =>
     await axios
       .put("/users", user)
-      .then((response) => response.data)
+      .then((response) => response)
       .catch((err) => {
         console.log(err), err;
       });
