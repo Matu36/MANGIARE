@@ -13,6 +13,7 @@ import onExecutePostEmail from "../Auth0/onLogin.js";
 import { Image, Flex, Box, Text, Button, useColorMode, IconButton, Switch } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import ColorModeSwitcher from "../../pages/DarkMode/ColorModeSwitcher.jsx"
+import { useColorModeValue } from "@chakra-ui/react"
 
 function NavBar(userLocalstorage) {
   const { user, isAuthenticated } = useAuth0();
@@ -35,7 +36,12 @@ function NavBar(userLocalstorage) {
   const [display, changeDisplay] = useState('none')
 
 
-  
+  const bg = useColorModeValue("white",
+  "linear-gradient(to bottom, #2d3748, #1a202c)");
+
+  const imgFunction = useColorModeValue("invert(0)", "invert(1)");
+
+  const colorShop = useColorModeValue("black", "white");
   
     return (
       <Flex
@@ -48,9 +54,9 @@ function NavBar(userLocalstorage) {
           // right="1rem"
           align="center"
           justify="space-between"
-          backgroundColor = "white"
+          background = {bg}
           w="100%"
-          zIndex="1"
+          zIndex="10"
           boxSizing="border-box"
         >
           {/* Desktop */}
@@ -76,16 +82,18 @@ function NavBar(userLocalstorage) {
               >
             <Link to={"/home"}>
         <Image
-          style={{ width: "60px", height: "55px" }}
+          style={{ width: "60px", height: "55px", filter: imgFunction }}
           align="center"
           
           src={mangiare}
+
           alt="logo"
+
         />
       </Link>
       </Button>
 
-      <ColorModeSwitcher />
+      <ColorModeSwitcher color= {colorShop} />
 
       <Link to={"/createRecipe"}>
       <Button
@@ -104,20 +112,13 @@ function NavBar(userLocalstorage) {
   
             <SearchBar />
 
-            <Button
-        as="a"
-        height="100%"
-        variant="ghost"
-        aria-label="Contact"
-        // my={5}
-        w="5%"
-      >
+            <div className={s.shoppingCartButton} style={{color: colorShop }}>
      <Link to={"/shoppingCart"}>
            {cartItems > 0 && <div className={s.cartItemCount}>{cartItems}</div>}
            
            <BsCart4 size={30} />
          </Link>
-       </Button>
+       </div>
 
                        
 
@@ -128,7 +129,6 @@ function NavBar(userLocalstorage) {
          aria-label="Contact"
         my={5}
          w="5%"
-         height={'100%'}
        >
            <UserMenu />{" "}
          </Button>
