@@ -135,24 +135,53 @@ export default function ShoppingCart() {
       });
   };
 
+  const breakpoints = {
+    sm: '30em',
+    md: '48em',
+    lg: '62em',
+    xl: '80em',
+    '2xl': '96em',
+  }
+
   return (
-    <>
+    <Box
+      width="100%"
+      height="100vh"
+      marginTop="1px"
+      style={{
+        display: "flex",
+        alignItems: "left",
+        justifyContent: "left",
+        flexDirection: "row",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+      }}
+    >
       <NavBar />
-      <HStack alignItems="flex-start" justify={["center", "center", "flex-start", "flex-start"]}>
+      <Flex marginTop={{base: "5%", sm:"15%", md:"5%"  }}>
         <Box
-          w="40%"
-          h="100vh"
+          w={{base: "35%", lg: "35%", sm:"0%" }}
+          h={{base: "100%", lg: "100%", sm:"0%" }}
           bgImage={background}
-          display={["none", "none", "inline-block", "inline-block"]}
+          display={{base: "block", lg:"block", sm: "none"}}
           style={{
             backgroundSize: "cover",
           }}
         />
-        <VStack paddingTop="70px">
-          <Text fontSize="5xl" fontWeight="bold" color="yellow.500" textAlign="center">Shopping Cart</Text>
-          <VStack spacing={30} align="stretch" justify="center">
+        <Spacer flex={{base:"0 0 auto", lg:"0 0 auto", sm:"0"}}/>
+        <Box  marginLeft={{base: "25vw", lg:"25vw", sm:"5vw"}} >
+          <Flex  style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "2rem" }}>
+          <Text 
+            fontSize={{base: "6xl", lg:"6xl", md:"5xl", sm:"4xl"}}
+            fontWeight="bold"
+            color="yellow.500"
+          >
+            Shopping Cart
+          </Text>
+          </Flex>
+          <VStack spacing={!cart?.length ? 300: 30} align="stretch" >
             {!cart?.length ? (
-              <Text fontSize="2xl">The Shopping Cart is empty...</Text>
+              <Text marginLeft= "22.5%" marginTop="50%" fontSize="2xl">The Shopping Cart is empty...</Text>
             ) : (
               <>
                 <IngredientsList
@@ -163,12 +192,11 @@ export default function ShoppingCart() {
                     action: handleOnDelete,
                   }}
                 />
-                <HStack justify="space-between" align="flex-end" mt={10} padding="0px 20px" >
+                <HStack justify="space-between" a mt={10} style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
                   <Text
                     fontSize="2xl"
                     fontWeight="bold"
                     color="green.500"
-                    style={{ textAlign: "left" }}
                   >
                     Total: $
                       {cart
@@ -178,9 +206,9 @@ export default function ShoppingCart() {
                 </HStack>
                 {email
                   ? (
-                    <HStack padding="0px 20px" >
+                    <HStack style={{display: "flex", justifyContent: "space-between"}}>
                       <Box>
-                        <Text>Shipping address: </Text>
+                        <Text fontSize="xl" fontWeight="bold" textAlign="center">Shipping address: </Text>
                         <Input
                           type="text"
                           id="address"
@@ -191,7 +219,8 @@ export default function ShoppingCart() {
                         />
                       </Box>
                       <Box>
-                        <Text visibility={state.address && "hidden"}>* Complete shipping address</Text>
+                        <Text visibility={state.address && "hidden"} fontSize={{base:"md", lg:"md", sm:"sm"}}>* Complete shipping address</Text>
+                        <Box display="flex" justifyContent="center" alignItems="center">
                         <Button
                           style={{ marginLeft: "15px" }}
                           colorScheme="teal"
@@ -202,53 +231,72 @@ export default function ShoppingCart() {
                         >
                           Pay
                         </Button>
+                        </Box>
                       </Box>
                     </HStack>
                     )
                   : (
                       <VStack>
-                        <Text>You must login before proceed to checkout</Text>
-                        <Button colorScheme="teal" variant="solid" size="lg"><LoginButton /></Button>
+                        <Text>
+                          You must login before proceed to checkout
+                        </Text>
+                        <Button colorScheme="teal" variant="solid" size="lg">
+                          <LoginButton />
+                        </Button>
                       </VStack>
                     )}
               </>
             )}
-
-            <NavLink to={"/home"} align="center"><Button colorScheme="teal" variant="solid" size="lg">Go Home</Button></NavLink>
+            {!cart?.length ? (
+            <NavLink to={"/home"} align="center">
+              <Button colorScheme="teal" variant="solid" size="lg">
+                Go Home
+              </Button>
+            </NavLink>) : ""}
           </VStack>
+        </Box>
+        <AlertDialog
+          isOpen={isAlertOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={handleDeleteCancel}
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Remove Item
+              </AlertDialogHeader>
 
-          <AlertDialog
-            isOpen={isAlertOpen}
-            leastDestructiveRef={cancelRef}
-            onClose={handleDeleteCancel}
-          >
-            <AlertDialogOverlay>
-              <AlertDialogContent>
-                <AlertDialogHeader fontSize="lg" fontWeight="bold">Remove Item</AlertDialogHeader>
+              <AlertDialogBody>
+                Are you sure you want to remove this item from your cart?
+              </AlertDialogBody>
 
-                <AlertDialogBody>Are you sure you want to remove this item from your cart?</AlertDialogBody>
-
-                <AlertDialogFooter>
-                  <Flex align="center">
-                    <Image
-                      src={logo}
-                      alt="logo"
-                      width="50px"
-                      height="50px"
-                      mr={4}
-                    />
-                  </Flex>
-                  <Spacer />
-                  <Button ref={cancelRef} onClick={handleDeleteCancel}>Cancel</Button>
-
-                  <Button colorScheme="red" ml={3} onClick={handleDeleteConfirmation}>Remove</Button>
-
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialogOverlay>
-          </AlertDialog>
-        </VStack>
-      </HStack>
-    </>
+              <AlertDialogFooter>
+                <Flex align="center">
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    width="50px"
+                    height="50px"
+                    mr={4}
+                  />
+                </Flex>
+                <Spacer />
+                <Button ref={cancelRef} onClick={handleDeleteCancel}>
+                  Cancel
+                </Button>
+                <Button
+                  colorScheme="red"
+                  ml={3}
+                  onClick={handleDeleteConfirmation}
+                >
+                  Remove
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
+        <Box w="600px" />
+      </Flex>
+    </Box>
   );
 }
