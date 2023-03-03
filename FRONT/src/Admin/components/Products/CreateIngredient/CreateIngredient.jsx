@@ -166,17 +166,7 @@ export default function IngredientForm() {
           />
         </FormLabel>
 
-        <FormLabel>
-          <p>Stock</p>
-          <Input
-            type="number"
-            name="stock"
-            value={ingredient.stock}
-            autoComplete="off"
-            placeholder="Stock "
-            onChange={handleOnChange}
-          />
-        </FormLabel>
+      
 
         </Box>
 
