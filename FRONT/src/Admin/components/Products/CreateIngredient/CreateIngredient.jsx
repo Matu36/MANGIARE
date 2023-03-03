@@ -45,13 +45,14 @@ export default function IngredientForm() {
         showConfirmButton: false,
         timer: 2000,
       });
+      setSelectedItems([]);
       window.location.reload();
       setIngredient({
         name: "",
         price: "",
+        stock: "",
         units: [],
       });
-      setSelectedItems([]);
     } else {
       Swal.fire({
           position: "center",
