@@ -49,6 +49,7 @@ export default function IngredientForm() {
       setIngredient({
         name: "",
         price: "",
+        stock: "",
         units: [],
       });
       setSelectedItems([]);
