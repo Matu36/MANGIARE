@@ -44,7 +44,6 @@ export default function IngredientForm() {
         title: "Ingredient has been created",
         showConfirmButton: false,
         timer: 4000,
-      })
       window.location.reload();
       setIngredient({
         name: "",
