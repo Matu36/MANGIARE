@@ -10,7 +10,7 @@ import NotFound from "../pages/NotFound/NotFound";
 export default function Appmodel() {
   const { isAutenticated } = useAuth0();
   const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
-  console.log(isAutenticated, currentUser);
+  //console.log(isAutenticated, currentUser);
 
   return (
     <div className="contain">

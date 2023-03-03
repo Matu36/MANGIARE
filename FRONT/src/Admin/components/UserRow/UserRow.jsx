@@ -42,19 +42,19 @@ const UserRow = ({
   const [roleEdit, setRoleEdit] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem("MANGIARE_user"));
 
-  const handleEditUsersRole = (id, newRole, roleEdit) => {
+  const handleEditUsersRole = (roleEdit) => {
     setRoleEdit(!roleEdit);
-    if (roleEdit) {
-      handleRole(id, !newRole);
-    }
   };
   const handleChangeRole = (e) => {
+    //console.log(e.target.value);
     if (e.target.value === "null") setNewRole(null);
-    else if (e.target.value === "true") setNewRole(true);
-    else setNewRole(false);
+    else if (e.target.value === "false") setNewRole(false);
   };
   useEffect(() => {
-    setNewRole(newRole);
+    //console.log("useEffect", roleEdit);
+    if (!roleEdit) {
+      handleRole(id, newRole);
+    }
   }, [roleEdit]);
 
   const CreateAt = createdAt.split("T");
@@ -92,9 +92,13 @@ const UserRow = ({
       </Td>
       <Td>
         {currentUser.role && (
-          <button title="Edit Role">
+          <button
+            title={roleEdit ? "Save Role" : "Edit Role"}
+            style={roleEdit ? { color: "red" } : null}
+          >
             <MdOutlineModeEdit
-              onClick={(e) => handleEditUsersRole(id, role, roleEdit)}
+              style={roleEdit ? { width: "20px", height: "20px" } : null}
+              onClick={(e) => handleEditUsersRole(roleEdit)}
             />
           </button>
         )}
