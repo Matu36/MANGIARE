@@ -45,7 +45,9 @@ export default function IngredientForm() {
         showConfirmButton: false,
         timer: 2000,
       });
+
       setSelectedItems([]);
+
       window.location.reload();
       setIngredient({
         name: "",
