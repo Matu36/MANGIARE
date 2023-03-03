@@ -148,6 +148,7 @@ export default function Orders(props) {
                                         <td colSpan={props.all ? 6 : 5} style={{padding: '30px 0'}}>
                                             <div style={{width: '70%', margin: 'auto', backgroundColor: 'white'}}>
                                                 <IngredientsList items={el.Order_details.map(({IngredientId, amount, unit, price, Ingredient}) => ({id: IngredientId, amount, unit, price, name: Ingredient.name}))} orderDetail={true}/>
+                                                <p style={{padding: '10px'}}>Shipping address: {el.address || 'No shipping address'}</p>
                                             </div>
                                         </td>
                                     </tr> : ''}
