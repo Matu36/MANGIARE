@@ -210,7 +210,7 @@ function NavBar(userLocalstorage) {
       <Flex
         w="50vw"
         display={display}
-        bgColor="colorSideBar"
+        bgColor={colorSideBar}
         zIndex={20}
         h="100vh"
         pos="fixed"
