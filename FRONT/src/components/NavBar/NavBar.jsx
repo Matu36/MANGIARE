@@ -118,7 +118,7 @@ function NavBar(userLocalstorage) {
                        
 
        {isAuthenticated ? (
-         <Button
+         <Button colorScheme="green"
          as="a"
          variant="ghost"
          aria-label="Contact"
@@ -129,7 +129,7 @@ function NavBar(userLocalstorage) {
            <UserMenu userLocal={userLocal} />{" "}
          </Button>
        ) : (
-        <Button
+        <Button colorScheme="green" 
         as="a"
         variant="ghost"
         aria-label="Contact"
@@ -161,7 +161,7 @@ function NavBar(userLocalstorage) {
 
       
 
-          <IconButton
+          <IconButton 
             aria-label="Open Menu"
             size="lg"
             // mr={2}
@@ -195,7 +195,7 @@ function NavBar(userLocalstorage) {
         my={5}
         w="10%"
       >
-           <LoginButton />
+           <LoginButton/>
          </Button>
   
         )}
