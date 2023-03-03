@@ -3,7 +3,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import s from "./UserPage.module.css";
-import { Text } from "@chakra-ui/react";
+import { Text, useColorModeValue } from "@chakra-ui/react";
 import { getFavorites } from "../../Redux/actions/favorites";
 import { Avatar } from "@chakra-ui/react";
 import RecipesBox from "../../components/RecipesBox/RecipesBox";
@@ -40,18 +40,20 @@ export default function UserPage() {
 
   const pizza = "https://cdn-icons-png.flaticon.com/512/3511/3511307.png";
 
+  const userPanelbg = useColorModeValue("invert(0)", "invert(1)");
+
   return (
     <div className={s.containerMain}>
       <NavBar />
       <div className={s.container}>
-        <div className={s.userInfoDiv}>
+        <div className={s.userInfoDiv} style={{ filter: userPanelbg }}>
           <Avatar className={s.profileImg} src={user ? user.picture : null} />
           <Text className={s.userName}>{name}</Text>
           <div className={s.userInfoCountDiv}>
             <p>Created recipes: {filteredRecipes.length}</p>
             <p>Favorites: {userFavorites.length}</p>
           </div>
-          <img src={pizza} alt="pizza" />
+          <img src={pizza} alt="pizza" style={{filter: "invert(1)"}}/>
         </div>
         <div className={s.boxesContainer}>
           <RecipesBox title="Favorites" recipes={userFavorites} />
