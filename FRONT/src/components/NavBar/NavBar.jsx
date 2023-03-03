@@ -233,7 +233,7 @@ function NavBar(userLocalstorage) {
         </Flex>
 
         <Flex flexDir="column" align="center">
-          <Link to="/">
+          <Link to="/home">
             <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
               Home
             </Button>
