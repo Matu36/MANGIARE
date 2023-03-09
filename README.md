@@ -1,4 +1,4 @@
-# MANGIARE
+# MANGIAR-E
 
 **Proyecto final** del bootcamp de Soy Henry; con 7 compañeros de trabajo realizamos una aplicación llamada Mangiar-e que ofrece 
 facilidad de búsqueda de recetas mediante los ingredientes que tiene el usuario; a su vez, tiene una landing page, 
