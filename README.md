@@ -10,7 +10,7 @@ aplicación en un carrito de compras vinculado a Mercado Pago.
 Implementación de cloudinary y localStorage dentro de la app.
 
 
-##Tecnologías utilizadas: 
+## Tecnologías utilizadas: 
 - React 
 - React-Redux 
 - Chakra ui 
