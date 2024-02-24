@@ -7,10 +7,13 @@ const fs = require("fs");
 const path = require("path");
 const { DATABASE_URL } = process.env;
 
-const sequelize = new Sequelize(DATABASE_URL, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-});
+const sequelize = new Sequelize(
+  "postgresql://postgres:GbfdbE41cfA11fCdFBf26CaDcA2Dd2g2@roundhouse.proxy.rlwy.net:27936/railway",
+  {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  }
+);
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
